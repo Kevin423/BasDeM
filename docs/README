@@ -1,10 +1,10 @@
 == About BasDeM ==
-When facing a decision in a project or in a political process you can
-distinguish two phases: Forming of opinion and the actual decision.
+When facing a decision in a project or in a political process you can 
+distinguish between two phases: The forming of an opinion and the actual 
+decision making.
 
-Forming of opinion is the part of the process where you collect
-arguments pro and against an option. The actual decision is then
-being taken by a voting.
+The part of the process where you collect pros and cons to form an option 
+is done first. The actual decision is subsequently done by voting.
 
 Many tools like mailing lists, liquid democracy implementations
 (like Liquid Feedback) and wikis don't distinguish between those
@@ -16,7 +16,7 @@ part of decision making: forming of opinion. BasDeM is a tool
 to collect arguments for and against a statement by active users
 and to present them to everybody in a compact way. As a result
 less active participants can easily get an overview about the
-current state in the opinion forming process.
+current state of a discussion.
 
 The actual decision can then be done with different tools or at
 a political party conference.
@@ -48,10 +48,9 @@ of BasDeM might look strange. Make sure to use at least version 9.
 
 
 === Server ===
-TODO: Hey Justus, please describe the server dependencies here
-* MySQL VERSION
-* PHP VERSION
-* others?
+* MySQL 5.5.16 or newer
+* PHP 5.1 or newer
+* PHP PDO
 
 == Installation ==
 
