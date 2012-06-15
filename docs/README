@@ -1,8 +1,67 @@
-TODO: README
-
 == About BasDeM ==
+When facing a decision in a project or in a political process you can
+distinguish two phases: Forming of opinion and the actual decision.
+
+Forming of opinion is the part of the process where you collect
+arguments pro and against an option. The actual decision is then
+being taken by a voting.
+
+Many tools like mailing lists, liquid democrazy implementations
+(like Liquid Feedback) and wikis don't distinguish between those
+two phases and are therefore quite inconvenient for users. Who
+has the time to follow a discussion covering dozens of pages?
+
+BasDeM tries to solve this problem by only covering the first
+part of decision making: forming of opinion. BasDeM is a tool
+to collect arguments for and against a statement by active users
+and to present them to everybody in a compact way. As a result
+less active participants can easily get an overview about the
+current state in the opinion forming process.
+
+The actual decision can then be done with different tools or at
+a political party conference.
+
+For details have a look at the BasDeM presentation by BasDeM
+founder Justus Wingert (in German):
+
+  https://wiki.piratenpartei.de/Benutzer:Justus/BasDeM
+
 
 == Dependencies ==
 
+=== Client ===
+A modern web browser. We attempt to test BasDeM with
+
+* Mozilla Firefox 10
+* Opera 12
+* Google Chrome 19
+
+or later versions of these web browsers. Using the latest version
+is highly recommended. We are ging to drop support for older
+browsers once they are no longer supported by the manufacturer.
+
+As BasDeM is using lots of modern web technologies there can
+be problems when using Microsoft Internet Explorer. If you can
+not avoid using it there might be some glitches in the user
+interface. But things should still work, even if some parts
+of BasDeM might look strange. Make sure to use at least version 9.
+
+
+=== Server ===
+TODO: Hey Justus, please describe the server dependencies here
+* MySQL VERSION
+* PHP VERSION
+* others?
+
 == Installation ==
+
+=== Client ===
+Just visit a web site with a BasDeM installation.
+
+Check out our demo at
+
+  http://we-yet-have-to-set-this-up.TODO
+
+=== Server ===
+(TODO for Justus)
 
