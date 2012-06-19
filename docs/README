@@ -48,9 +48,9 @@ of BasDeM might look strange. Make sure to use at least version 9.
 
 
 === Server ===
-* MySQL 5.5.16 or newer
+* MySQL 5.5 or newer
 * PHP 5.1 or newer
-* PHP PDO
+* PHP Data Objects (PDO, shipped with PHP since version 5.1)
 
 == Installation ==
 
