@@ -1,2 +1,16 @@
 == BasDeM RoadMap ==
+Our aim is to offer BasDeM for the submissions to the national German
+Pirate Party assembly in Bonn (BPT12.2).
+
+Details (to be refined):
+* 2012-07-02: Start of active development
+* 2012-09-29: Targetted release date
+* 2012-10-27: Submission deadline for BPT12.2
+* 2012-11-24: BPT12.2 opening
+
+Future features:
+* editing arguments, solutions, etc
+* using Pirate ID for login
+* possibility to post updated solutions and mark the old one as outdated
+* install script
 
