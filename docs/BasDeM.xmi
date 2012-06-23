@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMI verified="false" xmi.version="1.2" timestamp="2012-06-23T13:23:34" xmlns:UML="http://schema.omg.org/spec/UML/1.3">
+<XMI verified="false" xmi.version="1.2" timestamp="2012-06-23T13:40:51" xmlns:UML="http://schema.omg.org/spec/UML/1.3">
  <XMI.header>
   <XMI.documentation>
    <XMI.exporter>umbrello uml modeller http://uml.sf.net</XMI.exporter>
@@ -38,58 +38,58 @@
         <UML:Attribute visibility="private" isSpecification="false" xmi.id="YxpGwnyP76SU" type="dqyihJwGpcvS" name="description"/>
         <UML:Attribute visibility="private" isSpecification="false" xmi.id="le63nGMU6Zbg" type="0Xwjf8cS7qKG" name="layer"/>
         <UML:Attribute visibility="private" isSpecification="false" xmi.id="8QRWrdgULL55" type="dqyihJwGpcvS" name="title"/>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="QQ6lk9qI7dY1" comment="Creates new, unstored Memplex without id." name="Memplex()"/>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="QVPVbrz1zwW5" comment="Loads Memplex, identified by id." name="Memplex()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="QQ6lk9qI7dY1" comment="Creates new, unstored Memplex without id." name="Memplex"/>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="QVPVbrz1zwW5" comment="Loads Memplex, identified by id." name="Memplex">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter visibility="private" isSpecification="false" xmi.id="JtJ5g2h6QlrA" type="0Xwjf8cS7qKG" value="" name="id"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="2YjutQlFWogH" name="getAuthor()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="2YjutQlFWogH" name="getAuthor">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter kind="return" xmi.id="sLx12YNK08AM" type="dqyihJwGpcvS"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="M82SkL4f287B" name="setAuthor()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="M82SkL4f287B" name="setAuthor">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter visibility="private" isSpecification="false" xmi.id="FBRXEbtQXvFG" type="dqyihJwGpcvS" value="" name="author"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="D3fjrLyy5t5u" name="getChildren()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="D3fjrLyy5t5u" name="getChildren">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter kind="return" xmi.id="8Dmf024B5jvv" type="iTK94PMiT70R"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="7ku9q1I3AjbM" name="setChildren()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="7ku9q1I3AjbM" name="setChildren">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter visibility="private" isSpecification="false" xmi.id="KSnpN03QYnIR" type="iTK94PMiT70R" value="" name="children"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="evh3TB94IK5A" name="getDescription()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="evh3TB94IK5A" name="getDescription">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter kind="return" xmi.id="Ew4oi7LVtKgr" type="dqyihJwGpcvS"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="a9B1u3Bmjcm4" name="setDescription()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="a9B1u3Bmjcm4" name="setDescription">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter visibility="private" isSpecification="false" xmi.id="Znm1D04SB6eI" type="dqyihJwGpcvS" value="" name="description"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="Kz0Gw1vhCDvz" name="getLayer()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="Kz0Gw1vhCDvz" name="getLayer">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter kind="return" xmi.id="d9JpMCpXYyZU" type="0Xwjf8cS7qKG"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="DLB2yJZivdlh" name="setLayer()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="DLB2yJZivdlh" name="setLayer">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter visibility="private" isSpecification="false" xmi.id="t5BxdkdxhbEb" type="0Xwjf8cS7qKG" value="" name="layer"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="4rr8iv0ZGxaJ" name="setTitle()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="4rr8iv0ZGxaJ" name="setTitle">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter visibility="private" isSpecification="false" xmi.id="UvdS4loAzYpz" type="dqyihJwGpcvS" value="" name="title"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="au9ed4ZgtOmc" name="getTitle()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="au9ed4ZgtOmc" name="getTitle">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter kind="return" xmi.id="iqD7cnQMyy3f" type="dqyihJwGpcvS"/>
          </UML:BehavioralFeature.parameter>
@@ -110,17 +110,17 @@
       <UML:Class visibility="public" isSpecification="false" namespace="Logical View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="sFaAzhb2sRkn" name="Controller">
        <UML:Classifier.feature>
         <UML:Attribute visibility="private" isSpecification="false" xmi.id="XwTTRhxx9NAs" type="0Xwjf8cS7qKG" name="activeTopNode"/>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="LmC0BmHdt2R1" name="isLoggedIn()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="LmC0BmHdt2R1" name="isLoggedIn">
          <UML:BehavioralFeature.parameter>
           <UML:Parameter kind="return" xmi.id="KKOVr0yBRXG7" type="SAssBfkO7DUJ"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="LUtoqNtBDWcS" name="loadMemplex()">
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="LUtoqNtBDWcS" name="loadMemplex">
          <UML:BehavioralFeature.parameter>
-          <UML:Parameter visibility="private" isSpecification="false" xmi.id="MTZ5gzG1jQ2s" type="0Xwjf8cS7qKG" value="" name="id"/>
+          <UML:Parameter visibility="private" isSpecification="false" xmi.id="akRAVcXx4Fgz" type="W7GzWMRb7Cd6" value="" name="memplex"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="DJW4Kv5dOzRC" name="create()"/>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="DJW4Kv5dOzRC" name="create"/>
        </UML:Classifier.feature>
       </UML:Class>
       <UML:Class visibility="public" isSpecification="false" namespace="Logical View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="y45bLRm0QVh6" name="CreateIssue"/>
@@ -134,8 +134,8 @@
           <UML:Parameter visibility="private" isSpecification="false" xmi.id="UEMsDl4V4Q0t" type="W7GzWMRb7Cd6" value="" name="memplex"/>
          </UML:BehavioralFeature.parameter>
         </UML:Operation>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="Qy4rUIxyl6Af" name="clear()"/>
-        <UML:Operation visibility="private" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="DDldnwKF8g7J" name="block()"/>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="Qy4rUIxyl6Af" name="clear"/>
+        <UML:Operation visibility="private" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="DDldnwKF8g7J" name="block"/>
        </UML:Classifier.feature>
       </UML:Class>
       <UML:Class visibility="public" isSpecification="false" namespace="Logical View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="PAoTaoMzlOoF" name=";-)"/>
@@ -240,14 +240,14 @@
          <notewidget width="102" showstereotype="1" x="1050" noteType="0" usesdiagramusefillcolor="1" y="20" usesdiagramfillcolor="1" isinstance="0" fillcolor="none" height="40" linecolor="none" xmi.id="rbmvjlU5L1xo" usefillcolor="1" linewidth="none" font="Sans Serif,9,-1,0,50,0,0,0,0,0" text="Documentation"/>
          <notewidget width="167" showstereotype="1" x="310" noteType="0" usesdiagramusefillcolor="1" y="220" usesdiagramfillcolor="1" isinstance="0" fillcolor="none" height="58" linecolor="none" xmi.id="HVR6U7ll4zae" usefillcolor="1" linewidth="none" font="Sans Serif,9,-1,0,50,0,0,0,0,0" text="wouldn't a method addChild(child: unsigned int) make sense here?"/>
          <notewidget width="187" showstereotype="1" x="800" noteType="0" usesdiagramusefillcolor="1" y="30" usesdiagramfillcolor="1" isinstance="0" fillcolor="none" height="210" linecolor="none" xmi.id="u2s2nFSeoEXV" usefillcolor="1" linewidth="none" font="Sans Serif,9,-1,0,50,0,0,0,0,0" text="== Layer ==&#xa;&#xa;1. Topic&#xa;2. Issue&#xa;3. Solution&#xa;&#xa;Arguments:&#xa;4. Pro&#xa;5. Contra&#xa;6. Neutral&#xa;&#xa;7 Comment"/>
-         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="none" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="90" showattsigs="601" showstereotype="1" y="70" showattributes="1" font="Sans Serif,9,-1,5,75,0,0,0,0,0" width="200" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="W7GzWMRb7Cd6" showscope="1" height="247" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="none" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="90" showattsigs="601" showstereotype="1" y="70" showattributes="1" font="Sans Serif,9,-1,5,75,0,0,0,0,0" width="192" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="W7GzWMRb7Cd6" showscope="1" height="247" showopsigs="601"/>
          <boxwidget width="724" showstereotype="1" x="20" usesdiagramusefillcolor="1" y="10" usesdiagramfillcolor="1" isinstance="0" fillcolor="none" height="356" linecolor="#000000" xmi.id="JmBahjrBeSci" usefillcolor="1" linewidth="none" font="Sans Serif,9,-1,0,50,0,0,0,0,0"/>
          <notewidget width="153" showstereotype="1" x="580" noteType="0" usesdiagramusefillcolor="1" y="20" usesdiagramfillcolor="1" isinstance="0" fillcolor="none" height="41" linecolor="none" xmi.id="EQtDxgAVaJ9C" usefillcolor="1" linewidth="none" font="Sans Serif,9,-1,0,50,0,0,0,0,0" text="Server, Model, PHP"/>
          <boxwidget width="394" showstereotype="1" x="770" usesdiagramusefillcolor="1" y="10" usesdiagramfillcolor="1" isinstance="0" fillcolor="none" height="364" linecolor="#000000" xmi.id="nDJEn0SBrd8X" usefillcolor="1" linewidth="none" font="Sans Serif,9,-1,0,50,0,0,0,0,0"/>
-         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="none" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="390" showattsigs="601" showstereotype="1" y="450" showattributes="1" font="Sans Serif,9,-1,5,75,0,0,0,0,0" width="200" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="W7GzWMRb7Cd6" showscope="1" height="247" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="none" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="390" showattsigs="601" showstereotype="1" y="450" showattributes="1" font="Sans Serif,9,-1,5,75,0,0,0,0,0" width="192" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="W7GzWMRb7Cd6" showscope="1" height="247" showopsigs="601"/>
          <notewidget width="216" showstereotype="1" x="500" noteType="0" usesdiagramusefillcolor="1" y="100" usesdiagramfillcolor="1" isinstance="0" fillcolor="none" height="165" linecolor="none" xmi.id="dOXYCK3Qfnhe" usefillcolor="1" linewidth="none" font="Sans Serif,9,-1,0,50,0,0,0,0,0" text="== memplex.php ==&#xa;&#xa;Parameters:&#xa;children&#xa;description&#xa;id&#xa;layer&#xa;parent&#xa;title&#xa;&#xa;no id -> create new&#xa;with id -> load or change entry"/>
          <boxwidget width="1000" showstereotype="1" x="20" usesdiagramusefillcolor="1" y="430" usesdiagramfillcolor="1" isinstance="0" fillcolor="none" height="629" linecolor="#000000" xmi.id="h1jhg8vzyz2y" usefillcolor="1" linewidth="none" font="Sans Serif,9,-1,0,50,0,0,0,0,0"/>
-         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="none" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="160" showattsigs="601" showstereotype="1" y="770" showattributes="1" font="Sans Serif,9,-1,5,75,0,0,0,0,0" width="172" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="sFaAzhb2sRkn" showscope="1" height="65" showopsigs="601"/>
+         <classwidget linecolor="#ff0000" usesdiagramfillcolor="0" linewidth="none" showoperations="1" usesdiagramusefillcolor="0" showpubliconly="0" showpackage="1" x="160" showattsigs="601" showstereotype="1" y="770" showattributes="1" font="Sans Serif,9,-1,5,75,0,0,0,0,0" width="182" isinstance="0" usefillcolor="1" fillcolor="#ffff00" xmi.id="sFaAzhb2sRkn" showscope="1" height="65" showopsigs="601"/>
          <classwidget linecolor="none" usesdiagramfillcolor="1" linewidth="none" showoperations="1" usesdiagramusefillcolor="1" showpubliconly="1" showpackage="1" x="30" showattsigs="601" showstereotype="1" y="900" showattributes="1" font="Sans Serif,9,-1,0,75,0,0,0,0,0" width="78" isinstance="0" usefillcolor="1" fillcolor="none" xmi.id="y45bLRm0QVh6" showscope="1" height="25" showopsigs="601"/>
          <classwidget linecolor="none" usesdiagramfillcolor="1" linewidth="none" showoperations="1" usesdiagramusefillcolor="1" showpubliconly="1" showpackage="1" x="120" showattsigs="601" showstereotype="1" y="900" showattributes="1" font="Sans Serif,9,-1,0,75,0,0,0,0,0" width="92" isinstance="0" usefillcolor="1" fillcolor="none" xmi.id="dc3Zb6WUJ4cH" showscope="1" height="25" showopsigs="601"/>
          <classwidget linecolor="none" usesdiagramfillcolor="1" linewidth="none" showoperations="1" usesdiagramusefillcolor="1" showpubliconly="1" showpackage="1" x="220" showattsigs="601" showstereotype="1" y="900" showattributes="1" font="Sans Serif,9,-1,0,75,0,0,0,0,0" width="103" isinstance="0" usefillcolor="1" fillcolor="none" xmi.id="lBJbc1Na5SCQ" showscope="1" height="25" showopsigs="601"/>
@@ -282,7 +282,7 @@
          </assocwidget>
          <assocwidget indexa="1" indexb="1" usesdiagramusefillcolor="0" widgetaid="sFaAzhb2sRkn" usesdiagramfillcolor="0" fillcolor="#000000" linecolor="none" totalcounta="2" xmi.id="c0IDncPYi0vD" widgetbid="swQIR5N3hQaH" totalcountb="2" type="503" usefillcolor="1" linewidth="none">
           <linepath>
-           <startpoint startx="330" starty="840"/>
+           <startpoint startx="340" starty="840"/>
            <endpoint endx="390" endy="900"/>
            <point x="390" y="840"/>
           </linepath>
@@ -318,11 +318,11 @@
          </assocwidget>
          <assocwidget indexa="1" indexb="1" usesdiagramusefillcolor="0" widgetaid="W7GzWMRb7Cd6" usesdiagramfillcolor="0" fillcolor="#000000" linecolor="none" totalcounta="2" xmi.id="bGktlWGVW4E0" widgetbid="NqfSHpr9lFPB" totalcountb="2" type="503" usefillcolor="2" linewidth="none">
           <linepath>
-           <startpoint startx="590" starty="700"/>
+           <startpoint startx="580" starty="700"/>
            <endpoint endx="720" endy="770"/>
            <point x="720" y="700"/>
           </linepath>
-          <floatingtext linecolor="none" usesdiagramfillcolor="1" linewidth="none" usesdiagramusefillcolor="1" x="590" showstereotype="1" y="680" text="*" font="Sans Serif,9,-1,5,50,0,0,0,0,0" pretext="" role="701" width="12" isinstance="0" posttext="" usefillcolor="1" fillcolor="none" xmi.id="XxWyMUnhXR7I" height="17"/>
+          <floatingtext linecolor="none" usesdiagramfillcolor="1" linewidth="none" usesdiagramusefillcolor="1" x="580" showstereotype="1" y="680" text="*" font="Sans Serif,9,-1,5,50,0,0,0,0,0" pretext="" role="701" width="12" isinstance="0" posttext="" usefillcolor="1" fillcolor="none" xmi.id="XxWyMUnhXR7I" height="17"/>
           <floatingtext linecolor="none" usesdiagramfillcolor="1" linewidth="none" usesdiagramusefillcolor="1" x="720" showstereotype="1" y="750" text="1" font="Sans Serif,9,-1,5,50,0,0,0,0,0" pretext="" role="702" width="14" isinstance="0" posttext="" usefillcolor="1" fillcolor="none" xmi.id="PSUijuCGqgCC" height="17"/>
          </assocwidget>
         </associations>
@@ -346,7 +346,7 @@
   </UML:Model>
  </XMI.content>
  <XMI.extensions xmi.extender="umbrello">
-  <docsettings viewid="685w0kyWu62q" uniqueid="PSUijuCGqgCC" documentation=""/>
+  <docsettings viewid="685w0kyWu62q" uniqueid="akRAVcXx4Fgz" documentation=""/>
   <listview>
    <listitem open="1" type="800" id="Views">
     <listitem open="1" type="821" id="Component View"/>
