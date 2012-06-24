@@ -62,13 +62,45 @@ class Database {
 	}
 	
 	static public function getMemplex($identifier) {
+        /*
+        Select/Store comments by layer and parent relation to both L4 and L5+
+        */
 		return self::query(
-			"SELECT * FROM `memplex` JOIN `texts` WHERE `id` = :identifier ",
+"SELECT 
+    memplex.id,
+    texts.content as text,
+    titles.content as title,
+    authors.content as author,
+    children.child as child
+FROM 
+    memplex 
+JOIN 
+    texts ON texts.id = memplex.text 
+JOIN 
+    titles ON titles.id = memplex.title 
+JOIN 
+    authors ON authors.id = memplex.author  
+LEFT JOIN 
+    children ON children.parent = memplex.id 
+WHERE 
+    memplex.id = :identifier",
 			array(
 				array(':identifier',$identifier,PDO::PARAM_INT),
 			),
+			true,
 			true
 		);
+	}
+	
+	static public function setMemplex($data) {
+		// return self::query(
+			// "INSERT INTO `memplex` JOIN `texts` ON  WHERE `id` = :identifier ",
+			// array(
+				// array(':identifier',$data['id'],PDO::PARAM_INT),
+				// array(':identifier',$data['id'],PDO::PARAM_INT),
+			// ),
+			// true
+		// );
 	}
 }
 ?>
