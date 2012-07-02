@@ -66,23 +66,23 @@ class Database {
         Select/Store comments by layer and parent relation to both L4 and L5+
         */
 		return self::query(
-"SELECT 
+"select
     memplex.id,
     texts.content as text,
     titles.content as title,
     authors.content as author,
-    children.child as child
-FROM 
-    memplex 
-JOIN 
-    texts ON texts.id = memplex.text 
-JOIN 
-    titles ON titles.id = memplex.title 
-JOIN 
-    authors ON authors.id = memplex.author  
-LEFT JOIN 
-    children ON children.parent = memplex.id 
-WHERE 
+    group_concat(children.child) as child
+from
+    memplex
+join
+    texts ON texts.id = memplex.text
+join
+    titles ON titles.id = memplex.title
+join
+    authors ON authors.id = memplex.author
+left join
+    children ON children.parent = memplex.id
+where
     memplex.id = :identifier",
 			array(
 				array(':identifier',$identifier,PDO::PARAM_INT),
