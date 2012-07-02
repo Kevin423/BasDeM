@@ -29,7 +29,7 @@ class Memplex {
     private $text;
     private $layer;
     
-    public function Memplex($id = null) {
+    public function __construct($id = null) {
         if ( is_null($id) ) {
             $this->createMemplex();
         } else {
@@ -39,14 +39,15 @@ class Memplex {
     
     private function loadMemplex($id) {
         $tmp = Database::getMemplex($id);
-        echo "bla: "  . $id , NL;
-        print_r($tmp);
-        echo "bla";
         $this->id = $tmp[0]['id'];
         $this->author = $tmp[0]['author'];
         $this->title = $tmp[0]['title'];
         $this->text = $tmp[0]['text'];
         $this->layer = $tmp[0]['layer'];
+        
+        foreach ( $tmp as $key => $value ) {
+            echo $value['child'],NL;
+        }
     }
     
     private function createMemplex($id) {

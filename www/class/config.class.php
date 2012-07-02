@@ -27,7 +27,7 @@ class Config {
 			'engine' => 'mysql',
 			'host' => 'localhost',
 			'user' => 'root',
-			'password' => '',
+			'password' => 'schu2004ba',
 			'database' => 'basdem',
 			'salt' => 'This is my salt... it is really stupid, but long!',
 		),

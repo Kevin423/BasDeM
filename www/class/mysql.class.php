@@ -89,7 +89,7 @@ class Database {
     texts.content as text,
     titles.content as title,
     authors.content as author,
-    group_concat(children.child) as child
+    children.child as child
 from
     memplex
 join
@@ -106,7 +106,7 @@ where
 				array(':identifier',$identifier,PDO::PARAM_INT),
 			),
 			true,
-			true
+			false
 		);
 	}
 	
