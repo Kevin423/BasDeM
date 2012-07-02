@@ -1,2 +1,27 @@
-TODO: describe our coding style here
+== Whitespaces ==
+1. Use spaces, NOT tabs. Four of them.
+
+Good:
+public function setText($text) {
+    $this->text = $text;
+}
+
+Bad:
+public function setText($text) {
+	$this->text = $text;
+}
+
+Tabs have a different width on each system.
+
+
+2. We use whitespaces around boolean expressions.
+
+Example:
+if ( is_null($id) )
+
+
+3. No spaces around function calls.
+
+Example:
+$tmp = Database::getMemplex($id);
 
