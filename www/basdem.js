@@ -24,11 +24,11 @@ var View = new function(Memplex) {
 	
 	this.clear = function() {
 		document.body.removeChild(this.container);
-	}
+	};
 	
-	private this.block() {
-		Window.block();
-	}
+//	private this.block() {
+//		Window.block();
+//	};
 	
 	this.destroy = function() {
 		
@@ -42,16 +42,13 @@ var BasDeM = new function() {
 	
 	this.authenticate = function() {
 		// Todo: Do authentication and then proceed
-		this.proceed();
-	}
-	
-	this.proceed = function() {
-		// Todo
-		
+		this.load();
 	}
 	
 	this.load = function(id) {
 		// Todo: Load a specific id
+                View(Memplex)
+                
 	}
 };
 
