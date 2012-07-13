@@ -79,13 +79,25 @@ class Database {
 		return self::$connection->lastInsertId();
 	}
 	
+	static public function addChild($parent,$child) {
+		return self::query(
+			"insert into `children` set `parent` = :parent, `child` = :child",
+			array(
+				array(':parent',$parent,PDO::PARAM_INT),
+				array(':child',$child,PDO::PARAM_INT),
+			),
+			true
+		);
+    }
+	
 	static public function getMemplex($identifier) {
         /*
-        Select/Store comments by layer and parent relation to both L4 and L5+
+        TODO: Select comments by layer and parent relation to both L4 and L5+
         */
 		return self::query(
 "select
     memplex.id,
+    memplex.layer,
     texts.content as text,
     titles.content as title,
     authors.content as author,
@@ -110,15 +122,75 @@ where
 		);
 	}
 	
-	static public function setMemplex($data) {
-		// return self::query(
-			// "INSERT INTO `memplex` JOIN `texts` ON  WHERE `id` = :identifier ",
-			// array(
-				// array(':identifier',$data['id'],PDO::PARAM_INT),
-				// array(':identifier',$data['id'],PDO::PARAM_INT),
-			// ),
-			// true
-		// );
+	static public function createMemplex($data) {
+        // TODO: make it work in a not insane way.
+		$id = self::query(
+			"insert into `memplex` set `layer` = :layer",
+			array(
+				array(':layer',$data['layer'],PDO::PARAM_INT),
+			),
+			true
+		);
+		self::query(
+			"insert into `authors` set `content` = :content where `id` = :id",
+			array(
+				array(':content',$data['author'],PDO::PARAM_STR),
+				array(':id',$id,PDO::PARAM_INT),
+			),
+			true
+		);
+		self::query(
+			"insert into `titles` set `content` = :content where `id` = :id",
+			array(
+				array(':content',$data['title'],PDO::PARAM_STR),
+				array(':id',$id,PDO::PARAM_INT),
+			),
+			true
+		);
+		self::query(
+			"insert into `texts` set `content` = :content where `id` = :id",
+			array(
+				array(':content',$data['text'],PDO::PARAM_STR),
+				array(':id',$id,PDO::PARAM_INT),
+			),
+			true
+		);
+	}
+	
+	static public function storeMemplex($data) {
+        // TODO: make it work in a not insane way.
+		self::query(
+			"update `memplex` set `layer` = :layer where `id` = :id",
+			array(
+				array(':layer',$data['layer'],PDO::PARAM_INT),
+				array(':id',$data['id'],PDO::PARAM_INT),
+			),
+			true
+		);
+		self::query(
+			"insert into `authors` set `content` = :content where `id` = :id",
+			array(
+				array(':content',$data['author'],PDO::PARAM_STR),
+				array(':id',$data['id'],PDO::PARAM_INT),
+			),
+			true
+		);
+		self::query(
+			"insert into `titles` set `content` = :content where `id` = :id",
+			array(
+				array(':content',$data['title'],PDO::PARAM_STR),
+				array(':id',$data['id'],PDO::PARAM_INT),
+			),
+			true
+		);
+		self::query(
+			"insert into `texts` set `content` = :content where `id` = :id",
+			array(
+				array(':content',$data['text'],PDO::PARAM_STR),
+				array(':id',$data['id'],PDO::PARAM_INT),
+			),
+			true
+		);
 	}
 }
 ?>

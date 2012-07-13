@@ -32,6 +32,8 @@ class Memplex {
     public function __construct($id = null) {
         if ( is_null($id) ) {
             $this->createMemplex();
+        } else if ( is_array($id) ) {
+            $this->createMemplex($id);
         } else {
             $this->loadMemplex($id);
         }
@@ -44,29 +46,48 @@ class Memplex {
         $this->title = $tmp[0]['title'];
         $this->text = $tmp[0]['text'];
         $this->layer = $tmp[0]['layer'];
-        
         foreach ( $tmp as $key => $value ) {
-            echo $value['child'],NL;
+            $this->children[] = $value['child'];
         }
     }
     
-    private function createMemplex($id) {
+    private function createMemplex($id = null) {
         $this->id = null;
         $this->children = array();
         $this->author = null;
         $this->title = null;
         $this->text = null;
         $this->layer = null;
+        
+        if ( is_null($id) || !is_array($id) ) {
+            return;
+        }
+        
+        if ( !isset($id['author'])
+            || !isset($id['title'])
+            || !isset($id['text'])
+            || !isset($id['layer']) ) {
+            return;
+        }
     }
     
     public function store() {
-        Database::setMemplex(array(
-            'id' => $this->id,
-            'author' => $this->author,
-            'title' => $this->title,
-            'text' => $this->text,
-            'layer' => $this->layer,
-        ));
+        if ( is_null($this->id) ) {
+            Database::createMemplex(array(
+                'author' => $this->author,
+                'title' => $this->title,
+                'text' => $this->text,
+                'layer' => $this->layer,
+            ));
+        } else {
+            Database::storeMemplex(array(
+                'id' => $this->id,
+                'author' => $this->author,
+                'title' => $this->title,
+                'text' => $this->text,
+                'layer' => $this->layer,
+            ));
+        }
     }
     
     public function __toArray() {
@@ -89,6 +110,7 @@ class Memplex {
     }
     
     public function addChild($id) {
+        Database::addChild($this->id,$id);
         $this->children[] = $id;
     }
     
