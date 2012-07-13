@@ -24,12 +24,20 @@ if ( !defined('INCMS') || INCMS !== true ) {
 class Memplex {
     private $id;
     private $children;
+    private $childarray;
     private $author;
     private $title;
     private $text;
     private $layer;
     
     public function __construct($id = null) {
+        $this->id = null;
+        $this->children = array();
+        $this->author = null;
+        $this->title = null;
+        $this->text = null;
+        $this->layer = null;
+        
         if ( is_null($id) ) {
             $this->createMemplex();
         } else if ( is_array($id) ) {
@@ -41,24 +49,39 @@ class Memplex {
     
     private function loadMemplex($id) {
         $tmp = Database::getMemplex($id);
+        if ( count($tmp) == 0 ) {
+            return;
+        }
+        echo serialize($tmp);
         $this->id = $tmp[0]['id'];
         $this->author = $tmp[0]['author'];
         $this->title = $tmp[0]['title'];
         $this->text = $tmp[0]['text'];
         $this->layer = $tmp[0]['layer'];
+        $this->children = array();
         foreach ( $tmp as $key => $value ) {
             $this->children[] = $value['child'];
         }
     }
     
-    private function createMemplex($id = null) {
-        $this->id = null;
-        $this->children = array();
-        $this->author = null;
-        $this->title = null;
-        $this->text = null;
-        $this->layer = null;
+    public function loadChildrenRecursive($level = -1) {
+        $this->childarray = array();
         
+        if ( $level-- == 0 ) {
+            return;
+        }
+        foreach ( $this->children as $child ) {
+            if ( is_null(MemplexRegister::get($child)) ) {
+                MemplexRegister::reg(new Memplex($child));
+            }
+            $tmp = MemplexRegister::get($child);
+            
+            $tmp->loadChildrenRecursive($level);
+            $this->childarray[] = $tmp->toArray($level);
+        }
+    }
+    
+    private function createMemplex($id = null) {
         if ( is_null($id) || !is_array($id) ) {
             return;
         }
@@ -69,6 +92,10 @@ class Memplex {
             || !isset($id['layer']) ) {
             return;
         }
+        $this->author = $id['author'];
+        $this->title = $id['title'];
+        $this->text = $id['text'];
+        $this->layer = $id['layer'];
     }
     
     public function store() {
@@ -90,15 +117,25 @@ class Memplex {
         }
     }
     
-    public function __toArray() {
-        
+    public function toArray() {
         return array(
             'id' => $this->id,
             'author' => $this->author,
             'title' => $this->title,
             'text' => $this->text,
             'layer' => $this->layer,
+            'children' => $this->childarray,
         );
+    }
+    
+    public function toJSON() {
+        return json_encode(array(
+            'id' => $this->id,
+            'author' => $this->author,
+            'title' => $this->title,
+            'text' => $this->text,
+            'layer' => $this->layer,
+        ));
     }
     
     public function setId($id) {

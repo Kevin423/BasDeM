@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 02, 2012 at 03:00 PM
+-- Generation Time: Jul 13, 2012 at 11:22 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -26,18 +26,12 @@ SET time_zone = "+00:00";
 -- Table structure for table `authors`
 --
 
+DROP TABLE IF EXISTS `authors`;
 CREATE TABLE IF NOT EXISTS `authors` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `authors`
---
-
-INSERT INTO `authors` (`id`, `content`) VALUES
-(1, 'Ich');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -45,6 +39,7 @@ INSERT INTO `authors` (`id`, `content`) VALUES
 -- Table structure for table `children`
 --
 
+DROP TABLE IF EXISTS `children`;
 CREATE TABLE IF NOT EXISTS `children` (
   `parent` int(11) NOT NULL,
   `child` int(11) NOT NULL,
@@ -52,43 +47,19 @@ CREATE TABLE IF NOT EXISTS `children` (
   KEY `child` (`child`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `children`
---
-
-INSERT INTO `children` (`parent`, `child`) VALUES
-(1, 2),
-(1, 3),
-(1, 4);
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `memplex`
 --
 
+DROP TABLE IF EXISTS `memplex`;
 CREATE TABLE IF NOT EXISTS `memplex` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` int(11) DEFAULT NULL,
-  `title` int(11) DEFAULT NULL,
-  `author` int(11) DEFAULT NULL,
   `layer` int(1) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `text` (`text`),
-  KEY `title` (`title`),
-  KEY `author` (`author`),
   KEY `layer` (`layer`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `memplex`
---
-
-INSERT INTO `memplex` (`id`, `text`, `title`, `author`, `layer`) VALUES
-(1, 1, 1, 1, 1),
-(2, NULL, NULL, NULL, 0),
-(3, NULL, NULL, NULL, 2),
-(4, NULL, NULL, NULL, 2);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=741 ;
 
 -- --------------------------------------------------------
 
@@ -96,18 +67,12 @@ INSERT INTO `memplex` (`id`, `text`, `title`, `author`, `layer`) VALUES
 -- Table structure for table `texts`
 --
 
+DROP TABLE IF EXISTS `texts`;
 CREATE TABLE IF NOT EXISTS `texts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `texts`
---
-
-INSERT INTO `texts` (`id`, `content`) VALUES
-(1, 'Ein Testtext!!!');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -115,22 +80,22 @@ INSERT INTO `texts` (`id`, `content`) VALUES
 -- Table structure for table `titles`
 --
 
+DROP TABLE IF EXISTS `titles`;
 CREATE TABLE IF NOT EXISTS `titles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `titles`
---
-
-INSERT INTO `titles` (`id`, `content`) VALUES
-(1, 'Testtitel!');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `authors`
+--
+ALTER TABLE `authors`
+  ADD CONSTRAINT `authors_ibfk_1` FOREIGN KEY (`id`) REFERENCES `memplex` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `children`
@@ -140,12 +105,16 @@ ALTER TABLE `children`
   ADD CONSTRAINT `children_ibfk_2` FOREIGN KEY (`child`) REFERENCES `memplex` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `memplex`
+-- Constraints for table `texts`
 --
-ALTER TABLE `memplex`
-  ADD CONSTRAINT `memplex_ibfk_1` FOREIGN KEY (`text`) REFERENCES `texts` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
-  ADD CONSTRAINT `memplex_ibfk_2` FOREIGN KEY (`title`) REFERENCES `titles` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION,
-  ADD CONSTRAINT `memplex_ibfk_3` FOREIGN KEY (`author`) REFERENCES `authors` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION;
+ALTER TABLE `texts`
+  ADD CONSTRAINT `texts_ibfk_1` FOREIGN KEY (`id`) REFERENCES `memplex` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `titles`
+--
+ALTER TABLE `titles`
+  ADD CONSTRAINT `titles_ibfk_1` FOREIGN KEY (`id`) REFERENCES `memplex` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -24,13 +24,76 @@ define('NL',"<br>\r\n");
 require_once('class/config.class.php');
 require_once('class/mysql.class.php');
 require_once('class/memplex.class.php');
+require_once('class/memplex.register.class.php');
 
 Database::init();
 
+if ( !isset($_POST['id'])
+    && isset($_POST['parent'])
+    && isset($_POST['description'])
+    && isset($_POST['layer'])
+    && isset($_POST['title'])
+    && isset($_POST['author']) ) {
+    
+    // Create a new Memplex.
+    $m = new Memplex(array(
+        'text' => $_POST['description'],
+        'layer' => $_POST['layer'],
+        'title' => $_POST['title'],
+        'author' => $_POST['author'],
+    ));
+    $m->store();
+    MemplexRegister::reg($m);
+    
+    $parent = MemplexRegister::get($_POST['parent']);
+    $parent->addChild($m->getId());
+    echo json_encode(array('success' => true));
+}
 
-#for ( $i = 0 ; $i < 10000 ; $i++ ) {
-    $memplex = new Memplex(1);
-    print_r($memplex);
-#}
+if ( isset($_POST['id']) ) {
+    $action = false;
+    $child = MemplexRegister::get($_POST['id']);
+    
+    if ( is_null($child->getTitle()) ) {
+        echo json_encode(array('success' => false));
+        return;
+    }
+    if ( 
+        isset($_POST['description'])
+        && isset($_POST['layer'])
+        && isset($_POST['title'])
+        && isset($_POST['author']) ) {
+        
+        $action = true;
+        
+        // Update a Memplex.
+        
+        $child->setText($_POST['description']);
+        $child->setLayer($_POST['layer']);
+        $child->setTitle($_POST['title']);
+        $child->setAuthor($_POST['author']);
+        
+        $child->store();
+    }
+    
+    if ( isset($_POST['children']) && is_array($_POST['children']) ) {
+        foreach ( $_POST['children'] as $child ) {
+            $child->addChild($child);
+        }
+    }
+    
+    if ( isset($_POST['parent']) ) {
+        $parent = MemplexRegister::get($_POST['parent']);
+        $parent->addChild($child->getId());
+    }
+    
+    $child->loadChildrenRecursive();
+    
+    echo json_encode(array(
+        'success' => true,
+        'data' => $child->toArray(),
+    ));
+}
+
 
 ?>

@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU General Public License along with         *
  * BasDeM. If not, see <http://www.gnu.org/licenses/>.                                  *
  ****************************************************************************************/
-
 if ( !defined('INCMS') || INCMS !== true ) {
         die;
 }
@@ -64,7 +63,11 @@ class Database {
 			self::$statements[$hash] = self::$connection->prepare($query);
 		
 		foreach ( $params as $param ) {
-			self::$statements[$hash]->bindParam($param[0], utf8_decode($param[1]), $param[2]);
+			self::$statements[$hash]->bindParam(
+                $param[0],
+                utf8_decode($param[1]),
+                $param[2]
+            );
 		}
 		
 		if ( self::$statements[$hash]->execute() === false ) {
@@ -105,11 +108,11 @@ class Database {
 from
     memplex
 join
-    texts ON texts.id = memplex.text
+    texts ON texts.id = memplex.id
 join
-    titles ON titles.id = memplex.title
+    titles ON titles.id = memplex.id
 join
-    authors ON authors.id = memplex.author
+    authors ON authors.id = memplex.id
 left join
     children ON children.parent = memplex.id
 where
@@ -128,32 +131,28 @@ where
 			"insert into `memplex` set `layer` = :layer",
 			array(
 				array(':layer',$data['layer'],PDO::PARAM_INT),
-			),
-			true
+			)
 		);
 		self::query(
-			"insert into `authors` set `content` = :content where `id` = :id",
+			"insert into `authors` set `content` = :content, `id` = :id",
 			array(
 				array(':content',$data['author'],PDO::PARAM_STR),
 				array(':id',$id,PDO::PARAM_INT),
-			),
-			true
+			)
 		);
 		self::query(
-			"insert into `titles` set `content` = :content where `id` = :id",
+			"insert into `titles` set `content` = :content, `id` = :id",
 			array(
 				array(':content',$data['title'],PDO::PARAM_STR),
 				array(':id',$id,PDO::PARAM_INT),
-			),
-			true
+			)
 		);
 		self::query(
-			"insert into `texts` set `content` = :content where `id` = :id",
+			"insert into `texts` set `content` = :content, `id` = :id",
 			array(
 				array(':content',$data['text'],PDO::PARAM_STR),
 				array(':id',$id,PDO::PARAM_INT),
-			),
-			true
+			)
 		);
 	}
 	
@@ -164,32 +163,28 @@ where
 			array(
 				array(':layer',$data['layer'],PDO::PARAM_INT),
 				array(':id',$data['id'],PDO::PARAM_INT),
-			),
-			true
+			)
 		);
 		self::query(
-			"insert into `authors` set `content` = :content where `id` = :id",
+			"update `authors` set `content` = :content where `id` = :id",
 			array(
 				array(':content',$data['author'],PDO::PARAM_STR),
 				array(':id',$data['id'],PDO::PARAM_INT),
-			),
-			true
+			)
 		);
 		self::query(
-			"insert into `titles` set `content` = :content where `id` = :id",
+			"update `titles` set `content` = :content where `id` = :id",
 			array(
 				array(':content',$data['title'],PDO::PARAM_STR),
 				array(':id',$data['id'],PDO::PARAM_INT),
-			),
-			true
+			)
 		);
 		self::query(
-			"insert into `texts` set `content` = :content where `id` = :id",
+			"update `texts` set `content` = :content where `id` = :id",
 			array(
 				array(':content',$data['text'],PDO::PARAM_STR),
 				array(':id',$data['id'],PDO::PARAM_INT),
-			),
-			true
+			)
 		);
 	}
 }
