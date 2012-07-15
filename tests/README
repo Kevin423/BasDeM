@@ -1,0 +1,47 @@
+== Unit tests for our server side PHP code ==
+
+=== Dependencies ===
+* PHPUnit 3.6 https://github.com/sebastianbergmann/phpunit/
+
+=== How to run tests ===
+Just run them from your favorite shell.
+
+This is how a successfull run should look like:
+
+  sven@denkbrett:~/BasDeM/tests> phpunit TestConfig.php
+  PHPUnit 3.6.11 by Sebastian Bergmann.
+
+  .
+
+  Time: 0 seconds, Memory: 2.50Mb
+
+  OK (1 test, 8 assertions)
+
+
+A failing run looks like this:
+
+  sven@denkbrett:~/BasDeM/tests> phpunit TestConfig.php
+  PHPUnit 3.6.11 by Sebastian Bergmann.
+
+  F
+
+  Time: 0 seconds, Memory: 2.50Mb
+
+  There was 1 failure:
+
+  1) TestConfig::testGet
+  Failed asserting that 6 matches expected 5.
+
+  /home/sven/BasDeM/tests/TestConfig.php:28
+
+  FAILURES!
+  Tests: 1, Assertions: 2, Failures: 1.
+
+
+=== How to write tests ===
+See
+
+  http://www.phpunit.de/manual/3.6/en/automating-tests.html
+
+for a manual.
+
