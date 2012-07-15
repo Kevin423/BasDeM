@@ -75,6 +75,12 @@
     margin-left: -250px;
     background: lightgrey;
 }
+.title {
+    font-weight: bold;
+}
+.back {
+    float: right;
+}
 td {
     text-align: top;
 }

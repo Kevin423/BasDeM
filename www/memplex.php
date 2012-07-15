@@ -53,25 +53,6 @@ if ( !isset($_POST['id'])
 }
 
 if ( isset($_POST['id']) ) {
-    if ( $_POST['id'] == 0 ) {
-        echo json_encode(array(
-            "data" => array(
-                'id' => 0,
-                'author' => 'System',
-                'title' => 'Themenbereiche',
-                'text' => "",
-                'layer' => 1,
-                'children' => array(array(
-                    'id' => 1,
-                    'author' => 'System',
-                    'title' => 'Testthemenbereich',
-                    'text' => "",
-                    'layer' => 2,
-                    'children' => array(),
-                )),
-        )));
-        return;
-    }
     $action = false;
     
     $child = MemplexRegister::get($_POST['id']);

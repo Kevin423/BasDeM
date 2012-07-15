@@ -1,6 +1,7 @@
 var Controller = new function() {
-    var activeTopNode = -1;
-    var blockingCallback = null;
+    this.activeTopNode = -1;
+    this.blockingCallback = null;
+    this.navigation = new Array(8);
     
     this.start = function() {
         this.authenticate();
@@ -8,7 +9,7 @@ var Controller = new function() {
 
     this.authenticate = function() {
         // Todo: Do authentication and then proceed
-        this.load(0);
+        this.load(1);
     }
 
     this.load = function(id) {
@@ -23,20 +24,21 @@ var Controller = new function() {
     
     this.loadMemplex = function(Memplex) {
         Controller.activeTopnode = Memplex.id;
+        
+        this.navigation[Memplex.layer - 1] = Memplex;
         View.create(Memplex);
     }
     
     this.submit = function(data,callback) {
         View.block();
         this.blockingCallback = callback;
-        console.log(callback);
-        $.post("memplex.php", 
-            {
+        
+        $.post("memplex.php", {
                 "parent": Controller.activeTopnode,
                 "layer": data.layer,
-                author: data.author,
-                title: data.title,
-                text: data.text
+                "author": data.author,
+                "title": data.title,
+                "text": data.text
             },
             function (data) {
                 var json = $.parseJSON(data);
@@ -56,12 +58,19 @@ var View = new function() {
 
     this.create = function(Memplex) {
         this.clear();
-        console.log(Memplex);
+        
         this.container = $("<div class=\"container\">");
         this.headline = $("<div class=\"headline\">").appendTo(this.container);
         this.content = $("<div class=\"content\">").appendTo(this.container);
         this.footer = $("<div class=\"footer\">").appendTo(this.container);
         this.container.appendTo("body");
+        
+        for ( i = 0 ; i < Memplex.layer ; i++ ) {
+            $("<span class=\"title\"><a onclick=\"Controller.load(" + Controller.navigation[i].id + ")\"> &gt; " + Controller.navigation[i].title + "</a></span>").appendTo(View.headline);
+        }
+        if ( Memplex.layer - 2 >= 0 ) {
+            $("<span class=\"title back\"><a onclick=\"Controller.load(" + Controller.navigation[Memplex.layer - 2].id + ")\">&lt;&lt; Back</a></span>").appendTo(View.headline);
+        }
         
         switch ( Memplex.layer ) {
             case 1: break;
@@ -98,9 +107,6 @@ var View = new function() {
         this.overlay = $("<div class=\"overlay\">")
             .appendTo("body");
 	};
-    
-    this.destroy = function() {
-    };
 };
 
 var ViewSolution = new function() {
@@ -119,7 +125,6 @@ var ViewSolution = new function() {
         this.argumentCon = $("<ul class=\"argumentCon\">").appendTo(this.contentRight);
         this.argumentNeut = $("<ul class=\"argumentNeut\">").appendTo(this.contentRight);
         
-        $("<span class=\"title\">" + Memplex.title + "</span>").appendTo(View.headline);
         $("<div class=\"solutionContent\">" + Memplex.text + "</div>").appendTo(this.contentLeft);
         
         for ( c in Memplex.children ) {
@@ -150,7 +155,6 @@ var ViewComment =new function() {
         }
         this.commentUl.appendTo(this.contentRight);
         
-        $("<span class=\"title\">" + Memplex.title + "</span>").appendTo(View.headline);
         $("<div class=\"content solutionContent\">" + Memplex.text + "</div>").appendTo(this.contentLeft);
         
     };
@@ -172,7 +176,6 @@ var ViewComment =new function() {
 
 var ViewList = new function() {
     this.create = function(Memplex) {
-        $("<span class=\"title\">" + Memplex.title + "</span>").appendTo(View.headline);
         $("<div class=\"description\">" + Memplex.text + "</div>").appendTo(View.content);
         
         for ( c in Memplex.children ) {
