@@ -8,6 +8,10 @@ Details (to be refined):
 * 2012-10-27: Submission deadline for BPT12.2
 * 2012-11-24: BPT12.2 opening
 
+ToDo:
+* i18n
+* tests
+
 Future features:
 * editing arguments, solutions, etc
 * using Pirate ID for login
