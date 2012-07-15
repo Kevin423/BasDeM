@@ -25,12 +25,11 @@ class MemplexRegister {
     private static $memplexlist = array();
     
     public static function get($id) {
-        if ( !is_int($id) ) {
+        if ( !is_numeric($id) ) {
             return null;
         }
         if ( !isset(self::$memplexlist[$id]) ) {
             self::$memplexlist[$id] = new Memplex($id);
-            return self::$memplexlist[$id];
         }
         return self::$memplexlist[$id];
     }

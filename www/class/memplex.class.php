@@ -52,7 +52,6 @@ class Memplex {
         if ( count($tmp) == 0 ) {
             return;
         }
-        echo serialize($tmp);
         $this->id = $tmp[0]['id'];
         $this->author = $tmp[0]['author'];
         $this->title = $tmp[0]['title'];
@@ -60,6 +59,9 @@ class Memplex {
         $this->layer = $tmp[0]['layer'];
         $this->children = array();
         foreach ( $tmp as $key => $value ) {
+            if ( empty($value['child']) ) {
+                continue;
+            }
             $this->children[] = $value['child'];
         }
     }
@@ -71,11 +73,10 @@ class Memplex {
             return;
         }
         foreach ( $this->children as $child ) {
-            if ( is_null(MemplexRegister::get($child)) ) {
-                MemplexRegister::reg(new Memplex($child));
-            }
             $tmp = MemplexRegister::get($child);
-            
+            if ( is_null(tmp) ) {
+                continue;
+            }
             $tmp->loadChildrenRecursive($level);
             $this->childarray[] = $tmp->toArray($level);
         }
@@ -100,7 +101,7 @@ class Memplex {
     
     public function store() {
         if ( is_null($this->id) ) {
-            Database::createMemplex(array(
+            $this->id = Database::createMemplex(array(
                 'author' => $this->author,
                 'title' => $this->title,
                 'text' => $this->text,
@@ -119,24 +120,24 @@ class Memplex {
     
     public function toArray() {
         return array(
-            'id' => $this->id,
+            'id' => (int)$this->id,
             'author' => $this->author,
             'title' => $this->title,
             'text' => $this->text,
-            'layer' => $this->layer,
+            'layer' => (int)$this->layer,
             'children' => $this->childarray,
         );
     }
     
-    public function toJSON() {
-        return json_encode(array(
-            'id' => $this->id,
-            'author' => $this->author,
-            'title' => $this->title,
-            'text' => $this->text,
-            'layer' => $this->layer,
-        ));
-    }
+    // public function toJSON() {
+        // return json_encode(array(
+            // 'id' => $this->id,
+            // 'author' => $this->author,
+            // 'title' => $this->title,
+            // 'text' => $this->text,
+            // 'layer' => $this->layer,
+        // ));
+    // }
     
     public function setId($id) {
         $this->id = $id;
@@ -159,7 +160,7 @@ class Memplex {
         $this->author = $author;
     }
     
-    public function getAuthor($author) {
+    public function getAuthor() {
         return $this->author;
     }
     
@@ -167,7 +168,7 @@ class Memplex {
         $this->title= $title;
     }
     
-    public function getTitle($title) {
+    public function getTitle() {
         return $this->title;
     }
     
@@ -175,7 +176,7 @@ class Memplex {
         $this->text = $text;
     }
     
-    public function getText($text) {
+    public function getText() {
         return $this->text;
     }
     
@@ -183,7 +184,7 @@ class Memplex {
         $this->layer = $layer;
     }
     
-    public function getLayer($layer) {
+    public function getLayer() {
         return $this->layer;
     }
 }

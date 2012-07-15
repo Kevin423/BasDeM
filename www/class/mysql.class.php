@@ -154,6 +154,8 @@ where
 				array(':id',$id,PDO::PARAM_INT),
 			)
 		);
+        
+        return $id;
 	}
 	
 	static public function storeMemplex($data) {

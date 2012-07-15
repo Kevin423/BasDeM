@@ -1,5 +1,6 @@
 var Controller = new function() {
     var activeTopNode = -1;
+    var blockingCallback = null;
     
     this.start = function() {
         this.authenticate();
@@ -7,26 +8,42 @@ var Controller = new function() {
 
     this.authenticate = function() {
         // Todo: Do authentication and then proceed
-        this.load(1234);
+        this.load(0);
     }
 
     this.load = function(id) {
-        // Todo: Load a specific id
-        View.create({"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":4,"children":[
-            {"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":5,"children":[]},
-            {"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":5,"children":[
-                {"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":8,"children":[]},
-                {"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":8,"children":[]},
-                {"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":8,"children":[]},
-                {"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":8,"children":[]},
-                {"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":8,"children":[]}
-            ]},
-            {"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":6,"children":[]},
-            {"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":6,"children":[]},
-            {"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":7,"children":[]},
-            {"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":7,"children":[]},
-            {"id":1,"author":"Ich halt","title":"Ich, ich und ich","text":"Wir sind alle toll!","layer":7,"children":[]}
-        ]});
+        $.post("memplex.php",
+            {id: id},
+            function(data) {
+                var json = $.parseJSON(data);
+                var Memplex = json.data;
+                Controller.loadMemplex(Memplex);
+            });
+    }
+    
+    this.loadMemplex = function(Memplex) {
+        Controller.activeTopnode = Memplex.id;
+        View.create(Memplex);
+    }
+    
+    this.submit = function(data,callback) {
+        View.block();
+        this.blockingCallback = callback;
+        console.log(callback);
+        $.post("memplex.php", 
+            {
+                "parent": Controller.activeTopnode,
+                "layer": data.layer,
+                author: data.author,
+                title: data.title,
+                text: data.text
+            },
+            function (data) {
+                var json = $.parseJSON(data);
+                var Memplex = json.data;
+                Controller.blockingCallback();
+                Controller.loadMemplex(Memplex);
+        });
     }
 };
 
@@ -35,10 +52,11 @@ var View = new function() {
     this.headline = null;
     this.content = null;
     this.footer = null;
+    this.overlay = null;
 
     this.create = function(Memplex) {
         this.clear();
-        
+        console.log(Memplex);
         this.container = $("<div class=\"container\">");
         this.headline = $("<div class=\"headline\">").appendTo(this.container);
         this.content = $("<div class=\"content\">").appendTo(this.container);
@@ -46,8 +64,11 @@ var View = new function() {
         this.container.appendTo("body");
         
         switch ( Memplex.layer ) {
-            
-            case 2: /*Create Issue*/ break;
+            case 1: break;
+            case 2: 
+                this.createButton("Create Issue", function() {
+                    CreateIssue.create();
+                });/*Create Issue*/ break;
             case 3: /*Create Solution*/ break;
             case 4: /*Create Argument*/ break;
             case 5: case 6: case 7: case 8: /*Create Comment*/ break;
@@ -60,16 +81,22 @@ var View = new function() {
         }
     };
     
- 
+    this.createButton = function(name, handler) {
+        $("<button>" + name + "</button>").click(handler).appendTo(this.footer);
+    }
 
     this.clear = function() {
         if ( this.container != null ) {
             this.container.remove();
         }
+        if ( this.overlay != null ) {
+            this.overlay.remove();
+        }
     };
 
 	this.block = function() {
-		//TODO: block any other user input
+        this.overlay = $("<div class=\"overlay\">")
+            .appendTo("body");
 	};
     
     this.destroy = function() {
@@ -97,7 +124,7 @@ var ViewSolution = new function() {
         
         for ( c in Memplex.children ) {
             var li = $("<li>");
-            $("<a class=\"argumentlink\" onclick=\"Controller.loadMemplex(" + Memplex.children[c].id + ")\">" + Memplex.children[c].title + "</a>").appendTo(li);
+            $("<a class=\"argumentlink\" onclick=\"Controller.load(" + Memplex.children[c].id + ")\">" + Memplex.children[c].title + "</a>").appendTo(li);
             switch ( Memplex.children[c].layer ) {
                 case 5: li.appendTo(this.argumentPro); break;
                 case 6: li.appendTo(this.argumentCon); break;
@@ -132,7 +159,7 @@ var ViewComment =new function() {
         var ul = $("<ul class=\"comment\">");
         var li = $("<li class=\"comment\">");
         
-        $("<a class=\"argumentlink\" onclick=\"Controller.loadMemplex(" + Memplex.id + ")\">" + Memplex.title + "</a>").appendTo(li);
+        $("<a class=\"argumentlink\" onclick=\"Controller.load(" + Memplex.id + ")\">" + Memplex.title + "</a>").appendTo(li);
         
         for ( c in Memplex.children ) {
             this.loadComments(Memplex.children[c],li);
@@ -149,7 +176,7 @@ var ViewList = new function() {
         $("<div class=\"description\">" + Memplex.text + "</div>").appendTo(View.content);
         
         for ( c in Memplex.children ) {
-            $("<a class=\"layer1link\" onclick=\"Controller.loadMemplex(" + Memplex.children[c].id + ")\">" + Memplex.children[c].title + "</a>").appendTo(View.content);
+            $("<a class=\"layer1link\" onclick=\"Controller.load(" + Memplex.children[c].id + ")\">" + Memplex.children[c].title + "</a>").appendTo(View.content);
         };
         $("<br class=\"clear\">").appendTo(View.content);
     };
@@ -158,35 +185,53 @@ var ViewList = new function() {
 var CreateIssue = new function() {
     this.overlay = null;
     this.form = null;
+    this.defaultLayer = 3;
 
+    this.destroy = function() {
+        CreateIssue.form.remove();
+        CreateIssue.overlay.remove();
+    }
+    
     this.create = function() {
         this.overlay = $("<div class=\"overlay\">")
             .appendTo("body")
             .click(function(e) {
                 if ( e.target.className == "overlay" ) {
-                    CreateIssue.overlay.remove();
+                    CreateIssue.destroy();
                 }
         });
-        this.form = $("<form>")
-            .submit(function() {
-                $.post("memplex.php", 
-                    //{ name: this.form.}
-                    function (data) {
-                        console.log(data);
-                });
-            })
-            .appendTo(this.overlay);
-        
-        $("<input name=\"author\" type=\"text\">").appendTo(this.form);
-        $("<input name=\"title\" type=\"text\">").appendTo(this.form);
-        $("<textarea name=\"description\" rows=\"20\" cols=\"50\">").appendTo(this.form);
-        $("<input name=\"layer\" type=\"hidden\" value=\"3\">").appendTo(this.form);
-        $("<input type=\"submit\" value=\"Create Issue\">").appendTo(this.form);
         
         
+        this.form = $("<div id=\"CreateIssue\" class=\"form\">").appendTo("body");
+
+        $("<h3>Create Issue</h3>").appendTo(this.form);
+        $("<input name=\"layer\" type=\"hidden\" value=\"" + CreateIssue.defaultLayer + "\">").appendTo(this.form);
+        
+        var table = $("<table>").appendTo(this.form);
+        var tr = $("<tr>").appendTo(table);
+        $("<td>Author</td>").appendTo(tr);
+        $("<input name=\"author\" type=\"text\">").appendTo(tr);
+        
+        tr = $("<tr>").appendTo(table);
+        $("<td>Title</td>").appendTo(tr);
+        $("<input name=\"title\" type=\"text\">").appendTo(tr);
+        
+        tr = $("<tr>").appendTo(table);
+        $("<td>Description</td>").appendTo(tr);
+        $("<textarea name=\"description\" rows=\"20\" cols=\"50\">").appendTo(tr);
+        
+        tr = $("<tr>").appendTo(table);
+        $("<td>&nbsp;</td>").appendTo(tr);
+        $("<button>Create Issue</button>").click(this.submit).appendTo(tr);
     }
     
     this.submit = function() {
-        Controller.activeTopnode;
+        Controller.submit(new function() {
+            this.layer = $("#CreateIssue").find("input")[0].value;
+            this.author = $("#CreateIssue").find("input")[1].value;
+            this.title = $("#CreateIssue").find("input")[2].value;
+            this.text = $("#CreateIssue").find("textarea")[0].value;
+        },CreateIssue.destroy);
+        return false;
     }
 }
