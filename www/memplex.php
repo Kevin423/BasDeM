@@ -47,7 +47,10 @@ if ( !isset($_POST['id'])
     
     $parent = MemplexRegister::get($_POST['parent']);
     $parent->addChild($m->getId());
-    echo json_encode(array('success' => true));
+    
+    unset($_POST);
+    $_POST['id'] = $m->getId();
+    
 }
 
 if ( isset($_POST['id']) ) {
@@ -87,7 +90,20 @@ if ( isset($_POST['id']) ) {
         $parent->addChild($child->getId());
     }
     
-    $child->loadChildrenRecursive();
+    if ( $child->getLayer() == 1
+        || $child->getLayer() == 2
+        || $child->getLayer() == 3
+        || $child->getLayer() == 4 ) {
+        $child->loadChildrenRecursive(1);
+    }
+    if ( $child->getLayer() == 5
+        || $child->getLayer() == 6
+        || $child->getLayer() == 7 ) {
+        $child->loadChildrenRecursive(-1);
+    }
+    if ( $child->getLayer() == 8 ) {
+        $child->loadChildrenRecursive(0);
+    }
     
     echo json_encode(array(
         'success' => true,
