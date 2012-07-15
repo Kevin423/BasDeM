@@ -2,40 +2,71 @@
     margin: auto;
     width: 1280px;
     height: 800px;
-    background: blue;
+    background: white;
 }
 .headline {
+    border-radius: 10px 10px 0 0;
+    padding: 5px;
     width: 100%;
-    height: 30px;
-    background: red;
+    height: 20px;
+    background: orange;
 }
 .content {
     width: 100%;
     height: 740px;
     overflow: auto;
-    background: green;
+    background: white;
+    border: 5px solid orange;
 }
-.content-left {
-    width: 50%;
+.solutionContent {
+    width: 100%;
     height: 100%;
     overflow: auto;
-    background: blue;
+    background: white;
+}
+.contentLeft {
+    width: 572px;
+    padding: 30px;
+    height: 680px;
+    overflow: auto;
+    background: white;
     float: left;
+    border-right-width: 3px;
+    border-right-style:groove;
 }
-.content-right {
-    width: 50%;
+.contentRight {
+    width: 572px;
     height: 100%;
     overflow: auto;
-    background: yellow;
+    background: white;
+    border-left-width: 3px;
+    border-left-style:groove;
 }
 .footer {
+    border-radius: 0 0 10px 10px;
+    padding: 5px;
     width: 100%;
-    height: 30px;
-    background: red;
+    height: 20px;
+    background: orange;
 }
 .clear {
     clear: both;
 }
-.topic {
+.layer1link {
     float: left;
+    padding: 30px;
+}
+.overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+.inlay {
+    margin: auto;
+    width: 50%;
+    height: 50%;
+    background: lightgrey;
 }
