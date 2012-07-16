@@ -245,19 +245,21 @@ var Create = new function() {
         var table = $("<table>").appendTo(this.form);
         var tr = $("<tr>").appendTo(table);
         $("<td>Author</td>").appendTo(tr);
-        $("<input name=\"author\" type=\"text\">").appendTo(tr);
+        $("<td><input name=\"author\" type=\"text\"></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
         $("<td>Title</td>").appendTo(tr);
-        $("<input name=\"title\" type=\"text\">").appendTo(tr);
+        $("<td><input name=\"title\" type=\"text\"></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
         $("<td>Description</td>").appendTo(tr);
-        $("<textarea name=\"description\" rows=\"20\" cols=\"50\">").appendTo(tr);
+        $("<td><textarea name=\"description\" rows=\"20\" cols=\"50\"></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
         $("<td>&nbsp;</td>").appendTo(tr);
-        $("<button>Create " + text + "</button>").click(this.submit).appendTo(tr);
+        var td = $("<td>").appendTo(tr);
+        $("<button>Create " + text + "</button>").click(this.submit).appendTo(td);
+        $("<button>Cancel</button>").click(this.destroy).appendTo(td);
     }
     
     this.submit = function() {
@@ -319,7 +321,9 @@ var CreateArgument = new function() {
         
         tr = $("<tr>").appendTo(table);
         $("<td>&nbsp;</td>").appendTo(tr);
-        $("<td colspan=\"3\"><button>Create Argument</button></td>").click(this.submit).appendTo(tr);
+        var td = $("<td>").appendTo(tr);
+        $("<button>Create Argument</button>").click(this.submit).appendTo(td);
+        $("<button>Cancel</button>").click(this.destroy).appendTo(td);
     }
     
     this.submit = function() {
