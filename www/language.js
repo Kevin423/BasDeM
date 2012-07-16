@@ -20,6 +20,25 @@ switch ( lang ) {
             case 'lang_contra': return 'Contra'; break;
             case 'lang_neutral': return 'Neutral'; break;
         }; break;
+    case 'en_GB':
+        switch ( target.toLowerCase() ) {
+            case 'lang_issue': return 'Problem'; break;
+            case 'lang_createtopic': return 'Add Topic'; break;
+            case 'lang_createissue': return 'Add Problem'; break;
+            case 'lang_createsolution': return 'Add Solution'; break;
+            case 'lang_createargument': return 'Add Argument'; break;
+            case 'lang_createcomment': return 'Add Comment'; break;
+            case 'lang_topic': return 'Topic'; break;
+            case 'lang_solution': return 'Solution'; break;
+            case 'lang_author': return 'Author'; break;
+            case 'lang_description': return 'Description'; break;
+            case 'lang_title': return 'Title'; break;
+            case 'lang_cancel': return 'Cancel'; break;
+            case 'lang_back': return 'back'; break;
+            case 'lang_pro': return 'Pro'; break;
+            case 'lang_contra': return 'Contra'; break;
+            case 'lang_neutral': return 'Neutral'; break;
+        }; break;
     }
 };
 }
