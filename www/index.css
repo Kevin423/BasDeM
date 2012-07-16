@@ -129,6 +129,9 @@
 td {
     text-align: top;
 }
+input, textarea {
+    width: 100%;
+}
 a:link{color:#000;}
 a:visited{color:#ff0;}
 a:hover{color: blue; text-decoration:underline;}
