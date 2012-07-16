@@ -93,7 +93,7 @@ var View = new function() {
         if ( Helper.getLayerPosition(Memplex.layer) - 1 >= 0 ) {
             $("<span class=\"title back\"><a onclick=\"Controller.load(" 
             + Controller.navigation[Helper.getLayerPosition(Memplex.layer) - 1].id 
-            + ")\">&lt;&lt; Back</a></span>").appendTo(View.headline);
+            + ")\">&lt;&lt;"+Language.get("lang_Back","de")+"</a></span>").appendTo(View.headline);
         }
         
         switch ( Memplex.layer ) {
@@ -102,20 +102,20 @@ var View = new function() {
                     }); break;
             case 2: 
                 this.createButton(Language.get("lang_CreateIssue","de"), function() {
-                    Create.create(3,Language.get("lang_Issue","de"));
-                });/*Create Issue*/ break;
+                    Create.create(3,Language.get("lang_CreateIssue","de"));
+                }); break;
             case 3: 
                 this.createButton(Language.get("lang_CreateSolution","de"), function() {
-                    Create.create(4,Language.get("lang_Solution","de"));
-                });/*Create Solution*/ break;
+                    Create.create(4,Language.get("lang_CreateSolution","de"));
+                }); break;
             case 4: 
                 this.createButton(Language.get("lang_CreateArgument","de"), function() {
                     CreateArgument.create();
-                });/*Create Argument*/ break;
+                }); break;
             case 5: case 6: case 7: case 8: 
                 this.createButton(Language.get("lang_CreateComment","de"), function() {
-                    Create.create(8,Language.get("lang_Comment","de"));
-                });/*Create Comment*/ break;
+                    Create.create(8,Language.get("lang_CreateComment","de"));
+                }); break;
         }
         
         switch ( Memplex.layer ) {
@@ -246,22 +246,22 @@ var Create = new function() {
         
         var table = $("<table>").appendTo(this.form);
         var tr = $("<tr>").appendTo(table);
-        $("<td>"+/*language.get("lang_Author","de")*/+"</td>").appendTo(tr);
+        $("<td>"+Language.get("lang_Author","de")+"</td>").appendTo(tr);
         $("<td><input name=\"author\" type=\"text\"></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
-        $("<td>"+language.get("lang_Title","de")+"</td>").appendTo(tr);
+        $("<td>"+Language.get("lang_Title","de")+"</td>").appendTo(tr);
         $("<td><input name=\"title\" type=\"text\"></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
-        $("<td>"+language.get("lang_Description","de")+"</td>").appendTo(tr);
+        $("<td>"+Language.get("lang_Description","de")+"</td>").appendTo(tr);
         $("<textarea name=\"description\" rows=\"20\" cols=\"50\">").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
         $("<td>&nbsp;</td>").appendTo(tr);
         var td = $("<td>").appendTo(tr);
-        $("<button class=\"button\">Create " + text + "</button>").click(this.submit).appendTo(td);
-        $("<button class=\"button\">Cancel</button>").click(this.destroy).appendTo(td);
+        $("<button class=\"button\">" + text + "</button>").click(this.submit).appendTo(td);
+        $("<button class=\"button\">" + Language.get("lang_Cancel","de")+"</button>").click(this.destroy).appendTo(td);
     }
     
     this.submit = function() {
@@ -295,36 +295,36 @@ var CreateArgument = new function() {
                 
         this.form = $("<div id=\"CreateArgument\" class=\"form\">").appendTo("body");
 
-        $("<h3>Create Argument</h3>").appendTo(this.form);
+        $("<h3>"+Language.get("lang_CreateArgument","de")+"</h3>").appendTo(this.form);
         
         var table = $("<table>").appendTo(this.form);
         var tr = $("<tr>").appendTo(table);
         $("<td>&nbsp;</td>"
-            + "<td width=\"100\">Pro</td>"
-            + "<td width=\"100\">Neutral</td>"
-            + "<td width=\"100\">Contra</td>").appendTo(tr);
+            + "<td width=\"100\">"+Language.get("lang_Pro","de")+"</td>"
+            + "<td width=\"100\">"+Language.get("lang_Neutral","de")+"</td>"
+            + "<td width=\"100\">"+Language.get("lang_Contra","de")+"</td>").appendTo(tr);
         tr = $("<tr>").appendTo(table);
         $("<td>&nbsp;</td><td><input name=\"layer\" type=\"radio\" value=\"5\"></td>"
             + "<td><input name=\"layer\" type=\"radio\" value=\"7\"></td>"
             + "<td><input name=\"layer\" type=\"radio\" value=\"6\"></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
-        $("<td>Author</td>").appendTo(tr);
+        $("<td>"+Language.get("lang_Author","de")+"</td>").appendTo(tr);
         $("<td colspan=\"3\"><input name=\"author\" type=\"text\"></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
-        $("<td>Title</td>").appendTo(tr);
+        $("<td>"+Language.get("lang_Title","de")+"</td>").appendTo(tr);
         $("<td colspan=\"3\"><input name=\"title\" type=\"text\"></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
-        $("<td>Description</td>").appendTo(tr);
+        $("<td>"+Language.get("lang_Description","de")+"</td>").appendTo(tr);
         $("<td colspan=\"3\"><textarea name=\"description\" rows=\"20\" cols=\"48\"></textarea></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
         $("<td>&nbsp;</td>").appendTo(tr);
         var td = $("<td colspan=\"3\">").appendTo(tr);
-        $("<button class=\"button\">Create Argument</button>").click(this.submit).appendTo(td);
-        $("<button class=\"button\">Cancel</button>").click(this.destroy).appendTo(td);
+        $("<button class=\"button\">"+Language.get("lang_CreateArgument","de")+"</button>").click(this.submit).appendTo(td);
+        $("<button class=\"button\">"+Language.get("lang_Cancel","de")+"</button>").click(this.destroy).appendTo(td);
     }
     
     this.submit = function() {
