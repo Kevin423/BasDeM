@@ -156,8 +156,8 @@ var ViewSolution = new function() {
         this.contentLeft = $("<div class=\"contentLeft\">").appendTo(View.content);
         this.contentRight = $("<div class=\"contentRight\">").appendTo(View.content);
         
-        this.argumentPro = $("<ul class=\"argumentPro\">").appendTo(this.contentRight);
-        this.argumentCon = $("<ul class=\"argumentCon\">").appendTo(this.contentRight);
+        this.argumentPro = $("<ul class=\"argumentPro\" style=\"color:green\">").appendTo(this.contentRight);
+        this.argumentCon = $("<ul class=\"argumentCon\" style=\"color:red\">").appendTo(this.contentRight);
         this.argumentNeut = $("<ul class=\"argumentNeut\">").appendTo(this.contentRight);
         
         $("<div class=\"solutionContent\">" + Memplex.text + "</div>").appendTo(this.contentLeft);
