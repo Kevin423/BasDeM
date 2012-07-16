@@ -97,7 +97,9 @@ var View = new function() {
         }
         
         switch ( Memplex.layer ) {
-            case 1: break;
+            case 1: this.createButton("Create Topic", function() {
+                        Create.create(1,"Topic");
+                    }); break;
             case 2: 
                 this.createButton("Create Issue", function() {
                     Create.create(3,"Issue");
@@ -124,7 +126,7 @@ var View = new function() {
     };
     
     this.createButton = function(name, handler) {
-        $("<button>" + name + "</button>").click(handler).appendTo(this.footer);
+        $("<button class=\"buttonCreate\">" + name + "</button>").click(handler).appendTo(this.footer);
     }
 
     this.clear = function() {
@@ -253,13 +255,13 @@ var Create = new function() {
         
         tr = $("<tr>").appendTo(table);
         $("<td>Description</td>").appendTo(tr);
-        $("<td><textarea name=\"description\" rows=\"20\" cols=\"50\"></td>").appendTo(tr);
+        $("<textarea name=\"description\" rows=\"20\" cols=\"50\">").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
         $("<td>&nbsp;</td>").appendTo(tr);
         var td = $("<td>").appendTo(tr);
-        $("<button>Create " + text + "</button>").click(this.submit).appendTo(td);
-        $("<button>Cancel</button>").click(this.destroy).appendTo(td);
+        $("<button class=\"button\">Create " + text + "</button>").click(this.submit).appendTo(td);
+        $("<button class=\"button\">Cancel</button>").click(this.destroy).appendTo(td);
     }
     
     this.submit = function() {
@@ -290,8 +292,7 @@ var CreateArgument = new function() {
                     CreateArgument.destroy();
                 }
         });
-        
-        
+                
         this.form = $("<div id=\"CreateArgument\" class=\"form\">").appendTo("body");
 
         $("<h3>Create Argument</h3>").appendTo(this.form);
@@ -322,8 +323,8 @@ var CreateArgument = new function() {
         tr = $("<tr>").appendTo(table);
         $("<td>&nbsp;</td>").appendTo(tr);
         var td = $("<td>").appendTo(tr);
-        $("<button>Create Argument</button>").click(this.submit).appendTo(td);
-        $("<button>Cancel</button>").click(this.destroy).appendTo(td);
+        $("<button class=\"button\">Create Argument</button>").click(this.submit).appendTo(td);
+        $("<button class=\"button\">Cancel</button>").click(this.destroy).appendTo(td);
     }
     
     this.submit = function() {
