@@ -122,17 +122,17 @@ class Memplex {
     public function store() {
         if ( is_null($this->id) ) {
             $this->id = Database::createMemplex(array(
-                'author' => $this->getAuthor(),
-                'title' => $this->getTitle(),
-                'text' => $this->getText(),
+                'author' => $this->getAuthor(false),
+                'title' => $this->getTitle(false),
+                'text' => $this->getText(false),
                 'layer' => $this->getLayer(),
             ));
         } else {
             Database::storeMemplex(array(
                 'id' => $this->getId(),
-                'author' => $this->getAuthor(),
-                'title' => $this->getTitle(),
-                'text' => $this->getText(),
+                'author' => $this->getAuthor(false),
+                'title' => $this->getTitle(false),
+                'text' => $this->getText(false),
                 'layer' => $this->getLayer(),
             ));
         }
@@ -205,8 +205,12 @@ class Memplex {
      *
      * @return The author of the Memplex.
      */
-    public function getAuthor() {
-        return htmlentities($this->author);
+    public function getAuthor($escaped = true) {
+        if ( $escaped ) {
+            return htmlentities($this->author);
+        } else {
+            return $this->author;
+        }
     }
 
     /**
@@ -223,8 +227,12 @@ class Memplex {
      *
      * @return The title of the Memplex.
      */
-    public function getTitle() {
-        return htmlentities($this->title);
+    public function getTitle($escaped = true) {
+        if ( $escaped ) {
+            return htmlentities($this->title);
+        } else {
+            return $this->title;
+        }
     }
     
     /**
@@ -241,8 +249,12 @@ class Memplex {
      *
      * @return The text of the Memplex.
      */
-    public function getText() {
-        return htmlentities($this->text);
+    public function getText($escaped = true) {
+        if ( $escaped ) {
+            return htmlentities($this->text);
+        } else {
+            return $this->text;
+        }
     }
     
     /**
