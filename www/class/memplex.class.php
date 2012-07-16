@@ -77,8 +77,8 @@ class Memplex {
     
     /**
      * Loads all children of this Memplex.
-     * WARNING: If ID is 0 and level is 1 (in other words: this memplex is the root Memplex)
-     * the whole database is being laoded.
+     * WARNING: If ID is 1 (the Memplex ist the root Memplex) and level is undefined or -1
+     * the whole database is being loaded.
      *
      * @param integer $level Level to load (optional).
      */
