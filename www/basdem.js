@@ -13,6 +13,7 @@ var Helper = new function() {
 }
 
 var Controller = new function() {
+    this.memplex = null;
     this.activeTopNode = -1;
     this.blockingCallback = null;
     this.loadCallback = null;
@@ -27,13 +28,19 @@ var Controller = new function() {
         this.load(1);
     }
 
-    this.load = function(id) {
+    this.load = function(id,callback) {
+        //Controller.blockingCallback = callback;
         $.post("memplex.php",
             {id: id},
             function(data) {
                 var json = $.parseJSON(data);
-                var Memplex = json.data;
-                Controller.loadMemplex(Memplex);
+                Controller.memplex = json.data;
+                Controller.loadMemplex(Controller.memplex);
+                
+                // if ( this.blockingCallback != null ) {
+                    // this.blockingCallback();
+                    // this.blockingCallback = null;
+                // }
             });
     }
     
@@ -43,15 +50,12 @@ var Controller = new function() {
         var position = Helper.getLayerPosition(Memplex.layer);
         this.navigation[position] = Memplex;
         View.create(Memplex);
-        
-        if ( this.loadCallback != null ) {
-            this.loadCallback();
-            this.loadCallback = null;
-        }
     }
     
     this.submit = function(data,callback) {
         View.block();
+        Controller.blockingCallback = callback;
+        console.log(callback);
         $.post("memplex.php", {
                 "parent": Controller.activeTopnode,
                 "layer": data.layer,
@@ -61,8 +65,14 @@ var Controller = new function() {
             },
             function (data) {
                 var json = $.parseJSON(data);
-                var Memplex = json.data;
-                Controller.loadMemplex(Memplex);
+                Controller.memplex = json.data;
+                Controller.loadMemplex(Controller.memplex);
+                
+                console.log(callback);
+                if ( Controller.blockingCallback != null ) {
+                    Controller.blockingCallback();
+                    Controller.blockingCallback = null;
+                }
         });
     }
 };
@@ -179,12 +189,13 @@ var ViewComment =new function() {
     this.contentRight = null;
     this.commentUl = null;
     this.comment = null;
+    this.argument = null;
 
     this.create = function(Memplex) {
         this.contentLeft = $("<div class=\"contentLeft\">").appendTo(View.content);
         this.contentRight = $("<div class=\"contentRight\">").appendTo(View.content);
-        
-        if ( Memplex.children.length > 0 ) {
+        if ( Memplex.layer > 4 && Memplex.layer < 8 ) {
+            this.argument = Memplex;
             this.commentUl = $("<ul class=\"comment\">");
             this.loadComments(Memplex,this.commentUl);
         }
@@ -214,7 +225,12 @@ var ViewList = new function() {
         $("<div class=\"description\">" + Memplex.text + "</div>").appendTo(View.content);
         
         for ( c in Memplex.children ) {
-            $("<a class=\"layer1link\" onclick=\"Controller.load(" + Memplex.children[c].id + ")\">" + Memplex.children[c].title + "</a>").appendTo(View.content);
+            var div = $("<div class=\"listelement\">").appendTo(View.content);
+            $("<a class=\"layer1title\" onclick=\"Controller.load(" + Memplex.children[c].id + ")\">" + Memplex.children[c].title + "</a><br>").appendTo(div);
+            console.log(Memplex.children[c]);
+            for ( s in Memplex.children[c].children ) {
+                $("&gt;<a class=\"layer1link\" onclick=\"Controller.load(" + Memplex.children[c].children[s].id + ")\">" + Memplex.children[c].children[s].title + "</a><br>").appendTo(div);
+            }
         };
         $("<br class=\"clear\">").appendTo(View.content);
     };
@@ -225,6 +241,7 @@ var Create = new function() {
     this.form = null;
 
     this.destroy = function() {
+        console.log("destroy");
         Create.form.remove();
         Create.overlay.remove();
     }
@@ -278,6 +295,7 @@ var Create = new function() {
 var CreateArgument = new function() {
     this.overlay = null;
     this.form = null;
+    this.memplex = null;
 
     this.destroy = function() {
         CreateArgument.form.remove();

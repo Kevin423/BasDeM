@@ -34,10 +34,6 @@ class Controller {
             
             $this->reloadMemplex();
             
-            if ( $this->memplex->getLayer() > 4 ) {
-                $this->memplex->loadChildrenRecursive(-1);
-            }
-            
             $this->showMemplex();
             return;
         }
@@ -84,10 +80,11 @@ class Controller {
     
     private function loadMemplexChildren() {
         if ( $this->memplex->getLayer() == 1
-            || $this->memplex->getLayer() == 2
             || $this->memplex->getLayer() == 3
             || $this->memplex->getLayer() == 4 ) {
             $this->memplex->loadChildrenRecursive(1);
+        } else if ( $this->memplex->getLayer() == 2 ) {
+            $this->memplex->loadChildrenRecursive(2);
         } else if ( $this->memplex->getLayer() == 5
             || $this->memplex->getLayer() == 6
             || $this->memplex->getLayer() == 7 ) {

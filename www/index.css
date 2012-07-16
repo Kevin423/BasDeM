@@ -53,9 +53,12 @@
 .clear {
     clear: both;
 }
+.layer1title {
+    padding: 15px;
+    font-style: bold;
+}
 .layer1link {
-    float: left;
-    padding: 30px;
+    padding: 5px;
 }
 .overlay {
     position: fixed;
@@ -136,3 +139,8 @@ a:link{color:#000;}
 a:visited{color:#ff0;}
 a:hover{color: blue; text-decoration:underline;}
 a:active{color:#f00;}
+
+.listelement {
+    border: 1px solid black;
+    float: left;
+}
