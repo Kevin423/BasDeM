@@ -22,12 +22,14 @@ if ( !defined('INCMS') || INCMS !== true ) {
 
 class Controller {
     public function __construct() {
-        if ( !isset($_POST['id'])
-            && isset($_POST['parent'])
-            && isset($_POST['text'])
-            && isset($_POST['layer'])
-            && isset($_POST['title'])
-            && isset($_POST['author']) ) {
+        if ( !isset($_POST['id']) ) {
+            if ( empty($_POST['parent'])
+                || !isset($_POST['text'])
+                || empty($_POST['layer'])
+                || empty($_POST['title'])
+                || empty($_POST['author']) ) {
+                return;
+            }
             $this->createMemplex();
             $this->showMemplex();
             return;
