@@ -32,7 +32,7 @@ Database::init();
 
 User::init();
 
-if ( User::isLoggedin !== true ) {
+if ( User::isLoggedin() !== true ) {
     die(json_encode(array('login' => false)));
 }
 
@@ -58,7 +58,6 @@ if ( !isset($_POST['id'])
     unset($_POST);
     $_POST['id'] = $m->getId();
 }
-
 if ( isset($_POST['id']) ) {
     $action = false;
     
