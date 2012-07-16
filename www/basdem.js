@@ -97,24 +97,24 @@ var View = new function() {
         }
         
         switch ( Memplex.layer ) {
-            case 1: this.createButton("Create Topic", function() {
-                        Create.create(2,"Topic");
+            case 1: this.createButton(Language.get("lang_CreateTopic","de"), function() {
+                        Create.create(2,Language.get("lang_CreateTopic","de"));
                     }); break;
             case 2: 
-                this.createButton("Create Issue", function() {
-                    Create.create(3,"Issue");
+                this.createButton(Language.get("lang_CreateIssue","de"), function() {
+                    Create.create(3,Language.get("lang_Issue","de"));
                 });/*Create Issue*/ break;
             case 3: 
-                this.createButton("Create Solution", function() {
-                    Create.create(4,"Solution");
+                this.createButton(Language.get("lang_CreateSolution","de"), function() {
+                    Create.create(4,Language.get("lang_Solution","de"));
                 });/*Create Solution*/ break;
             case 4: 
-                this.createButton("Create Argument", function() {
+                this.createButton(Language.get("lang_CreateArgument","de"), function() {
                     CreateArgument.create();
                 });/*Create Argument*/ break;
             case 5: case 6: case 7: case 8: 
-                this.createButton("Create Comment", function() {
-                    Create.create(8,"Comment");
+                this.createButton(Language.get("lang_CreateComment","de"), function() {
+                    Create.create(8,Language.get("lang_Comment","de"));
                 });/*Create Comment*/ break;
         }
         
@@ -241,20 +241,20 @@ var Create = new function() {
         
         this.form = $("<div id=\"Create\" class=\"form\">").appendTo("body");
 
-        $("<h3>Create " + text + "</h3>").appendTo(this.form);
+        $("<h3>" + text + "</h3>").appendTo(this.form);
         $("<input name=\"layer\" type=\"hidden\" value=\"" + defaultLayer + "\">").appendTo(this.form);
         
         var table = $("<table>").appendTo(this.form);
         var tr = $("<tr>").appendTo(table);
-        $("<td>Author</td>").appendTo(tr);
+        $("<td>"+/*language.get("lang_Author","de")*/+"</td>").appendTo(tr);
         $("<td><input name=\"author\" type=\"text\"></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
-        $("<td>Title</td>").appendTo(tr);
+        $("<td>"+language.get("lang_Title","de")+"</td>").appendTo(tr);
         $("<td><input name=\"title\" type=\"text\"></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
-        $("<td>Description</td>").appendTo(tr);
+        $("<td>"+language.get("lang_Description","de")+"</td>").appendTo(tr);
         $("<textarea name=\"description\" rows=\"20\" cols=\"50\">").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
