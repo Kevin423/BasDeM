@@ -203,6 +203,8 @@ class Memplex {
     /**
      * Returns the author of the Memplex, escaped for HTML injection security.
      *
+     * @param boolean $escaped Set it to false if you don't need escaped HTML putput (optional).
+     *
      * @return The author of the Memplex.
      */
     public function getAuthor($escaped = true) {
@@ -225,6 +227,8 @@ class Memplex {
     /**
      * Returns the title of the Memplex, escaped for HTML injection security.
      *
+     * @param boolean $escaped Set it to false if you don't need escaped HTML putput (optional).
+     *
      * @return The title of the Memplex.
      */
     public function getTitle($escaped = true) {
@@ -246,6 +250,8 @@ class Memplex {
     
     /**
      * Returns the text of the Memplex, escaped for HTML injection security.
+     *
+     * @param boolean $escaped Set it to false if you don't need escaped HTML putput (optional).
      *
      * @return The text of the Memplex.
      */
