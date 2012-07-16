@@ -42,10 +42,10 @@ class Memplex {
     public function __construct($id = null) {
         $this->id = null;
         $this->children = array();
-        $this->author = null;
-        $this->title = null;
-        $this->text = null;
-        $this->layer = null;
+        $this->setAuthor(null);
+        $this->setTitle(null);
+        $this->setText(null);
+        $this->setLayer(null);
         
         if ( is_null($id) ) {
             $this->createMemplex();
@@ -61,11 +61,11 @@ class Memplex {
         if ( count($tmp) == 0 ) {
             return;
         }
-        $this->id = $tmp[0]['id'];
-        $this->author = $tmp[0]['author'];
-        $this->title = $tmp[0]['title'];
-        $this->text = $tmp[0]['text'];
-        $this->layer = $tmp[0]['layer'];
+        $this->setId($tmp[0]['id']);
+        $this->setAuthor($tmp[0]['author']);
+        $this->setTitle($tmp[0]['title']);
+        $this->setText($tmp[0]['text']);
+        $this->setLayer($tmp[0]['layer']);
         $this->children = array();
         foreach ( $tmp as $key => $value ) {
             if ( empty($value['child']) ) {
@@ -109,10 +109,11 @@ class Memplex {
             || !isset($id['layer']) ) {
             return;
         }
-        $this->author = $id['author'];
-        $this->title = $id['title'];
-        $this->text = $id['text'];
-        $this->layer = $id['layer'];
+        
+        $this->setAuthor($id['author']);
+        $this->setTitle($id['title']);
+        $this->setText($id['text']);
+        $this->setLayer($id['layer']);
     }
     
     /**
@@ -121,18 +122,18 @@ class Memplex {
     public function store() {
         if ( is_null($this->id) ) {
             $this->id = Database::createMemplex(array(
-                'author' => $this->author,
-                'title' => $this->title,
-                'text' => $this->text,
-                'layer' => $this->layer,
+                'author' => $this->getAuthor(),
+                'title' => $this->getTitle(),
+                'text' => $this->getText(),
+                'layer' => $this->getLayer(),
             ));
         } else {
             Database::storeMemplex(array(
-                'id' => $this->id,
-                'author' => $this->author,
-                'title' => $this->title,
-                'text' => $this->text,
-                'layer' => $this->layer,
+                'id' => $this->getId(),
+                'author' => $this->getAuthor(),
+                'title' => $this->getTitle(),
+                'text' => $this->getText(),
+                'layer' => $this->getLayer(),
             ));
         }
     }
@@ -144,24 +145,14 @@ class Memplex {
      */
     public function toArray() {
         return array(
-            'id' => (int)$this->id,
-            'author' => $this->author,
-            'title' => $this->title,
-            'text' => $this->text,
-            'layer' => (int)$this->layer,
+            'id' => $this->getId(),
+            'author' => $this->getAuthor(),
+            'title' => $this->getTitle(),
+            'text' => $this->getText(),
+            'layer' => $this->getLayer(),
             'children' => $this->childarray,
         );
     }
-    
-    // public function toJSON() {
-        // return json_encode(array(
-            // 'id' => $this->id,
-            // 'author' => $this->author,
-            // 'title' => $this->title,
-            // 'text' => $this->text,
-            // 'layer' => $this->layer,
-        // ));
-    // }
     
     /**
      * Sets the ID of the Memplex.
@@ -210,12 +201,12 @@ class Memplex {
     }
     
     /**
-     * Returns the author of the Memplex.
+     * Returns the author of the Memplex, escaped for HTML injection security.
      *
      * @return The author of the Memplex.
      */
     public function getAuthor() {
-        return $this->author;
+        return htmlentities($this->author);
     }
 
     /**
@@ -228,12 +219,12 @@ class Memplex {
     }
     
     /**
-     * Returns the title of the Memplex.
+     * Returns the title of the Memplex, escaped for HTML injection security.
      *
      * @return The title of the Memplex.
      */
     public function getTitle() {
-        return $this->title;
+        return htmlentities($this->title);
     }
     
     /**
@@ -246,12 +237,12 @@ class Memplex {
     }
     
     /**
-     * Returns the text of the Memplex.
+     * Returns the text of the Memplex, escaped for HTML injection security.
      *
      * @return The text of the Memplex.
      */
     public function getText() {
-        return $this->text;
+        return htmlentities($this->text);
     }
     
     /**
@@ -275,7 +266,7 @@ class Memplex {
      * @return The layer of the Memplex.
      */
     public function getLayer() {
-        return $this->layer;
+        return (int)$this->layer;
     }
 }
 ?>
