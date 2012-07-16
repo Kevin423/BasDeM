@@ -184,7 +184,7 @@ var ViewComment =new function() {
         this.contentLeft = $("<div class=\"contentLeft\">").appendTo(View.content);
         this.contentRight = $("<div class=\"contentRight\">").appendTo(View.content);
         
-        if ( Memplex.layer <= 7 && Memplex.layer >= 5 ) {
+        if ( Memplex.children.length > 0 ) {
             this.commentUl = $("<ul class=\"comment\">");
             this.loadComments(Memplex,this.commentUl);
         }

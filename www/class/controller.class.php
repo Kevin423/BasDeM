@@ -34,6 +34,10 @@ class Controller {
             
             $this->reloadMemplex();
             
+            if ( $this->memplex->getLayer() > 4 ) {
+                $this->memplex->loadChildrenRecursive(-1);
+            }
+            
             $this->showMemplex();
             return;
         }
