@@ -315,7 +315,7 @@ var CreateArgument = new function() {
         $("<td colspan=\"3\"><input name=\"author\" type=\"text\"></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
-        $("<td>" + Language.get("lang_ditle",language) + "</td>").appendTo(tr);
+        $("<td>" + Language.get("lang_title",language) + "</td>").appendTo(tr);
         $("<td colspan=\"3\"><input name=\"title\" type=\"text\"></td>").appendTo(tr);
         
         tr = $("<tr>").appendTo(table);
