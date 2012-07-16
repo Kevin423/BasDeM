@@ -203,7 +203,7 @@ class Memplex {
     /**
      * Returns the author of the Memplex, escaped for HTML injection security.
      *
-     * @param boolean $escaped Set it to false if you don't need escaped HTML putput (optional).
+     * @param boolean $escaped Set it to false if you don't need escaped HTML output (optional).
      *
      * @return The author of the Memplex.
      */
@@ -227,7 +227,7 @@ class Memplex {
     /**
      * Returns the title of the Memplex, escaped for HTML injection security.
      *
-     * @param boolean $escaped Set it to false if you don't need escaped HTML putput (optional).
+     * @param boolean $escaped Set it to false if you don't need escaped HTML output (optional).
      *
      * @return The title of the Memplex.
      */
@@ -251,7 +251,7 @@ class Memplex {
     /**
      * Returns the text of the Memplex, escaped for HTML injection security.
      *
-     * @param boolean $escaped Set it to false if you don't need escaped HTML putput (optional).
+     * @param boolean $escaped Set it to false if you don't need escaped HTML output (optional).
      *
      * @return The text of the Memplex.
      */
