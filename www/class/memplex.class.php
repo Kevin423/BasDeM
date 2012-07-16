@@ -34,8 +34,8 @@ class Memplex {
     private $layer;
     
     /** Constructor.
-     * @param $id ID of the memplex to load or array with 'author', 'title', 'text' and 'layer'
-     * keys to create a new one. An empty memplex is created if $id is omitted.
+     * @param integer $id ID of the memplex to load or array with 'author', 'title', 'text'
+     * and 'layer' keys to create a new one. An empty memplex is created if $id is omitted.
      *
      * @return The new Memplex.
      */
@@ -80,7 +80,7 @@ class Memplex {
      * WARNING: If ID is 0 and level is 1 (in other words: this memplex is the root Memplex)
      * the whole database is being laoded.
      *
-     * @param $level Level to load (optional).
+     * @param integer $level Level to load (optional).
      */
     public function loadChildrenRecursive($level = -1) {
         $this->childarray = array();
@@ -166,7 +166,7 @@ class Memplex {
     /**
      * Sets the ID of the Memplex.
      *
-     * @param $id The new ID.
+     * @param integer $id The new ID.
      */
     public function setId($id) {
         $this->id = $id;
@@ -184,7 +184,7 @@ class Memplex {
     /**
      * Adds a child to the Memplex.
      *
-     * @param $id ID of the new child.
+     * @param integer $id ID of the new child.
      */
     public function addChild($id) {
         Database::addChild($this->id,$id);
@@ -203,7 +203,7 @@ class Memplex {
     /**
      * Sets the author of the Memplex.
      *
-     * @param $author The new author.
+     * @param string $author The new author.
      */
     public function setAuthor($author) {
         $this->author = $author;
@@ -221,7 +221,7 @@ class Memplex {
     /**
      * Sets the title of the Memplex.
      *
-     * @param $title The new title.
+     * @param string $title The new title.
      */
     public function setTitle($title) {
         $this->title= $title;
@@ -239,7 +239,7 @@ class Memplex {
     /**
      * Sets the text of the Memplex.
      *
-     * @param $text The new text.
+     * @param string $text The new text.
      */
     public function setText($text) {
         $this->text = $text;
@@ -260,7 +260,7 @@ class Memplex {
      * The various layers are documented in our UML documentation at
      * https://github.com/Kevin423/BasDeM/blob/master/docs/BasDeM.png
      *
-     * @param $layer The new layer.
+     * @param integer $layer The new layer.
      */
     public function setLayer($layer) {
         $this->layer = $layer;
