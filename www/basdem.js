@@ -259,7 +259,7 @@ var Create = new function() {
             .appendTo("body")
             .click(function(e) {
                 if ( e.target.className == "overlay" ) {
-                    Create.destroy();
+//                    Create.destroy();
                 }
         });
         
@@ -315,7 +315,7 @@ var CreateArgument = new function() {
             .appendTo("body")
             .click(function(e) {
                 if ( e.target.className == "overlay" ) {
-                    CreateArgument.destroy();
+//                    CreateArgument.destroy();
                 }
         });
                 
