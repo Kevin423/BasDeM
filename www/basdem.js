@@ -52,7 +52,6 @@ var Controller = new function() {
     
     this.submit = function(data,callback) {
         View.block();
-        this.blockingCallback = callback;
         $.post("memplex.php", {
                 "parent": Controller.activeTopnode,
                 "layer": data.layer,
@@ -63,7 +62,6 @@ var Controller = new function() {
             function (data) {
                 var json = $.parseJSON(data);
                 var Memplex = json.data;
-                Controller.blockingCallback();
                 Controller.loadMemplex(Memplex);
         });
     }
