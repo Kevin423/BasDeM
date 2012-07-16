@@ -98,7 +98,7 @@ var View = new function() {
         
         switch ( Memplex.layer ) {
             case 1: this.createButton("Create Topic", function() {
-                        Create.create(1,"Topic");
+                        Create.create(2,"Topic");
                     }); break;
             case 2: 
                 this.createButton("Create Issue", function() {
@@ -322,7 +322,7 @@ var CreateArgument = new function() {
         
         tr = $("<tr>").appendTo(table);
         $("<td>&nbsp;</td>").appendTo(tr);
-        var td = $("<td>").appendTo(tr);
+        var td = $("<td colspan=\"3\">").appendTo(tr);
         $("<button class=\"button\">Create Argument</button>").click(this.submit).appendTo(td);
         $("<button class=\"button\">Cancel</button>").click(this.destroy).appendTo(td);
     }
