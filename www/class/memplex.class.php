@@ -90,7 +90,7 @@ class Memplex {
         }
         foreach ( $this->children as $child ) {
             $tmp = MemplexRegister::get($child);
-            if ( is_null(tmp) ) {
+            if ( is_null($tmp) ) {
                 continue;
             }
             $tmp->loadChildrenRecursive($level);
