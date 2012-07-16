@@ -45,3 +45,20 @@ $tmp = Database::getMemplex($id);
  * BasDeM. If not, see <http://www.gnu.org/licenses/>.                                  *
  ****************************************************************************************/
 
+== Documentation ==
+We use Doxygen to generate our API documentation. It's quite simple. Just add a comment like
+
+    /** A great short description.
+     *
+     * Followed by a longer description explaining important details.
+     *
+     * @param type $name Desription of a parameter. Add as many as you need.
+     *
+     * @return Say something about the return value. If it exists.
+     */
+
+right before every public function and object declaration. Doxygen does the rest.
+Doxygen adds all comments starting with "/** " to the docs.
+
+The resulting documentation can be found in docs/api/.
+
