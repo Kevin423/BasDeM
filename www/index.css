@@ -54,11 +54,11 @@
     clear: both;
 }
 .layer1title {
-    padding: 15px;
-    font-style: bold;
+    font-weight: bold;
+    margin: 15px;
 }
 .layer1link {
-    padding: 5px;
+    padding: 15px;
 }
 .overlay {
     position: fixed;
@@ -143,4 +143,6 @@ a:active{color:#f00;}
 .listelement {
     border: 1px solid black;
     float: left;
+    padding: 10px;
+    margin: 10px;
 }

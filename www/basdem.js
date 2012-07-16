@@ -93,17 +93,25 @@ var View = new function() {
         this.footer = $("<div class=\"footer\">").appendTo(this.container);
         this.container.appendTo("body");
         
-        for ( i = 0 ; i <= Helper.getLayerPosition(Memplex.layer) ; i++ ) {
+        var currentposition = Helper.getLayerPosition(Memplex.layer);
+        
+        for ( i = 0 ; i <= currentposition ; i++ ) {
+            if ( Controller.navigation[i] == null ) {
+                $("<span class=\"title\"> &gt; </span>").appendTo(View.headline);
+                continue;
+            }
             $("<span class=\"title\"><a onclick=\"Controller.load(" 
             + Controller.navigation[i].id 
             + ")\"> &gt; " 
             + Controller.navigation[i].title 
             + "</a></span>").appendTo(View.headline);
         }
-        if ( Helper.getLayerPosition(Memplex.layer) - 1 >= 0 ) {
-            $("<span class=\"title back\"><a onclick=\"Controller.load(" 
-            + Controller.navigation[Helper.getLayerPosition(Memplex.layer) - 1].id 
-            + ")\">&lt;&lt;"+Language.get("lang_back",language)+"</a></span>").appendTo(View.headline);
+        if ( currentposition - 1 >= 0 ) {
+            if ( Controller.navigation[currentposition - 1] != null ) {
+                $("<span class=\"title back\"><a onclick=\"Controller.load(" 
+                + Controller.navigation[currentposition - 1].id 
+                + ")\">&lt;&lt;"+Language.get("lang_back",language)+"</a></span>").appendTo(View.headline);
+            }
         }
         
         switch ( Memplex.layer ) {
@@ -229,7 +237,7 @@ var ViewList = new function() {
             $("<a class=\"layer1title\" onclick=\"Controller.load(" + Memplex.children[c].id + ")\">" + Memplex.children[c].title + "</a><br>").appendTo(div);
             console.log(Memplex.children[c]);
             for ( s in Memplex.children[c].children ) {
-                $("&gt;<a class=\"layer1link\" onclick=\"Controller.load(" + Memplex.children[c].children[s].id + ")\">" + Memplex.children[c].children[s].title + "</a><br>").appendTo(div);
+                $("<a class=\"layer1link\" onclick=\"Controller.load(" + Memplex.children[c].children[s].id + ")\">&gt;" + Memplex.children[c].children[s].title + "</a><br>").appendTo(div);
             }
         };
         $("<br class=\"clear\">").appendTo(View.content);
