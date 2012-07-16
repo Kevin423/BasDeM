@@ -1,7 +1,7 @@
 <?php
 /****************************************************************************************
  * Copyright (c) 2012 Justus Wingert <justus_wingert@web.de>                            *
- *
+ *                                                                                      *
  * This file is part of BasDeM.                                                         *
  *                                                                                      *
  * BasDeM is free software; you can redistribute it and/or modify it under              *
@@ -21,6 +21,9 @@ if ( !defined('INCMS') || INCMS !== true ) {
         die;
 }
 
+/**
+ * Manages config settings.
+ */
 class Config {
 	static private $conf = array(
 		'database' => array(
@@ -32,7 +35,21 @@ class Config {
 			'salt' => 'This is my salt... it is really stupid, but long!',
 		),
 	);
-	
+/**
+ * Returns specific parts of the config or the config array itself.
+ * @param ... Various keys to look up in the array.
+ *
+ * Config array layout:
+ * Key 'database' which itself contains an array with keys 'engine', 'host', 'user',
+ * 'password', 'database' and 'salt'.
+ *
+ * @return Excerpts of the config array or a copy of the array itself.
+ * 
+ * Examples:
+ * - get(); // returns the config array
+ * - get('database'); // returns the database array
+ * - get('database','host'); // returns the host
+ */	
 	static public function get() {
 		$tmp = Config::$conf;
 		foreach ( func_get_args() as $arg ) {

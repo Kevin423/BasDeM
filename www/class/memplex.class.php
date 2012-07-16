@@ -1,7 +1,7 @@
 <?php
 /****************************************************************************************
  * Copyright (c) 2012 Justus Wingert <justus_wingert@web.de>                            *
- *
+ *                                                                                      *
  * This file is part of BasDeM.                                                         *
  *                                                                                      *
  * BasDeM is free software; you can redistribute it and/or modify it under              *
@@ -20,7 +20,10 @@
 if ( !defined('INCMS') || INCMS !== true ) {
         die;
 }
-
+/**
+ * A Memplex is the central datastructure of BasDeM, representing everything the user
+ * may want to add or view in the system.
+ */
 class Memplex {
     private $id;
     private $children;
@@ -30,6 +33,12 @@ class Memplex {
     private $text;
     private $layer;
     
+    /** Constructor.
+     * @param $id ID of the memplex to load or array with 'author', 'title', 'text' and 'layer'
+     * keys to create a new one. An empty memplex is created if $id is omitted.
+     *
+     * @return The new Memplex.
+     */
     public function __construct($id = null) {
         $this->id = null;
         $this->children = array();
@@ -66,6 +75,13 @@ class Memplex {
         }
     }
     
+    /**
+     * Loads all children of this Memplex.
+     * WARNING: If ID is 0 and level is 1 (in other words: this memplex is the root Memplex)
+     * the whole database is being laoded.
+     *
+     * @param $level Level to load (optional).
+     */
     public function loadChildrenRecursive($level = -1) {
         $this->childarray = array();
         
@@ -99,6 +115,9 @@ class Memplex {
         $this->layer = $id['layer'];
     }
     
+    /**
+     * Stores the Memplex permanently in the database.
+     */
     public function store() {
         if ( is_null($this->id) ) {
             $this->id = Database::createMemplex(array(
@@ -118,6 +137,11 @@ class Memplex {
         }
     }
     
+    /**
+     * Returns the Memplex contents as array.
+     *
+     * @return Array with Keys: 'id', 'author', 'title', 'text', 'layer' and 'children'.
+     */
     public function toArray() {
         return array(
             'id' => (int)$this->id,
@@ -139,51 +163,117 @@ class Memplex {
         // ));
     // }
     
+    /**
+     * Sets the ID of the Memplex.
+     *
+     * @param $id The new ID.
+     */
     public function setId($id) {
         $this->id = $id;
     }
     
+    /**
+     * Returns the ID of the Memplex.
+     *
+     * @return The ID of the Memplex.
+     */
     public function getId() {
         return $this->id;
     }
-    
+
+    /**
+     * Adds a child to the Memplex.
+     *
+     * @param $id ID of the new child.
+     */
     public function addChild($id) {
         Database::addChild($this->id,$id);
         $this->children[] = $id;
     }
-    
+
+    /**
+     * Returns the IDs of the children of the Memplex.
+     *
+     * @return Array with IDs of the children.
+     */
     public function getChildren() {
         return $this->children;
     }
     
+    /**
+     * Sets the author of the Memplex.
+     *
+     * @param $author The new author.
+     */
     public function setAuthor($author) {
         $this->author = $author;
     }
     
+    /**
+     * Returns the author of the Memplex.
+     *
+     * @return The author of the Memplex.
+     */
     public function getAuthor() {
         return $this->author;
     }
-    
+
+    /**
+     * Sets the title of the Memplex.
+     *
+     * @param $title The new title.
+     */
     public function setTitle($title) {
         $this->title= $title;
     }
     
+    /**
+     * Returns the title of the Memplex.
+     *
+     * @return The title of the Memplex.
+     */
     public function getTitle() {
         return $this->title;
     }
     
+    /**
+     * Sets the text of the Memplex.
+     *
+     * @param $text The new text.
+     */
     public function setText($text) {
         $this->text = $text;
     }
     
+    /**
+     * Returns the text of the Memplex.
+     *
+     * @return The text of the Memplex.
+     */
     public function getText() {
         return $this->text;
     }
     
+    /**
+     * Sets the layer of the Memplex.
+     *
+     * The various layers are documented in our UML documentation at
+     * https://github.com/Kevin423/BasDeM/blob/master/docs/BasDeM.png
+     *
+     * @param $layer The new layer.
+     */
     public function setLayer($layer) {
         $this->layer = $layer;
     }
     
+    /**
+     * Returns the layer of the Memplex.
+     *
+     * The various layers are documented in our UML documentation at
+     * https://github.com/Kevin423/BasDeM/blob/master/docs/BasDeM.png
+     *
+     * @return The layer of the Memplex.
+     */
     public function getLayer() {
         return $this->layer;
     }
