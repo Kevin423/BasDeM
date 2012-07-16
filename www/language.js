@@ -1,7 +1,7 @@
 var Language = new function() {
 this.get = function(target,lang) {
 switch ( lang ) {
-    case 'de':
+    case 'de_DE':
         switch ( target.toLowerCase() ) {
             case 'lang_issue': return 'Problem'; break;
             case 'lang_createtopic': return 'Thema anlegen'; break;
