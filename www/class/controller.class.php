@@ -31,6 +31,9 @@ class Controller {
                 return;
             }
             $this->createMemplex();
+            
+            $this->reloadMemplex();
+            
             $this->showMemplex();
             return;
         }
@@ -48,6 +51,10 @@ class Controller {
         $this->loadMemplexChildren();
         
         $this->showMemplex();
+    }
+    
+    private function reloadMemplex() {
+        $this->memplex = new Memplex($this->memplex->getId());
     }
     
     private function createMemplex() {
