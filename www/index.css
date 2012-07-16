@@ -3,6 +3,7 @@
     width: 1280px;
     height: 800px;
     background: white;
+    cursor: default;
 }
 .headline {
     border-radius: 10px 10px 0 0;
