@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 16, 2012 at 12:18 AM
+-- Generation Time: Jul 16, 2012 at 03:30 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -38,11 +38,7 @@ CREATE TABLE IF NOT EXISTS `authors` (
 --
 
 INSERT INTO `authors` (`id`, `content`) VALUES
-(1, 'System'),
-(2, 'System'),
-(3, 'Justus'),
-(4, 'Justus'),
-(5, 'Justus');
+(1, 'System');
 
 -- --------------------------------------------------------
 
@@ -58,16 +54,6 @@ CREATE TABLE IF NOT EXISTS `children` (
   KEY `child` (`child`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `children`
---
-
-INSERT INTO `children` (`parent`, `child`) VALUES
-(1, 2),
-(2, 3),
-(2, 4),
-(2, 5);
-
 -- --------------------------------------------------------
 
 --
@@ -80,18 +66,14 @@ CREATE TABLE IF NOT EXISTS `memplex` (
   `layer` int(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `layer` (`layer`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `memplex`
 --
 
 INSERT INTO `memplex` (`id`, `layer`) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 3),
-(5, 3);
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -111,11 +93,7 @@ CREATE TABLE IF NOT EXISTS `texts` (
 --
 
 INSERT INTO `texts` (`id`, `content`) VALUES
-(1, ''),
-(2, ''),
-(3, 'Blubb!'),
-(4, 'bbb'),
-(5, 'ccc');
+(1, 'Dies ist eine Übersicht über alle Themenbereiche.');
 
 -- --------------------------------------------------------
 
@@ -135,11 +113,7 @@ CREATE TABLE IF NOT EXISTS `titles` (
 --
 
 INSERT INTO `titles` (`id`, `content`) VALUES
-(1, 'Themenbereichsuebersicht'),
-(2, 'Testthemenbereich'),
-(3, 'Blafaselfuck!'),
-(4, 'bbb'),
-(5, 'ccc');
+(1, 'Themenbereichsübersicht');
 
 --
 -- Constraints for dumped tables
