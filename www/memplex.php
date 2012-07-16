@@ -24,10 +24,17 @@ error_reporting("E_ALL & ~E_STRICT");
 
 require_once('class/config.class.php');
 require_once('class/mysql.class.php');
+require_once('class/user.class.php');
 require_once('class/memplex.class.php');
 require_once('class/memplex.register.class.php');
 
 Database::init();
+
+User::init();
+
+if ( User::isLoggedin !== true ) {
+    die(json_encode(array('login' => false)));
+}
 
 if ( !isset($_POST['id'])
     && isset($_POST['parent'])
