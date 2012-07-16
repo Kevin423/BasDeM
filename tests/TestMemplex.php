@@ -31,7 +31,7 @@ class TestMemplex extends PHPUnit_Framework_TestCase {
         $this->assertEquals('',$memplex->getAuthor());
         $this->assertEquals('',$memplex->getTitle());
         $this->assertEquals('',$memplex->getText());
-        $this->assertEquals('',$memplex->getLayer());
+        $this->assertEquals(0,$memplex->getLayer());
 
         // Memplex by array
         $data = array(
@@ -113,7 +113,8 @@ class TestMemplex extends PHPUnit_Framework_TestCase {
         $this->assertEquals('',$memplex->getAuthor());
 
         $memplex->setAuthor($a);
-        $this->assertEquals($a,$memplex->getAuthor());
+        $this->assertEquals($a,$memplex->getAuthor(false));
+        $this->assertEquals(htmlentities($a),$memplex->getAuthor());
     }
 
     /**
@@ -124,7 +125,8 @@ class TestMemplex extends PHPUnit_Framework_TestCase {
         $this->assertEquals('',$memplex->getTitle());
 
         $memplex->setTitle($a);
-        $this->assertEquals($a,$memplex->getTitle());
+        $this->assertEquals($a,$memplex->getTitle(false));
+        $this->assertEquals(htmlentities($a),$memplex->getTitle());
     }
 
     /**
@@ -135,7 +137,8 @@ class TestMemplex extends PHPUnit_Framework_TestCase {
         $this->assertEquals('',$memplex->getText());
 
         $memplex->setText($a);
-        $this->assertEquals($a,$memplex->getText());
+        $this->assertEquals($a,$memplex->getText(false));
+        $this->assertEquals(htmlentities($a),$memplex->getText());
     }
 
     /**
@@ -143,7 +146,7 @@ class TestMemplex extends PHPUnit_Framework_TestCase {
      */
     public function testSetAndGetLayer($a) {
         $memplex = new Memplex();
-        $this->assertEquals('',$memplex->getLayer());
+        $this->assertEquals(0,$memplex->getLayer());
 
         $memplex->setLayer($a);
         $this->assertEquals($a,$memplex->getLayer());
@@ -156,7 +159,8 @@ class TestMemplex extends PHPUnit_Framework_TestCase {
         return array(
             array(''),
             array('test'),
-            array('äöüß')
+            array('äöüß'),
+            array('<br/>')
         );
     }
 
