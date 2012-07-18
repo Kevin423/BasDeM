@@ -131,7 +131,7 @@ class Database {
       *
       * @return Array of result set rows.
       */ 
-    static public function getMemplex($identifier) {
+    static public function getMemplex($identifier,$time = 0) {
         /*
         TODO: Select comments by layer and parent relation to both L4 and L5+
         */
@@ -155,8 +155,10 @@ left join
     children ON children.parent = memplex.id
 where
     memplex.id = :identifier",
+   // AND memplex.time > :time",
             array(
                 array(':identifier',$identifier,PDO::PARAM_INT),
+                // array(':time',$time,PDO::PARAM_INT),
             ),
             true,
             false

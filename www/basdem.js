@@ -1,6 +1,52 @@
 var language = "de_DE";
 
-var Helper = new function() {
+var Controller = new function() {
+    
+    /** Load Debates into Storage.
+    */
+    this.loadDebates = function() {
+        $.post("memplex.php",
+            {id: 1},
+            function(data) {
+                var json = $.parseJSON(data);
+                Controller.parseMemplex(json.data);
+                console.log(MemplexRegister.memplexes);
+            });
+    }
+    
+    /** Parse loaded memplexes into MemplexRegister.
+    */
+    this.parseMemplex = function(data) {
+        MemplexRegister.add(data);
+        for ( c in data.children ) {
+            Controller.parseMemplex(data.children[c]);
+        }
+    }
+}
+
+/** MemplexRegister contains all Memplexes loaded from the server.
+*/
+var MemplexRegister = new function() {
+    this.memplexes = new Array();
+    
+    /** Add a new Memplex to the Register.
+    *   @param memplex Memplex to be added.
+    * */
+    this.add = function(memplex) {
+        this.memplexes[memplex.id] = new function() {
+            this.id = memplex.id;
+            this.author = memplex.author;
+            this.title = memplex.title;
+            this.text = memplex.text;
+            this.children = new Array();
+            for ( c in memplex.children ) {
+                this.children[c] = memplex.children[c].id;
+            }
+        }
+    }
+}
+
+/*var Helper = new function() {
     this.getLayerPosition = function(position) {
         if ( position > 4 && position < 8 ) {
             position = 5;
@@ -369,3 +415,4 @@ var CreateArgument = new function() {
         return false;
     }
 }
+*/
