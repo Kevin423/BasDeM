@@ -80,7 +80,11 @@ class Controller {
     
     private function loadMemplexChildren() {
         if ( $this->memplex->getLayer() == 1 ) {
+            // Load 3 levels
             $this->memplex->loadChildrenRecursive(3);
+        } else if ( $this->memplex->getLayer() == 4 ) {
+            // Load everything recursive
+            $this->memplex->loadChildrenRecursive(-1);
         }
     }
     

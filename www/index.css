@@ -1,11 +1,47 @@
-.container {
+#container {
     margin: auto;
     width: 1280px;
     height: 800px;
-    background: white;
+    background: orange;
     cursor: default;
 }
-.headline {
+#leftbox {
+    width: 380px;
+    height:800px;
+    background: blue;
+    float: left;
+}
+#rightbox {
+    width: 900px;
+    height:800px;
+    background: red;
+    float: left;
+}
+#menuleft {
+    width: 380px;
+    height: 30px;
+    background: black;
+}
+#menuright {
+    width: 900px;
+    height: 30px;
+    background: black;
+}
+#list {
+    width: 380px;
+    height: 770px;
+    background: yellow;
+    overflow: auto;
+}
+#content {
+    width: 900px;
+    height: 770px;
+    background: yellow;
+}
+.hidden {
+    display: none;
+}
+/*.headline {
     border-radius: 10px 10px 0 0;
     padding: 5px;
     width: 100%;
@@ -145,4 +181,4 @@ a:active{color:#f00;}
     float: left;
     padding: 10px;
     margin: 10px;
-}
+}*/

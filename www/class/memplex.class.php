@@ -169,7 +169,7 @@ class Memplex {
      * @return The ID of the Memplex.
      */
     public function getId() {
-        return $this->id;
+        return (int)$this->id;
     }
 
     /**

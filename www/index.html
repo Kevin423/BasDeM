@@ -15,5 +15,19 @@ function load(){
 <title>BasDeM</title>
 </head>
 <body onload="load()">
+<div id="container">
+    <div id="leftbox">
+        <div id="menuleft">
+            <button onclick="Controller.newDebate();">Neue Debatte anfangen</button>
+        </div>
+        <div id="list"></div>
+    </div>
+    <div id="rightbox">
+        <div id="menuright">
+            <button onclick="Controller.loadDebates();">Debatten</button>
+        </div>
+        <div id="content"></div>
+    </div>
+</div>
 </body>
 </html>

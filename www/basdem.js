@@ -10,7 +10,19 @@ var Controller = new function() {
             function(data) {
                 var json = $.parseJSON(data);
                 Controller.parseMemplex(json.data);
-                console.log(MemplexRegister.memplexes);
+                View.loadDebates();
+            });
+    }
+    
+    /** Load target Solution into Storage.
+    */
+    this.loadSolution = function(target) {
+        $.post("memplex.php",
+            {id: target},
+            function(data) {
+                var json = $.parseJSON(data);
+                Controller.parseMemplex(json.data);
+                View.loadSolution(json.data.id);
             });
     }
     
@@ -22,17 +34,33 @@ var Controller = new function() {
             Controller.parseMemplex(data.children[c]);
         }
     }
+    
+    /** Create a new Debate.
+    */
+    this.newDebate = function() {
+        
+    }
 }
 
 /** MemplexRegister contains all Memplexes loaded from the server.
 */
 var MemplexRegister = new function() {
     this.memplexes = new Array();
+    this.layerlist = new Array();
+    this.layerlistreverse = new Array();
     
     /** Add a new Memplex to the Register.
     *   @param memplex Memplex to be added.
     * */
     this.add = function(memplex) {
+        if ( this.layerlist[memplex.layer] == null ) {
+            this.layerlist[memplex.layer] = new Array();
+        }
+        if ( this.layerlistreverse[memplex.id] == null ) {
+            this.layerlistreverse[memplex.id] = memplex.layer;
+            this.layerlist[memplex.layer][this.layerlist[memplex.layer].length] = memplex.id;
+        }
+        
         this.memplexes[memplex.id] = new function() {
             this.id = memplex.id;
             this.author = memplex.author;
@@ -44,6 +72,140 @@ var MemplexRegister = new function() {
             }
         }
     }
+    
+    /** Get all MemplexIDs with the param layer.
+    *   @param layer The layer to be loaded.
+    *   @return Array MemplexIDs with targeted layer.
+    */
+    this.getLayer = function(layer) {
+        return this.layerlist[layer];
+    }
+    
+    /** Get the Memplex with the specified id.
+    *   @param id The ID of the Memplex to be loaded.
+    *   @return Memplex Memplex with targeted id.
+    */
+    this.get = function(id) {
+        return this.memplexes[id];
+    }
+}
+
+/** View controls all visual activities.
+*/
+var View = new function() {
+    this.solutionbutton = null;
+    
+    /** Load all debates into content.
+    */
+    this.loadDebates = function() {
+        var content = $('#content').empty();
+        
+        var memplexes = MemplexRegister.getLayer(3);
+        for ( m in memplexes ) {
+            var debate = new Debate(MemplexRegister.get(memplexes[m]));
+            debate.getObject().appendTo(content);
+        }
+    };
+    
+    /** Load a solution into content.
+    *   @param target The ID of the target solution.
+    */
+    this.loadSolution = function(target) {
+        var content = $('#content').empty();
+        
+        var solution = MemplexRegister.get(target);
+        if ( this.solutionbutton != null ) {
+            this.solutionbutton.remove();
+        }
+        this.solutionbutton = $('<button id="solution' + solution.id + 'button">L&ouml;sungsvorschlag: ' + solution.title + '</button>')
+            .appendTo('#menuright')
+            .click(function(data) {
+                var id = parseInt(data.currentTarget.id.match(/\d+/g));
+                Controller.loadSolution(id);
+        });
+    };
+}
+
+/** DebateRegister for all Debates.
+*/
+var DebateRegister = new function() {
+    this.debates = new Array();
+    
+    /** Add a debate to the register.
+    *   @param id Id to be added.
+    *   @param debate Debate to be added.
+    */
+    this.add = function(id,debate) {
+        this.debates[id] = debate;
+    }
+    
+    /** Get a debate from the register.
+    *   @param id Id to be fetched.
+    *   @return Debate Selected Debate.
+    */
+    this.get = function(id) {
+        return this.debates[id];
+    }
+}
+
+/** Object housing a debate.
+*/
+var Debate = function(memplex) {
+    this.memplex = memplex;
+    this.object = null;
+    this.title = null;
+    this.text = null;
+    this.hide = null;
+    this.ul = null;
+
+    this.construct = function() {
+        this.object = $('<div id="debate' + this.memplex.id + '" class="debate">');
+        this.title = $('<div id="debate' + this.memplex.id + 'title" class="debatetitle">' + this.memplex.title + '</div>')
+            .appendTo(this.object)
+            .click(function(data) {
+                var id = parseInt(data.currentTarget.id.match(/\d+/g));
+                DebateRegister.get(id).toggle();
+        });
+        
+        this.hide = $('<div id="debate' + this.memplex.id + 'hide" class="hidden">').appendTo(this.object)
+        
+        this.text = $('<div id="debate' + this.memplex.id + 'text" class="debatetext">' + this.memplex.text + '</div>').appendTo(this.hide);
+        
+        this.ul = $('<ul id="debate' + this.memplex.id + 'list" class="debatelist">').appendTo(this.hide);
+        
+        var childs = this.memplex.children;
+        
+        for ( c in childs ) {
+            var child = MemplexRegister.get(childs[c]);
+            $('<li id="solution' + child.id + '" class="debatesolution">' + child.title + '</li>')
+                .appendTo(this.ul)
+                .click(function(data) {
+                    var id = parseInt(data.currentTarget.id.match(/\d+/g));
+                    Controller.loadSolution(id);
+                });
+        }
+        
+        DebateRegister.add(memplex.id,this);
+    }
+    
+    
+    /** Get the JQuery HTML Object representation of the debate.
+    */
+    this.getObject = function() {
+        return this.object;
+    }
+    
+    /** Toggle the hiding.
+    */
+    this.toggle = function () {
+        if ( this.hide.attr('class') == 'hidden' ) {
+            this.hide.attr('class','');
+            return;
+        }
+        this.hide.attr('class','hidden');
+    }
+    
+    this.construct();
 }
 
 /*var Helper = new function() {
