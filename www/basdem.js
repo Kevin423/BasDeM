@@ -157,7 +157,9 @@ var Debate = function(memplex) {
     this.text = null;
     this.hide = null;
     this.ul = null;
-
+    
+    /** Constructor.
+    */
     this.construct = function() {
         this.object = $('<div id="debate' + this.memplex.id + '" class="debate">');
         this.title = $('<div id="debate' + this.memplex.id + 'title" class="debatetitle">' + this.memplex.title + '</div>')
