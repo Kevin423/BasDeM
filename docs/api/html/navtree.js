@@ -3,19 +3,23 @@ var NAVTREE =
   [ "BasDeM", "index.html", [
     [ "Data Structures", "annotated.html", [
       [ "Config", "class_config.html", null ],
+      [ "Controller", "class_controller.html", null ],
       [ "Database", "class_database.html", null ],
       [ "Memplex", "class_memplex.html", null ],
       [ "MemplexRegister", "class_memplex_register.html", null ],
-      [ "PDOConfig", "class_p_d_o_config.html", null ]
+      [ "PDOConfig", "class_p_d_o_config.html", null ],
+      [ "User", "class_user.html", null ]
     ] ],
     [ "Data Structure Index", "classes.html", null ],
     [ "Data Fields", "functions.html", null ],
     [ "File List", "files.html", [
       [ "/home/sven/BasDeM/www/memplex.php", "memplex_8php.html", null ],
       [ "/home/sven/BasDeM/www/class/config.class.php", "config_8class_8php.html", null ],
+      [ "/home/sven/BasDeM/www/class/controller.class.php", "controller_8class_8php.html", null ],
       [ "/home/sven/BasDeM/www/class/memplex.class.php", "memplex_8class_8php.html", null ],
       [ "/home/sven/BasDeM/www/class/memplex.register.class.php", "memplex_8register_8class_8php.html", null ],
-      [ "/home/sven/BasDeM/www/class/mysql.class.php", "mysql_8class_8php.html", null ]
+      [ "/home/sven/BasDeM/www/class/mysql.class.php", "mysql_8class_8php.html", null ],
+      [ "/home/sven/BasDeM/www/class/user.class.php", "user_8class_8php.html", null ]
     ] ],
     [ "Globals", "globals.html", null ]
   ] ]

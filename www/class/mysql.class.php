@@ -128,6 +128,7 @@ class Database {
       * Fetches a Memplex from the database.
       *
       * @param integer $identifier ID of the Memplex to load.
+      * @param integer $time Only load a Memplex if it is newer than $time or has been changed (optional).
       *
       * @return Array of result set rows.
       */ 
