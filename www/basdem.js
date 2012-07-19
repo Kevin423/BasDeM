@@ -12,6 +12,13 @@ var Helper = new function() {
     this.getIdFromString = function(string) {
         return parseInt(string.match(/\d+/));
     }
+    this.objectCount = function(object) {
+        var i = 0;
+        for ( o in object ) {
+            i++;
+        }
+        return i;
+    }
 }
 
 var Controller = new function() {
@@ -24,7 +31,7 @@ var Controller = new function() {
             {id: 1},
             function(data) {
                 var json = $.parseJSON(data);
-                Controller.parseMemplex(json.data);
+                Controller.parseMemplex(json.data,null);
                 View.loadDebates();
             });
     }
@@ -51,17 +58,17 @@ var Controller = new function() {
             {id: target},
             function(data) {
                 var json = $.parseJSON(data);
-                Controller.parseMemplex(json.data);
+                Controller.parseMemplex(json.data,null);
                 View.loadSolution(json.data.id);
             });
     }
     
     /** Parse loaded memplexes into MemplexRegister.
     */
-    this.parseMemplex = function(data) {
-        MemplexRegister.add(data);
+    this.parseMemplex = function(data,parent) {
+        MemplexRegister.add(data,parent);
         for ( c in data.children ) {
-            Controller.parseMemplex(data.children[c]);
+            Controller.parseMemplex(data.children[c],data);
         }
     }
     
@@ -75,16 +82,24 @@ var Controller = new function() {
 /** MemplexRegister contains all Memplexes loaded from the server.
 */
 var MemplexRegister = new function() {
-    this.memplexes = new Array();
-    this.layerlist = new Array();
-    this.layerlistreverse = new Array();
+    this.memplexes = {};
+    this.parentlist = {};
+    this.layerlist = {};
+    this.layerlistreverse = {};
     
     /** Add a new Memplex to the Register.
     *   @param memplex Memplex to be added.
     * */
-    this.add = function(memplex) {
+    this.add = function(memplex,parent) {
+        if ( this.parentlist[memplex.id] == null ) {
+            this.parentlist[memplex.id] = {};
+        }
+        if ( parent != null ) {
+            this.parentlist[memplex.id][parent.id] = parent.id;
+        }
+        
         if ( this.layerlist[memplex.layer] == null ) {
-            this.layerlist[memplex.layer] = new Array();
+            this.layerlist[memplex.layer] = {};
         }
         if ( this.layerlistreverse[memplex.id] == null ) {
             this.layerlistreverse[memplex.id] = memplex.layer;
@@ -97,7 +112,7 @@ var MemplexRegister = new function() {
             this.title = memplex.title;
             this.text = memplex.text;
             this.layer = memplex.layer;
-            this.children = new Array();
+            this.children = {};
             for ( c in memplex.children ) {
                 this.children[c] = memplex.children[c].id;
             }
@@ -110,6 +125,14 @@ var MemplexRegister = new function() {
     */
     this.getLayer = function(layer) {
         return this.layerlist[layer];
+    }
+    
+    /** Get all ParentIDs for the specified MemplexID.
+    *   @param id The id of the Child to be loaded.
+    *   @return Array MemplexIDs with targeted child.
+    */
+    this.getParents = function(id) {
+        return this.parentlist[id];
     }
     
     /** Get the Memplex with the specified id.
@@ -134,6 +157,9 @@ var View = new function() {
         var memplexes = MemplexRegister.getLayer(3);
         for ( m in memplexes ) {
             var debate = new Debate(MemplexRegister.get(memplexes[m]));
+            if ( !debate.matchFilter() ) {
+                continue;
+            }
             debate.getObject().appendTo(content);
         }
     };
@@ -167,7 +193,7 @@ var View = new function() {
 /** SolutionRegister for all Debates.
 */
 var SolutionRegister = new function() {
-    this.solutions = new Array();
+    this.solutions = {};
     
     /** Add a solution to the register.
     *   @param id Id to be added.
@@ -197,7 +223,7 @@ var Solution = function(Memplex) {
     this.neutral = null;
     this.contra = null;
     this.activecomment = null;
-    this.hidden = new Array();
+    this.hidden = {};
     
     /** Constructor.
     */
@@ -323,7 +349,7 @@ var Solution = function(Memplex) {
 /** DebateRegister for all Debates.
 */
 var DebateRegister = new function() {
-    this.debates = new Array();
+    this.debates = {};
     
     /** Add a debate to the register.
     *   @param id Id to be added.
@@ -400,5 +426,41 @@ var Debate = function(memplex) {
         this.hide.attr('class','hidden');
     }
     
+    /** Checks if debate matches the given filter.
+    */
+    this.matchFilter = function() {
+        var parents = MemplexRegister.getParents(this.memplex.id);
+        return Filter.match(parents);
+    }
+    
     this.construct();
+}
+
+var Filter = new function() {
+    this.allof = {};
+    this.oneof = {};
+    
+    this.match = function(nodes) {
+        var allof = this.allof;
+        var oneof = this.oneof;
+    
+        for ( a in allof ) {
+            if ( nodes[allof[a]] == undefined ) {
+                return false;
+            }
+        }
+        if ( Helper.objectCount(oneof) == 0 ) {
+            return true;
+        }
+        console.log(oneof);
+        var match = false;
+        
+        for ( o in oneof ) {
+            if ( nodes[oneof[o]] == undefined ) {
+                continue;
+            }
+            match = true;
+        }
+        return match;
+    }
 }
