@@ -4,7 +4,9 @@
 <!--Metadaten fehlen noch-->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" href="index.css" type="text/css"/>
-<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+<link rel="stylesheet" href="css/overcast/jquery-ui-1.8.21.custom.css" type="text/css"/>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="basdem.js"></script>
 <script type="text/javascript" src="language.js"></script>
 <script type="text/javascript">
@@ -15,19 +17,14 @@ function load(){
 <title>BasDeM</title>
 </head>
 <body onload="load()">
-<div id="container">
+<div id="container" class="ui-widget">
     <div id="leftbox">
-        <div id="menuleft">
-            <button onclick="Controller.newDebate();">Neue Debatte anfangen</button>
-            <button onclick="Controller.loadComment(5,12);">Kommentar laden</button>
-        </div>
-        <div id="list"></div>
+        <div id="menuleft" class="ui-corner-all ui-widget ui-widget-header"></div>
+        <div id="list" class="ui-corner-all i-widget ui-widget-content"></div>
     </div>
     <div id="rightbox">
-        <div id="menuright">
-            <button onclick="Controller.loadDebates();">Debatten</button>
-        </div>
-        <div id="content"></div>
+        <div id="menuright" class="ui-corner-all ui-widget ui-widget-header"></div>
+        <div id="content" class="ui-corner-all ui-widget ui-widget-content"></div>
     </div>
 </div>
 </body>

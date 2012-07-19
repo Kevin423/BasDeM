@@ -1,6 +1,10 @@
 var language = "de_DE";
 
 var Helper = new function() {
+    /** Get the second complete set of digits in a string.
+    *   @param string   Searchstring.
+    *   @return int     ID.
+    */
     this.getSecondIdFromString = function(string) {
         var search = /(\d+)[^0-9]+(\d+)/;
         var result = search.exec(string);
@@ -9,9 +13,19 @@ var Helper = new function() {
         }
         return parseInt(result[2]);
     }
+    
+    /** Get the first complete set of digits in a string.
+    *   @param string   Searchstring.
+    *   @return int     ID.
+    */
     this.getIdFromString = function(string) {
         return parseInt(string.match(/\d+/));
     }
+    
+    /** Count the direct children of an object.
+    *   @param object   The target object.
+    *   @return int     number of children.
+    */
     this.objectCount = function(object) {
         var i = 0;
         for ( o in object ) {
@@ -19,12 +33,33 @@ var Helper = new function() {
         }
         return i;
     }
+    
+    /** Toggle the hidden class on an object (remove if present, else add).
+    *   @param object   The target object.
+    */
+    this.toggleHidden = function(object) {
+        object.toggleClass("hidden");
+    }
+    
+    /** Add the hidden class to an object.
+    *   @param object   The target object.
+    */
+    this.hide = function(object) {
+        object.attr("class",object.attr("class") + ' hidden');
+    }
+    
+    /** Remove the hidden class from object.
+    *   @param object   The target object.
+    */
+    this.show = function(object) {
+        object.attr("class",object.attr("class").replace(/hidden/,''));
+    }
 }
 
 var Controller = new function() {
     this.commentTarget = null;
     
-    /** Load Debates into Storage.
+    /** Async load Debates into Storage then trigger View for loading of debates.
     */
     this.loadDebates = function() {
         $.post("memplex.php",
@@ -36,14 +71,15 @@ var Controller = new function() {
             });
     }
    
-    /** Load Solution into Storage, trigger loading of comment.
+    /** Load Solution into Storage then trigger View for loading of commentTarget.
+    *   See this.popCommentTarget() for further information.
     */
     this.loadComment = function(solution, target) {
         this.commentTarget = target;
         this.loadSolution(solution);
     }
     
-    /** Load Solution into Storage, trigger loading of comment.
+    /** Return the comment targetted by the last load and reset it.
     */
     this.popCommentTarget = function() {
         var target = this.commentTarget;
@@ -51,7 +87,7 @@ var Controller = new function() {
         return target;
     }
     
-    /** Load target Solution into Storage.
+    /** Load target Solution into Storage then trigger View for loading of solution.
     */
     this.loadSolution = function(target) {
         $.post("memplex.php",
@@ -152,7 +188,13 @@ var View = new function() {
     /** Load all debates into content.
     */
     this.loadDebates = function() {
-        var content = $('#content').empty();
+        // .addClass('ui-corner-all ui-widget ui-widget-content')
+        $('button')
+            .button()
+            .attr('style','font-size: 0.7em;');
+        
+        var content = $('#content')
+            .empty();
         
         var memplexes = MemplexRegister.getLayer(3);
         for ( m in memplexes ) {
@@ -179,7 +221,11 @@ var View = new function() {
             .click(function(data) {
                 var id = Helper.getIdFromString(data.currentTarget.id);
                 Controller.loadSolution(id);
-        });
+            })
+            .button()
+            .attr('style','font-size: 0.7em;');;
+        
+        
         var tmp = new Solution(solution);
         tmp.getObject().appendTo(content);
         
@@ -266,7 +312,7 @@ var Solution = function(Memplex) {
         if ( JQueryElement.attr('class') != undefined 
             && ( JQueryElement.attr('class').search(/comment/) == -1 
             || ( JQueryElement.attr('id') != undefined && JQueryElement.attr('id').search(/hidden/) != -1 ) ) ) {
-            JQueryElement.attr('class',JQueryElement.attr('class').replace(/hidden/,''));
+            Helper.show(JQueryElement);
             return;
         }
         this.bubbleShow(JQueryElement.parent());
@@ -296,11 +342,9 @@ var Solution = function(Memplex) {
                     var argument = MemplexRegister.get(id);
                     
                     var target = $('#solution' + sid + 'comment' + id + 'hidden');
-                    if ( target.attr('class').search('hidden') != -1 ) {
-                        target.attr('class',target.attr('class').replace(/hidden/g,''));
-                    } else if ( solution.activecomment == id ) {
-                        target.attr('class',target.attr('class') + ' hidden');
-                    }
+                    if ( solution.activecomment == argument.id
+                        || target.attr('class').search(/hidden/) != -1 )
+                    Helper.toggleHidden(target);
                     
                     solution.showComment(id);
                 });
@@ -386,7 +430,7 @@ var Debate = function(memplex) {
             .appendTo(this.object)
             .click(function(data) {
                 var id = Helper.getIdFromString(data.currentTarget.id);
-                DebateRegister.get(id).toggle();
+                Helper.toggleHidden(DebateRegister.get(id).hide);
         });
         
         this.hide = $('<div id="debate' + this.memplex.id + 'hide" class="hidden">').appendTo(this.object)
@@ -416,16 +460,6 @@ var Debate = function(memplex) {
         return this.object;
     }
     
-    /** Toggle the hiding.
-    */
-    this.toggle = function () {
-        if ( this.hide.attr('class') == 'hidden' ) {
-            this.hide.attr('class','');
-            return;
-        }
-        this.hide.attr('class','hidden');
-    }
-    
     /** Checks if debate matches the given filter.
     */
     this.matchFilter = function() {
@@ -439,10 +473,12 @@ var Debate = function(memplex) {
 var Filter = new function() {
     this.allof = {};
     this.oneof = {};
+    this.mine = {};
     
     this.match = function(nodes) {
         var allof = this.allof;
         var oneof = this.oneof;
+        var mine = this.mine;
     
         for ( a in allof ) {
             if ( nodes[allof[a]] == undefined ) {
@@ -461,6 +497,15 @@ var Filter = new function() {
             }
             match = true;
         }
-        return match;
+        if ( Helper.objectCount(mine) == 0 ) {
+            return match;
+        }
+        // check if node is contained in mine.
+    }
+    
+    /** Get the Object representation of the new filter form.
+    */
+    this.createNewObject = function() {
+        console.log("test");
     }
 }

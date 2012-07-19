@@ -1,42 +1,36 @@
 #container {
     margin: auto;
-    width: 1280px;
+    width: 1285px;
     height: 800px;
-    background: orange;
     cursor: default;
 }
 #leftbox {
     width: 380px;
     height:800px;
-    background: blue;
     float: left;
+    margin-right: 5px;
 }
 #rightbox {
     width: 900px;
     height:800px;
-    background: red;
     float: left;
 }
 #menuleft {
     width: 380px;
     height: 30px;
-    background: black;
 }
 #menuright {
     width: 900px;
     height: 30px;
-    background: black;
 }
 #list {
     width: 380px;
     height: 770px;
-    background: yellow;
     overflow: auto;
 }
 #content {
     width: 900px;
     height: 770px;
-    background: yellow;
 }
 .hidden {
     display: none;
