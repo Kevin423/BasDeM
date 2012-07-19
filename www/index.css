@@ -41,6 +41,30 @@
 .hidden {
     display: none;
 }
+.active {
+    background: red;
+}
+.solution {
+    width: 900px;
+    height: 770px;
+}
+.solutionlist {
+    width: 400px;
+    height: 770px;
+    float: left;
+    overflow: auto;
+}
+.solutiontext {
+    width: 500px;
+    height: 770px;
+    float: left;
+}
+.solutionpro {
+}
+.solutioncontra  {
+}
+.solutionneutral {
+}
 /*.headline {
     border-radius: 10px 10px 0 0;
     padding: 5px;

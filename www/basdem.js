@@ -1,6 +1,21 @@
 var language = "de_DE";
 
+var Helper = new function() {
+    this.getSecondIdFromString = function(string) {
+        var search = /(\d+)[^0-9]+(\d+)/;
+        var result = search.exec(string);
+        if ( result == null ) {
+            return null;
+        }
+        return parseInt(result[2]);
+    }
+    this.getIdFromString = function(string) {
+        return parseInt(string.match(/\d+/));
+    }
+}
+
 var Controller = new function() {
+    this.commentTarget = null;
     
     /** Load Debates into Storage.
     */
@@ -12,6 +27,21 @@ var Controller = new function() {
                 Controller.parseMemplex(json.data);
                 View.loadDebates();
             });
+    }
+   
+    /** Load Solution into Storage, trigger loading of comment.
+    */
+    this.loadComment = function(solution, target) {
+        this.commentTarget = target;
+        this.loadSolution(solution);
+    }
+    
+    /** Load Solution into Storage, trigger loading of comment.
+    */
+    this.popCommentTarget = function() {
+        var target = this.commentTarget;
+        this.commentTarget = null;
+        return target;
     }
     
     /** Load target Solution into Storage.
@@ -66,6 +96,7 @@ var MemplexRegister = new function() {
             this.author = memplex.author;
             this.title = memplex.title;
             this.text = memplex.text;
+            this.layer = memplex.layer;
             this.children = new Array();
             for ( c in memplex.children ) {
                 this.children[c] = memplex.children[c].id;
@@ -120,10 +151,173 @@ var View = new function() {
         this.solutionbutton = $('<button id="solution' + solution.id + 'button">L&ouml;sungsvorschlag: ' + solution.title + '</button>')
             .appendTo('#menuright')
             .click(function(data) {
-                var id = parseInt(data.currentTarget.id.match(/\d+/g));
+                var id = Helper.getIdFromString(data.currentTarget.id);
                 Controller.loadSolution(id);
         });
+        var tmp = new Solution(solution);
+        tmp.getObject().appendTo(content);
+        
+        var target = Controller.popCommentTarget();
+        if ( target != null ) {
+            tmp.showComment(target);
+        }
     };
+}
+
+/** SolutionRegister for all Debates.
+*/
+var SolutionRegister = new function() {
+    this.solutions = new Array();
+    
+    /** Add a solution to the register.
+    *   @param id Id to be added.
+    *   @param solution Solution to be added.
+    */
+    this.add = function(id,solution) {
+        this.solutions[id] = solution;
+    }
+    
+    /** Get a solution from the register.
+    *   @param id Id to be fetched.
+    *   @return Solution Selected Solution.
+    */
+    this.get = function(id) {
+        return this.solutions[id];
+    }
+}
+
+/** Object housing a solution.
+*/
+var Solution = function(Memplex) {
+    this.memplex = Memplex;
+    this.object = null;
+    this.text = null;
+    this.list = null;
+    this.pro = null;
+    this.neutral = null;
+    this.contra = null;
+    this.activecomment = null;
+    this.hidden = new Array();
+    
+    /** Constructor.
+    */
+    this.construct = function() {
+        this.object = $('<div id="solution' + this.memplex.id + '" class="solution">');
+        this.text = $('<div id="solution' + this.memplex.id + 'text" class="solutiontext">' + this.memplex.text + '</div>').appendTo(this.object);
+        this.list = $('<div id="solution' + this.memplex.id + 'list" class="solutionlist">').appendTo(this.object);
+        this.pro = $('<ul id="solution' + this.memplex.id + 'pro" class="solutionpro">').appendTo(this.list);
+        this.neutral = $('<ul id="solution' + this.memplex.id + 'neutral" class="solutionneutral">').appendTo(this.list);
+        this.contra = $('<ul id="solution' + this.memplex.id + 'contra" class="solutioncontra">').appendTo(this.list);
+        
+        this.loadArguments();
+        
+        SolutionRegister.add(this.memplex.id,this);
+    }
+    
+    /** Bring the target comment up front.
+    */
+    this.showComment = function(id) {
+        if ( this.activecomment != null ) {
+            var lastcomment = $('#solution' + this.memplex.id + 'comment' + this.activecomment);
+            lastcomment.attr('class',lastcomment.attr('class').replace(/active/g,''))
+        }
+        this.activecomment = id;
+        var a = $('#solution' + this.memplex.id + 'comment' + id);
+        a.attr('class',a.attr('class') + ' active');
+        
+        this.bubbleShow(a);
+        
+        var comment = MemplexRegister.get(id);
+        
+        this.text.empty();
+        
+        $('<span>' + comment.text + '</span>').appendTo(this.text);
+    }
+    
+    /** Walks through all parent comment nodes until it finds and shows the hidden topnode.
+    */
+    this.bubbleShow = function(JQueryElement) {
+        if ( JQueryElement.attr('class') != undefined 
+            && ( JQueryElement.attr('class').search(/comment/) == -1 
+            || ( JQueryElement.attr('id') != undefined && JQueryElement.attr('id').search(/hidden/) != -1 ) ) ) {
+            JQueryElement.attr('class',JQueryElement.attr('class').replace(/hidden/,''));
+            return;
+        }
+        this.bubbleShow(JQueryElement.parent());
+    }
+    
+    /** Load Arguments into List.
+    */
+    this.loadArguments = function() {
+        var childs = this.memplex.children;
+        for ( c in childs ) {
+            var child = MemplexRegister.get(childs[c]);
+            var li = $('<li class="solutionargumentli">');
+            
+            switch ( child.layer ) {
+                case 5: li.appendTo(this.pro); break;
+                case 6: li.appendTo(this.contra); break;
+                case 7: li.appendTo(this.neutral); break;
+            }
+            
+            var span = $('<span id="solution' + this.memplex.id + 'comment' + child.id + '" class="solutionargument">' + child.title + '</span>')
+                .appendTo(li)
+                .click(function(data) {
+                    var id = Helper.getSecondIdFromString(data.currentTarget.id);
+                    var sid = Helper.getIdFromString(data.currentTarget.id);
+                    
+                    var solution = SolutionRegister.get(sid);
+                    var argument = MemplexRegister.get(id);
+                    
+                    var target = $('#solution' + sid + 'comment' + id + 'hidden');
+                    if ( target.attr('class').search('hidden') != -1 ) {
+                        target.attr('class',target.attr('class').replace(/hidden/g,''));
+                    } else if ( solution.activecomment == id ) {
+                        target.attr('class',target.attr('class') + ' hidden');
+                    }
+                    
+                    solution.showComment(id);
+                });
+            this.hidden[child.id] = $('<div id="solution' + this.memplex.id + 'comment' + child.id + 'hidden" class="solutioncomment hidden">').appendTo(li);
+            for ( c in child.children ) {
+                var comment = MemplexRegister.get(child.children[c]);
+                this.loadCommentsRecursive(child,comment,this.hidden[child.id])
+            }
+        }
+    }
+    
+    /** Load comments.
+    */
+    this.loadCommentsRecursive = function(topnode,memplex,parent) {
+        var ul = $("<ul class=\"comment\">").appendTo(parent);
+        var li = $("<li class=\"comment\">").appendTo(ul);
+        
+        $('<a id="solution' + this.memplex.id + 'comment' + memplex.id + '" class="solutioncommentlink">' + memplex.title + '</a>')
+            .appendTo(li)
+            .click(function(data) {
+                var sid = Helper.getIdFromString(data.currentTarget.id);
+                var cid = Helper.getSecondIdFromString(data.currentTarget.id);
+                if ( cid == null ) {
+                    return false;
+                }
+                var solution = SolutionRegister.get(sid);
+                
+                solution.showComment(cid);
+            });
+        
+        for ( c in memplex.children ) {
+            var comment = MemplexRegister.get(memplex.children[c]);
+            this.loadCommentsRecursive(topnode,comment,li)
+        }
+    }
+    
+    /** Get the JQuery HTML Object representation of the debate.
+    */
+    this.getObject = function() {
+        return this.object;
+    }
+    
+    this.construct();
 }
 
 /** DebateRegister for all Debates.
@@ -165,7 +359,7 @@ var Debate = function(memplex) {
         this.title = $('<div id="debate' + this.memplex.id + 'title" class="debatetitle">' + this.memplex.title + '</div>')
             .appendTo(this.object)
             .click(function(data) {
-                var id = parseInt(data.currentTarget.id.match(/\d+/g));
+                var id = Helper.getIdFromString(data.currentTarget.id);
                 DebateRegister.get(id).toggle();
         });
         
@@ -182,14 +376,13 @@ var Debate = function(memplex) {
             $('<li id="solution' + child.id + '" class="debatesolution">' + child.title + '</li>')
                 .appendTo(this.ul)
                 .click(function(data) {
-                    var id = parseInt(data.currentTarget.id.match(/\d+/g));
+                    var id = Helper.getIdFromString(data.currentTarget.id);
                     Controller.loadSolution(id);
                 });
         }
         
         DebateRegister.add(memplex.id,this);
     }
-    
     
     /** Get the JQuery HTML Object representation of the debate.
     */
