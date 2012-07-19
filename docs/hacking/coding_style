@@ -60,5 +60,6 @@ We use Doxygen to generate our API documentation. It's quite simple. Just add a 
 right before every public function and object declaration. Doxygen does the rest.
 Doxygen adds all comments starting with "/** " to the docs.
 
-The resulting documentation can be found in docs/api/.
+The resulting documentation can be found in docs/api-server/ for the PHP written
+server part and docs/api-client/ for the JavaScripted client side.
 
