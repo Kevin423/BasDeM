@@ -1,19 +1,19 @@
 #container {
     margin: auto;
-    width: 1285px;
+    width: 1280px;
     height: 800px;
     cursor: default;
+    overflow: hidden;
 }
 #leftbox {
     width: 380px;
     height:800px;
     float: left;
-    margin-right: 5px;
 }
 #rightbox {
     width: 900px;
     height:800px;
-    float: left;
+    float: right;
 }
 #menuleft {
     width: 380px;
@@ -58,6 +58,18 @@
 .solutioncontra  {
 }
 .solutionneutral {
+}
+.floatright {
+    float: right;
+}
+.floatleft {
+    float: left;
+}
+.mybutton {
+    font-size: 0.7em !important;
+}
+.slideout {
+    margin-left: -350px;
 }
 /*.headline {
     border-radius: 10px 10px 0 0;

@@ -54,6 +54,27 @@ var Helper = new function() {
     this.show = function(object) {
         object.attr("class",object.attr("class").replace(/hidden/,''));
     }
+    
+    /** Create a button.
+    *   @param object   The target object.
+    */
+    this.createButton = function(text,icon,append,floatdirection,callback) {
+        var showtext = true;
+        if ( text == null ) {
+            text = "&nbsp;";
+            showtext = false;
+        }
+        $('<button>' + text + '</button>')
+            .button({
+                text: showtext,
+                icons: {
+                    primary: icon
+                }
+            })
+            .click(callback)
+            .addClass(floatdirection + ' mybutton')
+            .appendTo(append);
+    }
 }
 
 var Controller = new function() {
@@ -189,9 +210,6 @@ var View = new function() {
     */
     this.loadDebates = function() {
         // .addClass('ui-corner-all ui-widget ui-widget-content')
-        $('button')
-            .button()
-            .attr('style','font-size: 0.7em;');
         
         var content = $('#content')
             .empty();
@@ -234,6 +252,26 @@ var View = new function() {
             tmp.showComment(target);
         }
     };
+
+    /** Paint the primary menubuttons.
+    */
+    this.paintButtons = function() {
+        Helper.createButton(null,'ui-icon-minus','#menuleft','floatright',function(data) {
+            Helper.menuleft = !Helper.menuleft;
+            console.log(data);
+            if ( Helper.menuleft ) {
+                $('#leftbox')
+                    .addClass('slideout');
+                $('#list')
+                    .addClass('hidden');
+            } else {
+                $('#leftbox')
+                    .removeClass('slideout');
+                $('#list')
+                    .removeClass('hidden');
+            }
+        });
+    }
 }
 
 /** SolutionRegister for all Debates.
