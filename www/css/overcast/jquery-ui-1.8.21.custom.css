@@ -313,6 +313,7 @@
  * http://docs.jquery.com/UI/Selectable#theming
  */
 .ui-selectable-helper { position: absolute; z-index: 100; border:1px dotted black; }
+.ui-selected { background: url("images/ui-bg_inset-hard_75_999999_1x100.png") repeat-x scroll 50% bottom #999999; }
 /*!
  * jQuery UI Accordion 1.8.21
  *

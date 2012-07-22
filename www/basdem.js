@@ -166,7 +166,7 @@ var MemplexRegister = new function() {
         }
         if ( this.layerlistreverse[memplex.id] == null ) {
             this.layerlistreverse[memplex.id] = memplex.layer;
-            this.layerlist[memplex.layer][this.layerlist[memplex.layer].length] = memplex.id;
+            this.layerlist[memplex.layer][Helper.objectCount(this.layerlist[memplex.layer])] = memplex.id;
         }
         
         this.memplexes[memplex.id] = new function() {
@@ -280,9 +280,28 @@ var View = new function() {
                     .removeClass('hidden');
             }
         });
-        Helper.createButton(null,null,'#menuright','floatleft',function(data) {
+        Helper.createButton("Debatten laden",null,'#menuright','floatleft',function(data) {
             Controller.loadDebates();
         });
+        Helper.createButton("Filter einstellen",null,'#menuright','floatright',function(data) {
+            Filter.createNewObject();
+        });
+    }
+    
+    /** Create a popup.
+    */
+    this.popup = function(height,title,content,button) {
+        $('#viewpopup').remove();
+        var popup = $('<div id="viewpopup" title="' + title + '">')
+            .dialog({
+                resizable: false,
+                height: height,
+                modal: true,
+                buttons: button
+            });
+        if ( content != null ) {
+            content.appendTo(popup);
+        }
     }
 }
 
@@ -526,6 +545,7 @@ var Debate = function(memplex) {
 }
 
 var Filter = new function() {
+    this.filters = {};
     this.allof = {};
     this.oneof = {};
     this.mine = {};
@@ -543,7 +563,7 @@ var Filter = new function() {
         if ( Helper.objectCount(oneof) == 0 ) {
             return true;
         }
-        console.log(oneof);
+        
         var match = false;
         
         for ( o in oneof ) {
@@ -551,6 +571,7 @@ var Filter = new function() {
                 continue;
             }
             match = true;
+            break;
         }
         if ( Helper.objectCount(mine) == 0 ) {
             return match;
@@ -558,9 +579,56 @@ var Filter = new function() {
         // check if node is contained in mine.
     }
     
+    this.refreshFilters = function() {
+        this.filters = {};
+        var filters = MemplexRegister.getLayer(2);
+        
+        for ( f in filters ) {
+            var tmp = MemplexRegister.get(filters[f]);
+            this.filters[Helper.objectCount(this.filters)] = tmp;
+        }
+    }
+    
+    this.getFilterSelector = function(id) {
+        
+        var content = $('<div>');
+        var list = $('<ul id="' + id + '">')
+            .addClass('filterlist')
+            .appendTo(content);
+        
+        for ( f in this.filters ) {
+            var li = $('<li id="filterListElement' + this.filters[f].id + '" class="ui-widget-content filterlistelement">' 
+                + this.filters[f].title 
+                + '</li>')
+                .appendTo(list);
+        }
+        
+        list.selectable();
+        
+        return content;
+    }
+    
     /** Get the Object representation of the new filter form.
     */
     this.createNewObject = function() {
-        console.log("test");
+        this.refreshFilters();
+        
+        var content = $('<div>');
+        
+        this.getFilterSelector('filterAllOf').appendTo(content);
+        this.getFilterSelector('filterOneOf').appendTo(content);
+        
+        View.popup(
+            200,
+            'test?',
+            content,
+            {
+                "Delete all items": function() {
+                    $( this ).dialog( "close" );
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            });
     }
 }

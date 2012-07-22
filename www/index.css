@@ -32,6 +32,14 @@
     width: 900px;
     height: 770px;
 }
+.filterlist {
+    list-style: none;
+}
+.filterlistelement {
+    float: left;
+    padding: 0.2em;
+    margin: 0.1em;
+}
 .hidden {
     display: none;
 }
