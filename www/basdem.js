@@ -55,6 +55,12 @@ var Helper = new function() {
         object.attr("class",object.attr("class").replace(/hidden/,''));
     }
     
+    /** Adds standardwindowclasses.
+    */
+    this.window = function(object) {
+        object.addClass("ui-corner-all ui-widget ui-widget-content");
+    }
+    
     /** Create a button.
     *   @param object   The target object.
     */
@@ -211,8 +217,9 @@ var View = new function() {
     this.loadDebates = function() {
         // .addClass('ui-corner-all ui-widget ui-widget-content')
         
-        var content = $('#content')
+        $('#content')
             .empty();
+        var mycontent = $('<div id="mycontent">').appendTo('#content');
         
         var memplexes = MemplexRegister.getLayer(3);
         for ( m in memplexes ) {
@@ -220,8 +227,10 @@ var View = new function() {
             if ( !debate.matchFilter() ) {
                 continue;
             }
-            debate.getObject().appendTo(content);
+            debate.appendTo(mycontent);
         }
+        
+        mycontent.accordion();
     };
     
     /** Load a solution into content.
@@ -271,6 +280,9 @@ var View = new function() {
                     .removeClass('hidden');
             }
         });
+        Helper.createButton(null,null,'#menuright','floatleft',function(data) {
+            Controller.loadDebates();
+        });
     }
 }
 
@@ -318,6 +330,10 @@ var Solution = function(Memplex) {
         this.pro = $('<ul id="solution' + this.memplex.id + 'pro" class="solutionpro">').appendTo(this.list);
         this.neutral = $('<ul id="solution' + this.memplex.id + 'neutral" class="solutionneutral">').appendTo(this.list);
         this.contra = $('<ul id="solution' + this.memplex.id + 'contra" class="solutioncontra">').appendTo(this.list);
+        
+        Helper.window(this.pro);
+        Helper.window(this.neutral);
+        Helper.window(this.contra);
         
         this.loadArguments();
         
@@ -463,15 +479,15 @@ var Debate = function(memplex) {
     /** Constructor.
     */
     this.construct = function() {
-        this.object = $('<div id="debate' + this.memplex.id + '" class="debate">');
-        this.title = $('<div id="debate' + this.memplex.id + 'title" class="debatetitle">' + this.memplex.title + '</div>')
-            .appendTo(this.object)
-            .click(function(data) {
-                var id = Helper.getIdFromString(data.currentTarget.id);
-                Helper.toggleHidden(DebateRegister.get(id).hide);
-        });
+        // this.object = $('<div id="debate' + this.memplex.id + '" class="debate">');
+        this.title = $('<h3 id="debate' + this.memplex.id + 'title" class=""><a href="#">' + this.memplex.title + '</a></h3>');
+            // .appendTo(this.object)
+            // .click(function(data) {
+                // var id = Helper.getIdFromString(data.currentTarget.id);
+                // Helper.toggleHidden(DebateRegister.get(id).hide);
+        // });
         
-        this.hide = $('<div id="debate' + this.memplex.id + 'hide" class="hidden">').appendTo(this.object)
+        this.hide = $('<div id="debate' + this.memplex.id + 'hide" class="hidden">'); //.appendTo(this.object)
         
         this.text = $('<div id="debate' + this.memplex.id + 'text" class="debatetext">' + this.memplex.text + '</div>').appendTo(this.hide);
         
@@ -492,10 +508,11 @@ var Debate = function(memplex) {
         DebateRegister.add(memplex.id,this);
     }
     
-    /** Get the JQuery HTML Object representation of the debate.
+    /** Append the JQuery HTML Object representation of the debate to the given JQuery object.
     */
-    this.getObject = function() {
-        return this.object;
+    this.appendTo = function(object) {
+        this.title.appendTo(object);
+        this.hide.appendTo(object);
     }
     
     /** Checks if debate matches the given filter.
