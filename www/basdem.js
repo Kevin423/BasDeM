@@ -57,14 +57,17 @@ var Helper = new function() {
     
     /** Adds standardwindowclasses.
     */
-    this.window = function(object) {
-        object.addClass("ui-corner-all ui-widget ui-widget-content");
+    this.window = function(object,rounded) {
+        if ( rounded == true ) {
+            object.addClass("ui-corner-top");
+        }
+        object.addClass("ui-widget ui-widget-content");
     }
     
     /** Create a button.
     *   @param object   The target object.
     */
-    this.createButton = function(text,icon,append,floatdirection,callback) {
+    this.createButton = function(text,icon,append,floatdirection,callback,id) {
         var showtext = true;
         if ( text == null ) {
             text = "&nbsp;";
@@ -79,7 +82,8 @@ var Helper = new function() {
             })
             .click(callback)
             .addClass(floatdirection + ' mybutton')
-            .appendTo(append);
+            .appendTo(append)
+            .attr('id',id);
     }
 }
 
@@ -267,35 +271,47 @@ var View = new function() {
     this.paintButtons = function() {
         Helper.createButton(null,'ui-icon-minus','#menuleft','floatright',function(data) {
             Helper.menuleft = !Helper.menuleft;
-            console.log(data);
+            var tmp = $('#togglebutton').find('.ui-icon');
             if ( Helper.menuleft ) {
+                $('#rightbox')
+                    .addClass('widebox');
                 $('#leftbox')
                     .addClass('slideout');
                 $('#list')
                     .addClass('hidden');
+                tmp.toggleClass('ui-icon-minus');
+                tmp.toggleClass('ui-icon-plus');
             } else {
+                $('#rightbox')
+                    .removeClass('widebox');
                 $('#leftbox')
                     .removeClass('slideout');
                 $('#list')
                     .removeClass('hidden');
+                tmp.toggleClass('ui-icon-minus');
+                tmp.toggleClass('ui-icon-plus');
             }
-        });
+        },'togglebutton');
         Helper.createButton("Debatten laden",null,'#menuright','floatleft',function(data) {
             Controller.loadDebates();
         });
         Helper.createButton("Filter einstellen",null,'#menuright','floatright',function(data) {
             Filter.createNewObject();
         });
+        Helper.createButton("Neue Debatte",'ui-icon-plus','#menuleft','floatleft',function(data) {
+            Filter.createNewObject();
+        });
     }
     
     /** Create a popup.
     */
-    this.popup = function(height,title,content,button) {
+    this.popup = function(height,width,title,content,button) {
         $('#viewpopup').remove();
         var popup = $('<div id="viewpopup" title="' + title + '">')
             .dialog({
                 resizable: false,
                 height: height,
+                width: width,
                 modal: true,
                 buttons: button
             });
@@ -363,12 +379,13 @@ var Solution = function(Memplex) {
     */
     this.showComment = function(id) {
         if ( this.activecomment != null ) {
-            var lastcomment = $('#solution' + this.memplex.id + 'comment' + this.activecomment);
-            lastcomment.attr('class',lastcomment.attr('class').replace(/active/g,''))
+            $('#solution' + this.memplex.id + 'comment' + this.activecomment)
+                .removeClass('ui-selected');
         }
         this.activecomment = id;
         var a = $('#solution' + this.memplex.id + 'comment' + id);
-        a.attr('class',a.attr('class') + ' active');
+        
+        a.addClass('ui-selected')
         
         this.bubbleShow(a);
         
@@ -421,6 +438,8 @@ var Solution = function(Memplex) {
                     
                     solution.showComment(id);
                 });
+                
+            Helper.window(span,false);
             this.hidden[child.id] = $('<div id="solution' + this.memplex.id + 'comment' + child.id + 'hidden" class="solutioncomment hidden">').appendTo(li);
             for ( c in child.children ) {
                 var comment = MemplexRegister.get(child.children[c]);
@@ -435,7 +454,8 @@ var Solution = function(Memplex) {
         var ul = $("<ul class=\"comment\">").appendTo(parent);
         var li = $("<li class=\"comment\">").appendTo(ul);
         
-        $('<a id="solution' + this.memplex.id + 'comment' + memplex.id + '" class="solutioncommentlink">' + memplex.title + '</a>')
+        
+        var a = $('<a id="solution' + this.memplex.id + 'comment' + memplex.id + '" class="solutioncommentlink">' + memplex.title + '</a>')
             .appendTo(li)
             .click(function(data) {
                 var sid = Helper.getIdFromString(data.currentTarget.id);
@@ -447,6 +467,7 @@ var Solution = function(Memplex) {
                 
                 solution.showComment(cid);
             });
+        Helper.window(a,false);
         
         for ( c in memplex.children ) {
             var comment = MemplexRegister.get(memplex.children[c]);
@@ -589,7 +610,7 @@ var Filter = new function() {
         }
     }
     
-    this.getFilterSelector = function(id) {
+    this.getFilterSelector = function(id,callback) {
         
         var content = $('<div>');
         var list = $('<ul id="' + id + '">')
@@ -603,9 +624,19 @@ var Filter = new function() {
                 .appendTo(list);
         }
         
-        list.selectable();
+        list.selectable({
+            stop: callback
+        });
         
         return content;
+    }
+    
+    this.allofCallback = function() {
+        console.log("allof");
+    }
+    
+    this.oneofCallback = function() {
+        console.log("oneof");
     }
     
     /** Get the Object representation of the new filter form.
@@ -615,18 +646,20 @@ var Filter = new function() {
         
         var content = $('<div>');
         
-        this.getFilterSelector('filterAllOf').appendTo(content);
-        this.getFilterSelector('filterOneOf').appendTo(content);
+        $('<p>Dr&uuml;cke Strg um mehr als einen Filter auszuw&auml;hlen.<br>Achtung: &Auml;nderungen sind sofort wirksam!</p>').appendTo(content);
+        
+        $('<h4>Beitrag erfüllt alle hier ausgewählten Filter:</h4>').appendTo(content);
+        this.getFilterSelector('filterAllOf',this.allofCallback).appendTo(content);
+        $('<br><br><h4>Beitrag erfüllt mindestens einen hier ausgewählten Filter:</h4>').appendTo(content);
+        this.getFilterSelector('filterOneOf',this.oneofCallback).appendTo(content);
         
         View.popup(
-            200,
-            'test?',
+            'auto',
+            'auto',
+            'W&auml;hle die gew&uuml;nschten Filter aus:',
             content,
             {
-                "Delete all items": function() {
-                    $( this ).dialog( "close" );
-                },
-                Cancel: function() {
+                Ok: function() {
                     $( this ).dialog( "close" );
                 }
             });
