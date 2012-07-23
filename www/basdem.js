@@ -1,3 +1,20 @@
+/** It's all Svens fault!!1!11 **********************************************************
+ * Copyright (c) 2012 Justus Wingert <justus_wingert@web.de>                            *
+ *                                                                                      *
+ * This file is part of BasDeM.                                                         *
+ *                                                                                      *
+ * BasDeM is free software; you can redistribute it and/or modify it under              *
+ * the terms of the GNU General Public License as published by the Free Software        *
+ * Foundation; either version 3 of the License, or (at your option) any later           *
+ * version.                                                                             *
+ *                                                                                      *
+ * BasDeM is distributed in the hope that it will be useful, but WITHOUT ANY            *
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+ * PARTICULAR PURPOSE. See the GNU General Public License for more details.             *
+ *                                                                                      *
+ * You should have received a copy of the GNU General Public License along with         *
+ * BasDeM. If not, see <http://www.gnu.org/licenses/>.                                  *
+ ****************************************************************************************/
 var language = "de_DE";
 
 var Helper = new function() {
@@ -281,7 +298,7 @@ var View = new function() {
                 Controller.loadSolution(id);
             })
             .button()
-            .attr('style','font-size: 0.7em;');;
+            .attr('style','font-size: 0.7em;');
         
         
         var tmp = new Solution(solution);
@@ -293,6 +310,21 @@ var View = new function() {
         }
     };
 
+    this.paintCommentButton = function(solution,comment) {
+        if ( this.commentbutton != null ) {
+            this.commentbutton.remove();
+        }
+        this.commentbutton = $('<button id="solution' + solution.id + 'comment' + comment.id + 'button">Argument: ' + comment.title + '</button>')
+            .appendTo('#menuright')
+            .click(function(data) {
+                var solution = Helper.getIdFromString(data.currentTarget.id);
+                var comment = Helper.getSecondIdFromString(data.currentTarget.id);
+                Controller.loadComment(solution,comment);
+            })
+            .button()
+            .attr('style','font-size: 0.7em;');
+    }
+    
     /** Paint the primary menubuttons.
     */
     this.paintButtons = function() {
@@ -399,6 +431,16 @@ var Solution = function(Memplex) {
         
         this.loadArguments();
         
+        if ( this.pro.children().length == 0 ) {
+            $('<span>Noch keine Argumente daf&uuml;r</p>').appendTo(this.pro);
+        }
+        if ( this.neutral.children().length == 0 ) {
+            $('<span>Noch keine neutralen Argumente</p>').appendTo(this.neutral);
+        }
+        if ( this.contra.children().length == 0 ) {
+            $('<span>Noch keine Argumente dagegen</p>').appendTo(this.contra);
+        }
+        
         SolutionRegister.add(this.memplex.id,this);
     }
     
@@ -417,6 +459,9 @@ var Solution = function(Memplex) {
         this.bubbleShow(a);
         
         var comment = MemplexRegister.get(id);
+        if ( comment.layer >= 5 && comment.layer <= 7 ) {
+            View.paintCommentButton(this.memplex,comment);
+        }
         
         this.text.empty();
         
