@@ -291,6 +291,10 @@ var View = new function() {
         if ( this.solutionbutton != null ) {
             this.solutionbutton.remove();
         }
+        
+        if ( this.commentbutton != null ) {
+            this.commentbutton.remove();
+        }
         this.solutionbutton = $('<button id="solution' + solution.id + 'button">L&ouml;sungsvorschlag: ' + solution.title + '</button>')
             .appendTo('#menuright')
             .click(function(data) {
