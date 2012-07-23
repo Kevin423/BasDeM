@@ -85,19 +85,30 @@ var Helper = new function() {
             .appendTo(append)
             .attr('id',id);
     }
+    
+    /** Classic Unix Timestamp.
+    */
+    this.time = function(date) {
+        if ( date == null ) {
+            date = new Date();
+        }
+        return Math.round(date.getTime() / 1000);
+    }
 }
 
 var Controller = new function() {
     this.commentTarget = null;
+    this.lastload = {};
     
     /** Async load Debates into Storage then trigger View for loading of debates.
     */
     this.loadDebates = function() {
         $.post("memplex.php",
-            {id: 1},
+            {id: 1,time:  Controller.lastLoad(1)},
             function(data) {
                 var json = $.parseJSON(data);
                 Controller.parseMemplex(json.data,null);
+                Controller.setLastLoad(json.data.id,json.time);
                 View.loadDebates();
             });
     }
@@ -122,10 +133,11 @@ var Controller = new function() {
     */
     this.loadSolution = function(target) {
         $.post("memplex.php",
-            {id: target},
+            {id: target,time: Controller.lastLoad(target)},
             function(data) {
                 var json = $.parseJSON(data);
                 Controller.parseMemplex(json.data,null);
+                Controller.setLastLoad(json.data.id,json.time);
                 View.loadSolution(json.data.id);
             });
     }
@@ -137,6 +149,21 @@ var Controller = new function() {
         for ( c in data.children ) {
             Controller.parseMemplex(data.children[c],data);
         }
+    }
+    
+    /** Set the last loadtime for target.
+    *   @param target Target ID.
+    */
+    this.setLastLoad = function(target,time) {
+        this.lastload[target] = time;
+    }
+    
+    /** Get the last loadtime for target.
+    *   @param target Target ID.
+    *   @return int the last loading timestamp.
+    */
+    this.lastLoad = function(target) {
+        return this.lastload[target];
     }
     
     /** Create a new Debate.
@@ -544,6 +571,8 @@ var Debate = function(memplex) {
                     Controller.loadSolution(id);
                 });
         }
+        
+        var buttoncontainer = $('<div>').appendTo(this.hide);
         
         DebateRegister.add(memplex.id,this);
     }

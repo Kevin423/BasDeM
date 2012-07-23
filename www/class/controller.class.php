@@ -74,6 +74,7 @@ class Controller {
     private function showMemplex() {
         echo json_encode(array(
             'success' => true,
+            'time' => time(),
             'data' => $this->memplex->toArray(),
         ));
     }

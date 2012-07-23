@@ -62,10 +62,16 @@
     float: left;
 }
 .solutionpro {
+    list-style: none;
+    padding: 2px;
 }
 .solutioncontra  {
+    list-style: none;
+    padding: 2px;
 }
 .solutionneutral {
+    list-style: none;
+    padding: 2px;
 }
 .floatright {
     float: right;
@@ -84,17 +90,25 @@
 }
 ul .comment {
     list-style: none;
-    padding-left: 1px;
+}
+.debatelist {
+    list-style: none;
+}
+.debatesolution {
+    cursor: pointer;
 }
 li .comment {
     margin: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .comment {
     margin: 2px;
 }
 .solutioncommentlink {
     margin: 0px;
-    padding: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 /*.headline {
     border-radius: 10px 10px 0 0;
