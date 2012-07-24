@@ -191,6 +191,7 @@ var Controller = new function() {
         var content = $('<div class="newdebate">');
         
         $('<p>Hier könnte ihr Hilfetext stehen!</p>').appendTo(content);
+        $('<p id="newdebateerror" class="formerror"></p>').appendTo(content);
         
         var span;
         
@@ -215,7 +216,41 @@ var Controller = new function() {
             content,
             {
                 "Ok": function() {
-                    $( this ).dialog( "close" );
+                    var bad = false;
+                    
+                    var error = $('#newdebateerror').empty();
+                    
+                    var filter = $('#newdebatefilter');
+                    var title = $('#newdebatetitle');
+                    var text = $('#newdebatetext');
+                    
+                    filter.parent().parent().removeClass('formerror');
+                    title.parent().removeClass('formerror');
+                    text.parent().removeClass('formerror');
+                    
+                    var parents = Filter.getSelected('newdebatefilter');
+                    if ( title.val() == '' ) {
+                        bad = true;
+                        console.log(title.parent());
+                        title.parent().addClass('formerror');
+                        $('<p>Bitte gib einen Titel für deine Debatte an!</p>').appendTo(error);
+                    }
+                    if ( text.val() == '' ) {
+                        bad = true;
+                        text.parent().addClass('formerror');
+                        $('<p>Bitte beschreibe deine Debatte in einigen Sätzen!</p>').appendTo(error);
+                    }
+                    if ( Helper.objectCount(parents) == 0 ) {
+                        bad = true;
+                        filter.parent().parent().addClass('formerror');
+                        $('<p>Bitte wähle mindestens eine Filterkategorie aus!</p>').appendTo(error);
+                    }
+                    
+                    if ( bad == true ) {
+                        return;
+                    }
+                    console.log('Yippieh!',parents,title.val(),text.val());
+                    //$( this ).dialog( "close" );
                 },
                 "Cancel": function() {
                     $( this ).dialog( "close" );
@@ -422,6 +457,7 @@ var View = new function() {
         var popup = $('<div id="viewpopup" title="' + title + '">')
             .dialog({
                 resizable: false,
+                position: 'top',
                 height: height,
                 width: width,
                 modal: true,
@@ -790,5 +826,16 @@ var Filter = new function() {
                     $( this ).dialog( "close" );
                 }
             });
+    }
+    
+    this.getSelected = function(id) {
+        var found = $('#' + id).find('.ui-selected');
+        var i = -1;
+        var z = 0;
+        var ret = {};
+        while ( ++i < found.length ) {
+            ret[z++] = Helper.getIdFromString(found[i].id);
+        }
+        return ret;
     }
 }
