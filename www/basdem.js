@@ -452,7 +452,9 @@ var View = new function() {
     /** Load all debates into content.
     */
     this.loadDebates = function() {
-        // .addClass('ui-corner-all ui-widget ui-widget-content')
+        if ( View.activecommentbutton != null ) {
+            View.activecommentbutton.remove();
+        }
         
         $('#content')
             .empty();
@@ -494,18 +496,21 @@ var View = new function() {
         if ( this.solutionbutton != null ) {
             this.solutionbutton.remove();
         }
+        if ( View.activecommentbutton != null ) {
+            View.activecommentbutton.remove();
+        }
         
         if ( this.commentbutton != null ) {
             this.commentbutton.remove();
         }
-        this.solutionbutton = $('<button id="solution' + solution.id + 'button">L&ouml;sungsvorschlag: ' + solution.title + '</button>')
+        this.solutionbutton = $('<button id="solution' + solution.id + 'button">' + solution.title + '</button>')
             .appendTo('#menuright')
             .click(function(data) {
                 var id = Helper.getIdFromString(data.currentTarget.id);
                 Controller.loadSolution(id);
             })
             .button()
-            .attr('style','font-size: 0.7em;');
+            .addClass('mybutton');
         
         
         var tmp = new Solution(solution);
@@ -521,15 +526,15 @@ var View = new function() {
         if ( this.commentbutton != null ) {
             this.commentbutton.remove();
         }
-        this.commentbutton = $('<button id="solution' + solution.id + 'comment' + comment.id + 'button">Argument: ' + comment.title + '</button>')
-            .appendTo('#menuright')
-            .click(function(data) {
-                var solution = Helper.getIdFromString(data.currentTarget.id);
-                var comment = Helper.getSecondIdFromString(data.currentTarget.id);
-                Controller.loadComment(solution,comment);
-            })
-            .button()
-            .attr('style','font-size: 0.7em;');
+        // this.commentbutton = $('<button id="solution' + solution.id + 'comment' + comment.id + 'button">Argument: ' + comment.title + '</button>')
+            // .appendTo('#menuright')
+            // .click(function(data) {
+                // var solution = Helper.getIdFromString(data.currentTarget.id);
+                // var comment = Helper.getSecondIdFromString(data.currentTarget.id);
+                // Controller.loadComment(solution,comment);
+            // })
+            // .button()
+            // .addClass('mybutton');
     }
     
     /** Paint the primary menubuttons.
@@ -660,8 +665,6 @@ var Solution = function(Memplex) {
         // Contra Button
         Helper.createButton("Contra Argument hinzufügen",null,buttoncontra,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 6);
         
-        
-        
         SolutionRegister.add(this.memplex.id,this);
     }
     
@@ -678,17 +681,17 @@ var Solution = function(Memplex) {
             $('#solution' + this.memplex.id + 'comment' + this.activecomment)
                 .removeClass('ui-selected');
         }
-        if ( this.activecommentbutton != null ) {
-            this.activecommentbutton.remove();
+        if ( View.activecommentbutton != null ) {
+            View.activecommentbutton.remove();
         }
-        this.activecommentbutton = Helper
-            .createButton(
+        View.activecommentbutton = Helper.createButton(
                 "Kommentar abgeben",
                 null,
                 '#menuright',
                 'floatright',
                 this.buttonCallback,
-                'comment' + id + 'buttonadd' + 8);
+                'comment' + id + 'buttonadd' + 8
+        );
         this.activecomment = id;
         var a = $('#solution' + this.memplex.id + 'comment' + id);
         

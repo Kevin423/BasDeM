@@ -1,3 +1,6 @@
+body {
+    font-size: 1.1em;
+}
 br {
     clear: both;
 }
@@ -20,20 +23,20 @@ br {
 }
 #menuleft {
     width: 380px;
-    height: 22px;
+    height: 36px;
 }
 #menuright {
     width: 100%;
-    height: 22px;
+    height: 36px;
 }
 #list {
     width: 380px;
-    height: 778px;
+    height: 764px;
     overflow: auto;
 }
 #content {
     width: 100%;
-    height: 778px;
+    height: 764px;
 }
 .filterlist {
     list-style: none;
@@ -83,7 +86,10 @@ br {
     float: left;
 }
 .mybutton {
-    font-size: 0.7em !important;
+    font-size: 1.1em !important;
+}
+.mybutton {
+    font-size: 1.1em !important;
 }
 .slideout {
     margin-left: -358px;
