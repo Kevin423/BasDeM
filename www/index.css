@@ -1,3 +1,6 @@
+br {
+    clear: both;
+}
 #container {
     margin: auto;
     width: 1280px;
@@ -109,6 +112,14 @@ li .comment {
     margin: 0px;
     padding-left: 2px;
     padding-right: 2px;
+}
+.newdebate span span {
+    float: left;
+    width: 150px;
+}
+.newdebate span input, .newdebate span textarea {
+    float: left;
+    width: 500px;
 }
 /*.headline {
     border-radius: 10px 10px 0 0;

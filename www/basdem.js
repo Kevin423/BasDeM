@@ -188,9 +188,24 @@ var Controller = new function() {
     /** Create a new Debate.
     */
     this.newDebate = function() {
-        var content = $('<div>');
+        var content = $('<div class="newdebate">');
         
-        $('<p>Dr&uuml;cke Strg um mehr als einen Filter auszuw&auml;hlen.<br>Achtung: &Auml;nderungen sind sofort wirksam!</p>').appendTo(content);
+        $('<p>Hier könnte ihr Hilfetext stehen!</p>').appendTo(content);
+        
+        var span;
+        
+        span = $('<span>').appendTo(content);
+        $('<span>Debatetitle</span>').appendTo(span);
+        $('<input id="newdebatetitle" type="text"><br>').appendTo(span);
+        
+        span = $('<span>').appendTo(content);
+        $('<span>Debatetext</span>').appendTo(span);
+        $('<textarea id="newdebatetext" rows="20" cols="50"></textarea><br>').appendTo(span);
+        
+        Filter.refreshFilters();
+        span = $('<span>').appendTo(content);
+        $('<span>Filters</span>').appendTo(span);
+        Filter.getFilterSelector('newdebatefilter',null).appendTo(span);
         
         
         View.popup(
@@ -199,7 +214,10 @@ var Controller = new function() {
             'W&auml;hle die gew&uuml;nschten Filter aus:',
             content,
             {
-                Ok: function() {
+                "Ok": function() {
+                    $( this ).dialog( "close" );
+                },
+                "Cancel": function() {
                     $( this ).dialog( "close" );
                 }
             });
