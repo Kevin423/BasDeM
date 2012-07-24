@@ -2,19 +2,41 @@
 Our aim is to offer BasDeM for the submissions to the national German
 Pirate Party assembly in Bochum (BPT12.2).
 
-Details (to be refined):
+=== Details (to be refined) ===
 * 2012-07-02: Start of active development
 * 2012-09-29: Targetted release date
 * 2012-10-27: Submission deadline for BPT12.2
 * 2012-11-24: BPT12.2 opening
 
-ToDo:
+=== ToDo ===
+==== Coding ====
+* login system
+** security check for database changes
+* adding debates, solutions, arguments, comments
+* rating system for debates, solutions, arguments, comments
+* filter system
+** creating filters
+* hot/new/unsolved area
+* install script
+* sql moderation procedures
+
+==== Quality assurance & community management====
 * i18n
 * tests
+* js/client documentation
+* security contact
+* setting up bug tracker
+* setting up mailing list
 
-Future features:
+==== Marketing ====
+* web site
+** FAQ
+** imprint
+** demo installation
+
+=== Future features ===
 * editing arguments, solutions, etc
 * using Pirate ID for login
 * possibility to post updated solutions and mark the old one as outdated
-* install script
+* way to post updated solutions
 
