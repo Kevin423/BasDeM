@@ -286,16 +286,16 @@ var View = new function() {
         var mycontent = $('<div id="mycontent">').appendTo('#content');
         
         var memplexes = MemplexRegister.getLayer(3);
-        var i = 0;
-        var act = -1;
+        var i = -1;
+        var act = i;
         for ( m in memplexes ) {
+            i++;
             var debate = new Debate(MemplexRegister.get(memplexes[m]));
             if ( !debate.matchFilter() ) {
                 continue;
             }
             if ( this.activeDebate == debate.memplex.id ) {
-                console.log(i);
-                act = i++;
+                act = i;
             }
             debate.appendTo(mycontent);
         }
