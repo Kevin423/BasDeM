@@ -84,7 +84,12 @@ var Helper = new function() {
     }
     
     /** Create a button.
-    *   @param object   The target object.
+    *   @param text     String Button text.
+    *   @param icon     String jquery-ui icon name.
+    *   @param append   jQuery Object to append the button to.
+    *   @param floatdirection   String direction of the float.
+    *   @param callback function callback
+    *   @param id       String html id attribute.
     */
     this.createButton = function(text,icon,append,floatdirection,callback,id) {
         var showtext = true;
@@ -92,7 +97,7 @@ var Helper = new function() {
             text = "&nbsp;";
             showtext = false;
         }
-        $('<button>' + text + '</button>')
+        return $('<button>' + text + '</button>')
             .button({
                 text: showtext,
                 icons: {
@@ -185,77 +190,192 @@ var Controller = new function() {
         return this.lastload[target];
     }
     
-    /** Create a new Debate.
+    /** Create a specific add form.
     */
-    this.newDebate = function() {
-        var content = $('<div class="newdebate">');
+    this.addForm = function(name,title,strings,parent,layer,callback) {
+        var content = $('<div class="' + name + '">');
         
         $('<p>Hier könnte ihr Hilfetext stehen!</p>').appendTo(content);
-        $('<p id="newdebateerror" class="formerror"></p>').appendTo(content);
+        $('<p id="' + name + 'error" class="formerror"></p>').appendTo(content);
         
         var span;
         
         span = $('<span>').appendTo(content);
-        $('<span>Debatetitle</span>').appendTo(span);
-        $('<input id="newdebatetitle" type="text"><br>').appendTo(span);
+        $('<span>' + strings[0] + '</span>').appendTo(span);
+        if ( parent != null ) {
+            $('<input id="' + name + 'parent" type="hidden" value="' + parent + '">').appendTo(span);
+        }
+        if ( layer != null ) {
+            $('<input id="' + name + 'layer" type="hidden" value="' + layer + '">').appendTo(span);
+        }
+        $('<input id="' + name + 'title" type="text"><br>').appendTo(span);
         
         span = $('<span>').appendTo(content);
-        $('<span>Debatetext</span>').appendTo(span);
-        $('<textarea id="newdebatetext" rows="20" cols="50"></textarea><br>').appendTo(span);
+        $('<span>' + strings[1] + '</span>').appendTo(span);
+        $('<textarea id="' + name + 'text" rows="20" cols="50"></textarea><br>').appendTo(span);
         
-        Filter.refreshFilters();
-        span = $('<span>').appendTo(content);
-        $('<span>Filters</span>').appendTo(span);
-        Filter.getFilterSelector('newdebatefilter',null).appendTo(span);
-        
+        if ( strings[2] != null ) {
+            Filter.refreshFilters();
+            span = $('<span>').appendTo(content);
+            $('<span>' + strings[2] + '</span>').appendTo(span);
+            Filter.getFilterSelector('' + name + 'filter',null).appendTo(span);
+        }
         
         View.popup(
             'auto',
             'auto',
-            'W&auml;hle die gew&uuml;nschten Filter aus:',
+            title,
             content,
             {
-                "Ok": function() {
-                    var bad = false;
-                    
-                    var error = $('#newdebateerror').empty();
-                    
-                    var filter = $('#newdebatefilter');
-                    var title = $('#newdebatetitle');
-                    var text = $('#newdebatetext');
-                    
-                    filter.parent().parent().removeClass('formerror');
-                    title.parent().removeClass('formerror');
-                    text.parent().removeClass('formerror');
-                    
-                    var parents = Filter.getSelected('newdebatefilter');
-                    if ( title.val() == '' ) {
-                        bad = true;
-                        console.log(title.parent());
-                        title.parent().addClass('formerror');
-                        $('<p>Bitte gib einen Titel für deine Debatte an!</p>').appendTo(error);
-                    }
-                    if ( text.val() == '' ) {
-                        bad = true;
-                        text.parent().addClass('formerror');
-                        $('<p>Bitte beschreibe deine Debatte in einigen Sätzen!</p>').appendTo(error);
-                    }
-                    if ( Helper.objectCount(parents) == 0 ) {
-                        bad = true;
-                        filter.parent().parent().addClass('formerror');
-                        $('<p>Bitte wähle mindestens eine Filterkategorie aus!</p>').appendTo(error);
-                    }
-                    
-                    if ( bad == true ) {
-                        return;
-                    }
-                    console.log('Yippieh!',parents,title.val(),text.val());
-                    //$( this ).dialog( "close" );
-                },
+                "Ok": callback,
                 "Cancel": function() {
                     $( this ).dialog( "close" );
                 }
             });
+    }
+    
+    /** Create a new Debate.
+    */
+    this.addDebate = function() {
+        this.addForm('adddebate','Neue Debatte erstellen:',['Debatetitle','Debatetext','Filter'],null,null,function() {
+            var bad = false;
+            
+            var error = $('#adddebateerror').empty();
+            
+            var filter = $('#adddebatefilter');
+            var title = $('#adddebatetitle');
+            var text = $('#adddebatetext');
+            
+            filter.parent().parent().removeClass('formerror');
+            title.parent().removeClass('formerror');
+            text.parent().removeClass('formerror');
+            
+            var parents = Filter.getSelected('adddebatefilter');
+            
+            if ( title.val() == '' ) {
+                bad = true;
+                title.parent().addClass('formerror');
+                $('<p>Bitte gib einen Titel für deine Debatte an!</p>').appendTo(error);
+            }
+            if ( text.val() == '' ) {
+                bad = true;
+                text.parent().addClass('formerror');
+                $('<p>Bitte beschreibe deine Debatte in einigen Sätzen!</p>').appendTo(error);
+            }
+            if ( Helper.objectCount(parents) == 0 ) {
+                bad = true;
+                filter.parent().parent().addClass('formerror');
+                $('<p>Bitte wähle mindestens eine Filterkategorie aus!</p>').appendTo(error);
+            }
+            
+            if ( bad == true ) {
+                return;
+            }
+            console.log('Yippieh!',parents,title.val(),text.val());
+            // TODO: Send and close! $( this ).dialog( "close" );
+        });
+    }
+
+    /** Create a new Solution.
+    */
+    this.addSolution = function(debateid) {
+        this.addForm('addsolution','Neue Lösung erstellen:',['Solutiontitle','Solutiontext'],debateid,null,function() {
+            var bad = false;
+            
+            var error = $('#addsolutionerror').empty();
+            
+            var parent = $('#addsolutionparent');
+            var title = $('#addsolutiontitle');
+            var text = $('#addsolutiontext');
+            
+            title.parent().removeClass('formerror');
+            text.parent().removeClass('formerror');
+            
+            if ( parent.val() == '' ) {
+                bad = true;
+                title.parent().addClass('formerror');
+                $('<p>Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!</p>').appendTo(error);
+            }
+            
+            if ( title.val() == '' ) {
+                bad = true;
+                title.parent().addClass('formerror');
+                $('<p>Bitte gib einen Titel für deine Lösung an!</p>').appendTo(error);
+            }
+            if ( text.val() == '' ) {
+                bad = true;
+                text.parent().addClass('formerror');
+                $('<p>Bitte beschreibe deine Lösung in einigen Sätzen!</p>').appendTo(error);
+            }
+            
+            if ( bad == true ) {
+                return;
+            }
+            console.log('Yippieh!',parent.val(),title.val(),text.val());
+            // TODO: Send and close! $( this ).dialog( "close" );
+        });
+    }
+
+    /** Create a new Comment or Argument.
+    */
+    this.addComment = function(solutionid,layer) {
+        var title = '';
+        switch ( layer ) {
+            case 5: title = 'Neues Pro Argument erstellen:'; break;
+            case 6: title = 'Neues Contra Argument erstellen:'; break;
+            case 7: title = 'Neues Neutrales Argument erstellen:'; break;
+            case 8: title = 'Neuen Kommentar erstellen:'; break;
+        }
+        this.addForm('addcomment',title,['Title','Text'],solutionid,layer,function() {
+            var bad = false;
+            
+            var error = $('#addcommenterror').empty();
+            
+            var parent = $('#addcommentparent');
+            var layer = $('#addcommentlayer');
+            var title = $('#addcommenttitle');
+            var text = $('#addcommenttext');
+            
+            title.parent().removeClass('formerror');
+            text.parent().removeClass('formerror');
+            
+            if ( parent.val() == '' ) {
+                bad = true;
+                title.parent().addClass('formerror');
+                $('<p>Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!</p>').appendTo(error);
+            }
+            
+            if ( layer.val() == '' ) {
+                bad = true;
+                title.parent().addClass('formerror');
+                $('<p>Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!</p>').appendTo(error);
+            }
+            
+            var type = '';
+            switch ( layer.val() ) {
+                case '5': type = 'dein Argument'; break;
+                case '6': type = 'dein Argument'; break;
+                case '7': type = 'dein Argument'; break;
+                case '8': type = 'deinen Kommentar'; break;
+            }
+            
+            if ( title.val() == '' ) {
+                bad = true;
+                title.parent().addClass('formerror');
+                $('<p>Bitte gib einen Titel für ' + type + ' an!</p>').appendTo(error);
+            }
+            if ( text.val() == '' ) {
+                bad = true;
+                text.parent().addClass('formerror');
+                $('<p>Bitte beschreibe ' + type + ' in einigen Sätzen!</p>').appendTo(error);
+            }
+            
+            if ( bad == true ) {
+                return;
+            }
+            console.log('Yippieh!',parent.val(),layer.val(),title.val(),text.val());
+            // TODO: Send and close! $( this ).dialog( "close" );
+        });
     }
 }
 
@@ -360,7 +480,6 @@ var View = new function() {
             active: act,
             change: function(event,ui) {
                 View.activeDebate = Helper.getIdFromString(ui.newContent.attr('id'));
-                console.log(event,ui,View.activeDebate);
             }
         });
     };
@@ -446,7 +565,7 @@ var View = new function() {
             Filter.createNewObject();
         });
         Helper.createButton("Neue Debatte",'ui-icon-plus','#menuleft','floatleft',function(data) {
-            Controller.newDebate();
+            Controller.addDebate();
         });
     }
     
@@ -530,8 +649,27 @@ var Solution = function(Memplex) {
             $('<span>Noch keine Argumente dagegen</p>').appendTo(this.contra);
         }
         
+        var buttonpro = $('<div id="solution' + this.memplex.id + 'buttonspro"></div><br>').appendTo(this.pro);
+        var buttonneutral = $('<div id="solution' + this.memplex.id + 'buttonsneutral"></div><br>').appendTo(this.neutral);
+        var buttoncontra = $('<div id="solution' + this.memplex.id + 'buttonscontra"></div><br>').appendTo(this.contra);
+        
+        // Pro Button
+        Helper.createButton("Pro Argument hinzufügen",null,buttonpro,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 5);
+        // Neutral Button
+        Helper.createButton("Neutrales Argument hinzufügen",null,buttonneutral,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 7);
+        // Contra Button
+        Helper.createButton("Contra Argument hinzufügen",null,buttoncontra,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 6);
+        
+        
+        
         SolutionRegister.add(this.memplex.id,this);
     }
+    
+    this.buttonCallback = function(data) {
+        var id = Helper.getIdFromString($( this ).attr('id'));
+        var layer = Helper.getSecondIdFromString($( this ).attr('id'));
+        Controller.addComment(id,layer);
+    };
     
     /** Bring the target comment up front.
     */
@@ -540,6 +678,17 @@ var Solution = function(Memplex) {
             $('#solution' + this.memplex.id + 'comment' + this.activecomment)
                 .removeClass('ui-selected');
         }
+        if ( this.activecommentbutton != null ) {
+            this.activecommentbutton.remove();
+        }
+        this.activecommentbutton = Helper
+            .createButton(
+                "Kommentar abgeben",
+                null,
+                '#menuright',
+                'floatright',
+                this.buttonCallback,
+                'comment' + id + 'buttonadd' + 8);
         this.activecomment = id;
         var a = $('#solution' + this.memplex.id + 'comment' + id);
         
@@ -706,7 +855,13 @@ var Debate = function(memplex) {
                 });
         }
         
-        var buttoncontainer = $('<div>').appendTo(this.hide);
+        var buttoncontainer = $('<div id="debate' + this.memplex.id + 'buttons">').appendTo(this.hide);
+        // text,icon,append,floatdirection,callback,id
+        Helper.createButton("Lösung hinzufügen",null,buttoncontainer,'floatleft',function(data) {
+            var id = Helper.getIdFromString($( this ).attr('id'));
+            Controller.addSolution(id);
+        },'debate' + this.memplex.id + 'buttonadd');
+        
         
         DebateRegister.add(memplex.id,this);
     }

@@ -113,11 +113,11 @@ li .comment {
     padding-left: 2px;
     padding-right: 2px;
 }
-.newdebate span span {
+.addcomment span span, .addsolution span span, .adddebate span span {
     float: left;
     width: 150px;
 }
-.newdebate span input, .newdebate span textarea {
+.addcomment span input, .addcomment span textarea, .addsolution span input, .addsolution span textarea, .adddebate span input, .adddebate span textarea {
     float: left;
     width: 500px;
 }
