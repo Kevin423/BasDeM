@@ -931,7 +931,10 @@ var Filter = new function() {
         }
     }
     
-    this.getFilterSelector = function(id,callback) {
+    this.getFilterSelector = function(id,callback,check) {
+        if ( check == null ) {
+            check = {};
+        }
         
         var content = $('<div>');
         var list = $('<ul id="' + id + '">')
@@ -939,10 +942,17 @@ var Filter = new function() {
             .appendTo(content);
         
         for ( f in this.filters ) {
-            var li = $('<li id="filterListElement' + this.filters[f].id + '" class="ui-widget-content filterlistelement">' 
+            var li = $('<li id="filterListElement' + this.filters[f].id + '">' 
                 + this.filters[f].title 
                 + '</li>')
-                .appendTo(list);
+                .appendTo(list)
+                .addClass('ui-widget-content filterlistelement');
+            for ( c in check ) {
+                if ( check[c] == this.filters[f].id ) {
+                    li.addClass('ui-selected');
+                    break;
+                }
+            }
         }
         
         list.selectable({
@@ -953,11 +963,11 @@ var Filter = new function() {
     }
     
     this.allofCallback = function() {
-        console.log("allof");
+        Filter.allof = Filter.getSelected($( this ));
     }
     
     this.oneofCallback = function() {
-        console.log("oneof");
+        Filter.oneof = Filter.getSelected($( this ));
     }
     
     /** Get the Object representation of the new filter form.
@@ -970,9 +980,9 @@ var Filter = new function() {
         $('<p>Dr&uuml;cke Strg um mehr als einen Filter auszuw&auml;hlen.<br>Achtung: &Auml;nderungen sind sofort wirksam!</p>').appendTo(content);
         
         $('<h4>Beitrag erfüllt alle hier ausgewählten Filter:</h4>').appendTo(content);
-        this.getFilterSelector('filterAllOf',this.allofCallback).appendTo(content);
+        this.getFilterSelector('filterAllOf',this.allofCallback,this.allof).appendTo(content);
         $('<br><br><h4>Beitrag erfüllt mindestens einen hier ausgewählten Filter:</h4>').appendTo(content);
-        this.getFilterSelector('filterOneOf',this.oneofCallback).appendTo(content);
+        this.getFilterSelector('filterOneOf',this.oneofCallback,this.oneof).appendTo(content);
         
         View.popup(
             'auto',
@@ -987,7 +997,12 @@ var Filter = new function() {
     }
     
     this.getSelected = function(id) {
-        var found = $('#' + id).find('.ui-selected');
+        var found = null;
+        if ( typeof id == 'object' ) {
+            found = id.find('.ui-selected');
+        } else {
+            found = $('#' + id).find('.ui-selected');
+        }
         var i = -1;
         var z = 0;
         var ret = {};
