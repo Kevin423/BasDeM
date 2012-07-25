@@ -80,6 +80,9 @@ var Helper = new function() {
         if ( rounded == true ) {
             object.addClass("ui-corner-top");
         }
+        if ( rounded == 'all' ) {
+            object.addClass("ui-corner-all");
+        }
         object.addClass("ui-widget ui-widget-content");
     }
     
@@ -503,6 +506,12 @@ var View = new function() {
         }
         $('#content')
             .empty();
+            
+        $('<div>')
+            .attr('id','activefilterlist')
+            .appendTo('#content');
+        Filter.printFilters();
+        
         var mycontent = $('<div id="mycontent">').appendTo('#content');
         
         var memplexes = MemplexRegister.getLayer(3);
@@ -610,8 +619,11 @@ var View = new function() {
                 tmp.toggleClass('ui-icon-plus');
             }
         },'togglebutton');
-        Helper.createButton("Debatten laden",null,'#menuright','floatleft',function(data) {
+        Helper.createButton(null,'ui-icon-refresh','#menuright','floatleft',function(data) {
             Controller.loadDebates();
+        });
+        Helper.createButton("Debatten",null,'#menuright','floatleft',function(data) {
+            View.loadDebates();
         });
         Helper.createButton("Filter einstellen",null,'#menuright','floatright',function(data) {
             Filter.createNewObject();
@@ -912,6 +924,8 @@ var Debate = function(memplex) {
             Controller.addSolution(id);
         },'debate' + this.memplex.id + 'buttonadd');
         
+        $('<br>').appendTo(buttoncontainer);
+        $('<br>').appendTo(this.hide);
         
         DebateRegister.add(memplex.id,this);
     }
@@ -968,6 +982,28 @@ var Filter = new function() {
         // check if node is contained in mine.
     }
     
+    this.printFilters = function(remove) {
+        var list = $('#activefilterlist').empty();
+        
+        var allof = $('<p>').appendTo(list);
+        $('<br>').appendTo(list);
+        var oneof = $('<p>').appendTo(list);
+        $('<br>').appendTo(list);
+        
+        $('<p>All of:</p>').appendTo(allof);
+        $('<p>One of:</p>').appendTo(oneof);
+        
+        for ( a in this.allof ) {
+            var m = MemplexRegister.get(this.allof[a]);
+            Helper.window($('<p>' + m.title + '</p>').appendTo(allof),'all');
+        }
+        
+        for ( o in this.oneof ) {
+            var m = MemplexRegister.get(this.oneof[o]);
+            Helper.window($('<p>' + m.title + '</p>').appendTo(oneof),'all');
+        }
+    }
+    
     this.refreshFilters = function() {
         this.filters = {};
         var filters = MemplexRegister.getLayer(2);
@@ -1011,10 +1047,12 @@ var Filter = new function() {
     
     this.allofCallback = function() {
         Filter.allof = Filter.getSelected($( this ));
+        Filter.printFilters();
     }
     
     this.oneofCallback = function() {
         Filter.oneof = Filter.getSelected($( this ));
+        Filter.printFilters();
     }
     
     /** Get the Object representation of the new filter form.
