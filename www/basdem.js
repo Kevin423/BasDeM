@@ -250,7 +250,7 @@ var Controller = new function() {
         
         View.popup(
             'auto',
-            800, // Workaround for 3 year old jqueryUi bug...
+            800, // Workaround for 3 year old jqueryUi bug... http://bugs.jqueryui.com/ticket/4820
             title,
             content,
             {
@@ -1083,7 +1083,7 @@ var Filter = new function() {
         
         View.popup(
             'auto',
-            800, // Workaround for 3 year old jqueryUi bug...
+            800, // Workaround for 3 year old jqueryUi bug... http://bugs.jqueryui.com/ticket/4820
             'W&auml;hle die gew&uuml;nschten Filter aus:',
             content,
             {
