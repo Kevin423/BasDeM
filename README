@@ -3,7 +3,7 @@ When facing a decision in a project or in a political process you can
 distinguish between two phases: The forming of an opinion and the actual 
 decision making.
 
-The part of the process where you collect pros and cons to form an option 
+The part of the process where you collect pros and cons to form an opinion 
 is done first. The actual decision is subsequently done by voting.
 
 Many tools like mailing lists, liquid democracy implementations
@@ -15,7 +15,7 @@ BasDeM tries to solve this problem by only covering the first
 part of decision making: forming of opinion. BasDeM is a tool
 to collect arguments for and against a statement by active users
 and to present them to everybody in a compact way. As a result
-less active participants can easily get an overview about the
+less active participants can easily get an overview over the
 current state of a discussion.
 
 The actual decision can then be done with different tools or at
