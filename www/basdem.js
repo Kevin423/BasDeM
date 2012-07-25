@@ -121,6 +121,20 @@ var Helper = new function() {
         }
         return Math.round(date.getTime() / 1000);
     }
+
+    this.box = function(title,id,target) {
+        console.log(title.length);
+        if ( title.length > 45 ) {
+            title = title.substr(0,42) + '...';
+        }
+        var div = $('<div id="' + id + '" class="solutionargument padded">' + title + '</div>')
+            .appendTo(target);
+        
+        Helper.window(div,'all');
+        div.width(300);
+        
+        return div;
+    }
 }
 
 var Controller = new function() {
@@ -806,8 +820,7 @@ var Solution = function(Memplex) {
                 case 7: li.appendTo(this.neutral); break;
             }
             
-            var span = $('<span id="solution' + this.memplex.id + 'comment' + child.id + '" class="solutionargument">' + child.title + '</span>')
-                .appendTo(li)
+            var div = Helper.box(child.title,'solution' + this.memplex.id + 'comment' + child.id,li)
                 .click(function(data) {
                     var id = Helper.getSecondIdFromString(data.currentTarget.id);
                     var sid = Helper.getIdFromString(data.currentTarget.id);
@@ -822,8 +835,8 @@ var Solution = function(Memplex) {
                     
                     solution.showComment(id);
                 });
-                
-            Helper.window(span,'all');
+            
+            
             this.hidden[child.id] = $('<div id="solution' + this.memplex.id + 'comment' + child.id + 'hidden" class="solutioncomment hidden">').appendTo(li);
             for ( c in child.children ) {
                 var comment = MemplexRegister.get(child.children[c]);
@@ -838,9 +851,7 @@ var Solution = function(Memplex) {
         var ul = $("<ul class=\"comment\">").appendTo(parent);
         var li = $("<li class=\"comment\">").appendTo(ul);
         
-        
-        var a = $('<a id="solution' + this.memplex.id + 'comment' + memplex.id + '" class="solutioncommentlink">' + memplex.title + '</a>')
-            .appendTo(li)
+        var div = Helper.box(memplex.title,'solution' + this.memplex.id + 'comment' + memplex.id,li)
             .click(function(data) {
                 var sid = Helper.getIdFromString(data.currentTarget.id);
                 var cid = Helper.getSecondIdFromString(data.currentTarget.id);
@@ -851,7 +862,6 @@ var Solution = function(Memplex) {
                 
                 solution.showComment(cid);
             });
-        Helper.window(a,'all');
         
         for ( c in memplex.children ) {
             var comment = MemplexRegister.get(memplex.children[c]);
@@ -913,7 +923,10 @@ var Debate = function(memplex) {
         
         this.hide = $('<div id="debate' + this.memplex.id + 'hide" class="hidden">'); //.appendTo(this.object)
         
-        this.text = $('<div id="debate' + this.memplex.id + 'text" class="debatetext">' + this.memplex.text + '</div>').appendTo(this.hide);
+        this.text = $('<div id="debate' + this.memplex.id + 'text" class="debatetext">').appendTo(this.hide);
+        
+        Helper.window($('<div class="padded bigfont">' + this.memplex.title + '</div>').appendTo(this.text),'all');
+        Helper.window($('<div class="padded">' + this.memplex.text + '</div>').appendTo(this.text),'all');
         
         this.ul = $('<ul id="debate' + this.memplex.id + 'list" class="debatelist">').appendTo(this.hide);
         
@@ -921,12 +934,13 @@ var Debate = function(memplex) {
         
         for ( c in childs ) {
             var child = MemplexRegister.get(childs[c]);
-            $('<li id="solution' + child.id + '" class="debatesolution">' + child.title + '</li>')
+            var li = $('<li id="solution' + child.id + '" class="padded debatesolution">' + child.title + '</li>')
                 .appendTo(this.ul)
                 .click(function(data) {
                     var id = Helper.getIdFromString(data.currentTarget.id);
                     Controller.loadSolution(id);
                 });
+            Helper.window(li,'all');
         }
         
         var buttoncontainer = $('<div id="debate' + this.memplex.id + 'buttons">').appendTo(this.hide);

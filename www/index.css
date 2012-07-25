@@ -55,10 +55,10 @@ br {
     padding: 10px;
     line-height: 1.5em;
 }
+.solutionargument {
+    width: 300px;
+}
 .solutionargument, .solutioncommentlink {
-    margin: 0px;
-    padding: 10px;
-    line-height: 3em;
 }
 .filterlist {
     list-style: none;
