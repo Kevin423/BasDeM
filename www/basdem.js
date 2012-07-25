@@ -250,7 +250,7 @@ var Controller = new function() {
         
         View.popup(
             'auto',
-            'auto',
+            800, // Workaround for 3 year old jqueryUi bug...
             title,
             content,
             {
@@ -258,7 +258,7 @@ var Controller = new function() {
                 "Cancel": function() {
                     $( this ).dialog( "close" );
                 }
-            });
+            },name + 'parent');
     }
     
     /** Create a new Debate.
@@ -635,12 +635,14 @@ var View = new function() {
     
     /** Create a popup.
     */
-    this.popup = function(height,width,title,content,button) {
+    this.popup = function(height,width,title,content,button,focus) {
         $('#viewpopup').remove();
         var popup = $('<div id="viewpopup" title="' + title + '">')
             .dialog({
                 resizable: false,
+                autoOpen: false,
                 position: 'top',
+                maxWidth: 800,
                 height: height,
                 width: width,
                 modal: true,
@@ -648,6 +650,11 @@ var View = new function() {
             });
         if ( content != null ) {
             content.appendTo(popup);
+        }
+        popup.dialog("open");
+        if ( focus != null ) {
+            console.log(focus);
+            $('#' + focus).focus();
         }
     }
 }
@@ -691,11 +698,15 @@ var Solution = function(Memplex) {
     */
     this.construct = function() {
         this.object = $('<div id="solution' + this.memplex.id + '" class="solution">');
-        this.text = $('<div id="solution' + this.memplex.id + 'text" class="solutiontext">' + this.memplex.text + '</div>').appendTo(this.object);
+        this.text = $('<div id="solution' + this.memplex.id + 'text" class="solutiontext">').appendTo(this.object);
         this.list = $('<div id="solution' + this.memplex.id + 'list" class="solutionlist">').appendTo(this.object);
         this.pro = $('<ul id="solution' + this.memplex.id + 'pro" class="solutionpro">').appendTo(this.list);
         this.neutral = $('<ul id="solution' + this.memplex.id + 'neutral" class="solutionneutral">').appendTo(this.list);
         this.contra = $('<ul id="solution' + this.memplex.id + 'contra" class="solutioncontra">').appendTo(this.list);
+        
+        
+        Helper.window($('<div class="padded bigfont">' + this.memplex.title + '</div>').appendTo(this.text),'all');
+        Helper.window($('<div class="padded">' + this.memplex.text + '</div>').appendTo(this.text),'all');
         
         Helper.window(this.pro);
         Helper.window(this.neutral);
@@ -765,7 +776,8 @@ var Solution = function(Memplex) {
         
         this.text.empty();
         
-        $('<span>' + comment.text + '</span>').appendTo(this.text);
+        Helper.window($('<div class="padded bigfont">' + comment.title + '</div>').appendTo(this.text),'all');
+        Helper.window($('<div class="padded">' + comment.text + '</div>').appendTo(this.text),'all');
     }
     
     /** Walks through all parent comment nodes until it finds and shows the hidden topnode.
@@ -811,7 +823,7 @@ var Solution = function(Memplex) {
                     solution.showComment(id);
                 });
                 
-            Helper.window(span,false);
+            Helper.window(span,'all');
             this.hidden[child.id] = $('<div id="solution' + this.memplex.id + 'comment' + child.id + 'hidden" class="solutioncomment hidden">').appendTo(li);
             for ( c in child.children ) {
                 var comment = MemplexRegister.get(child.children[c]);
@@ -839,7 +851,7 @@ var Solution = function(Memplex) {
                 
                 solution.showComment(cid);
             });
-        Helper.window(a,false);
+        Helper.window(a,'all');
         
         for ( c in memplex.children ) {
             var comment = MemplexRegister.get(memplex.children[c]);
@@ -1071,7 +1083,7 @@ var Filter = new function() {
         
         View.popup(
             'auto',
-            'auto',
+            800, // Workaround for 3 year old jqueryUi bug...
             'W&auml;hle die gew&uuml;nschten Filter aus:',
             content,
             {
