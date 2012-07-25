@@ -136,7 +136,7 @@ class Database {
         /*
         TODO: Select comments by layer and parent relation to both L4 and L5+
         */
-        return self::query(
+        $tmp = self::query(
 "select
     memplex.id,
     memplex.layer,
@@ -164,6 +164,7 @@ where
             true,
             false
         );
+        return $tmp;
     }
     
     /**

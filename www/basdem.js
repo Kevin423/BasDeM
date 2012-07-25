@@ -190,6 +190,30 @@ var Controller = new function() {
         return this.lastload[target];
     }
     
+    /** Store to a memplex in the DB.
+    */
+    this.storeToMemplex = function(data) {
+        if ( data == null ) {
+            return;
+        }
+        $.post("memplex.php",
+            data,
+            function(data) {
+                var json = $.parseJSON(data);
+                Controller.parseMemplex(json.data,null);
+                Controller.setLastLoad(json.data.id,json.time);
+                if ( json.createdid != null ) {
+                    Controller.commentTarget = json.createdid;
+                    View.activeDebate = json.createdid;
+                }
+                switch ( json.data.layer ) {
+                    case 1: View.loadDebates(); break; 
+                    case 4: View.loadSolution(json.data.id); break;
+                }
+                Controller.commentTarget = null;
+            });
+    }
+    
     /** Create a specific add form.
     */
     this.addForm = function(name,title,strings,parent,layer,callback) {
@@ -271,8 +295,15 @@ var Controller = new function() {
             if ( bad == true ) {
                 return;
             }
-            console.log('Yippieh!',parents,title.val(),text.val());
-            // TODO: Send and close! $( this ).dialog( "close" );
+            var out = {
+                'parent[]': parents,
+                'title': title.val(),
+                'text': text.val(),
+                'layer': 3,
+                'loadid': 1
+            };
+            Controller.storeToMemplex(out);
+            $( this ).dialog( "close" );
         });
     }
 
@@ -311,8 +342,15 @@ var Controller = new function() {
             if ( bad == true ) {
                 return;
             }
-            console.log('Yippieh!',parent.val(),title.val(),text.val());
-            // TODO: Send and close! $( this ).dialog( "close" );
+            var out = {
+                'parent[]': [parent.val()],
+                'title': title.val(),
+                'text': text.val(),
+                'layer': 4,
+                'loadid': 1
+            };
+            Controller.storeToMemplex(out);
+            $( this ).dialog( "close" );
         });
     }
 
@@ -373,8 +411,15 @@ var Controller = new function() {
             if ( bad == true ) {
                 return;
             }
-            console.log('Yippieh!',parent.val(),layer.val(),title.val(),text.val());
-            // TODO: Send and close! $( this ).dialog( "close" );
+            var out = {
+                'parent[]': [parent.val()],
+                'title': title.val(),
+                'text': text.val(),
+                'layer': layer.val(),
+                'loadid': View.activesolution
+            };
+            Controller.storeToMemplex(out);
+            $( this ).dialog( "close" );
         });
     }
 }
@@ -448,6 +493,7 @@ var MemplexRegister = new function() {
 */
 var View = new function() {
     this.solutionbutton = null;
+    this.activesolution = null;
     
     /** Load all debates into content.
     */
@@ -455,7 +501,6 @@ var View = new function() {
         if ( View.activecommentbutton != null ) {
             View.activecommentbutton.remove();
         }
-        
         $('#content')
             .empty();
         var mycontent = $('<div id="mycontent">').appendTo('#content');
@@ -493,6 +538,8 @@ var View = new function() {
         var content = $('#content').empty();
         
         var solution = MemplexRegister.get(target);
+        this.activesolution = target;
+        
         if ( this.solutionbutton != null ) {
             this.solutionbutton.remove();
         }
@@ -1006,7 +1053,7 @@ var Filter = new function() {
         }
         var i = -1;
         var z = 0;
-        var ret = {};
+        var ret = [];
         while ( ++i < found.length ) {
             ret[z++] = Helper.getIdFromString(found[i].id);
         }

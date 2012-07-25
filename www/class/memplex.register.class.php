@@ -54,6 +54,13 @@ class MemplexRegister {
     public static function reg($memplex) {
         self::$memplexlist[$memplex->getId()] = $memplex;
     }
+    
+    /**
+     * Reset the Register.
+     */
+    public static function reset() {
+        self::$memplexlist = array();
+    }
 }
 
 ?>

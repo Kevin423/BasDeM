@@ -21,22 +21,46 @@ if ( !defined('INCMS') || INCMS !== true ) {
 }
 
 class Controller {
+    private $createdid = null;
+
     public function __construct() {
         if ( !isset($_POST['id']) ) {
+            #print_r($_POST);
             if ( empty($_POST['parent'])
-                || !isset($_POST['text'])
+                || empty($_POST['text'])
                 || empty($_POST['layer'])
-                || empty($_POST['title'])
-                || empty($_POST['author']) ) {
+                || empty($_POST['loadid'])
+                || empty($_POST['title']) ) {
+                echo json_encode(array('success' => false));
                 return;
             }
+            foreach ( $_POST['parent'] as $parent ) {
+                if ( is_array($parent) ) {
+                    echo json_encode(array('success' => false));
+                    return;
+                }
+            }
+            // Create a new Memplex.
             $this->createMemplex();
             
-            $this->reloadMemplex();
             
-            $this->showMemplex();
-            return;
+            if ( $this->memplex->getLayer() == 4 ) {
+                $this->createdid = $_POST['parent'][0];
+            } else {
+                $this->createdid = $this->memplex->getId();
+            }
+            
+            $_POST['id'] = $_POST['loadid'];
+            
+            MemplexRegister::reset();
+            
+            // $this->reloadMemplex();
+            
+            // $this->showMemplex();
+            // return;
         }
+        
+        // Load or edit an existing Memplex. Editing disabled for now.
         $this->loadTargetMemplex();
         
         if ( !$this->checkMemplexLoaded() ) {
@@ -44,9 +68,9 @@ class Controller {
             return;
         }
         
-        $this->updateMemplexData();
+        #$this->updateMemplexData();
         
-        $this->updateChildRelations();
+        #$this->updateChildRelations();
         
         $this->loadMemplexChildren();
         
@@ -62,19 +86,27 @@ class Controller {
             'text' => $_POST['text'],
             'layer' => $_POST['layer'],
             'title' => $_POST['title'],
-            'author' => $_POST['author'],
+            'author' => 'System',// TODO: Load author from user class
         ));
         $this->memplex->store();
         MemplexRegister::reg($this->memplex);
         
-        $parent = MemplexRegister::get($_POST['parent']);
-        $parent->addChild($this->memplex->getId());
+        if ( is_array($_POST['parent']) ) {
+            foreach ( $_POST['parent'] as $pdata ) {
+                $parent = MemplexRegister::get($pdata);
+                $parent->addChild($this->memplex->getId());
+            }
+        } else if ( is_num($_POST['parent']) ) {
+            $parent = MemplexRegister::get($_POST['parent']);
+            $parent->addChild($this->memplex->getId());
+        }
     }
     
     private function showMemplex() {
         echo json_encode(array(
             'success' => true,
             'time' => time(),
+            'createdid' => $this->createdid,
             'data' => $this->memplex->toArray(),
         ));
     }
@@ -93,6 +125,7 @@ class Controller {
     *
     **/
     private function loadTargetMemplex() {
+        
         $this->memplex = MemplexRegister::get($_POST['id']);
     }
     
