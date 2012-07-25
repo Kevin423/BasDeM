@@ -59,10 +59,13 @@ Just visit a web site with a BasDeM installation.
 
 Check out our demo at
 
-  http://we-yet-have-to-set-this-up.TODO
+  http://www.mp3-music-store.de/BasDeM/
 
 === Server ===
-(TODO for Justus)
+1. Install the basdem.sql
+2. Export the www directory to a place of your choice, preferably one you can reach via webbrowser (BasDeM being a webapp and all ;)).
+3. Adapt the class/config.class.php in accordance to your wishes.
+4. Enjoy.
 
 
 == Support ==
