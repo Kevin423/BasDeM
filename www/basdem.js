@@ -991,6 +991,7 @@ var Filter = new function() {
             content,
             {
                 Ok: function() {
+                    View.loadDebates();
                     $( this ).dialog( "close" );
                 }
             });
