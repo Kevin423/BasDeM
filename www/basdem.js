@@ -753,7 +753,7 @@ var Solution = function(Memplex) {
         // Pro Button
         Helper.createButton("Pro Argument hinzufügen",null,buttonpro,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 5);
         // Neutral Button
-        Helper.createButton("Neutrales Argument hinzufügen",null,buttonneutral,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 7);
+        Helper.createButton("Neue Antwort hinzufügen",null,buttonneutral,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 7);
         // Contra Button
         Helper.createButton("Contra Argument hinzufügen",null,buttoncontra,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 6);
         
@@ -821,6 +821,10 @@ var Solution = function(Memplex) {
         for ( c in childs ) {
             var child = MemplexRegister.get(childs[c]);
             var li = $('<li class="solutionargumentli">');
+            
+            if ( child.layer == undefined ) {
+                return;
+            }
             
             switch ( child.layer ) {
                 case 5: li.appendTo(this.pro); break;
