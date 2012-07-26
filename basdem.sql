@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.7deb7
+-- version 3.4.5
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 26, 2012 at 04:05 PM
--- Server version: 5.1.61
--- PHP Version: 5.3.3-7+squeeze8
+-- Generation Time: Jul 26, 2012 at 04:31 PM
+-- Server version: 5.5.16
+-- PHP Version: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -19,6 +20,28 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Database: `basdem`
 --
 
+DELIMITER $$
+--
+-- Procedures
+--
+DROP PROCEDURE IF EXISTS `storeMemplex`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `storeMemplex`(
+        IN layer TINYINT(8),
+        IN parent INT(11),
+        IN author VARCHAR(255),
+        IN title VARCHAR(255),
+        IN text MEDIUMTEXT
+    )
+BEGIN
+            INSERT INTO memplex SET `layer` = layer;
+            INSERT INTO authors SET `content` = author, `id` = LAST_INSERT_ID();
+            INSERT INTO titles SET `content` = title, `id` = LAST_INSERT_ID();
+            INSERT INTO texts SET `content` = text, `id` = LAST_INSERT_ID();
+            INSERT INTO children SET `parent` = parent, `child` = LAST_INSERT_ID();
+        END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -28,55 +51,56 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 DROP TABLE IF EXISTS `authors`;
 CREATE TABLE IF NOT EXISTS `authors` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` varchar(255) CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`id`)
+  `userid` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `content` (`userid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=46 ;
 
 --
 -- Dumping data for table `authors`
 --
 
-INSERT INTO `authors` (`id`, `content`) VALUES
-(1, 'System'),
-(2, 'System'),
-(3, 'System'),
-(4, 'System'),
-(5, 'System'),
-(6, 'System'),
-(7, 'System'),
-(8, 'System'),
-(9, 'System'),
-(10, 'System'),
-(11, 'System'),
-(12, 'System'),
-(13, 'System'),
-(14, 'System'),
-(15, 'System'),
-(16, 'System'),
-(17, 'System'),
-(18, 'System'),
-(19, 'System'),
-(20, 'System'),
-(21, 'System'),
-(22, 'System'),
-(23, 'System'),
-(24, 'System'),
-(25, 'System'),
-(26, 'System'),
-(27, 'System'),
-(28, 'System'),
-(29, 'System'),
-(30, 'System'),
-(31, 'System'),
-(32, 'System'),
-(33, 'System'),
-(34, 'System'),
-(35, 'System'),
-(36, 'System'),
-(37, 'System'),
-(38, 'System'),
-(39, 'System'),
-(40, 'System');
+INSERT INTO `authors` (`id`, `userid`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(13, 1),
+(14, 1),
+(15, 1),
+(16, 1),
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 1),
+(21, 1),
+(22, 1),
+(23, 1),
+(24, 1),
+(25, 1),
+(26, 1),
+(27, 1),
+(28, 1),
+(29, 1),
+(30, 1),
+(31, 1),
+(32, 1),
+(33, 1),
+(34, 1),
+(35, 1),
+(36, 1),
+(37, 1),
+(38, 1),
+(39, 1),
+(40, 1);
 
 -- --------------------------------------------------------
 
@@ -334,12 +358,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `nickname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `users`
 --
 
+INSERT INTO `users` (`id`, `password`, `email`, `nickname`) VALUES
+(1, '', 'System', 'System');
 
 --
 -- Constraints for dumped tables
@@ -370,24 +396,6 @@ ALTER TABLE `texts`
 ALTER TABLE `titles`
   ADD CONSTRAINT `titles_ibfk_1` FOREIGN KEY (`id`) REFERENCES `memplex` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
-DELIMITER $$
---
--- Procedures
---
-DROP PROCEDURE IF EXISTS `storeMemplex`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `storeMemplex`(
-        IN layer TINYINT(8),
-        IN parent INT(11),
-        IN author VARCHAR(255),
-        IN title VARCHAR(255),
-        IN text MEDIUMTEXT
-    )
-BEGIN
-            INSERT INTO memplex SET `layer` = layer;
-            INSERT INTO authors SET `content` = author, `id` = LAST_INSERT_ID();
-            INSERT INTO titles SET `content` = title, `id` = LAST_INSERT_ID();
-            INSERT INTO texts SET `content` = text, `id` = LAST_INSERT_ID();
-            INSERT INTO children SET `parent` = parent, `child` = LAST_INSERT_ID();
-        END$$
-
-DELIMITER ;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

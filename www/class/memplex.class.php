@@ -103,14 +103,13 @@ class Memplex {
             return;
         }
         
-        if ( !isset($id['author'])
-            || !isset($id['title'])
+        if ( !isset($id['title'])
             || !isset($id['text'])
             || !isset($id['layer']) ) {
             return;
         }
         
-        $this->setAuthor($id['author']);
+        $this->setAuthor(User::getId());
         $this->setTitle($id['title']);
         $this->setText($id['text']);
         $this->setLayer($id['layer']);

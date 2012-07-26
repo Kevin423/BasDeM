@@ -94,8 +94,12 @@ class User {
         return true;
     }
     
+    public static function getId() {
+        return $_SESSION['user']['id'];
+    }
+    
     public static function isLoggedin() {
-        return false || self::$loggedin;
+        return self::$loggedin;
     }
 }
 
