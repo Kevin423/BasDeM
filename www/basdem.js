@@ -662,7 +662,7 @@ var View = new function() {
                 height: height,
                 width: width,
                 modal: true,
-                buttons: button 
+                buttons: button
             });
         if ( content != null ) {
             content.appendTo(popup);
