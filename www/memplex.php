@@ -34,7 +34,7 @@ Database::init();
 User::init();
 
 if ( User::getId() == 2 ) {
-    sleep(1);
+    #sleep(1);
 }
 
 if ( User::isLoggedin() !== true ) {

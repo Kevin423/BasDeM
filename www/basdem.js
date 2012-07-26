@@ -185,11 +185,11 @@ var Controller = new function() {
     /** Parse loaded memplexes into MemplexRegister.
     */
     this.parseMemplex = function(data,parent) {
-        if ( data.id == 0
-            || data.title == 0 
-            || data.text == 0 
-            || data.author == 0 ) {
-            console.log('Faulty data');
+        if ( data.id === 0
+            || data.title === 0 
+            || data.text === 0 
+            || data.author === 0 ) {
+            console.log('Faulty data',data,parent);
             return;
         }
         MemplexRegister.add(data,parent);
