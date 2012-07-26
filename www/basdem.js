@@ -123,7 +123,6 @@ var Helper = new function() {
     }
 
     this.box = function(title,id,target) {
-        console.log(title.length);
         if ( title.length > 45 ) {
             title = title.substr(0,42) + '...';
         }
@@ -670,7 +669,6 @@ var View = new function() {
         }
         popup.dialog("open");
         if ( focus != null ) {
-            console.log(focus);
             $('#' + focus).focus();
         }
     }

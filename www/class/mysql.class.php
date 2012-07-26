@@ -142,7 +142,7 @@ class Database {
     memplex.layer,
     texts.content as text,
     titles.content as title,
-    authors.content as author,
+    users.nickname as author,
     children.child as child
 from
     memplex
@@ -152,6 +152,8 @@ join
     titles ON titles.id = memplex.id
 join
     authors ON authors.id = memplex.id
+join
+    users ON authors.userid = users.id
 left join
     children ON children.parent = memplex.id
 where
