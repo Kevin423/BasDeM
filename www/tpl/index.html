@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,24 +10,8 @@
 <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
 <script type="text/javascript" src="basdem.js"></script>
 <script type="text/javascript" src="language.js"></script>
-<script type="text/javascript">
-function load(){
-    View.paintButtons();
-    Controller.loadDebates();
-}
-</script>
+%s
 <title>BasDeM</title>
 </head>
-<body onload="load()">
-<div id="container" class="ui-widget">
-    <div id="leftbox">
-        <div id="menuleft" class="ui-corner-top ui-widget ui-widget-header">Das ist eine Liste...</div>
-        <div id="list" class="i-widget ui-widget-content">... derzeit leider ohne Inhalt.</div>
-    </div>
-    <div id="rightbox">
-        <div id="menuright" class="ui-corner-top ui-widget ui-widget-header"></div>
-        <div id="content" class="ui-widget ui-widget-content"></div>
-    </div>
-</div>
-</body>
+<body>%s</body>
 </html>

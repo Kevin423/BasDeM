@@ -241,5 +241,15 @@ where
             )
         );
     }
+    
+    static public function createUser($mail,$password) {
+        self::query(
+            "insert into `users` set `email` = :mail, `password` = :password",
+            array(
+                array(':mail',$mail,PDO::PARAM_STR),
+                array(':password',$password,PDO::PARAM_STR),
+            )
+        );
+    }
 }
 ?>

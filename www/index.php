@@ -1,7 +1,7 @@
 <?php
 /****************************************************************************************
  * Copyright (c) 2012 Justus Wingert <justus_wingert@web.de>                            *
- *                                                                                      *
+ *
  * This file is part of BasDeM.                                                         *
  *                                                                                      *
  * BasDeM is free software; you can redistribute it and/or modify it under              *
@@ -17,52 +17,35 @@
  * BasDeM. If not, see <http://www.gnu.org/licenses/>.                                  *
  ****************************************************************************************/
 
-if ( !defined('INCMS') || INCMS !== true ) {
-        die;
-}
+define('INCMS',true);
+define('NL',"<br>\r\n");
+//error_reporting("E_ALL & ~E_DEPRECATED & ~E_STRICT");
 
-/**
- * Manages config settings.
- */
-class Config {
-	static private $conf = array(
-		'database' => array(
-			'engine' => 'mysql',
-			'host' => 'localhost',
-			'user' => 'root',
-			'password' => '',
-			'database' => 'basdem',
-            // Important: Defines the algorithm. 6 = SHA512 make sure it is available.
-            // This setting directly influences password security on your system!
-			'hashalgorithm' => '$6$rounds=5000$',
-            // Adapt the salt to your wishes. 
-			'salt' => 'This is my salt... it is really stupid, but long!',
-		),
-	);
-/**
- * Returns specific parts of the config or the config array itself.
- * @param ... Various keys to look up in the array.
- *
- * Config array layout:
- * Key 'database' which itself contains an array with keys 'engine', 'host', 'user',
- * 'password', 'database' and 'salt'.
- *
- * @return Excerpts of the config array or a copy of the array itself.
- * 
- * Examples:
- * - get(); // returns the config array
- * - get('database'); // returns the database array
- * - get('database','host'); // returns the host
- */	
-	static public function get() {
-		$tmp = Config::$conf;
-		foreach ( func_get_args() as $arg ) {
-			if ( !isset($tmp[$arg]) )
-				return null;
-			$tmp = $tmp[$arg];
-		}
-		return $tmp;
-	}
-}
 
+require_once('class/config.class.php');
+require_once('class/controller.class.php');
+require_once('class/mysql.class.php');
+require_once('class/user.class.php');
+require_once('class/memplex.class.php');
+require_once('class/memplex.register.class.php');
+require_once('class/template.class.php');
+
+Database::init();
+
+User::init();
+
+if ( User::isLoggedin() !== true ) {
+    if ( !isset($_GET['action']) ) {
+        $tpl = new Template('index',array('noload','login'));
+    } else {
+        switch ( $_GET['action'] ) {
+            case 'register': $tpl = new Template('index',array('noload','register')); break;
+            case 'login': $tpl = new Template('index',array('noload','login')); break;
+            default: break;
+        }
+    }
+} else {
+    $tpl = new Template('index',array('load','default'));
+}
+echo $tpl;
 ?>

@@ -49,8 +49,9 @@ of BasDeM might look strange. Make sure to use at least version 9.
 
 === Server ===
 * MySQL 5.5 or newer
-* PHP 5.1 or newer
+* PHP 5.3 or newer
 * PHP Data Objects (PDO, shipped with PHP since version 5.1)
+* SHA512 (available since PHP 5.3.2) or similar hashing algorithm available for PHP
 
 == Installation ==
 
@@ -65,6 +66,7 @@ Check out our demo at
 1. Install the basdem.sql
 2. Export the www directory to a place of your choice, preferably one you can reach via webbrowser (BasDeM being a webapp and all ;)).
 3. Adapt the class/config.class.php in accordance to your wishes.
+    Important: Change the salt and check if the chosen algorithm (default SHA512) is available in your installation!
 4. Enjoy.
 
 

@@ -22,13 +22,56 @@ if ( !defined('INCMS') || INCMS !== true ) {
 }
 
 class User {
+    private static $loggedin = false;
 
     public static function init() {
         session_start();
+        if ( isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true ) {
+            self::$loggedin = true;
+        }
+        
+        if ( isset($_GET['action']) && $_GET['action'] == 'register' ) {
+            self::register();
+        }
+        if ( isset($_GET['action']) && $_GET['action'] == 'login' ) {
+            self::login();
+        }
+        
+    }
+    
+    private static function register() {
+        if ( !self::validatePost() ) {
+            return;
+        }
+        $mail = $_POST['email'];
+        $password = self::hashPassword($_POST['password'],$mail);
+        print_r($password);
+        return;
+        Database::createUser($mail,$password);
+    }
+    
+    private static function hashPassword($password,$username) {
+        // Crypt with the salt. Make sure the used hashing algorithm is available!
+        // Default is 6 = SHA512. Change in Config!
+        return crypt($password . $username,Config::get('database','hashalgorithm') . Config::get('database','salt'));
+    }
+    
+    private static function validatePost() {
+        if ( !isset($_POST['email']) ) {
+            return false;
+        }
+        if ( !isset($_POST['password']) ) {
+            return false;
+        }
+        return true;
+    }
+    
+    private static function login() {
+        
     }
     
     public static function isLoggedin() {
-        return true || $_SESSION['loggedin'];
+        return true || self::$loggedin;
     }
 }
 
