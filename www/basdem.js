@@ -185,6 +185,13 @@ var Controller = new function() {
     /** Parse loaded memplexes into MemplexRegister.
     */
     this.parseMemplex = function(data,parent) {
+        if ( data.id == 0
+            || data.title == 0 
+            || data.text == 0 
+            || data.author == 0 ) {
+            console.log('Faulty data');
+            return;
+        }
         MemplexRegister.add(data,parent);
         for ( c in data.children ) {
             Controller.parseMemplex(data.children[c],data);
@@ -377,8 +384,8 @@ var Controller = new function() {
         switch ( layer ) {
             case 5: title = 'Neues Pro Argument erstellen:'; break;
             case 6: title = 'Neues Contra Argument erstellen:'; break;
-            case 7: title = 'Neues Neutrales Argument erstellen:'; break;
-            case 8: title = 'Neuen Kommentar erstellen:'; break;
+            case 7: 
+            case 8: title = 'Neue Antwort erstellen:'; break;
         }
         this.addForm('addcomment',title,['Title','Text'],solutionid,layer,function() {
             var bad = false;
@@ -410,7 +417,7 @@ var Controller = new function() {
                 case '5': type = 'dein Argument'; break;
                 case '6': type = 'dein Argument'; break;
                 case '7': type = 'dein Argument'; break;
-                case '8': type = 'deinen Kommentar'; break;
+                case '8': type = 'deine Antwort'; break;
             }
             
             if ( title.val() == '' ) {
@@ -733,7 +740,7 @@ var Solution = function(Memplex) {
             $('<span>Noch keine Argumente daf&uuml;r</p>').appendTo(this.pro);
         }
         if ( this.neutral.children().length == 0 ) {
-            $('<span>Noch keine neutralen Argumente</p>').appendTo(this.neutral);
+            $('<span>Noch keine Antworten</p>').appendTo(this.neutral);
         }
         if ( this.contra.children().length == 0 ) {
             $('<span>Noch keine Argumente dagegen</p>').appendTo(this.contra);
@@ -770,7 +777,7 @@ var Solution = function(Memplex) {
             View.activecommentbutton.remove();
         }
         View.activecommentbutton = Helper.createButton(
-                "Kommentar abgeben",
+                "Antworten",
                 null,
                 '#menuright',
                 'floatright',

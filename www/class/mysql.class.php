@@ -175,6 +175,7 @@ where
       * @param array $data Data describing the Memplex.
       */
     static public function createMemplex($data) {
+        
         // TODO: make it work in a not insane way.
         $id = self::query(
             "insert into `memplex` set `layer` = :layer",
@@ -183,9 +184,9 @@ where
             )
         );
         self::query(
-            "insert into `authors` set `content` = :content, `id` = :id",
+            "insert into `authors` set `userid` = :author, `id` = :id",
             array(
-                array(':content',$data['author'],PDO::PARAM_STR),
+                array(':author',$data['author'],PDO::PARAM_INT),
                 array(':id',$id,PDO::PARAM_INT),
             )
         );
@@ -222,9 +223,9 @@ where
             )
         );
         self::query(
-            "update `authors` set `content` = :content where `id` = :id",
+            "update `authors` set `userid` = :author where `id` = :id",
             array(
-                array(':content',$data['author'],PDO::PARAM_STR),
+                array(':author',$data['author'],PDO::PARAM_INT),
                 array(':id',$data['id'],PDO::PARAM_INT),
             )
         );
