@@ -33,6 +33,10 @@ Database::init();
 
 User::init();
 
+if ( User::getId() == 2 ) {
+    sleep(1);
+}
+
 if ( User::isLoggedin() !== true ) {
     die(json_encode(array('login' => false)));
 }

@@ -1,5 +1,13 @@
 <script type="text/javascript">
 function load(){
+    
+    $(document).ajaxStart(function() {
+        $('#loading').show();
+    });
+    $(document).ajaxStop(function() {
+        $('#loading').hide();
+    });
+    
     View.paintButtons();
     Controller.loadDebates();
 }
