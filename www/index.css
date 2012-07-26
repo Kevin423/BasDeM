@@ -59,6 +59,7 @@ br {
     width: 300px;
 }
 .solutionargument, .solutioncommentlink {
+    cursor: pointer;
 }
 .filterlist {
     list-style: none;

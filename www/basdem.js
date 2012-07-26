@@ -951,7 +951,7 @@ var Debate = function(memplex) {
         },'debate' + this.memplex.id + 'buttonadd');
         
         $('<br>').appendTo(buttoncontainer);
-        $('<br>').appendTo(this.hide);
+        $('<div class="clear">').appendTo(this.hide);
         
         DebateRegister.add(memplex.id,this);
     }
