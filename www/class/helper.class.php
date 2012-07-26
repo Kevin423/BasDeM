@@ -23,7 +23,6 @@ if ( !defined('INCMS') || INCMS !== true ) {
 class Helper {
 
     public static function hash($string) {
-    
         self::canHash();
         
         // Crypt with the salt. Make sure the used hashing algorithm is available!
