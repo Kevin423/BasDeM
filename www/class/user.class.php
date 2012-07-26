@@ -43,15 +43,45 @@ class User {
         if ( !self::validatePost() ) {
             return;
         }
-        $mail = $_POST['email'];
-        $password = self::hashPassword($_POST['password'],$mail);
-        print_r($password);
-        return;
-        Database::createUser($mail,$password);
+        $password = Helper::hash($_POST['password'].$_POST['email']);
+
+        $result = Database::createUser($_POST['email'],$password);
+        
+        if (  $result === false || !is_numeric($result) ) {
+            return;
+        }
+        
+        $_SESSION['user']['id'] = $result;
+        $_SESSION['user']['email'] = $_POST['email'];
+        $_SESSION['loggedin'] = true;
+        self::$loggedin = true;
     }
     
-    private static function hashPassword($password,$username) {
-        return Helper::hash($password . $username);
+    private static function login() {
+        if ( !self::validatePost() ) {
+            return;
+        }
+        $password = Helper::hash($_POST['password'].$_POST['email']);
+        
+        $result = Database::getUser($_POST['email'],$password);
+        
+        if (  $result === false || !is_array($result) ) {
+            return;
+        }
+        
+        if (  count($result) != 1 ) {
+            return;
+        }
+        
+        $_SESSION['user']['id'] = $result[0]['id'];
+        $_SESSION['user']['email'] = $result[0]['email'];
+        $_SESSION['loggedin'] = true;
+        self::$loggedin = true;
+    }
+    
+    public static function logout() {
+        $_SESSION = array();
+        self::$loggedin = false;
     }
     
     private static function validatePost() {
@@ -64,12 +94,8 @@ class User {
         return true;
     }
     
-    private static function login() {
-        
-    }
-    
     public static function isLoggedin() {
-        return true || self::$loggedin;
+        return false || self::$loggedin;
     }
 }
 

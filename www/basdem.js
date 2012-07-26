@@ -642,6 +642,9 @@ var View = new function() {
         Helper.createButton("Filter einstellen",null,'#menuright','floatright',function(data) {
             Filter.createNewObject();
         });
+        Helper.createButton("Logout",null,'#menuleft','floatleft',function(data) {
+            window.location = '?action=logout';
+        });
         Helper.createButton("Neue Debatte",'ui-icon-plus','#menuleft','floatleft',function(data) {
             Controller.addDebate();
         });

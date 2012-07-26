@@ -19,7 +19,7 @@
 
 define('INCMS',true);
 define('NL',"<br>\r\n");
-//error_reporting("E_ALL & ~E_DEPRECATED & ~E_STRICT");
+error_reporting("E_ALL & ~E_DEPRECATED & ~E_STRICT");
 
 
 require_once('class/config.class.php');
@@ -29,11 +29,15 @@ require_once('class/user.class.php');
 require_once('class/memplex.class.php');
 require_once('class/memplex.register.class.php');
 require_once('class/template.class.php');
-require_once('functions/helper.php');
+require_once('class/helper.class.php');
 
 Database::init();
 
 User::init();
+
+if ( isset($_GET['action']) && $_GET['action'] == 'logout' ) {
+    User::logout();
+}
 
 if ( User::isLoggedin() !== true ) {
     if ( !isset($_GET['action']) ) {
@@ -41,8 +45,8 @@ if ( User::isLoggedin() !== true ) {
     } else {
         switch ( $_GET['action'] ) {
             case 'register': $tpl = new Template('index',array('noload','register')); break;
+            default:
             case 'login': $tpl = new Template('index',array('noload','login')); break;
-            default: break;
         }
     }
 } else {

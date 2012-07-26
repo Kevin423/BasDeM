@@ -243,12 +243,23 @@ where
     }
     
     static public function createUser($mail,$password) {
-        self::query(
+        return self::query(
             "insert into `users` set `email` = :mail, `password` = :password",
             array(
                 array(':mail',$mail,PDO::PARAM_STR),
                 array(':password',$password,PDO::PARAM_STR),
             )
+        );
+    }
+    
+    static public function getUser($mail,$password) {
+        return self::query(
+            "select * from `users` where `email` = :mail and `password` = :password",
+            array(
+                array(':mail',$mail,PDO::PARAM_STR),
+                array(':password',$password,PDO::PARAM_STR),
+            ),
+            true
         );
     }
 }
