@@ -34,7 +34,8 @@ class Config {
 			'database' => 'basdem',
             // Important: Defines the algorithm. 6 = SHA512 make sure it is available.
             // This setting directly influences password security on your system!
-			'hashalgorithm' => '$6$rounds=5000$',
+            // rounds=50000 leads to 0.13 seconds per hash calculation. Whoever breaks this, he deserves it.
+			'hashalgorithm' => '$6$rounds=50000$',
             // Adapt the salt to your wishes. 
 			'salt' => 'This is my salt... it is really stupid, but long!',
 		),

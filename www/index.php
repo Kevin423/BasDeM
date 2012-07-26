@@ -29,6 +29,7 @@ require_once('class/user.class.php');
 require_once('class/memplex.class.php');
 require_once('class/memplex.register.class.php');
 require_once('class/template.class.php');
+require_once('functions/helper.php');
 
 Database::init();
 

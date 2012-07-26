@@ -1,4 +1,4 @@
-<?php
+<?
 /****************************************************************************************
  * Copyright (c) 2012 Justus Wingert <justus_wingert@web.de>                            *
  *                                                                                      *
@@ -16,61 +16,49 @@
  * You should have received a copy of the GNU General Public License along with         *
  * BasDeM. If not, see <http://www.gnu.org/licenses/>.                                  *
  ****************************************************************************************/
-
 if ( !defined('INCMS') || INCMS !== true ) {
-        die;
+    die;
 }
 
-class User {
-    private static $loggedin = false;
-
-    public static function init() {
-        session_start();
-        if ( isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true ) {
-            self::$loggedin = true;
-        }
-        
-        if ( isset($_GET['action']) && $_GET['action'] == 'register' ) {
-            self::register();
-        }
-        if ( isset($_GET['action']) && $_GET['action'] == 'login' ) {
-            self::login();
-        }
-        
-    }
+class Template {
+    private $assignments = array(
+        'index' => 'tpl/index.html',
+        'default' => 'tpl/default.html',
+        'load' => 'tpl/load.html',
+        'noload' => '',
+        'login' => 'tpl/login.html',
+        'register' => 'tpl/register.html',
+    );
+    private $base = '';
+    private $adder = array();
+    private $output = '';
     
-    private static function register() {
-        if ( !self::validatePost() ) {
+    public function __construct($base,$adder = null) {
+        if ( !isset($this->assignments[$base]) ) {
             return;
         }
-        $mail = $_POST['email'];
-        $password = self::hashPassword($_POST['password'],$mail);
-        print_r($password);
-        return;
-        Database::createUser($mail,$password);
-    }
-    
-    private static function hashPassword($password,$username) {
-        return Helper::hash($password . $username);
-    }
-    
-    private static function validatePost() {
-        if ( !isset($_POST['email']) ) {
-            return false;
-        }
-        if ( !isset($_POST['password']) ) {
-            return false;
-        }
-        return true;
-    }
-    
-    private static function login() {
         
+        $this->base = file_get_contents($this->assignments[$base]);
+        
+        if ( !is_null($adder) && is_array($adder) ) {
+            foreach ( $adder as $add ) {
+                if ( !isset($this->assignments[$add]) ) {
+                    return;
+                }
+                if ( empty($this->assignments[$add]) ) {
+                    $this->adder[] = '';
+                    continue;
+                }
+                $this->adder[] = file_get_contents($this->assignments[$add]);
+            }
+            $this->output = vsprintf($this->base,$this->adder);
+            return;
+        }
+        $this->output = $this->base;
     }
     
-    public static function isLoggedin() {
-        return true || self::$loggedin;
+    public function __toString() {
+        return $this->output;
     }
 }
-
 ?>
