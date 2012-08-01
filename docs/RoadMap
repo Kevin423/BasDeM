@@ -21,6 +21,7 @@ Pirate Party assembly in Bochum (BPT12.2).
 * install script
 * sql moderation procedures
 * add Meta overview like Debatte.png
+* add database version to the db, to enable future upgrades
 
 ==== Quality assurance & community management====
 * i18n
@@ -39,4 +40,5 @@ Pirate Party assembly in Bochum (BPT12.2).
 * using Pirate ID for login
 * possibility to post updated solutions and mark the old one as outdated
 * way to post updated solutions
+* BasDeM update notifications
 

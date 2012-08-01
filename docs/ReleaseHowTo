@@ -1,0 +1,17 @@
+== Testing ==
+* all unit tests have to pass for a release
+* setting BasDeM up on a fresh system
+* upgrade an existing installation
+
+== Announcement ==
+* don't forget to include all security related fixes
+* major bugfixes
+* major features
+* download link including checksum
+* ChangeLog link
+
+== Tarball ==
+* once testing is finished create a tag for the new version
+* create a tarball from that tag
+* run the tests again, using that tarball!
+
