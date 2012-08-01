@@ -17,7 +17,9 @@
  * BasDeM. If not, see <http://www.gnu.org/licenses/>.                                  *
  ****************************************************************************************/
 
-define('INCMS',true);
+if ( !defined('INCMS') || INCMS !== true ) {
+    define('INCMS',true);
+}
 
 require_once('../www/class/memplex.class.php');
 require_once('../www/class/memplex.register.class.php');

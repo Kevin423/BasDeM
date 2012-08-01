@@ -17,23 +17,38 @@
  * BasDeM. If not, see <http://www.gnu.org/licenses/>.                                  *
  ****************************************************************************************/
 
-if ( !defined('INCMS') || INCMS !== true ) {
-    define('INCMS',true);
-}
+class Framework_AllTests {
 
-require_once('../www/class/config.class.php');
+    protected function setUp() {
+        Database::init();
+        User::init();
+    }
 
-class TestConfig extends PHPUnit_Framework_TestCase {
+    public static function suite() {
+        $suite = new PHPUnit_Framework_TestSuite('BasDeM Testsuite');
 
-    public function testGet() {
-        $this->assertEquals(1,count(Config::get()));
-        $this->assertEquals(7,count(Config::get('database')));
-        $this->assertEquals('mysql',Config::get('database','engine'));
-        $this->assertEquals('localhost',Config::get('database','host'));
-        $this->assertEquals('root',Config::get('database','user'));
-        $this->assertEquals('',Config::get('database','password'));
-        $this->assertEquals('basdem',Config::get('database','database'));
-        $this->assertEquals('This is my salt... it is really stupid, but long!',Config::get('database','salt'));
+        $suite->addTestFile('TestConfig.php');
+        $suite->addTestFile('TestMemplex.php');
+        $suite->addTestFile('TestMemplexRegister.php');
+
+        // let's prepare a fake session
+        session_save_path(sys_get_temp_dir());
+        $_SESSION['loggedin'] = true;
+        $_SESSION['user'] = array();
+        $_SESSION['user']['id'] = 'basdemtest';
+        $_SESSION['user']['email'] = 'test@basdem.de';
+
+        Database::init();
+        User::init();
+        $_SESSION['loggedin'] = true;
+        $_SESSION['user'] = array();
+        $_SESSION['user']['id'] = 'testauthor';
+        $_SESSION['user']['email'] = 'test@basdem.de';
+
+
+
+        return $suite;
     }
 }
+
 ?>

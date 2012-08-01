@@ -38,6 +38,10 @@ A failing run looks like this:
   Tests: 1, Assertions: 2, Failures: 1.
 
 
+You can also run all tests at once using:
+
+  sven@denkbrett:~/BasDeM/tests> phpunit AllTests.php
+
 === How to write tests ===
 See
 

@@ -22,12 +22,15 @@ Pirate Party assembly in Bochum (BPT12.2).
 * sql moderation procedures
 * add Meta overview like Debatte.png
 * add database version to the db, to enable future upgrades
+* make it possible to link directly to a debate/solution/argument
 
 ==== Quality assurance & community management====
 * i18n
 * tests
 * js/client documentation
 * setting up mailing list
+* setting up Bugzilla
+* setting up Jenkins
 
 ==== Marketing ====
 * web site
