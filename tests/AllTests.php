@@ -18,12 +18,6 @@
  ****************************************************************************************/
 
 class Framework_AllTests {
-
-    protected function setUp() {
-        Database::init();
-        User::init();
-    }
-
     public static function suite() {
         $suite = new PHPUnit_Framework_TestSuite('BasDeM Testsuite');
 
@@ -33,19 +27,14 @@ class Framework_AllTests {
 
         // let's prepare a fake session
         session_save_path(sys_get_temp_dir());
-        $_SESSION['loggedin'] = true;
-        $_SESSION['user'] = array();
-        $_SESSION['user']['id'] = 'basdemtest';
-        $_SESSION['user']['email'] = 'test@basdem.de';
 
         Database::init();
         User::init();
+
         $_SESSION['loggedin'] = true;
         $_SESSION['user'] = array();
         $_SESSION['user']['id'] = 'testauthor';
         $_SESSION['user']['email'] = 'test@basdem.de';
-
-
 
         return $suite;
     }
