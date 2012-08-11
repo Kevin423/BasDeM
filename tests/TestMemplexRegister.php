@@ -41,6 +41,9 @@ class TestMemplexRegister extends PHPUnit_Framework_TestCase {
         $memplex2->setId(42);
         $register->reg($memplex2);
         $this->assertEquals(42,$register->get(42)->getId());
+
+        $memplex3 = $register->get(23);
+        // TODO: compare with well defined test data
     }
 }
 ?>
