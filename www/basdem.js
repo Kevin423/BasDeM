@@ -15,16 +15,23 @@
  * You should have received a copy of the GNU General Public License along with         *
  * BasDeM. If not, see <http://www.gnu.org/licenses/>.                                  *
  ****************************************************************************************/
+/** Language setting.
+ */
 var language = "de_DE";
 
-ClassHelper = function() {};
+/** @class ClassHelper
+ * ClassHelper combines various helper methods into one class.
+ * During runtime the helper can be accessed using the static Helper object.
+ */
+function ClassHelper() {};
+
+/** @var ClassHelper Helper Static ClassHelper object.
+ */
 var Helper = new ClassHelper();
 
-//function ClassHelper() {};
-
 /** Get the second complete set of digits in a string.
-*   @param string   Searchstring.
-*   @return int     ID.
+*   @tparam string Searchstring String to search for the digits.
+*   @treturn int ID.
 */
 ClassHelper.prototype.getSecondIdFromString = function(string) {
     var search = /(\d+)[^0-9]+(\d+)/;
@@ -36,8 +43,8 @@ ClassHelper.prototype.getSecondIdFromString = function(string) {
 }
     
 /** Get the first complete set of digits in a string.
-*   @param string   Searchstring.
-*   @return int     ID.
+*   @tparam string   Searchstring.
+*   @treturn int     ID.
 */
 ClassHelper.prototype.getIdFromString = function(string) {
     if ( string == null ) 
@@ -46,8 +53,8 @@ ClassHelper.prototype.getIdFromString = function(string) {
 }
     
 /** Count the direct children of an object.
-*   @param object   The target object.
-*   @return int     number of children.
+*   @tparam object   The target object.
+*   @treturn int     number of children.
 */
 ClassHelper.prototype.objectCount = function(object) {
     var i = 0;
@@ -58,21 +65,21 @@ ClassHelper.prototype.objectCount = function(object) {
 }
     
 /** Toggle the hidden class on an object (remove if present, else add).
-*   @param object   The target object.
+*   @tparam object   The target object.
 */
 ClassHelper.prototype.toggleHidden = function(object) {
     object.toggleClass("hidden");
 }
     
 /** Add the hidden class to an object.
-*   @param object   The target object.
+*   @tparam object   The target object.
 */
 ClassHelper.prototype.hide = function(object) {
     object.attr("class",object.attr("class") + ' hidden');
 }
     
 /** Remove the hidden class from object.
-*   @param object   The target object.
+*   @tparam object   The target object.
 */
 ClassHelper.prototype.show = function(object) {
     object.attr("class",object.attr("class").replace(/hidden/,''));
@@ -91,12 +98,12 @@ ClassHelper.prototype.window = function(object,rounded) {
 }
     
 /** Create a button.
-*   @param text     String Button text.
-*   @param icon     String jquery-ui icon name.
-*   @param append   jQuery Object to append the button to.
-*   @param floatdirection   String direction of the float.
-*   @param callback function callback
-*   @param id       String html id attribute.
+*   @tparam text     String Button text.
+*   @tparam icon     String jquery-ui icon name.
+*   @tparam append   jQuery Object to append the button to.
+*   @tparam floatdirection   String direction of the float.
+*   @tparam callback function callback
+*   @tparam id       String html id attribute.
 */
 ClassHelper.prototype.createButton = function(text,icon,append,floatdirection,callback,id) {
     var showtext = true;
@@ -139,12 +146,17 @@ ClassHelper.prototype.box = function(title,id,target) {
     return div;
 }
 
-
-ClassController = function() {
+/** @class ClassController
+ * ClassController is responsible for the main control flow.
+ * During runtime the controller can be accessed using the static Controller object.
+ */
+function ClassController() {
     this.commentTarget = null;
     this.lastload = {};
 }
 
+/** Static Controller object.
+ */
 var Controller = new ClassController();
 
 /** Async load Debates into Storage then trigger View for loading of debates.
@@ -206,15 +218,15 @@ ClassController.prototype.parseMemplex = function(data,parent) {
 }
     
 /** Set the last loadtime for target.
-*   @param target Target ID.
+*   @tparam target Target ID.
 */
 ClassController.prototype.setLastLoad = function(target,time) {
     this.lastload[target] = time;
 }
     
 /** Get the last loadtime for target.
-*   @param target Target ID.
-*   @return int the last loading timestamp.
+*   @tparam target Target ID.
+*   @treturn int the last loading timestamp.
 */
 ClassController.prototype.lastLoad = function(target) {
     return this.lastload[target];
@@ -453,9 +465,11 @@ ClassController.prototype.addComment = function(solutionid,layer) {
     });
 }
 
-/** MemplexRegister contains all Memplexes loaded from the server.
-*/
-ClassMemplexRegister = function() {
+/** @class ClassMemplexRegister
+ * ClassMemplexRegister contains all Memplexes loaded from the server.
+ * During runtime the register can be accessed using the static MemplexRegister object.
+ */
+function ClassMemplexRegister() {
     this.memplexes = {};
     this.parentlist = {};
     this.layerlist = {};
@@ -465,7 +479,7 @@ ClassMemplexRegister = function() {
 var MemplexRegister = new ClassMemplexRegister();
 
 /** Add a new Memplex to the Register.
-*   @param memplex Memplex to be added.
+*   @tparam memplex Memplex to be added.
 * */
 ClassMemplexRegister.prototype.add = function(memplex,parent) {
     if ( this.parentlist[memplex.id] == null ) {
@@ -497,37 +511,41 @@ ClassMemplexRegister.prototype.add = function(memplex,parent) {
 }
 
 /** Get all MemplexIDs with the param layer.
-*   @param layer The layer to be loaded.
-*   @return Array MemplexIDs with targeted layer.
+*   @tparam layer The layer to be loaded.
+*   @treturn Array MemplexIDs with targeted layer.
 */
 ClassMemplexRegister.prototype.getLayer = function(layer) {
     return this.layerlist[layer];
 }
 
 /** Get all ParentIDs for the specified MemplexID.
-*   @param id The id of the Child to be loaded.
-*   @return Array MemplexIDs with targeted child.
+*   @tparam id The id of the Child to be loaded.
+*   @treturn Array MemplexIDs with targeted child.
 */
 ClassMemplexRegister.prototype.getParents = function(id) {
     return this.parentlist[id];
 }
 
 /** Get the Memplex with the specified id.
-*   @param id The ID of the Memplex to be loaded.
-*   @return Memplex Memplex with targeted id.
+*   @tparam id The ID of the Memplex to be loaded.
+*   @treturn Memplex Memplex with targeted id.
 */
 ClassMemplexRegister.prototype.get = function(id) {
     return this.memplexes[id];
 }
 
 
-/** View controls all visual activities.
-*/
-ClassView = function() {
+/** @class ClassView
+ * ClassViewS controls all visual activities.
+ * During runtime the view can be accessed using the static View object.
+ */
+function ClassView() {
     this.solutionbutton = null;
     this.activesolution = null;
 }
 
+/** Static View object.
+ */
 var View = new ClassView();
 
 /** Load all debates into content.
@@ -573,7 +591,7 @@ ClassView.prototype.loadDebates = function() {
 };
 
 /** Load a solution into content.
-*   @param target The ID of the target solution.
+*   @tparam target The ID of the target solution.
 */
 ClassView.prototype.loadSolution = function(target) {
     var content = $('#content').empty();
@@ -691,33 +709,38 @@ ClassView.prototype.popup = function(height,width,title,content,button,focus) {
     }
 }
 
-/** SolutionRegister for all Debates.
-*/
-ClassSolutionRegister = function() {
+/** @class ClassSolutionRegister
+ * ClassSolutionRegister contains all loaded solutions.
+ * During runtime the register can be accessed using the static SolutionRegister object.
+ */
+function ClassSolutionRegister() {
     this.solutions = {};
 }
 
+/** Static SolutionRegister object.
+ */
 var SolutionRegister = new ClassSolutionRegister();
 
 /** Add a solution to the register.
-*   @param id Id to be added.
-*   @param solution Solution to be added.
+*   @tparam id Id to be added.
+*   @tparam solution Solution to be added.
 */
 ClassSolutionRegister.prototype.add = function(id,solution) {
     this.solutions[id] = solution;
 }
 
 /** Get a solution from the register.
-*   @param id Id to be fetched.
-*   @return Solution Selected Solution.
+*   @tparam id Id to be fetched.
+*   @treturn Solution Selected Solution.
 */
 ClassSolutionRegister.prototype.get = function(id) {
    return this.solutions[id];
 }
 
-/** Object housing a solution.
-*/
-ClassSolution = function(Memplex) {
+/** @class ClassSolution
+ * ClassSolution represents a solution.
+ */
+function ClassSolution(Memplex) {
     this.memplex = Memplex;
     this.object = null;
     this.text = null;
@@ -895,35 +918,42 @@ ClassSolution.prototype.getObject = function() {
     return this.object;
 }
 
-
-/** DebateRegister for all Debates.
-*/
-ClassDebateRegister = function() {
+/** @class ClassDebateRegister
+ * ClassDebateRegister contains all loaded debates.
+ * During runtime the register can be accessed using the static DebateRegister object.
+ */
+function ClassDebateRegister() {
     this.debates = {};
 }
 
+/** Static DebateRegister object.
+ */
 var DebateRegister = new ClassDebateRegister();
 
 /** Add a debate to the register.
-*   @param id Id to be added.
-*   @param debate Debate to be added.
+*   @tparam id Id to be added.
+*   @tparam debate Debate to be added.
 */
 ClassDebateRegister.prototype.add = function(id,debate) {
     this.debates[id] = debate;
 }
 
 /** Get a debate from the register.
-*   @param id Id to be fetched.
-*   @return Debate Selected Debate.
+*   @tparam id Id to be fetched.
+*   @treturn Debate Selected Debate.
 */
 ClassDebateRegister.prototype.get = function(id) {
     return this.debates[id];
 }
 
 
-/** Object housing a debate.
-*/
-ClassDebate = function(memplex) {
+/** @class ClassDebate
+ * ClassDebate represents a debate.
+ * @ctor
+ * Constructor.
+ * @tparam Memplex memplex The memplex representing the new debate.
+ */
+function ClassDebate(memplex) {
     this.memplex = memplex;
     this.object = null;
     this.title = null;
@@ -975,13 +1005,14 @@ ClassDebate = function(memplex) {
 }
 
 /** Append the JQuery HTML Object representation of the debate to the given JQuery object.
+ * @tparam JQuery_HTML_Object object.
 */
 ClassDebate.prototype.appendTo = function(object) {
     this.title.appendTo(object);
     this.hide.appendTo(object);
 }
 
-/** Checks if debate matches the given filter.
+/** Checks if debate matches the current filter.
 */
 ClassDebate.prototype.matchFilter = function() {
     var parents = MemplexRegister.getParents(this.memplex.id);
@@ -989,13 +1020,19 @@ ClassDebate.prototype.matchFilter = function() {
 }
 
 
-ClassFilter = function() {
+/** @class ClassFilter
+ * ClassFilter implements filtering of debates.
+ * During runtime the filter can be accessed using the static Filter object.
+ */
+function ClassFilter() {
     this.filters = {};
     this.allof = {};
     this.oneof = {};
     this.mine = {};
 }
 
+/** Static Filter object.
+ */
 var Filter = new ClassFilter();
 
 ClassFilter.prototype.match = function(nodes) {
