@@ -92,10 +92,10 @@ ClassHelper.prototype.show = function(object) {
     
 /** Adds standardwindowclasses.
  * @tparam Object object Object to work on.
- * @tparam bool/string rounded Determines which corners should be rounded. true: top, 'all': all.
+ * @tparam string rounded Determines which corners should be rounded. Possible values: top, all.
  */
 ClassHelper.prototype.window = function(object,rounded) {
-    if ( rounded == true ) {
+    if ( rounded == 'top' ) {
         object.addClass("ui-corner-top");
     }
     if ( rounded == 'all' ) {
@@ -175,11 +175,12 @@ function ClassController() {
 var Controller = new ClassController();
 
 /** Async load Debates into Storage then trigger View for loading of debates.
+ * This one is being called upon initialization. Loads the top node (ID 1).
  */
 ClassController.prototype.loadDebates = function() {
     $.post("memplex.php",
         {id: 1,time:  Controller.lastLoad(1)},
-        function(data) {
+        function(data) { // data returned by server
             var json = $.parseJSON(data);
             Controller.parseMemplex(json.data,null);
             Controller.setLastLoad(json.data.id,json.time);
@@ -220,7 +221,9 @@ ClassController.prototype.loadSolution = function(target) {
         });
 }
     
-/** Parse loaded memplexes into MemplexRegister.
+/** Parse loaded Memplexes into MemplexRegister.
+ * @tparam Memplex data Memplex to load.
+ * @tparam Memplex parent The parent Memplex.
 */
 ClassController.prototype.parseMemplex = function(data,parent) {
     if ( data.id === 0
@@ -237,23 +240,24 @@ ClassController.prototype.parseMemplex = function(data,parent) {
 }
     
 /** Set the last loadtime for target.
- *   @tparam int target Target ID.
- *   @tparam int time Unix timestamp.
+ * @tparam int target Target ID.
+ * @tparam int time Unix timestamp.
  */
 ClassController.prototype.setLastLoad = function(target,time) {
     this.lastload[target] = time;
 }
     
 /** Get the last loadtime for target.
-*   @tparam int target Target ID.
-*   @treturn int The last loading timestamp.
+* @tparam int target Target Memplex ID.
+* @treturn int The last loading timestamp.
 */
 ClassController.prototype.lastLoad = function(target) {
     return this.lastload[target];
 }
     
-/** Store to a memplex in the DB.
-*/
+/** Store to a Memplex in the DB.
+ * @tparam Memplex data The Memplex to store.
+ */
 ClassController.prototype.storeToMemplex = function(data) {
     if ( data == null ) {
         return;
@@ -276,7 +280,13 @@ ClassController.prototype.storeToMemplex = function(data) {
         });
 }
     
-/** Create a specific add form.
+/** Create a specific form to add Memplexes.
+ * @tparam string name CSS class name of the form.
+ * @tparam string title User visible title.
+ * @tparam string[] strings I suppose those are the fucking labels in the form. But Justus hates writing documentation.
+ * @tparam int parent ID of the parent Memplex.
+ * @tparam int layer Layer of the new Memplex.
+ * @tparam function callback
 */
 ClassController.prototype.addForm = function(name,title,strings,parent,layer,callback) {
     var content = $('<div class="' + name + '">');
@@ -490,10 +500,10 @@ ClassController.prototype.addComment = function(solutionid,layer) {
  * During runtime the register can be accessed using the static MemplexRegister object.
  */
 function ClassMemplexRegister() {
-    this.memplexes = {};
-    this.parentlist = {};
-    this.layerlist = {};
-    this.layerlistreverse = {};
+    this.memplexes = {}; /** Object stores loaded Memplexes. */
+    this.parentlist = {}; /** Object storing parents for each Memplex.  */
+    this.layerlist = {}; /** Object storing Memplex IDs for each layer. */
+    this.layerlistreverse = {}; /** TODO: Justus says we don't need it. */
 }
 
 var MemplexRegister = new ClassMemplexRegister();
@@ -513,7 +523,7 @@ ClassMemplexRegister.prototype.add = function(memplex,parent) {
     if ( this.layerlist[memplex.layer] == null ) {
         this.layerlist[memplex.layer] = {};
     }
-    if ( this.layerlistreverse[memplex.id] == null ) {
+    if ( this.layerlistreverse[memplex.id] == null ) { // TODO: Justus says this is wrong
         this.layerlistreverse[memplex.id] = memplex.layer;
         this.layerlist[memplex.layer][Helper.objectCount(this.layerlist[memplex.layer])] = memplex.id;
     }
@@ -664,7 +674,8 @@ ClassView.prototype.paintCommentButton = function(solution,comment) {
 }
 
 /** Paint the primary menubuttons.
-*/
+ * This one is being called upon initialization.
+ */
 ClassView.prototype.paintButtons = function() {
     Helper.createButton(null,'ui-icon-minus','#menuleft','floatright',function(data) {
         Helper.menuleft = !Helper.menuleft;
@@ -707,6 +718,12 @@ ClassView.prototype.paintButtons = function() {
 }
 
 /** Create a popup.
+ * @tparam string height HTML height.
+ * @tparam string width HTML width.
+ * @tparam string title User visible title of the popup. 
+ * @tparam string content The actual content of the popup.
+ * @tparam array button Array of (button label, callback function) tuples.
+ * @tparam string focus Element to focus.
 */
 ClassView.prototype.popup = function(height,width,title,content,button,focus) {
     $('#viewpopup').remove();
@@ -976,22 +993,13 @@ ClassDebateRegister.prototype.get = function(id) {
  */
 function ClassDebate(memplex) {
     this.memplex = memplex;
-    this.object = null;
     this.title = null;
     this.text = null;
     this.hide = null;
     this.ul = null;
     
-    // this.object = $('<div id="debate' + this.memplex.id + '" class="debate">');
     this.title = $('<h3 id="debate' + this.memplex.id + 'title" class=""><a href="#">' + this.memplex.title + '</a></h3>');
-        // .appendTo(this.object)
-        // .click(function(data) {
-            // var id = Helper.getIdFromString(data.currentTarget.id);
-            // Helper.toggleHidden(DebateRegister.get(id).hide);
-    // });
-
-    this.hide = $('<div id="debate' + this.memplex.id + 'hide" class="hidden">'); //.appendTo(this.object)
-
+    this.hide = $('<div id="debate' + this.memplex.id + 'hide" class="hidden">');
     this.text = $('<div id="debate' + this.memplex.id + 'text" class="debatetext">').appendTo(this.hide);
 
     Helper.window($('<div class="padded bigfont">' + this.memplex.title + '</div>').appendTo(this.text),'all');
@@ -1034,7 +1042,8 @@ ClassDebate.prototype.appendTo = function(object) {
 }
 
 /** Checks if debate matches the current filter.
-*/
+ * @treturn boolean True if it is a match, else false.
+ */
 ClassDebate.prototype.matchFilter = function() {
     var parents = MemplexRegister.getParents(this.memplex.id);
     return Filter.match(parents);
@@ -1046,16 +1055,20 @@ ClassDebate.prototype.matchFilter = function() {
  * During runtime the filter can be accessed using the static Filter object.
  */
 function ClassFilter() {
-    this.filters = {};
-    this.allof = {};
-    this.oneof = {};
-    this.mine = {};
+    this.filters = {}; /**  */
+    this.allof = {}; /** AND filters. */
+    this.oneof = {}; /** OR filters. */
+    this.mine = {}; /**  */
 }
 
 /** Static Filter object.
  */
 var Filter = new ClassFilter();
 
+/** Checks if debate matches the current filter.
+ * @tparam int[] nodes List of Memplex IDs.
+ * @treturn boolean True if it is a match, else false.
+ */
 ClassFilter.prototype.match = function(nodes) {
     var allof = this.allof;
     var oneof = this.oneof;
@@ -1085,7 +1098,9 @@ ClassFilter.prototype.match = function(nodes) {
     // check if node is contained in mine.
 }
 
-ClassFilter.prototype.printFilters = function(remove) {
+/** Prints active filters.
+ */
+ClassFilter.prototype.printFilters = function() {
     var list = $('#activefilterlist').empty();
 
     var allof = $('<p>').appendTo(list);
