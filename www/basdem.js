@@ -647,7 +647,7 @@ ClassView.prototype.loadSolution = function(target) {
         this.commentbutton.remove();
     }
     this.solutionbutton = $('<button id="solution' + solution.id + 'button">' + solution.title + '</button>')
-        .appendTo('#menuright')
+        .appendTo('#menu')
         .click(function(data) {
             var id = Helper.getIdFromString(data.currentTarget.id);
             Controller.loadSolution(id);
@@ -669,7 +669,7 @@ ClassView.prototype.paintCommentButton = function(solution,comment) {
         this.commentbutton.remove();
     }
     // this.commentbutton = $('<button id="solution' + solution.id + 'comment' + comment.id + 'button">Argument: ' + comment.title + '</button>')
-        // .appendTo('#menuright')
+        // .appendTo('#menu')
         // .click(function(data) {
             // var solution = Helper.getIdFromString(data.currentTarget.id);
             // var comment = Helper.getSecondIdFromString(data.currentTarget.id);
@@ -683,43 +683,20 @@ ClassView.prototype.paintCommentButton = function(solution,comment) {
  * This one is being called upon initialization.
  */
 ClassView.prototype.paintButtons = function() {
-    Helper.createButton(null,'ui-icon-minus','#menuleft','floatright',function(data) {
-        Helper.menuleft = !Helper.menuleft;
-        var tmp = $('#togglebutton').find('.ui-icon');
-        if ( Helper.menuleft ) {
-            $('#rightbox')
-                .addClass('widebox');
-            $('#leftbox')
-                .addClass('slideout');
-            $('#list')
-                .addClass('hidden');
-            tmp.toggleClass('ui-icon-minus');
-            tmp.toggleClass('ui-icon-plus');
-        } else {
-            $('#rightbox')
-                .removeClass('widebox');
-           $('#leftbox')
-               .removeClass('slideout');
-            $('#list')
-               .removeClass('hidden');
-            tmp.toggleClass('ui-icon-minus');
-            tmp.toggleClass('ui-icon-plus');
-        }
-    },'togglebutton');
-    Helper.createButton(null,'ui-icon-refresh','#menuright','floatleft',function(data) {
-        Controller.loadDebates();
-    });
-    Helper.createButton("Debatten",null,'#menuright','floatleft',function(data) {
-        View.loadDebates();
-    });
-    Helper.createButton("Filter einstellen",null,'#menuright','floatright',function(data) {
-        Filter.createNewObject();
-    });
-    Helper.createButton("Logout",null,'#menuleft','floatleft',function(data) {
+    Helper.createButton("Logout",null,'#menu','floatleft',function(data) {
         window.location = '?action=logout';
     });
-    Helper.createButton("Neue Debatte",'ui-icon-plus','#menuleft','floatleft',function(data) {
+    Helper.createButton("Neue Debatte",'ui-icon-plus','#menu','floatleft',function(data) {
         Controller.addDebate();
+    });
+    Helper.createButton(null,'ui-icon-refresh','#menu','floatleft',function(data) {
+        Controller.loadDebates();
+    });
+    Helper.createButton("Debatten",null,'#menu','floatleft',function(data) {
+        View.loadDebates();
+    });
+    Helper.createButton("Filter einstellen",null,'#menu','floatright',function(data) {
+        Filter.createNewObject();
     });
 }
 
@@ -858,7 +835,7 @@ ClassSolution.prototype.showComment = function(id) {
     View.activecommentbutton = Helper.createButton(
             "Antworten",
             null,
-            '#menuright',
+            '#menu',
             'floatright',
             this.buttonCallback,
             'comment' + id + 'buttonadd' + 8
