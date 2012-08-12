@@ -29,25 +29,30 @@ br,.clear {
     overflow: hidden;
 }
 #leftbox {
-    width: 380px;
+    /* width: 380px; */
+    width: 100%;
     height: 800px;
     float: left;
 }
 #rightbox {
-    width: 900px;
+    /* width: 900px; */
+    width: 100%;
     height: 800px;
     float: right;
 }
 #menuleft {
-    width: 380px;
-    #height: 36px;
+    /* width: 380px; */
+    width: 100%;
+    height: 36px;
 }
 #menuright {
+    /* width: 100%; */
     width: 100%;
     height: 36px;
 }
 #list {
-    width: 380px;
+    /* width: 380px; */
+    width: 100%;
     height: 90%;
     overflow: auto;
     margin-top: 2px;

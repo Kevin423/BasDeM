@@ -8,12 +8,10 @@ function load(){
         $('#loading').hide();
     });
     
+    $('div#container').layout({ applyDefaultStyles: true, west__minSize: 380 });
+    
     View.paintButtons();
     Controller.loadDebates();
 }
 window.onload = load;
-
-$(document).ready(function () {
-        $('div#container').layout({ applyDefaultStyles: true, west__minSize: 380 });
-});
 </script>
