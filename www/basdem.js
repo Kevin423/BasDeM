@@ -15,7 +15,12 @@
  * You should have received a copy of the GNU General Public License along with         *
  * BasDeM. If not, see <http://www.gnu.org/licenses/>.                                  *
  ****************************************************************************************/
-/** Language setting.
+/**
+ * @file
+ * BasDeM code on the client side.
+ */
+
+/** Language setting, used to pick the correct translation.
  */
 var language = "de_DE";
 
@@ -25,14 +30,14 @@ var language = "de_DE";
  */
 function ClassHelper() {};
 
-/** @var ClassHelper Helper Static ClassHelper object.
+/** @var Helper
  */
 var Helper = new ClassHelper();
 
 /** Get the second complete set of digits in a string.
-*   @tparam string Searchstring String to search for the digits.
-*   @treturn int ID.
-*/
+ *   @tparam string string String to search for the digits.
+ *   @treturn int ID.
+ */
 ClassHelper.prototype.getSecondIdFromString = function(string) {
     var search = /(\d+)[^0-9]+(\d+)/;
     var result = search.exec(string);
@@ -43,9 +48,9 @@ ClassHelper.prototype.getSecondIdFromString = function(string) {
 }
     
 /** Get the first complete set of digits in a string.
-*   @tparam string   Searchstring.
-*   @treturn int     ID.
-*/
+ *   @tparam string string String to search in.
+ *   @treturn int Found ID.
+ */
 ClassHelper.prototype.getIdFromString = function(string) {
     if ( string == null ) 
         string = "";
@@ -53,9 +58,9 @@ ClassHelper.prototype.getIdFromString = function(string) {
 }
     
 /** Count the direct children of an object.
-*   @tparam object   The target object.
-*   @treturn int     number of children.
-*/
+ *   @tparam Object object The target object.
+ *   @treturn int Number of children.
+ */
 ClassHelper.prototype.objectCount = function(object) {
     var i = 0;
     for ( o in object ) {
@@ -65,28 +70,30 @@ ClassHelper.prototype.objectCount = function(object) {
 }
     
 /** Toggle the hidden class on an object (remove if present, else add).
-*   @tparam object   The target object.
-*/
+ *   @tparam Object object The target object.
+ */
 ClassHelper.prototype.toggleHidden = function(object) {
     object.toggleClass("hidden");
 }
     
 /** Add the hidden class to an object.
-*   @tparam object   The target object.
-*/
+ *   @tparam Object object The target object.
+ */
 ClassHelper.prototype.hide = function(object) {
     object.attr("class",object.attr("class") + ' hidden');
 }
     
 /** Remove the hidden class from object.
-*   @tparam object   The target object.
-*/
+ *   @tparam Object object The target object.
+ */
 ClassHelper.prototype.show = function(object) {
     object.attr("class",object.attr("class").replace(/hidden/,''));
 }
     
 /** Adds standardwindowclasses.
-*/
+ * @tparam Object object Object to work on.
+ * @tparam bool/string rounded Determines which corners should be rounded. true: top, 'all': all.
+ */
 ClassHelper.prototype.window = function(object,rounded) {
     if ( rounded == true ) {
         object.addClass("ui-corner-top");
@@ -98,13 +105,13 @@ ClassHelper.prototype.window = function(object,rounded) {
 }
     
 /** Create a button.
-*   @tparam text     String Button text.
-*   @tparam icon     String jquery-ui icon name.
-*   @tparam append   jQuery Object to append the button to.
-*   @tparam floatdirection   String direction of the float.
-*   @tparam callback function callback
-*   @tparam id       String html id attribute.
-*/
+ *   @tparam string text Button text.
+ *   @tparam string icon jquery-ui icon name.
+ *   @tparam object append jQuery Object to append the button to.
+ *   @tparam string floatdirection Direction of the float.
+ *   @tparam function callback Function callback
+ *   @tparam string id HTML id attribute.
+ */
 ClassHelper.prototype.createButton = function(text,icon,append,floatdirection,callback,id) {
     var showtext = true;
     if ( text == null ) {
@@ -125,7 +132,9 @@ ClassHelper.prototype.createButton = function(text,icon,append,floatdirection,ca
 }
     
 /** Classic Unix Timestamp.
-*/
+ * @tparam Date date Current date.
+ * @treturn int Current Unix timestamp.
+ */
 ClassHelper.prototype.time = function(date) {
     if ( date == null ) {
         date = new Date();
@@ -133,6 +142,12 @@ ClassHelper.prototype.time = function(date) {
     return Math.round(date.getTime() / 1000);
 }
 
+/** Create a div-box
+ * @tparam string title Title of the box.
+ * @tparam string id HTML ID.
+ * @tparam Object target Target object to append the box to.
+ * @treturn string HTML code of the box.
+ */
 ClassHelper.prototype.box = function(title,id,target) {
     if ( title.length > 45 ) {
         title = title.substr(0,42) + '...';
@@ -160,7 +175,7 @@ function ClassController() {
 var Controller = new ClassController();
 
 /** Async load Debates into Storage then trigger View for loading of debates.
-*/
+ */
 ClassController.prototype.loadDebates = function() {
     $.post("memplex.php",
         {id: 1,time:  Controller.lastLoad(1)},
@@ -172,16 +187,19 @@ ClassController.prototype.loadDebates = function() {
         });
 }
    
-/** Load Solution into Storage then trigger View for loading of commentTarget.
-*   See this.popCommentTarget() for further information.
-*/
-ClassController.prototype.loadComment = function(solution, target) {
+/** Load solution into storage then trigger View for loading of commentTarget.
+ * @see popCommentTarget() for further information.
+ * @tparam ClassSolution solution Solution to load.
+ * @tparam int target ID of the comment.
+ */
+ClassController.prototype.loadComment = function(solution,target) {
     this.commentTarget = target;
     this.loadSolution(solution);
 }
     
 /** Return the comment targetted by the last load and reset it.
-*/
+ * @treturn string Comment targetted by the last load.
+ */
 ClassController.prototype.popCommentTarget = function() {
     var target = this.commentTarget;
     this.commentTarget = null;
@@ -189,7 +207,8 @@ ClassController.prototype.popCommentTarget = function() {
 }
     
 /** Load target Solution into Storage then trigger View for loading of solution.
-*/
+ * @tparam ClassSolution target Solution to load.
+ */
 ClassController.prototype.loadSolution = function(target) {
     $.post("memplex.php",
         {id: target,time: Controller.lastLoad(target)},
@@ -218,15 +237,16 @@ ClassController.prototype.parseMemplex = function(data,parent) {
 }
     
 /** Set the last loadtime for target.
-*   @tparam target Target ID.
-*/
+ *   @tparam int target Target ID.
+ *   @tparam int time Unix timestamp.
+ */
 ClassController.prototype.setLastLoad = function(target,time) {
     this.lastload[target] = time;
 }
     
 /** Get the last loadtime for target.
-*   @tparam target Target ID.
-*   @treturn int the last loading timestamp.
+*   @tparam int target Target ID.
+*   @treturn int The last loading timestamp.
 */
 ClassController.prototype.lastLoad = function(target) {
     return this.lastload[target];
@@ -479,7 +499,8 @@ function ClassMemplexRegister() {
 var MemplexRegister = new ClassMemplexRegister();
 
 /** Add a new Memplex to the Register.
-*   @tparam memplex Memplex to be added.
+ * @tparam Memplex memplex Memplex to be added.
+ * @tparam Memplex parent Parent of the new Memplex.
 * */
 ClassMemplexRegister.prototype.add = function(memplex,parent) {
     if ( this.parentlist[memplex.id] == null ) {
@@ -511,7 +532,7 @@ ClassMemplexRegister.prototype.add = function(memplex,parent) {
 }
 
 /** Get all MemplexIDs with the param layer.
-*   @tparam layer The layer to be loaded.
+*   @tparam int layer The layer to be loaded.
 *   @treturn Array MemplexIDs with targeted layer.
 */
 ClassMemplexRegister.prototype.getLayer = function(layer) {
@@ -519,7 +540,7 @@ ClassMemplexRegister.prototype.getLayer = function(layer) {
 }
 
 /** Get all ParentIDs for the specified MemplexID.
-*   @tparam id The id of the Child to be loaded.
+*   @tparam int id The id of the Child to be loaded.
 *   @treturn Array MemplexIDs with targeted child.
 */
 ClassMemplexRegister.prototype.getParents = function(id) {
@@ -527,7 +548,7 @@ ClassMemplexRegister.prototype.getParents = function(id) {
 }
 
 /** Get the Memplex with the specified id.
-*   @tparam id The ID of the Memplex to be loaded.
+*   @tparam int id The ID of the Memplex to be loaded.
 *   @treturn Memplex Memplex with targeted id.
 */
 ClassMemplexRegister.prototype.get = function(id) {
@@ -591,7 +612,7 @@ ClassView.prototype.loadDebates = function() {
 };
 
 /** Load a solution into content.
-*   @tparam target The ID of the target solution.
+*   @tparam int target The ID of the target solution.
 */
 ClassView.prototype.loadSolution = function(target) {
     var content = $('#content').empty();
@@ -722,15 +743,15 @@ function ClassSolutionRegister() {
 var SolutionRegister = new ClassSolutionRegister();
 
 /** Add a solution to the register.
-*   @tparam id Id to be added.
-*   @tparam solution Solution to be added.
+*   @tparam int id Id to be added.
+*   @tparam ClassSolution solution Solution to be added.
 */
 ClassSolutionRegister.prototype.add = function(id,solution) {
     this.solutions[id] = solution;
 }
 
 /** Get a solution from the register.
-*   @tparam id Id to be fetched.
+*   @tparam int id Id to be fetched.
 *   @treturn Solution Selected Solution.
 */
 ClassSolutionRegister.prototype.get = function(id) {
@@ -931,16 +952,16 @@ function ClassDebateRegister() {
 var DebateRegister = new ClassDebateRegister();
 
 /** Add a debate to the register.
-*   @tparam id Id to be added.
-*   @tparam debate Debate to be added.
+*   @tparam int id Id to be added.
+*   @tparam ClassDebate debate Debate to be added.
 */
 ClassDebateRegister.prototype.add = function(id,debate) {
     this.debates[id] = debate;
 }
 
 /** Get a debate from the register.
-*   @tparam id Id to be fetched.
-*   @treturn Debate Selected Debate.
+*   @tparam int id Id to be fetched.
+*   @treturn ClassDebate Selected Debate.
 */
 ClassDebateRegister.prototype.get = function(id) {
     return this.debates[id];
@@ -1005,7 +1026,7 @@ function ClassDebate(memplex) {
 }
 
 /** Append the JQuery HTML Object representation of the debate to the given JQuery object.
- * @tparam JQuery_HTML_Object object.
+ * @tparam JQuery_HTML_Object object Object to work on.
 */
 ClassDebate.prototype.appendTo = function(object) {
     this.title.appendTo(object);
