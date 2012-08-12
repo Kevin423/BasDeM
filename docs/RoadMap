@@ -27,10 +27,10 @@ Pirate Party assembly in Bochum (BPT12.2).
 ==== Quality assurance & community management====
 * i18n
 * tests
-* js/client documentation
 * setting up mailing list
 * setting up Bugzilla
 * setting up Jenkins
+* automatically generate documentation on our server
 
 ==== Marketing ====
 * web site
