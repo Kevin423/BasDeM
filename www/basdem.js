@@ -224,7 +224,7 @@ ClassController.prototype.loadSolution = function(target) {
 /** Parse loaded Memplexes into MemplexRegister.
  * @tparam Memplex data Memplex to load.
  * @tparam Memplex parent The parent Memplex.
-*/
+ */
 ClassController.prototype.parseMemplex = function(data,parent) {
     if ( data.id === 0
         || data.title === 0 
@@ -248,9 +248,9 @@ ClassController.prototype.setLastLoad = function(target,time) {
 }
     
 /** Get the last loadtime for target.
-* @tparam int target Target Memplex ID.
-* @treturn int The last loading timestamp.
-*/
+ * @tparam int target Target Memplex ID.
+ * @treturn int The last loading timestamp.
+ */
 ClassController.prototype.lastLoad = function(target) {
     return this.lastload[target];
 }
@@ -330,8 +330,8 @@ ClassController.prototype.addForm = function(name,title,strings,parent,layer,cal
        },name + 'parent');
 }
     
-/** Create a new Debate.
-*/
+/** Creates a new Debate.
+ */
 ClassController.prototype.addDebate = function() {
     this.addForm('adddebate','Neue Debatte erstellen:',['Debatetitle','Debatetext','Filter'],null,null,function() {
         var bad = false;
@@ -380,7 +380,8 @@ ClassController.prototype.addDebate = function() {
 }
 
 /** Create a new Solution.
-*/
+ * @tparam int debateid ID of the Memplex we want to add a solution to.
+ */
 ClassController.prototype.addSolution = function(debateid) {
     this.addForm('addsolution','Neue Lösung erstellen:',['Solutiontitle','Solutiontext'],debateid,null,function() {
         var bad = false;
@@ -426,8 +427,8 @@ ClassController.prototype.addSolution = function(debateid) {
     });
 }
 
-/** Create a new Comment or Argument.
-*/
+/** Creates a new comment or argument.
+ */
 ClassController.prototype.addComment = function(solutionid,layer) {
     var title = '';
     switch ( layer ) {
@@ -500,10 +501,14 @@ ClassController.prototype.addComment = function(solutionid,layer) {
  * During runtime the register can be accessed using the static MemplexRegister object.
  */
 function ClassMemplexRegister() {
-    this.memplexes = {}; /** Object stores loaded Memplexes. */
-    this.parentlist = {}; /** Object storing parents for each Memplex.  */
-    this.layerlist = {}; /** Object storing Memplex IDs for each layer. */
-    this.layerlistreverse = {}; /** TODO: Justus says we don't need it. */
+    /** Object stores loaded Memplexes.*/
+    this.memplexes = {};
+    /** Object storing parents for each Memplex.  */
+    this.parentlist = {};
+    /** Object storing Memplex IDs for each layer. */
+    this.layerlist = {};
+    /** TODO: Justus says we don't need it. */
+    this.layerlistreverse = {};
 }
 
 var MemplexRegister = new ClassMemplexRegister();
@@ -511,7 +516,7 @@ var MemplexRegister = new ClassMemplexRegister();
 /** Add a new Memplex to the Register.
  * @tparam Memplex memplex Memplex to be added.
  * @tparam Memplex parent Parent of the new Memplex.
-* */
+ */
 ClassMemplexRegister.prototype.add = function(memplex,parent) {
     if ( this.parentlist[memplex.id] == null ) {
         this.parentlist[memplex.id] = {};
@@ -542,25 +547,25 @@ ClassMemplexRegister.prototype.add = function(memplex,parent) {
 }
 
 /** Get all MemplexIDs with the param layer.
-*   @tparam int layer The layer to be loaded.
-*   @treturn Array MemplexIDs with targeted layer.
-*/
+ * @tparam int layer The layer to be loaded.
+ * @treturn Array MemplexIDs with targeted layer.
+ */
 ClassMemplexRegister.prototype.getLayer = function(layer) {
     return this.layerlist[layer];
 }
 
 /** Get all ParentIDs for the specified MemplexID.
-*   @tparam int id The id of the Child to be loaded.
-*   @treturn Array MemplexIDs with targeted child.
-*/
+ * @tparam int id The id of the Child to be loaded.
+ * @treturn Array MemplexIDs with targeted child.
+ */
 ClassMemplexRegister.prototype.getParents = function(id) {
     return this.parentlist[id];
 }
 
 /** Get the Memplex with the specified id.
-*   @tparam int id The ID of the Memplex to be loaded.
-*   @treturn Memplex Memplex with targeted id.
-*/
+ * @tparam int id The ID of the Memplex to be loaded.
+ * @treturn Memplex Memplex with targeted id.
+ */
 ClassMemplexRegister.prototype.get = function(id) {
     return this.memplexes[id];
 }
@@ -571,6 +576,7 @@ ClassMemplexRegister.prototype.get = function(id) {
  * During runtime the view can be accessed using the static View object.
  */
 function ClassView() {
+    /** Button to load the current solution. */
     this.solutionbutton = null;
     this.activesolution = null;
 }
@@ -579,8 +585,8 @@ function ClassView() {
  */
 var View = new ClassView();
 
-/** Load all debates into content.
-*/
+/** Loads all debates into content.
+ */
 ClassView.prototype.loadDebates = function() {
     if ( View.activecommentbutton != null ) {
         View.activecommentbutton.remove();
@@ -621,9 +627,9 @@ ClassView.prototype.loadDebates = function() {
     });
 };
 
-/** Load a solution into content.
-*   @tparam int target The ID of the target solution.
-*/
+/** Loads a solution into content.
+ * @tparam int target The ID of the target solution Memplex.
+ */
 ClassView.prototype.loadSolution = function(target) {
     var content = $('#content').empty();
 
@@ -673,7 +679,7 @@ ClassView.prototype.paintCommentButton = function(solution,comment) {
         // .addClass('mybutton');
 }
 
-/** Paint the primary menubuttons.
+/** Paints the primary menubuttons.
  * This one is being called upon initialization.
  */
 ClassView.prototype.paintButtons = function() {
@@ -760,23 +766,24 @@ function ClassSolutionRegister() {
 var SolutionRegister = new ClassSolutionRegister();
 
 /** Add a solution to the register.
-*   @tparam int id Id to be added.
-*   @tparam ClassSolution solution Solution to be added.
-*/
+ * @tparam int id Id to be added.
+ * @tparam ClassSolution solution Solution to be added.
+ */
 ClassSolutionRegister.prototype.add = function(id,solution) {
     this.solutions[id] = solution;
 }
 
 /** Get a solution from the register.
-*   @tparam int id Id to be fetched.
-*   @treturn Solution Selected Solution.
-*/
+ * @tparam int id Id to be fetched.
+ * @treturn Solution Selected Solution.
+ */
 ClassSolutionRegister.prototype.get = function(id) {
    return this.solutions[id];
 }
 
 /** @class ClassSolution
  * ClassSolution represents a solution.
+ * @tparam Memplex Memplex Memplex of the solution.
  */
 function ClassSolution(Memplex) {
     this.memplex = Memplex;
@@ -828,15 +835,18 @@ function ClassSolution(Memplex) {
 
     SolutionRegister.add(this.memplex.id,this);
 }
-    
-ClassSolution.prototype.buttonCallback = function(data) {
+
+/** Adds comment after OK button has been clicked.
+ */
+ClassSolution.prototype.buttonCallback = function() {
     var id = Helper.getIdFromString($( this ).attr('id'));
     var layer = Helper.getSecondIdFromString($( this ).attr('id'));
     Controller.addComment(id,layer);
 };
 
 /** Bring the target comment up front.
-*/
+ * @tparam int id ID of the Memplex representing the comment.
+ */
 ClassSolution.prototype.showComment = function(id) {
     if ( this.activecomment != null ) {
         $('#solution' + this.memplex.id + 'comment' + this.activecomment)
@@ -872,7 +882,8 @@ ClassSolution.prototype.showComment = function(id) {
 }
 
 /** Walks through all parent comment nodes until it finds and shows the hidden topnode.
-*/
+ * @tparam JQueryElement JQueryElement jQuery DOM document wrapper, see jQuery documentation.
+ */
 ClassSolution.prototype.bubbleShow = function(JQueryElement) {
     if ( JQueryElement.attr('class') != undefined 
         && ( JQueryElement.attr('class').search(/comment/) == -1 
@@ -883,8 +894,8 @@ ClassSolution.prototype.bubbleShow = function(JQueryElement) {
     this.bubbleShow(JQueryElement.parent());
 }
 
-/** Load Arguments into List.
-*/
+/** Loads arguments into list.
+ */
 ClassSolution.prototype.loadArguments = function() {
     var childs = this.memplex.children;
     for ( c in childs ) {
@@ -921,14 +932,16 @@ ClassSolution.prototype.loadArguments = function() {
         this.hidden[child.id] = $('<div id="solution' + this.memplex.id + 'comment' + child.id + 'hidden" class="solutioncomment hidden">').appendTo(li);
         for ( c in child.children ) {
             var comment = MemplexRegister.get(child.children[c]);
-            this.loadCommentsRecursive(child,comment,this.hidden[child.id])
+            this.loadCommentsRecursive(comment,this.hidden[child.id]);
         }
     }
 }
 
-/** Load comments.
-*/
-ClassSolution.prototype.loadCommentsRecursive = function(topnode,memplex,parent) {
+/** Loads comments.
+ * @tparam Memplex memplex Current Memplex (comment).
+ * @tparam Memplex parent Parent Memplex.
+ */
+ClassSolution.prototype.loadCommentsRecursive = function(memplex,parent) {
     var ul = $("<ul class=\"comment\">").appendTo(parent);
     var li = $("<li class=\"comment\">").appendTo(ul);
 
@@ -946,11 +959,11 @@ ClassSolution.prototype.loadCommentsRecursive = function(topnode,memplex,parent)
 
     for ( c in memplex.children ) {
         var comment = MemplexRegister.get(memplex.children[c]);
-        this.loadCommentsRecursive(topnode,comment,li)
+        this.loadCommentsRecursive(comment,li);
     }
 }
 
-/** Get the JQuery HTML Object representation of the debate.
+/** Gets the JQuery HTML Object representation of the debate.
 */
 ClassSolution.prototype.getObject = function() {
     return this.object;
@@ -968,18 +981,18 @@ function ClassDebateRegister() {
  */
 var DebateRegister = new ClassDebateRegister();
 
-/** Add a debate to the register.
-*   @tparam int id Id to be added.
-*   @tparam ClassDebate debate Debate to be added.
-*/
+/** Adds a debate to the register.
+ * @tparam int id Id to be added.
+ * @tparam ClassDebate debate Debate to be added.
+ */
 ClassDebateRegister.prototype.add = function(id,debate) {
     this.debates[id] = debate;
 }
 
-/** Get a debate from the register.
-*   @tparam int id Id to be fetched.
-*   @treturn ClassDebate Selected Debate.
-*/
+/** Gets a debate from the register.
+ * @tparam int id Id to be fetched.
+ * @treturn ClassDebate Selected Debate.
+ */
 ClassDebateRegister.prototype.get = function(id) {
     return this.debates[id];
 }
@@ -1033,9 +1046,9 @@ function ClassDebate(memplex) {
     DebateRegister.add(memplex.id,this);
 }
 
-/** Append the JQuery HTML Object representation of the debate to the given JQuery object.
+/** Appends the JQuery HTML Object representation of the debate to the given JQuery object.
  * @tparam JQuery_HTML_Object object Object to work on.
-*/
+ */
 ClassDebate.prototype.appendTo = function(object) {
     this.title.appendTo(object);
     this.hide.appendTo(object);
@@ -1055,10 +1068,14 @@ ClassDebate.prototype.matchFilter = function() {
  * During runtime the filter can be accessed using the static Filter object.
  */
 function ClassFilter() {
-    this.filters = {}; /**  */
-    this.allof = {}; /** AND filters. */
-    this.oneof = {}; /** OR filters. */
-    this.mine = {}; /**  */
+    /**  */
+    this.filters = {};
+    /** AND filters. */
+    this.allof = {};
+    /** OR filters. */
+    this.oneof = {};
+    /**  */
+    this.mine = {};
 }
 
 /** Static Filter object.
@@ -1173,8 +1190,8 @@ ClassFilter.prototype.oneofCallback = function() {
     Filter.printFilters();
 }
 
-/** Get the Object representation of the new filter form.
-*/
+/** Gets the Object representation of the new filter form.
+ */
 ClassFilter.prototype.createNewObject = function() {
     this.refreshFilters();
 
@@ -1200,6 +1217,10 @@ ClassFilter.prototype.createNewObject = function() {
         });
 }
 
+/** Returns the IDs of the selected filters.
+ * @tparam object/int id Objects or IDs to check for selection.
+ * @treturn int[] Found IDs.
+ */
 ClassFilter.prototype.getSelected = function(id) {
     var found = null;
     if ( typeof id == 'object' ) {
