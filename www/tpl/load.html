@@ -8,8 +8,7 @@ function load(){
         $('#loading').hide();
     });
     
-    $('div#container').layout({ applyDefaultStyles: true, west__minSize: 380 });
-    
+    View.layout();
     View.paintButtons();
     Controller.loadDebates();
 }

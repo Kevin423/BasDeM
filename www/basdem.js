@@ -585,6 +585,11 @@ function ClassView() {
  */
 var View = new ClassView();
 
+ClassView.prototype.layout = function() {
+    View.layoutobject = $('#container').layout({ applyDefaultStyles: true, west__minSize: 380, north__minSize: 50, west__size: 'auto' });
+    View.layoutobject.allowOverflow('west');
+}
+
 /** Loads all debates into content.
  */
 ClassView.prototype.loadDebates = function() {
