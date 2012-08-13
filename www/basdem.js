@@ -105,7 +105,7 @@ ClassHelper.prototype.window = function(object,rounded) {
 }
 
 /** Gets translation for texts
- *   @tparam string text Defines text for translation. Possible return: translated text or undefined.
+ *   @treturn string Translated text or 'undefined'.
  */
 ClassHelper.prototype.getLang = function(text) {
          return Language.get(language,text);
@@ -298,7 +298,7 @@ ClassController.prototype.storeToMemplex = function(data) {
 ClassController.prototype.addForm = function(name,title,strings,parent,layer,callback) {
     var content = $('<div class="' + name + '">');
 
-    $('<p>'+ClassHelper.getLang('lang_helpText')+'</p>').appendTo(content);
+    $('<p>'+Helper.getLang('lang_helpText')+'</p>').appendTo(content);
     $('<p id="' + name + 'error" class="formerror"></p>').appendTo(content);
  
     var span;
