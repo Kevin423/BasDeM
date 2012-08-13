@@ -333,7 +333,7 @@ ClassController.prototype.addForm = function(name,title,strings,parent,layer,cal
         {
             "OK": callback,
             "Cancel": function() {
-                $( this ).dialog( ClassHelper.getLang('cancel') );
+                $( this ).dialog('close');
             }
        },name + 'parent');
 }
