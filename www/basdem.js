@@ -333,7 +333,7 @@ ClassController.prototype.addForm = function(name,title,strings,parent,layer,cal
         {
             "OK": callback,
             "Cancel": function() {
-                $( this ).dialog('close');
+                $( this ).dialog( 'close' );
             }
        },name + 'parent');
 }
@@ -364,12 +364,12 @@ ClassController.prototype.addDebate = function() {
         if ( text.val() == '' ) {
             bad = true;
             text.parent().addClass('formerror');
-            $('<p>Bitte beschreibe deine Debatte in einigen Sätzen!</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_debateDescription')+'</p>').appendTo(error);
         }
         if ( Helper.objectCount(parents) == 0 ) {
             bad = true;
             filter.parent().parent().addClass('formerror');
-            $('<p>Bitte wähle mindestens eine Filterkategorie aus!</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_debateFilter')+'</p>').appendTo(error);
         }
 
         if ( bad == true ) {
@@ -723,6 +723,9 @@ ClassView.prototype.paintButtons = function() {
 */
 ClassView.prototype.popup = function(height,width,title,content,button,focus) {
     $('#viewpopup').remove();
+    
+    console.log(button);
+    
     var popup = $('<div id="viewpopup" title="' + title + '">')
        .dialog({
             resizable: false,
