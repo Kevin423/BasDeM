@@ -104,8 +104,9 @@ ClassHelper.prototype.window = function(object,rounded) {
     object.addClass("ui-widget ui-widget-content");
 }
 
-/** Gets translation for texts
- *   @treturn string Translated text or 'undefined'.
+/** Gets translation for texts.
+ * @tparam string text Text to translate.
+ * @treturn string Translated text or 'undefined'.
  */
 ClassHelper.prototype.getLang = function(text) {
          return Language.get(language,text);
