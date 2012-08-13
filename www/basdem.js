@@ -298,7 +298,7 @@ ClassController.prototype.storeToMemplex = function(data) {
 ClassController.prototype.addForm = function(name,title,strings,parent,layer,callback) {
     var content = $('<div class="' + name + '">');
 
-    $('<p>Hier könnte ihr Hilfetext stehen!</p>').appendTo(content);
+    $('<p>'+ClassHelper.getLang('lang_helpText')+'</p>').appendTo(content);
     $('<p id="' + name + 'error" class="formerror"></p>').appendTo(content);
  
     var span;
@@ -330,9 +330,9 @@ ClassController.prototype.addForm = function(name,title,strings,parent,layer,cal
         title,
         content,
         {
-            "Ok": callback,
+            "OK": callback,
             "Cancel": function() {
-                $( this ).dialog( "close" );
+                $( this ).dialog( ClassHelper.getLang('cancel') );
             }
        },name + 'parent');
 }
@@ -340,7 +340,7 @@ ClassController.prototype.addForm = function(name,title,strings,parent,layer,cal
 /** Creates a new Debate.
  */
 ClassController.prototype.addDebate = function() {
-    this.addForm('adddebate','Neue Debatte erstellen:',['Debatetitle','Debatetext','Filter'],null,null,function() {
+    this.addForm('adddebate',Helper.getLang('lang_newDebateCreate'),['Debatetitle','Debatetext','Filter'],null,null,function() {
         var bad = false;
 
         var error = $('#adddebateerror').empty();
@@ -358,7 +358,7 @@ ClassController.prototype.addDebate = function() {
         if ( title.val() == '' ) {
             bad = true;
             title.parent().addClass('formerror');
-            $('<p>Bitte gib einen Titel für deine Debatte an!</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_errorDebateTitle')+'</p>').appendTo(error);
        }
         if ( text.val() == '' ) {
             bad = true;
@@ -390,7 +390,7 @@ ClassController.prototype.addDebate = function() {
  * @tparam int debateid ID of the Memplex we want to add a solution to.
  */
 ClassController.prototype.addSolution = function(debateid) {
-    this.addForm('addsolution','Neue Lösung erstellen:',['Solutiontitle','Solutiontext'],debateid,null,function() {
+    this.addForm('addsolution',Helper.getLang('lang_newSolution'),['Solutiontitle','Solutiontext'],debateid,null,function() {
         var bad = false;
 
         var error = $('#addsolutionerror').empty();
@@ -405,18 +405,18 @@ ClassController.prototype.addSolution = function(debateid) {
         if ( parent.val() == '' ) {
             bad = true;
             title.parent().addClass('formerror');
-            $('<p>Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_errorParent')+'</p>').appendTo(error);
         }
 
         if ( title.val() == '' ) {
             bad = true;
             title.parent().addClass('formerror');
-            $('<p>Bitte gib einen Titel für deine Lösung an!</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_errorDebateTitle')+'</p>').appendTo(error);
         }
         if ( text.val() == '' ) {
             bad = true;
             text.parent().addClass('formerror');
-            $('<p>Bitte beschreibe deine Lösung in einigen Sätzen!</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_solutionDescription')+'</p>').appendTo(error);
         }
 
         if ( bad == true ) {
@@ -430,7 +430,7 @@ ClassController.prototype.addSolution = function(debateid) {
             'loadid': 1
         };
         Controller.storeToMemplex(out);
-        $( this ).dialog( "close" );
+        $( this ).dialog( Helper.getLang('lang_cancel') );
     });
 }
 
@@ -439,10 +439,10 @@ ClassController.prototype.addSolution = function(debateid) {
 ClassController.prototype.addComment = function(solutionid,layer) {
     var title = '';
     switch ( layer ) {
-        case 5: title = Helper.getLang('lang_newProArg')'Neues Pro Argument erstellen:'; break;
-        case 6: title = Helper.getLang('lang_newConArg')'Neues Contra Argument erstellen:'; break;
+        case 5: title = Helper.getLang('lang_createArgumentPro'); break;
+        case 6: title = Helper.getLang('lang_createArgumentCon'); break;
         case 7: 
-        case 8: title = Helper.getLang('lang_newAnsw')'Neue Antwort erstellen:'; break;
+        case 8: title = Helper.getLang('lang_createArgumentNeut'); break;
     }
     this.addForm('addcomment',title,['Title','Text'],solutionid,layer,function() {
         var bad = false;
@@ -460,21 +460,21 @@ ClassController.prototype.addComment = function(solutionid,layer) {
         if ( parent.val() == '' ) {
             bad = true;
             title.parent().addClass('formerror');
-            $('<p>'+Helper.getLang('lang_parentError')+'Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_errorParent')+'</p>').appendTo(error);
         }
 
         if ( layer.val() == '' ) {
             bad = true;
             title.parent().addClass('formerror');
-            $('<p>'+Helper.getLang('lang_layerError')+'Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_errorLayer')+'</p>').appendTo(error);
         }
 
         var type = '';
         switch ( layer.val() ) {
-            case '5': type = 'dein Argument'; break;
-            case '6': type = 'dein Argument'; break;
-            case '7': type = 'dein Argument'; break;
-            case '8': type = 'deine Antwort'; break;
+            case '5': 
+            case '6': 
+            case '7': type = Helper.getLang('lang_yArg'); break;
+            case '8': type = Helper.getLang('lang_yAnsw'); break;
         }
 
         if ( title.val() == '' ) {
