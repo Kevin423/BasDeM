@@ -103,6 +103,13 @@ ClassHelper.prototype.window = function(object,rounded) {
     }
     object.addClass("ui-widget ui-widget-content");
 }
+
+/** Gets translation for texts
+ *   @tparam string text Defines text for translation. Possible return: translated text or undefined.
+ */
+ClassHelper.prototype.getLang = function(text) {
+         return Language.get(language,text);
+}
     
 /** Create a button.
  *   @tparam string text Button text.
@@ -432,10 +439,10 @@ ClassController.prototype.addSolution = function(debateid) {
 ClassController.prototype.addComment = function(solutionid,layer) {
     var title = '';
     switch ( layer ) {
-        case 5: title = 'Neues Pro Argument erstellen:'; break;
-        case 6: title = 'Neues Contra Argument erstellen:'; break;
+        case 5: title = Helper.getLang('lang_newProArg')'Neues Pro Argument erstellen:'; break;
+        case 6: title = Helper.getLang('lang_newConArg')'Neues Contra Argument erstellen:'; break;
         case 7: 
-        case 8: title = 'Neue Antwort erstellen:'; break;
+        case 8: title = Helper.getLang('lang_newAnsw')'Neue Antwort erstellen:'; break;
     }
     this.addForm('addcomment',title,['Title','Text'],solutionid,layer,function() {
         var bad = false;
@@ -453,13 +460,13 @@ ClassController.prototype.addComment = function(solutionid,layer) {
         if ( parent.val() == '' ) {
             bad = true;
             title.parent().addClass('formerror');
-            $('<p>Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_parentError')+'Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!</p>').appendTo(error);
         }
 
         if ( layer.val() == '' ) {
             bad = true;
             title.parent().addClass('formerror');
-            $('<p>Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_layerError')+'Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!</p>').appendTo(error);
         }
 
         var type = '';
@@ -688,19 +695,19 @@ ClassView.prototype.paintCommentButton = function(solution,comment) {
  * This one is being called upon initialization.
  */
 ClassView.prototype.paintButtons = function() {
-    Helper.createButton("Logout",null,'#menu','floatleft',function(data) {
+    Helper.createButton(Helper.getLang('lang_logout'),null,'#menu','floatleft',function(data) {
         window.location = '?action=logout';
     });
-    Helper.createButton("Neue Debatte",'ui-icon-plus','#menu','floatleft',function(data) {
+    Helper.createButton(Helper.getLang('lang_newDebate'),'ui-icon-plus','#menu','floatleft',function(data) {
         Controller.addDebate();
     });
     Helper.createButton(null,'ui-icon-refresh','#menu','floatleft',function(data) {
         Controller.loadDebates();
     });
-    Helper.createButton("Debatten",null,'#menu','floatleft',function(data) {
+    Helper.createButton(Helper.getLang('lang_debate'),null,'#menu','floatleft',function(data) {
         View.loadDebates();
     });
-    Helper.createButton("Filter einstellen",null,'#menu','floatright',function(data) {
+    Helper.createButton(Helper.getLang('lang_filterSelect'),null,'#menu','floatright',function(data) {
         Filter.createNewObject();
     });
 }
@@ -795,13 +802,13 @@ function ClassSolution(Memplex) {
     this.loadArguments();
 
     if ( this.pro.children().length == 0 ) {
-        $('<span>Noch keine Argumente daf&uuml;r</p>').appendTo(this.pro);
+        $('<span>'+Helper.getLang('lang_noArgPro')+'</p>').appendTo(this.pro);
     }
     if ( this.neutral.children().length == 0 ) {
-        $('<span>Noch keine Antworten</p>').appendTo(this.neutral);
+        $('<span>'+Helper.getLang('lang_noArgNeut')+'</p>').appendTo(this.neutral);
     }
     if ( this.contra.children().length == 0 ) {
-        $('<span>Noch keine Argumente dagegen</p>').appendTo(this.contra);
+        $('<span>'+Helper.getLang('lang_noArgCon')+'</p>').appendTo(this.contra);
     }
 
     var buttonpro = $('<div id="solution' + this.memplex.id + 'buttonspro"></div><br>').appendTo(this.pro);
@@ -809,11 +816,11 @@ function ClassSolution(Memplex) {
     var buttoncontra = $('<div id="solution' + this.memplex.id + 'buttonscontra"></div><br>').appendTo(this.contra);
 
     // Pro Button
-    Helper.createButton("Pro Argument hinzufügen",null,buttonpro,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 5);
+    Helper.createButton(Helper.getLang('lang_argPro'),null,buttonpro,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 5);
     // Neutral Button
-    Helper.createButton("Neue Antwort hinzufügen",null,buttonneutral,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 7);
+    Helper.createButton(Helper.getLang('lang_argNeut'),null,buttonneutral,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 7);
     // Contra Button
-    Helper.createButton("Contra Argument hinzufügen",null,buttoncontra,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 6);
+    Helper.createButton(Helper.getLang('lang_argCon'),null,buttoncontra,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 6);
 
     SolutionRegister.add(this.memplex.id,this);
 }
@@ -838,7 +845,7 @@ ClassSolution.prototype.showComment = function(id) {
         View.activecommentbutton.remove();
     }
     View.activecommentbutton = Helper.createButton(
-            "Antworten",
+            Helper.getLang('lang_answer'),
             null,
             '#menu',
             'floatright',
@@ -1017,7 +1024,7 @@ function ClassDebate(memplex) {
 
     var buttoncontainer = $('<div id="debate' + this.memplex.id + 'buttons">').appendTo(this.hide);
     // text,icon,append,floatdirection,callback,id
-    Helper.createButton("Lösung hinzufügen",null,buttoncontainer,'floatleft',function(data) {
+    Helper.createButton(Helper.getLang("lang_solutionAdd"),null,buttoncontainer,'floatleft',function(data) {
         var id = Helper.getIdFromString($( this ).attr('id'));
         Controller.addSolution(id);
     },'debate' + this.memplex.id + 'buttonadd');
@@ -1179,22 +1186,22 @@ ClassFilter.prototype.createNewObject = function() {
 
     var content = $('<div>');
 
-    $('<p>Dr&uuml;cke Strg um mehr als einen Filter auszuw&auml;hlen.<br>Achtung: &Auml;nderungen sind sofort wirksam!</p>').appendTo(content);
+    $('<p>'+Helper.getLang('lang_multiFilter')+'</p>').appendTo(content);
 
-   $('<h4>Beitrag erfüllt alle hier ausgewählten Filter:</h4>').appendTo(content);
+   $('<h4>'+Helper.getLang('lang_allFilter')+'</h4>').appendTo(content);
    this.getFilterSelector('filterAllOf',this.allofCallback,this.allof).appendTo(content);
-    $('<br><br><h4>Beitrag erfüllt mindestens einen hier ausgewählten Filter:</h4>').appendTo(content);
+    $('<br><br><h4>'+Helper.getLang('lang_minFilter')+'</h4>').appendTo(content);
     this.getFilterSelector('filterOneOf',this.oneofCallback,this.oneof).appendTo(content);
 
     View.popup(
         'auto',
         800, // Workaround for 3 year old jqueryUi bug... http://bugs.jqueryui.com/ticket/4820
-        'W&auml;hle die gew&uuml;nschten Filter aus:',
+        Helper.getLang('lang_filter'),
         content,
         {
             Ok: function() {
                 View.loadDebates();
-                $( this ).dialog( "close" );
+                $( this ).dialog( Helper.getLang('cancel') );
             }
         });
 }
