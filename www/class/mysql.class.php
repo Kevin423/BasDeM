@@ -173,6 +173,7 @@ where
       * Adds a new Memplex to the database.
       *
       * @param array $data Data describing the Memplex.
+      * @return ID of the new Memplex.
       */
     static public function createMemplex($data) {
         
@@ -244,7 +245,14 @@ where
             )
         );
     }
-    
+
+    /**
+      * Adds a user to the database.
+      *
+      * @param string $mail Mail address.
+      * @param string $password Hashed password.
+      * @return ID of the new database row.
+      */
     static public function createUser($mail,$password) {
         return self::query(
             "insert into `users` set `email` = :mail, `password` = :password",
@@ -254,7 +262,14 @@ where
             )
         );
     }
-    
+
+    /**
+      * Checks for a user in the database.
+      *
+      * @param string $mail Mail address.
+      * @param string $password Hashed password.
+      * @return Array of result set rows.
+      */
     static public function getUser($mail,$password) {
         return self::query(
             "select * from `users` where `email` = :mail and `password` = :password",
