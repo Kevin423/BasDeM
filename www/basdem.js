@@ -593,6 +593,9 @@ function ClassView() {
  */
 var View = new ClassView();
 
+/** Sets up the main view.
+ * This one is being called upon initialization.
+ */
 ClassView.prototype.layout = function() {
     View.layoutobject = $('#container').layout({ applyDefaultStyles: true, west__minSize: 380, north__minSize: 50, west__size: 'auto' });
     View.layoutobject.allowOverflow('west');
