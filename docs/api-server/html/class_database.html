@@ -107,6 +107,8 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database.html#a05bb304646396de0c08f2f6e2d364777">getMemplex</a> ($identifier, $time=0)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database.html#a681e0d8b4d0a049dcd965eb4bda56561">createMemplex</a> ($data)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database.html#a285ec5a87e997c009871595b7528b81c">storeMemplex</a> ($data)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database.html#a826c2a76af51eb29da8fa00d7b6701fd">createUser</a> ($mail, $password)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database.html#a98fcc00202299853d8812878400d84b4">getUser</a> ($mail, $password)</td></tr>
 </table>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a1eb1e8760435921a7612864900d961d4"></a><!-- doxytag: member="Database::addChild" ref="a1eb1e8760435921a7612864900d961d4" args="($parent, $child)" -->
@@ -168,6 +170,33 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a826c2a76af51eb29da8fa00d7b6701fd"></a><!-- doxytag: member="Database::createUser" ref="a826c2a76af51eb29da8fa00d7b6701fd" args="($mail, $password)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static createUser </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>mail</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a05bb304646396de0c08f2f6e2d364777"></a><!-- doxytag: member="Database::getMemplex" ref="a05bb304646396de0c08f2f6e2d364777" args="($identifier, $time=0)" -->
 <div class="memitem">
 <div class="memproto">
@@ -201,6 +230,33 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Array of result set rows. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a98fcc00202299853d8812878400d84b4"></a><!-- doxytag: member="Database::getUser" ref="a98fcc00202299853d8812878400d84b4" args="($mail, $password)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static getUser </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>mail</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -268,7 +324,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Thu Jul 19 2012 11:38:57 for BasDeM by
+    <li class="footer">Generated on Tue Aug 14 2012 17:48:32 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

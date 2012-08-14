@@ -20,8 +20,15 @@ if ( !defined('INCMS') || INCMS !== true ) {
     die;
 }
 
+/**
+ * Helper class containing various helper methods.
+ */
 class Helper {
 
+/** Returns a hash of the given string. The hashing method is defined in Config, default is SHA512.
+ * @param string $string String to hash.
+ * @return Hash of the string.
+ */
     public static function hash($string) {
         self::canHash();
         
@@ -30,6 +37,9 @@ class Helper {
         return crypt($string,Config::get('database','hashalgorithm') . Config::get('database','salt'));
     }
 
+/** Checks if the selected hashing algorithm is available.
+ * @return True, if hashing works with the current Config settings. Else we die here.
+ */
     public static function canHash() {
         switch ( substr(Config::get('database','hashalgorithm'),1,1) ) {
             case '5': 
