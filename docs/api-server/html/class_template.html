@@ -105,7 +105,9 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_template.html#a4f0fb5bd41e83bdc1a20c34e4ea145bf">__construct</a> ($base, $adder=null)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_template.html#a7516ca30af0db3cdbf9a7739b48ce91d">__toString</a> ()</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>Loads and prints HTML templates. </p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a4f0fb5bd41e83bdc1a20c34e4ea145bf"></a><!-- doxytag: member="Template::__construct" ref="a4f0fb5bd41e83bdc1a20c34e4ea145bf" args="($base, $adder=null)" -->
 <div class="memitem">
 <div class="memproto">
@@ -130,6 +132,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Loads the given templates. All templates can be found in the www/tpl/ directory. To select a template use the file name without '.html'. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$base</td><td>string Base template to load. </td></tr>
+    <tr><td class="paramname">$adder</td><td>string[] Array of further templates to append to $base. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -147,6 +157,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns the loaded template. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>The resulting template as a string. </dd></dl>
 
 </div>
 </div>
@@ -173,7 +185,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Tue Aug 14 2012 18:01:05 for BasDeM by
+    <li class="footer">Generated on Wed Aug 15 2012 01:35:49 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

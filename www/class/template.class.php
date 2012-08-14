@@ -20,6 +20,9 @@ if ( !defined('INCMS') || INCMS !== true ) {
     die;
 }
 
+/**
+ * Loads and prints HTML templates.
+ */
 class Template {
     private $assignments = array(
         'index' => 'tpl/index.html',
@@ -32,7 +35,13 @@ class Template {
     private $base = '';
     private $adder = array();
     private $output = '';
-    
+
+/**
+ * Loads the given templates. All templates can be found in the www/tpl/ directory.
+ * To select a template use the file name without '.html'.
+ * @param $base string Base template to load.
+ * @param $adder string[] Array of further templates to append to $base.
+ */
     public function __construct($base,$adder = null) {
         if ( !isset($this->assignments[$base]) ) {
             return;
@@ -56,7 +65,11 @@ class Template {
         }
         $this->output = $this->base;
     }
-    
+
+/**
+ * Returns the loaded template.
+ * @return The resulting template as a string.
+ */
     public function __toString() {
         return $this->output;
     }
