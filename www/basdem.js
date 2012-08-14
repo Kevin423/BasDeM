@@ -324,7 +324,7 @@ ClassController.prototype.addForm = function(name,title,strings,parent,layer,cal
         $('<span>' + strings[2] + '</span>').appendTo(span);
         Filter.getFilterSelector('' + name + 'filter',null).appendTo(span);
     }
-        
+
     View.popup(
         'auto',
         800, // Workaround for 3 year old jqueryUi bug... http://bugs.jqueryui.com/ticket/4820
@@ -445,7 +445,7 @@ ClassController.prototype.addComment = function(solutionid,layer) {
         case 7: 
         case 8: title = Helper.getLang('lang_createArgumentNeut'); break;
     }
-    this.addForm('addcomment',title,['Title','Text'],solutionid,layer,function() {
+    this.addForm('addcomment',title,[Helper.getLang('lang_title'),Helper.getLang('lang_text')],solutionid,layer,function() {
         var bad = false;
 
         var error = $('#addcommenterror').empty();
