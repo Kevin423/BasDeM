@@ -324,7 +324,10 @@ ClassController.prototype.addForm = function(name,title,strings,parent,layer,cal
         $('<span>' + strings[2] + '</span>').appendTo(span);
         Filter.getFilterSelector('' + name + 'filter',null).appendTo(span);
     }
-
+    
+    // Fix for http://bugs.jqueryui.com/ticket/8484
+    if ( $.attrFn ) { $.attrFn.text = true; }
+    
     View.popup(
         'auto',
         800, // Workaround for 3 year old jqueryUi bug... http://bugs.jqueryui.com/ticket/4820
