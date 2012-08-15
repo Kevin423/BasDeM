@@ -394,7 +394,7 @@ ClassController.prototype.addDebate = function() {
  * @tparam int debateid ID of the Memplex we want to add a solution to.
  */
 ClassController.prototype.addSolution = function(debateid) {
-    this.addForm('addsolution',Helper.getLang('lang_newSolution'),['Solutiontitle','Solutiontext'],debateid,null,function() {
+    this.addForm('addsolution',Helper.getLang('lang_newSolution'),[Helper.getLang('lang_title'),Helper.getLang('lang_text')],debateid,null,function() {
         var bad = false;
 
         var error = $('#addsolutionerror').empty();
