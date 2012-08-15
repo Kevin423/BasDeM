@@ -20,9 +20,15 @@ if ( !defined('INCMS') || INCMS !== true ) {
     die;
 }
 
+/**
+ *
+ */
 class Controller {
     private $createdid = null;
 
+    /** Constructs a new Controller based on POST data.
+     *
+     */
     public function __construct() {
         if ( !isset($_POST['id']) ) {
             #print_r($_POST);
@@ -76,11 +82,17 @@ class Controller {
         
         $this->showMemplex();
     }
-    
+
+    /** Reloads the current Memplex.
+     *
+     */
     private function reloadMemplex() {
         $this->memplex = new Memplex($this->memplex->getId());
     }
-    
+
+    /** Creates a new Memplex and stores it to the database, including updated parent/child relations.
+     *
+     */
     private function createMemplex() {
         $this->memplex = new Memplex(array(
             'text' => $_POST['text'],
@@ -101,7 +113,10 @@ class Controller {
             $parent->addChild($this->memplex->getId());
         }
     }
-    
+
+    /** Debug method, prints the current Memplex data.
+     *
+     */
     private function showMemplex() {
         echo json_encode(array(
             'success' => true,
@@ -110,7 +125,10 @@ class Controller {
             'data' => $this->memplex->toArray(),
         ));
     }
-    
+
+    /** Loads the children of the current Memplex. 3 levels deep, if we work with a layer 1 Memplex,
+     * everything below the current Memplex if we are on layer 4.
+     */
     private function loadMemplexChildren() {
         if ( $this->memplex->getLayer() == 1 ) {
             // Load 3 levels
@@ -128,11 +146,17 @@ class Controller {
         
         $this->memplex = MemplexRegister::get($_POST['id']);
     }
-    
+
+    /** Checks if the current Memplex has been loaded.
+     * @return True if loaded, else false.
+     */
     private function checkMemplexLoaded() {
         return !is_null($this->memplex->getTitle());
     }
-    
+
+    /** Updates a memplex based upon POST data.
+     * @return False if POST data was complete (text, layer, title, author), else true.
+     */
     private function updateMemplexData() {
         if ( !isset($_POST['text'])
             || !isset($_POST['layer'])
@@ -150,7 +174,10 @@ class Controller {
         
         return true;
     }
-    
+
+    /** Updates child relations in the database, if POST data contains new children.
+     *
+     */
     private function updateChildRelations() {
         if ( isset($_POST['children']) && is_array($_POST['children']) ) {
             foreach ( $_POST['children'] as $this->memplex ) {
