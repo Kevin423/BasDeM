@@ -291,15 +291,16 @@ ClassController.prototype.storeToMemplex = function(data) {
 /** Create a specific form to add Memplexes.
  * @tparam string name CSS class name of the form.
  * @tparam string title User visible title.
+ * @tparam string description User visible description of the form.
  * @tparam string[] strings I suppose those are the fucking labels in the form. But Justus hates writing documentation.
  * @tparam int parent ID of the parent Memplex.
  * @tparam int layer Layer of the new Memplex.
  * @tparam function callback
  */
-ClassController.prototype.addForm = function(name,title,strings,parent,layer,callback) {
+ClassController.prototype.addForm = function(name,title,description,strings,parent,layer,callback) {
     var content = $('<div class="' + name + '">');
 
-    $('<p>'+Helper.getLang('lang_helpText')+'</p>').appendTo(content);
+    $('<p>' + description + '</p>').appendTo(content);
     $('<p id="' + name + 'error" class="formerror"></p>').appendTo(content);
  
     var span;
@@ -344,7 +345,7 @@ ClassController.prototype.addForm = function(name,title,strings,parent,layer,cal
 /** Creates a new Debate.
  */
 ClassController.prototype.addDebate = function() {
-    this.addForm('adddebate',Helper.getLang('lang_newDebateCreate'),['Debatetitle','Debatetext','Filter'],null,null,function() {
+    this.addForm('adddebate',Helper.getLang('lang_newDebateCreate'),Helper.getLang('lang_helpText'),['Debatetitle','Debatetext','Filter'],null,null,function() {
         var bad = false;
 
         var error = $('#adddebateerror').empty();
@@ -394,7 +395,7 @@ ClassController.prototype.addDebate = function() {
  * @tparam int debateid ID of the Memplex we want to add a solution to.
  */
 ClassController.prototype.addSolution = function(debateid) {
-    this.addForm('addsolution',Helper.getLang('lang_newSolution'),[Helper.getLang('lang_title'),Helper.getLang('lang_text')],debateid,null,function() {
+    this.addForm('addsolution',Helper.getLang('lang_newSolution'),Helper.getLang('lang_helpText'),[Helper.getLang('lang_title'),Helper.getLang('lang_text')],debateid,null,function() {
         var bad = false;
 
         var error = $('#addsolutionerror').empty();
@@ -448,7 +449,7 @@ ClassController.prototype.addComment = function(solutionid,layer) {
         case 7: 
         case 8: title = Helper.getLang('lang_createArgumentNeut'); break;
     }
-    this.addForm('addcomment',title,[Helper.getLang('lang_title'),Helper.getLang('lang_text')],solutionid,layer,function() {
+    this.addForm('addcomment',title,Helper.getLang('lang_helpText'),[Helper.getLang('lang_title'),Helper.getLang('lang_text')],solutionid,layer,function() {
         var bad = false;
 
         var error = $('#addcommenterror').empty();

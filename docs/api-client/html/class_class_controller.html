@@ -115,7 +115,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#af9eeabf2615d230c6ef6ff9bcd0564ba">setLastLoad</a> (int target, int time)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#ac2ea4b2368c66c4ba055a398828897c3">addSolution</a> (int debateid)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#ad9e86333bfb553667a96610ba619c3ef">storeToMemplex</a> (Memplex data)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#a308a3f9b62b645b31764b63a2c770c63">addForm</a> (string name, string title, string[] strings, int parent, int layer, function callback)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#a4c1abecd083574675e62cd7fd5cce83f">addForm</a> (string name, string title, string description, string[] strings, int parent, int layer, function callback)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#a6b6fea1355d636aa89086194451561c7">lastLoad</a> (int target)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#a1a782d1ee11550ad914e440db20d9c53">addDebate</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#a39c9ce9500f6028c46b0fc9dbae0cc79">loadSolution</a> (<a class="el" href="class_class_solution.html">ClassSolution</a> target)</td></tr>
@@ -190,7 +190,7 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a308a3f9b62b645b31764b63a2c770c63"></a><!-- doxytag: member="ClassController::addForm" ref="a308a3f9b62b645b31764b63a2c770c63" args="(string name, string title, string[] strings, int parent, int layer, function callback)" -->
+<a class="anchor" id="a4c1abecd083574675e62cd7fd5cce83f"></a><!-- doxytag: member="ClassController::addForm" ref="a4c1abecd083574675e62cd7fd5cce83f" args="(string name, string title, string description, string[] strings, int parent, int layer, function callback)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -205,6 +205,12 @@ Public Attributes</h2></td></tr>
           <td></td>
           <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>description</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -243,6 +249,7 @@ Public Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">name</td><td>CSS class name of the form. </td></tr>
     <tr><td class="paramname">title</td><td>User visible title. </td></tr>
+    <tr><td class="paramname">description</td><td>User visible description of the form. </td></tr>
     <tr><td class="paramname">strings</td><td>I suppose those are the fucking labels in the form. But Justus hates writing documentation. </td></tr>
     <tr><td class="paramname">parent</td><td>ID of the parent Memplex. </td></tr>
     <tr><td class="paramname">layer</td><td>Layer of the new Memplex. </td></tr>
@@ -538,7 +545,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Tue Aug 14 2012 12:25:52 for BasDeM by
+    <li class="footer">Generated on Wed Aug 15 2012 13:05:41 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
