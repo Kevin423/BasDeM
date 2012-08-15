@@ -345,7 +345,7 @@ ClassController.prototype.addForm = function(name,title,description,strings,pare
 /** Creates a new Debate.
  */
 ClassController.prototype.addDebate = function() {
-    this.addForm('adddebate',Helper.getLang('lang_newDebateCreate'),Helper.getLang('lang_helpText'),[Helper.getLang('lang_titleDebate'),Helper.getLang('lang_textDebate'),Helper.getLang('lang_topics')],null,null,function() {
+    this.addForm('adddebate',Helper.getLang('lang_newDebateCreate'),Helper.getLang('lang_helpNewDebate'),[Helper.getLang('lang_titleDebate'),Helper.getLang('lang_textDebate'),Helper.getLang('lang_topics')],null,null,function() {
         var bad = false;
 
         var error = $('#adddebateerror').empty();
@@ -395,7 +395,7 @@ ClassController.prototype.addDebate = function() {
  * @tparam int debateid ID of the Memplex we want to add a solution to.
  */
 ClassController.prototype.addSolution = function(debateid) {
-    this.addForm('addsolution',Helper.getLang('lang_newSolution'),Helper.getLang('lang_helpText'),[Helper.getLang('lang_titleSolution'),Helper.getLang('lang_textSolution')],debateid,null,function() {
+    this.addForm('addsolution',Helper.getLang('lang_newSolution'),Helper.getLang('lang_helpNewSolution'),[Helper.getLang('lang_titleSolution'),Helper.getLang('lang_textSolution')],debateid,null,function() {
         var bad = false;
 
         var error = $('#addsolutionerror').empty();
@@ -449,7 +449,7 @@ ClassController.prototype.addComment = function(solutionid,layer) {
         case 7: 
         case 8: title = Helper.getLang('lang_createArgumentNeut'); break;
     }
-    this.addForm('addcomment',title,Helper.getLang('lang_helpText'),[Helper.getLang('lang_titleComment'),Helper.getLang('lang_textComment')],solutionid,layer,function() {
+    this.addForm('addcomment',title,Helper.getLang('lang_helpNewComment'),[Helper.getLang('lang_titleComment'),Helper.getLang('lang_textComment')],solutionid,layer,function() {
         var bad = false;
 
         var error = $('#addcommenterror').empty();

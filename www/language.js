@@ -5,15 +5,15 @@ switch ( target ) {
         switch ( lang ) {
             case 'lang_allFilter': return 'Beitrag erf&uuml;llt alle hier ausgew&auml;hlten Filter:'; break;
             case 'lang_answer': return 'Antworten'; break;
-            case 'lang_argPro': return 'Pro Argument hinzuf&uumlgen'; break;
-            case 'lang_argNeut': return 'Neue Antwort hinzuf&uumlgen'; break;
-            case 'lang_argCon': return 'Contra Argument hinzuf&uumlgen'; break;
+            case 'lang_argPro': return 'Pro Argument hinzuf&uuml;gen'; break;
+            case 'lang_argNeut': return 'Neue Antwort hinzuf&uuml;gen'; break;
+            case 'lang_argCon': return 'Contra Argument hinzuf&uuml;gen'; break;
             case 'lang_author': return 'Autor'; break;
             case 'lang_back': return 'zur&uuml;ck'; break;
             case 'lang_cancel': return 'Abbrechen'; break;
-            case 'lang_createArgumentPro': return 'Neues Pro Argument erstellen:'; break;
-            case 'lang_createArgumentNeut': return 'Neue Antwort erstellen:'; break;
-            case 'lang_createArgumentCon': return 'Neues Contra Argument erstellen:'; break;
+            case 'lang_createArgumentPro': return 'Neues Pro Argument erstellen'; break;
+            case 'lang_createArgumentNeut': return 'Neue Antwort erstellen'; break;
+            case 'lang_createArgumentCon': return 'Neues Contra Argument erstellen'; break;
             case 'lang_createcomment': return 'Kommentar anlegen'; break;
             case 'lang_createsolution': return 'L&ouml;sung anlegen'; break;
             case 'lang_debate': return 'Debatten'; break;
@@ -21,15 +21,17 @@ switch ( target ) {
             case 'lang_errorPartent':
             case 'lang_errorLayer': return 'Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!'; break;
             case 'lang_errorDebateTitle': return 'Bitte gib einen Titel f&uuml;r deine Debatte an!'; break;
-            case 'lang_filter': return 'W&auml;hle die gew&uuml;nschten Filter aus:'; break;
+            case 'lang_filter': return 'W&auml;hle die gew&uuml;nschten Filter aus'; break;
             case 'lang_filterSelect': return 'Filter einstellen'; break;
-            case 'lang_helpText': return 'Hier k&ouml;nnte ihr Hilfetext stehen!'; break;
+            case 'lang_helpNewComment': return '<p>Bitte beschreibe dein neues Argument sachlich und verst&auml;ndlich und wiederhole keine Punkte, die bereits genannt wurden.</p><p>Der <b>Titel</b> ist die Kurzfassung deines Argumentes in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Du kannst auch Argumente hinzuf&uuml;gen, die nicht deine pers&ouml;nliche Meinung st&uuml;tzen.</p>'; break;
+            case 'lang_helpNewDebate': return '<p>Bitte beschreibe deine neue Debatte sachlich, neutral und verst&auml;ndlich und stelle sicher, dass diese Debatte nicht bereits gef&uuml;hrt wird.</p><p>Der <b>Titel</b> ist die Kurzfassung der Debatte in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Bitte f&uuml;ge die Debatte auch einem oder mehreren <b>Themenbereichen</b> hinzu, sodass sie leicht gefunden werden kann.</p>'; break;
+            case 'lang_helpNewSolution': return '<p>Bitte beschreibe deine neue L&ouml;sung sachlich, neutral und verst&auml;ndlich und wiederhole keine L&ouml;sungen, die bereits genannt wurden.</p><p>Der <b>Titel</b> ist die Kurzbeschreibung deiner L&ouml;sung in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Du kannst auch L&ouml;sungen hinzuf&uuml;gen, die du pers&ouml;nlich nicht unterst&uuml;tzt.</p>'; break;
             case 'lang_logout': return 'Logout'; break;
             case 'lang_minFilter': return 'Beitrag erf&uuml;llt mindestens einen hier ausgew&auml;hlten Filter:'; break;
             case 'lang_multiFilter': return 'Dr&uuml;cke Strg um mehr als einen Filter auszuw&auml;hlen.<br>Achtung: &Auml;nderungen sind sofort wirksam!'; break;
             case 'lang_newDebate': return 'Neue Debatte'; break;
             case 'lang_newDebateCreate': return 'Neue Debatte erstellen'; break;
-            case 'lang_newSolution': return 'Neue L&ouml;sung'; break;
+            case 'lang_newSolution': return 'Neue L&ouml;sung erstellen'; break;
             case 'lang_noArgPro': return 'Noch keine Argumente daf&uuml;r'; break;
             case 'lang_noArgNeut': return 'Noch keine Antworten'; break;
             case 'lang_noArgCon': return 'Noch keine Argumente dagegen'; break;
