@@ -36,9 +36,13 @@ switch ( target ) {
             case 'lang_ok': return 'OK'; break;
             case 'lang_solutionAdd': return 'L&ouml;sung hinzuf&uuml;gen'; break;
             case 'lang_solutionDescription': return 'Bitte beschreibe deine L&ouml;sung in einigen S&auml;tzen!'; break;
-            case 'lang_text': return 'Text'; break;
-            case 'lang_title': return 'Titel'; break;
-            case 'lang_topic': return 'Thema'; break;
+            case 'lang_textComment': return 'Beschreibung des Kommentars: '; break;
+            case 'lang_textDebate': return 'Beschreibung der Debatte: '; break;
+            case 'lang_textSolution': return 'Beschreibung der L&ouml;sung: '; break;
+            case 'lang_titleComment': return 'Titel des Kommentars: '; break;
+            case 'lang_titleDebate': return 'Titel der Debatte: '; break;
+            case 'lang_titleSolution': return 'Titel der L&ouml;sung: '; break;
+            case 'lang_topics': return 'Themenbereiche: '; break;
             case 'lang_yArg': return 'dein Argument'; break;
             case 'lang_yAnsw': return 'deine Antwort'; break;
             default: return 'undefined';
@@ -80,7 +84,7 @@ switch ( target ) {
             case 'lang_solutionDescription': return 'Please describe your solution'; break;
             case 'lang_text': return 'Text'; break;
             case 'lang_title': return 'Title'; break;
-            case 'lang_topic': return 'Topic'; break;
+            case 'lang_topics': return 'Topics'; break;
             case 'lang_yArg': return 'your argument'; break;
             case 'lang_yAnsw': return 'your answer'; break;
             default: return 'undefined';
