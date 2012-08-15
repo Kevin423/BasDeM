@@ -94,7 +94,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">Database Class Reference</div>  </div>
 </div>
@@ -109,6 +111,13 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database.html#a285ec5a87e997c009871595b7528b81c">storeMemplex</a> ($data)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database.html#a826c2a76af51eb29da8fa00d7b6701fd">createUser</a> ($mail, $password)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database.html#a98fcc00202299853d8812878400d84b4">getUser</a> ($mail, $password)</td></tr>
+<tr><td colspan="2"><h2><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database.html#ab9a7188a4e3bd8fbd375927d5f10967e">query</a> ($query, $params=null, $return=false, $debug=false)</td></tr>
+<tr><td colspan="2"><h2><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database.html#a0d9c79b9b86b3f5891c6d3892f12c6a0">$connection</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database.html#a2cfdd68df93aed5b0f9c3fb70c56b359">$statements</a></td></tr>
 </table>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a1eb1e8760435921a7612864900d961d4"></a><!-- doxytag: member="Database::addChild" ref="a1eb1e8760435921a7612864900d961d4" args="($parent, $child)" -->
@@ -296,6 +305,56 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab9a7188a4e3bd8fbd375927d5f10967e"></a><!-- doxytag: member="Database::query" ref="ab9a7188a4e3bd8fbd375927d5f10967e" args="($query, $params=null, $return=false, $debug=false)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static query </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>query</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>params</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>return</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>debug</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Issues a query to the database.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$query</td><td>The query to run. </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$params</td><td>Parameters of the query. </td></tr>
+    <tr><td class="paramtype">boolean</td><td class="paramname">$return</td><td>Switch deciding what to return. </td></tr>
+    <tr><td class="paramtype">boolean</td><td class="paramname">$debug</td><td>Defines if the query should be printed to debug (optional).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Array of result set rows if $return === true, ID of the last inserted row otherwise. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a285ec5a87e997c009871595b7528b81c"></a><!-- doxytag: member="Database::storeMemplex" ref="a285ec5a87e997c009871595b7528b81c" args="($data)" -->
 <div class="memitem">
 <div class="memproto">
@@ -320,6 +379,33 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<hr/><h2>Field Documentation</h2>
+<a class="anchor" id="a0d9c79b9b86b3f5891c6d3892f12c6a0"></a><!-- doxytag: member="Database::$connection" ref="a0d9c79b9b86b3f5891c6d3892f12c6a0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$connection<code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2cfdd68df93aed5b0f9c3fb70c56b359"></a><!-- doxytag: member="Database::$statements" ref="a2cfdd68df93aed5b0f9c3fb70c56b359" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$statements<code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/sven/BasDeM/www/class/<a class="el" href="mysql_8class_8php.html">mysql.class.php</a></li>
 </ul>
@@ -333,7 +419,7 @@ Static Public Member Functions</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -343,7 +429,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Aug 15 2012 01:35:49 for BasDeM by
+    <li class="footer">Generated on Wed Aug 15 2012 01:56:36 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

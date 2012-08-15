@@ -21,9 +21,15 @@ if ( !defined('INCMS') || INCMS !== true ) {
         die;
 }
 
+/**
+ * Class managing a user session and logins.
+ */
 class User {
     private static $loggedin = false;
 
+    /**
+     * Starts a new session and initializes the object.
+     */
     public static function init() {
         session_start();
         if ( isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true ) {
@@ -38,7 +44,10 @@ class User {
         }
         
     }
-    
+
+    /**
+     * Registers a new user.
+     */
     private static function register() {
         if ( !self::validatePost() ) {
             return;
@@ -56,7 +65,10 @@ class User {
         $_SESSION['loggedin'] = true;
         self::$loggedin = true;
     }
-    
+
+    /**
+     * Logs a user in.
+     */
     private static function login() {
         if ( !self::validatePost() ) {
             return;
@@ -78,12 +90,19 @@ class User {
         $_SESSION['loggedin'] = true;
         self::$loggedin = true;
     }
-    
+
+    /**
+     * Logs the current user out.
+     */
     public static function logout() {
         $_SESSION = array();
         self::$loggedin = false;
     }
-    
+
+    /**
+     * Checks if a necessary POST data has been sent with the request: email and password are required.
+     * @return False if something is missing, else true.
+     */
     private static function validatePost() {
         if ( !isset($_POST['email']) ) {
             return false;
@@ -93,11 +112,19 @@ class User {
         }
         return true;
     }
-    
+
+    /**
+     * Returns the current user ID.
+     * @return Current user ID.
+     */
     public static function getId() {
         return $_SESSION['user']['id'];
     }
-    
+
+    /**
+     * Returns the current login status.
+     * @return True if logged in, else false.
+     */
     public static function isLoggedin() {
         return self::$loggedin;
     }

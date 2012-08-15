@@ -24,6 +24,7 @@ if ( !defined('INCMS') || INCMS !== true ) {
  * Loads and prints HTML templates.
  */
 class Template {
+/** Known templates. */
     private $assignments = array(
         'index' => 'tpl/index.html',
         'default' => 'tpl/default.html',
@@ -39,8 +40,8 @@ class Template {
 /**
  * Loads the given templates. All templates can be found in the www/tpl/ directory.
  * To select a template use the file name without '.html'.
- * @param $base string Base template to load.
- * @param $adder string[] Array of further templates to append to $base.
+ * @param $base String naming base template to load.
+ * @param $adder Array of further templates to append to $base.
  */
     public function __construct($base,$adder = null) {
         if ( !isset($this->assignments[$base]) ) {

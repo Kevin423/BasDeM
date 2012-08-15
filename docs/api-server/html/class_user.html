@@ -94,7 +94,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a>  </div>
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">User Class Reference</div>  </div>
 </div>
@@ -106,8 +108,18 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user.html#a1e34160e903835a43123f538e93457a2">logout</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user.html#acfaa3a96d0cb5a4c0d4d710dcba41e9e">getId</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user.html#ac444a5882fe96e442c4f9b9eeb3ea4e0">isLoggedin</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user.html#a610b9c89b82e11ea426e1804874a6ef4">register</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user.html#a791a6e74b119d472a0c6ba2a7ca1b740">login</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user.html#a193e23ac2506253ce6159fa8a0581cda">validatePost</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_user.html#a55b11147382e75b1146c10f22637f762">$loggedin</a> = false</td></tr>
 </table>
-<hr/><h2>Member Function Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>Class managing a user session and logins. </p>
+</div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="acfaa3a96d0cb5a4c0d4d710dcba41e9e"></a><!-- doxytag: member="User::getId" ref="acfaa3a96d0cb5a4c0d4d710dcba41e9e" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -121,6 +133,8 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns the current user ID. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Current user ID. </dd></dl>
 
 </div>
 </div>
@@ -137,6 +151,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Starts a new session and initializes the object. </p>
 
 </div>
 </div>
@@ -153,6 +168,25 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns the current login status. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>True if logged in, else false. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a791a6e74b119d472a0c6ba2a7ca1b740"></a><!-- doxytag: member="User::login" ref="a791a6e74b119d472a0c6ba2a7ca1b740" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static login </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Logs a user in. </p>
 
 </div>
 </div>
@@ -165,6 +199,56 @@ Static Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Logs the current user out. </p>
+
+</div>
+</div>
+<a class="anchor" id="a610b9c89b82e11ea426e1804874a6ef4"></a><!-- doxytag: member="User::register" ref="a610b9c89b82e11ea426e1804874a6ef4" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static register </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Registers a new user. </p>
+
+</div>
+</div>
+<a class="anchor" id="a193e23ac2506253ce6159fa8a0581cda"></a><!-- doxytag: member="User::validatePost" ref="a193e23ac2506253ce6159fa8a0581cda" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static validatePost </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static, private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Checks if a necessary POST data has been sent with the request: email and password are required. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>False if something is missing, else true. </dd></dl>
+
+</div>
+</div>
+<hr/><h2>Field Documentation</h2>
+<a class="anchor" id="a55b11147382e75b1146c10f22637f762"></a><!-- doxytag: member="User::$loggedin" ref="a55b11147382e75b1146c10f22637f762" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$loggedin = false<code> [static, private]</code></td>
         </tr>
       </table>
 </div>
@@ -185,7 +269,7 @@ Static Public Member Functions</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -195,7 +279,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Aug 15 2012 01:35:49 for BasDeM by
+    <li class="footer">Generated on Wed Aug 15 2012 01:56:36 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

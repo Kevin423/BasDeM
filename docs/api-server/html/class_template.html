@@ -94,7 +94,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a>  </div>
   <div class="headertitle">
 <div class="title">Template Class Reference</div>  </div>
 </div>
@@ -104,6 +105,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_template.html#a4f0fb5bd41e83bdc1a20c34e4ea145bf">__construct</a> ($base, $adder=null)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_template.html#a7516ca30af0db3cdbf9a7739b48ce91d">__toString</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_template.html#a8be41b8b86ef60845d1e68bdd70b71ae">$assignments</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_template.html#ac78df45419614d6db964d0bd9e542c63">$base</a> = ''</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_template.html#a17fed3cf093b84d19864ba023565d5c3">$adder</a> = array()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_template.html#a73004ce9cd673c1bfafd1dc351134797">$output</a> = ''</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Loads and prints HTML templates. </p>
@@ -162,6 +169,68 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<hr/><h2>Field Documentation</h2>
+<a class="anchor" id="a17fed3cf093b84d19864ba023565d5c3"></a><!-- doxytag: member="Template::$adder" ref="a17fed3cf093b84d19864ba023565d5c3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$adder = array()<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8be41b8b86ef60845d1e68bdd70b71ae"></a><!-- doxytag: member="Template::$assignments" ref="a8be41b8b86ef60845d1e68bdd70b71ae" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$assignments<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<b>Initial value:</b><div class="fragment"><pre class="fragment"> array(
+        <span class="stringliteral">&#39;index&#39;</span> =&gt; <span class="stringliteral">&#39;tpl/index.html&#39;</span>,
+        <span class="stringliteral">&#39;default&#39;</span> =&gt; <span class="stringliteral">&#39;tpl/default.html&#39;</span>,
+        <span class="stringliteral">&#39;load&#39;</span> =&gt; <span class="stringliteral">&#39;tpl/load.html&#39;</span>,
+        <span class="stringliteral">&#39;noload&#39;</span> =&gt; <span class="stringliteral">&#39;&#39;</span>,
+        <span class="stringliteral">&#39;login&#39;</span> =&gt; <span class="stringliteral">&#39;tpl/login.html&#39;</span>,
+        <span class="stringliteral">&#39;register&#39;</span> =&gt; <span class="stringliteral">&#39;tpl/register.html&#39;</span>,
+    )
+</pre></div><p>Known templates. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac78df45419614d6db964d0bd9e542c63"></a><!-- doxytag: member="Template::$base" ref="ac78df45419614d6db964d0bd9e542c63" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$base = ''<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a73004ce9cd673c1bfafd1dc351134797"></a><!-- doxytag: member="Template::$output" ref="a73004ce9cd673c1bfafd1dc351134797" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$output = ''<code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/sven/BasDeM/www/class/<a class="el" href="template_8class_8php.html">template.class.php</a></li>
 </ul>
@@ -175,7 +244,7 @@ Public Member Functions</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -185,7 +254,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Aug 15 2012 01:35:49 for BasDeM by
+    <li class="footer">Generated on Wed Aug 15 2012 01:56:36 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
