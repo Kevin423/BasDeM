@@ -45,21 +45,49 @@ $tmp = Database::getMemplex($id);
  * BasDeM. If not, see <http://www.gnu.org/licenses/>.                                  *
  ****************************************************************************************/
 
+
 == Documentation ==
-We use Doxygen to generate our API documentation. It's quite simple. Just add a comment like
+We use Doxygen to generate our API documentation. 
+
+=== PHP ===
+Creating server documentation is quite simple. Just add a comment like
 
     /** A great short description.
      *
      * Followed by a longer description explaining important details.
      *
-     * @param type $name Desription of a parameter. Add as many as you need.
+     * @param <type> <$parameter_name> Desription of a parameter. Add as many as you need.
      *
      * @return Say something about the return value. If it exists.
      */
 
-right before every public function and object declaration. Doxygen does the rest.
+right before every method and object declaration. Doxygen does the rest.
 Doxygen adds all comments starting with "/** " to the docs.
 
 The resulting documentation can be found in docs/api-server/ for the PHP written
 server part and docs/api-client/ for the JavaScripted client side.
 
+=== JS ===
+The client, written in JavaScript, is a bit more tricky. Doxygen does not support
+JavaScript out of the box. The workaround is a script that generates peudo-C++ code
+Doxygen can understand. But that script requires a slightly different syntax:
+
+    /** A great short description.
+     *
+     * Followed by a longer description explaining important details.
+     *
+     * @tparam <type> <parameter_name> Parameter description.
+     * @treturn <type> Description of the return value.
+     */
+
+The complete syntax is documented at:
+
+  http://jsunit.berlios.de/internal.html
+
+Examples can be found in the jsUnit SVN repo:
+
+  http://svn.berlios.de/wsvn/jsunit/trunk/jsunit/
+
+So can the script itself:
+
+  http://svn.berlios.de/wsvn/jsunit/trunk/jsunit/util/js2doxy.pl

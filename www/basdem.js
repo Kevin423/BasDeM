@@ -295,7 +295,7 @@ ClassController.prototype.storeToMemplex = function(data) {
  * @tparam int parent ID of the parent Memplex.
  * @tparam int layer Layer of the new Memplex.
  * @tparam function callback
-*/
+ */
 ClassController.prototype.addForm = function(name,title,strings,parent,layer,callback) {
     var content = $('<div class="' + name + '">');
 
