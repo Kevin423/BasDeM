@@ -384,7 +384,7 @@ ClassController.prototype.addDebate = function() {
             'loadid': 1
         };
         Controller.storeToMemplex(out);
-        $( this ).dialog( "close" );
+        $( this ).dialog( 'close' );
     });
 }
 
@@ -432,7 +432,7 @@ ClassController.prototype.addSolution = function(debateid) {
             'loadid': 1
         };
         Controller.storeToMemplex(out);
-        $( this ).dialog( Helper.getLang('lang_cancel') );
+        $( this ).dialog( 'close' );
     });
 }
 
@@ -501,7 +501,7 @@ ClassController.prototype.addComment = function(solutionid,layer) {
             'loadid': View.activesolution
         };
         Controller.storeToMemplex(out);
-        $( this ).dialog( "close" );
+        $( this ).dialog( 'close' );
     });
 }
 
@@ -1209,7 +1209,7 @@ ClassFilter.prototype.createNewObject = function() {
         {
             Ok: function() {
                 View.loadDebates();
-                $( this ).dialog( Helper.getLang('cancel') );
+                $( this ).dialog( 'close' );
             }
         });
 }
