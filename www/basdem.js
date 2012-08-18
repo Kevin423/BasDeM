@@ -193,6 +193,7 @@ ClassController.prototype.loadDebates = function() {
             Controller.parseMemplex(json.data,null);
             Controller.setLastLoad(json.data.id,json.time);
             View.loadDebates();
+            View.loadList(MemplexRegister.getLayer(3),'#listNew');
         });
 }
    
@@ -600,7 +601,57 @@ var View = new ClassView();
 ClassView.prototype.layout = function() {
     View.layoutobject = $('#container').layout({ applyDefaultStyles: true, west__minSize: 380, north__minSize: 50, west__size: 'auto' });
     View.layoutobject.allowOverflow('west');
+    
+    $('<ul id="listul">').appendTo('#list');
+    
+    $('<li><a href="#listNew">' + Helper.getLang('lang_listNew') + '</a></li>')
+        .appendTo('#listul');
+    $('<li><a href="#listLatest">' + Helper.getLang('lang_listLatest') + '</a></li>')
+        .appendTo('#listul');
+    $('<li><a href="#listUnsolved">' + Helper.getLang('lang_listUnsolved') + '</a></li>')
+        .appendTo('#listul');
+    $('<div id="listNew">').appendTo('#list');
+    $('<div id="listLatest">').appendTo('#list');
+    $('<div id="listUnsolved">').appendTo('#list');
+    
+    $('#list').tabs();
 }
+
+/** Loads all memplexes in the list into their respective div.
+ */
+ClassView.prototype.loadList = function(memplexes,list) {
+    $(list)
+        .empty();
+
+    var mycontent = $('<div>').appendTo(list);
+
+    var i = -1;
+    var act = i;
+    for ( m in memplexes ) {
+        i++;
+        var debate = new ClassDebate(MemplexRegister.get(memplexes[m]),false);
+        // TODO: Decide if filters apply to quicklists.
+        // if ( !debate.matchFilter() ) {
+            // continue;
+        // }
+        if ( this.activeDebate == debate.memplex.id ) {
+            act = i;
+        }
+        debate.appendTo(mycontent);
+    }
+    if ( act == -1 ) {
+        act = false;
+    }
+    mycontent.accordion({
+        collapsible: true,
+        active: act,
+        change: function(event,ui) {
+            View.activeDebate = Helper.getIdFromString(ui.newContent.attr('id'));
+            // TODO: Sanitize...
+            View.loadDebates();
+        }
+    });
+};
 
 /** Loads all debates into content.
  */
@@ -1001,19 +1052,28 @@ ClassDebateRegister.prototype.get = function(id) {
  * Constructor.
  * @tparam Memplex memplex The memplex representing the new debate.
  */
-function ClassDebate(memplex) {
+function ClassDebate(memplex,full) {
+    var adder = '';
+    if ( full == null ) {
+        adder = 'list';
+        full = true;
+    }
     this.memplex = memplex;
     this.title = null;
     this.text = null;
     this.hide = null;
     this.ul = null;
     
-    this.title = $('<h3 id="debate' + this.memplex.id + 'title" class=""><a href="#">' + this.memplex.title + '</a></h3>');
-    this.hide = $('<div id="debate' + this.memplex.id + 'hide" class="hidden">');
-    this.text = $('<div id="debate' + this.memplex.id + 'text" class="debatetext">').appendTo(this.hide);
-
+    this.title = $('<h3 id="' + adder + 'debate' + this.memplex.id + 'title" class=""><a href="#">' + this.memplex.title + '</a></h3>');
+    this.hide = $('<div id="' + adder + 'debate' + this.memplex.id + 'hide" class="hidden">');
+    this.text = $('<div id="' + adder + 'debate' + this.memplex.id + 'text" class="debatetext">').appendTo(this.hide);
+    
     Helper.window($('<div class="padded bigfont">' + this.memplex.title + '</div>').appendTo(this.text),'all');
     Helper.window($('<div class="padded">' + this.memplex.text + '</div>').appendTo(this.text),'all');
+    
+    if ( full === false ) {
+        return;
+    }
 
     this.ul = $('<ul id="debate' + this.memplex.id + 'list" class="debatelist">').appendTo(this.hide);
 
