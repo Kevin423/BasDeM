@@ -602,7 +602,7 @@ ClassView.prototype.layout = function() {
     View.layoutobject = $('#container').layout({
         applyDefaultStyles: true,
         west__minSize: 380,
-        north__minSize: 50,
+        north__minSize: 36,
         west__size: 'auto',
         defaults: {
             spacing_closed: 10,
