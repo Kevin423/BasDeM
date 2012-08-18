@@ -1068,7 +1068,6 @@ function ClassDebate(memplex,full) {
     this.hide = $('<div id="' + adder + 'debate' + this.memplex.id + 'hide" class="hidden">');
     this.text = $('<div id="' + adder + 'debate' + this.memplex.id + 'text" class="debatetext">').appendTo(this.hide);
     
-    Helper.window($('<div class="padded bigfont">' + this.memplex.title + '</div>').appendTo(this.text),'all');
     Helper.window($('<div class="padded">' + this.memplex.text + '</div>').appendTo(this.text),'all');
     
     if ( full === false ) {
