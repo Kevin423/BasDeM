@@ -2,8 +2,8 @@ html,body {
     font-size: 1.1em;
     width: 100%;
     height: 100%;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
 }
 br,.clear {
     clear: both;
@@ -41,17 +41,15 @@ br,.clear {
     height: 36px;
 }
 #list {
-    /* width: 380px; */
-    width: 100%;
+    width: 380px;
     height: 100%;
     overflow: auto;
-    margin-top: 2px;
 }
 #content {
     width: 100%;
     height: 100%;
     overflow: auto;
-    margin-top: 2px;
+    margin-top: 0px;
 }
 #activefilterlist p, #activefilterlist p p  {
     float: left;
@@ -60,6 +58,10 @@ br,.clear {
     padding-right: 5px;
     padding-left: 5px;
     line-height: 2.5em;
+}
+.ui-layout-center, .ui-layout-west, .ui-layout-north {
+    padding: 0px !important;
+    overflow: hidden !important;
 }
 .bigfont {
     font-size: 1.3em !important;
