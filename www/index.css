@@ -15,6 +15,7 @@ br,.clear {
     position: fixed;
     top: 0px;
     left: 0px;
+    z-index: 100;
     background-image: url('css/images/pbar-ani.gif');
     background-repeat: no-repeat;
     background-position: center center;
