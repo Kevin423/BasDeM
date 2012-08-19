@@ -175,3 +175,8 @@ li .comment {
     margin-left: -250px;
 }
 .ui-selected { background: url("css/overcast/images/ui-bg_inset-hard_75_999999_1x100.png") repeat-x scroll 50% bottom !important; }
+
+.filtercategories {
+    float: right;
+    font-size: 0.7em;
+}

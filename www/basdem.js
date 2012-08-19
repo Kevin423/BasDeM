@@ -1169,18 +1169,27 @@ ClassDebateRegister.prototype.get = function(id) {
  * @tparam Memplex memplex The memplex representing the new debate.
  */
 function ClassDebate(memplex,full) {
-    var adder = '';
-    if ( full == null ) {
-        adder = 'list';
-        full = true;
-    }
     this.memplex = memplex;
     this.title = null;
     this.text = null;
     this.hide = null;
     this.ul = null;
     
-    this.title = $('<h3 id="' + adder + 'debate' + this.memplex.id + 'title" class=""><a href="#debate' + this.memplex.id + '">' + this.memplex.title + '</a></h3>');
+    var adder = '';
+    var categories = '';
+    if ( full == null ) {
+        adder = 'list';
+        full = true;
+        var parents = MemplexRegister.getParents(this.memplex.id);
+        categories = '<div class="filtercategories"> (';
+        for ( p in parents ) {
+            var parent = MemplexRegister.get(parents[p]);
+            categories = categories + parent.title + ',';
+        }
+        categories = categories.substr(0,categories.length-1) + ')</div>';
+    }
+    
+    this.title = $('<h3 id="' + adder + 'debate' + this.memplex.id + 'title" class=""><a href="#debate' + this.memplex.id + '">' + this.memplex.title + categories + '</a></h3>');
     this.hide = $('<div id="' + adder + 'debate' + this.memplex.id + 'hide" class="hidden">');
     this.text = $('<div id="' + adder + 'debate' + this.memplex.id + 'text" class="debatetext">').appendTo(this.hide);
     
