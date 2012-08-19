@@ -31,10 +31,6 @@ switch ( target ) {
             case 'lang_author': return 'Autor';
             case 'lang_back': return 'zur&uuml;ck';
             case 'lang_cancel': return 'Abbrechen';
-            case 'lang_createArgumentPro': return 'Best&auml;rken';
-            case 'lang_createArgumentNeut': return 'Erg&auml;nzen';
-            case 'lang_createArgumentCon': return 'Entgegnen';
-            case 'lang_createcomment': return 'Erg&auml;nzen';
             case 'lang_createsolution': return 'L&ouml;sung anlegen';
             case 'lang_debate': return 'Debatten';
             case 'lang_description': return 'Beschreibung';

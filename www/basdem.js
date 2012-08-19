@@ -466,10 +466,10 @@ ClassController.prototype.addSolution = function(debateid) {
 ClassController.prototype.addComment = function(solutionid,layer) {
     var title = '';
     switch ( layer ) {
-        case 5: title = Helper.getLang('lang_createArgumentPro'); break;
-        case 6: title = Helper.getLang('lang_createArgumentCon'); break;
+        case 5: title = Helper.getLang('lang_argPro'); break;
+        case 6: title = Helper.getLang('lang_argCon'); break;
         case 7: 
-        case 8: title = Helper.getLang('lang_createArgumentNeut'); break;
+        case 8: title = Helper.getLang('lang_argNeut'); break;
     }
     this.addForm('addcomment',title,Helper.getLang('lang_helpNewComment'),[Helper.getLang('lang_titleComment'),Helper.getLang('lang_textComment')],solutionid,layer,function() {
         var bad = false;
