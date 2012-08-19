@@ -107,15 +107,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#ae456ed7b9397fe81a3e82294a70226b5">ClassHelper</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a50fbdebcb9f32a1b816f55b6b685698b">getRecursiveChildCount</a> (memplex memplex)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#aff981d0e5eab99c79da90617cff0a34d">show</a> (Object object)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a51fe5c1fc704f6c74215f7f6763d4579">window</a> (Object object, string rounded)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a68f941d69ba808b9a52d891134877a54">time</a> (Date date)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a9b4a08923b3af78d4070bc186f3dd8d7">getThirdIdFromString</a> (string string)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a5781a2ff9f33004b34243e7f993786ac">createButton</a> (string text, string icon, object append, string floatdirection, function callback, string id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a8549a3259f8e23cf40dffe492843bd49">objectCount</a> (Object object)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a482b27e9f1d0f90866b216e2ea4b4c63">getLang</a> (string text)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a61a81931796cda3c72c1b0d35ec7b405">toggleHidden</a> (Object object)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a74a0ae85b5db94474670fb356571f886">hide</a> (Object object)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#ad085c40087bf84558d8c230277aab4db">box</a> (string title, string id, Object target)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a07d1b146a487bc2e777d4673cd1a67a8">box</a> (string title, string id, Object target, string url, string adder)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#acaaf2db46beffbc74df55b6bcd5da3d0">getSecondIdFromString</a> (string string)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a36b3691f82dc687ece2fa81102bf734a">getIdFromString</a> (string string)</td></tr>
 </table>
@@ -139,7 +141,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="ad085c40087bf84558d8c230277aab4db"></a><!-- doxytag: member="ClassHelper::box" ref="ad085c40087bf84558d8c230277aab4db" args="(string title, string id, Object target)" -->
+<a class="anchor" id="a07d1b146a487bc2e777d4673cd1a67a8"></a><!-- doxytag: member="ClassHelper::box" ref="a07d1b146a487bc2e777d4673cd1a67a8" args="(string title, string id, Object target, string url, string adder)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -159,7 +161,19 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Object&#160;</td>
-          <td class="paramname"><em>target</em>&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>url</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>adder</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -175,6 +189,8 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">title</td><td>Title of the box. </td></tr>
     <tr><td class="paramname">id</td><td>HTML ID. </td></tr>
     <tr><td class="paramname">target</td><td>Target object to append the box to. </td></tr>
+    <tr><td class="paramname">url</td><td>URL to link to. </td></tr>
+    <tr><td class="paramname">adder</td><td>Appended to the (possibly shortened) title. </td></tr>
   </table>
   </dd>
 </dl>
@@ -295,6 +311,31 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a50fbdebcb9f32a1b816f55b6b685698b"></a><!-- doxytag: member="ClassHelper::getRecursiveChildCount" ref="a50fbdebcb9f32a1b816f55b6b685698b" args="(memplex memplex)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ClassHelper::getRecursiveChildCount </td>
+          <td>(</td>
+          <td class="paramtype">memplex&#160;</td>
+          <td class="paramname"><em>memplex</em></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get the reverse childcount of this memplex. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memplex</td><td>Memplex containing the topnode to be counted. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>count. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="acaaf2db46beffbc74df55b6bcd5da3d0"></a><!-- doxytag: member="ClassHelper::getSecondIdFromString" ref="acaaf2db46beffbc74df55b6bcd5da3d0" args="(string string)" -->
 <div class="memitem">
 <div class="memproto">
@@ -310,6 +351,31 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>Get the second complete set of digits in a string. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>String to search for the digits. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>ID. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9b4a08923b3af78d4070bc186f3dd8d7"></a><!-- doxytag: member="ClassHelper::getThirdIdFromString" ref="a9b4a08923b3af78d4070bc186f3dd8d7" args="(string string)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ClassHelper::getThirdIdFromString </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>string</em></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get the third complete set of digits in a string. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>String to search for the digits. </td></tr>
@@ -497,7 +563,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Aug 15 2012 13:05:41 for BasDeM by
+    <li class="footer">Generated on Sun Aug 19 2012 17:24:15 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

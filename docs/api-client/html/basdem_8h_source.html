@@ -96,220 +96,268 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
-<a name="l00058"></a>00058 <span class="keyword">class </span><a class="code" href="class_class_memplex_register.html">ClassMemplexRegister</a>;
-<a name="l00059"></a>00059 <span class="keyword">class </span><a class="code" href="class_class_view.html">ClassView</a>;
-<a name="l00060"></a>00060 <span class="keyword">class </span><a class="code" href="class_class_filter.html">ClassFilter</a>;
-<a name="l00061"></a>00061 <span class="keyword">class </span><a class="code" href="class_class_helper.html">ClassHelper</a>;
-<a name="l00062"></a>00062 <span class="keyword">class </span><a class="code" href="class_class_debate_register.html">ClassDebateRegister</a>;
-<a name="l00063"></a>00063 <span class="keyword">class </span><a class="code" href="class_class_debate.html">ClassDebate</a>;
-<a name="l00064"></a>00064 <span class="keyword">class </span><a class="code" href="class_class_controller.html">ClassController</a>;
-<a name="l00065"></a>00065 <span class="keyword">class </span><a class="code" href="class_class_solution.html">ClassSolution</a>;
-<a name="l00066"></a>00066 <span class="keyword">class </span><a class="code" href="class_class_solution_register.html">ClassSolutionRegister</a>;
-<a name="l00067"></a>00067 
-<a name="l00070"></a>00070 <span class="keywordtype">int</span> View;
-<a name="l00071"></a><a class="code" href="class_class_memplex_register.html">00071</a> <span class="keyword">class </span><a class="code" href="class_class_memplex_register.html">ClassMemplexRegister</a>
-<a name="l00072"></a>00072 {
-<a name="l00073"></a>00073 <span class="keyword">public</span>:
-<a name="l00074"></a><a class="code" href="class_class_memplex_register.html#ae1432856d23930d9f991584ab9f94208">00074</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_memplex_register.html#ae1432856d23930d9f991584ab9f94208">ClassMemplexRegister</a>() { }
-<a name="l00075"></a>00075 
-<a name="l00080"></a><a class="code" href="class_class_memplex_register.html#af672bd6bbe31aadca974bd36f881465f">00080</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_memplex_register.html#af672bd6bbe31aadca974bd36f881465f">add</a>(Memplex memplex, Memplex parent) { }
+<a name="l00063"></a>00063 <span class="keyword">class </span><a class="code" href="class_class_memplex_register.html">ClassMemplexRegister</a>;
+<a name="l00064"></a>00064 <span class="keyword">class </span><a class="code" href="class_class_view.html">ClassView</a>;
+<a name="l00065"></a>00065 <span class="keyword">class </span><a class="code" href="class_class_filter.html">ClassFilter</a>;
+<a name="l00066"></a>00066 <span class="keyword">class </span><a class="code" href="class_class_helper.html">ClassHelper</a>;
+<a name="l00067"></a>00067 <span class="keyword">class </span><a class="code" href="class_class_list.html">ClassList</a>;
+<a name="l00068"></a>00068 <span class="keyword">class </span><a class="code" href="class_class_debate_register.html">ClassDebateRegister</a>;
+<a name="l00069"></a>00069 <span class="keyword">class </span><a class="code" href="class_class_debate.html">ClassDebate</a>;
+<a name="l00070"></a>00070 <span class="keyword">class </span><a class="code" href="class_class_controller.html">ClassController</a>;
+<a name="l00071"></a>00071 <span class="keyword">class </span><a class="code" href="class_class_solution.html">ClassSolution</a>;
+<a name="l00072"></a>00072 <span class="keyword">class </span><a class="code" href="class_class_solution_register.html">ClassSolutionRegister</a>;
+<a name="l00073"></a>00073 
+<a name="l00076"></a>00076 <span class="keywordtype">int</span> View;
+<a name="l00077"></a><a class="code" href="class_class_memplex_register.html">00077</a> <span class="keyword">class </span><a class="code" href="class_class_memplex_register.html">ClassMemplexRegister</a>
+<a name="l00078"></a>00078 {
+<a name="l00079"></a>00079 <span class="keyword">public</span>:
+<a name="l00080"></a><a class="code" href="class_class_memplex_register.html#ae1432856d23930d9f991584ab9f94208">00080</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_memplex_register.html#ae1432856d23930d9f991584ab9f94208">ClassMemplexRegister</a>() { }
 <a name="l00081"></a>00081 
-<a name="l00086"></a><a class="code" href="class_class_memplex_register.html#abb6e400a14d483e095737c94becdfd4d">00086</a>         Array <a class="code" href="class_class_memplex_register.html#abb6e400a14d483e095737c94becdfd4d">getParents</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) { <span class="keywordflow">return</span> (Array)0; }
+<a name="l00086"></a><a class="code" href="class_class_memplex_register.html#af672bd6bbe31aadca974bd36f881465f">00086</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_memplex_register.html#af672bd6bbe31aadca974bd36f881465f">add</a>(Memplex memplex, Memplex parent) { }
 <a name="l00087"></a>00087 
-<a name="l00089"></a><a class="code" href="class_class_memplex_register.html#a4c35429411273fe18a6978f285347df3">00089</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_memplex_register.html#a4c35429411273fe18a6978f285347df3">layerlistreverse</a>;
-<a name="l00090"></a>00090 
-<a name="l00092"></a><a class="code" href="class_class_memplex_register.html#a79f1d651bf2d8a895411a294a7020b42">00092</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_memplex_register.html#a79f1d651bf2d8a895411a294a7020b42">parentlist</a>;
+<a name="l00092"></a><a class="code" href="class_class_memplex_register.html#abb6e400a14d483e095737c94becdfd4d">00092</a>         Array <a class="code" href="class_class_memplex_register.html#abb6e400a14d483e095737c94becdfd4d">getParents</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) { <span class="keywordflow">return</span> (Array)0; }
 <a name="l00093"></a>00093 
-<a name="l00098"></a><a class="code" href="class_class_memplex_register.html#a641f03ad83ad73551e3f9f4dee57aeee">00098</a>         Array <a class="code" href="class_class_memplex_register.html#a641f03ad83ad73551e3f9f4dee57aeee">getLayer</a>(<span class="keywordtype">int</span> layer) { <span class="keywordflow">return</span> (Array)0; }
+<a name="l00095"></a><a class="code" href="class_class_memplex_register.html#a4c35429411273fe18a6978f285347df3">00095</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_memplex_register.html#a4c35429411273fe18a6978f285347df3">layerlistreverse</a>;
+<a name="l00096"></a>00096 
+<a name="l00098"></a><a class="code" href="class_class_memplex_register.html#a79f1d651bf2d8a895411a294a7020b42">00098</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_memplex_register.html#a79f1d651bf2d8a895411a294a7020b42">parentlist</a>;
 <a name="l00099"></a>00099 
-<a name="l00104"></a><a class="code" href="class_class_memplex_register.html#a1e557914ac931669aaa8f285cc35bb7e">00104</a>         Memplex <span class="keyword">get</span>(<span class="keywordtype">int</span> id) { <span class="keywordflow">return</span> (Memplex)0; }
+<a name="l00104"></a><a class="code" href="class_class_memplex_register.html#a641f03ad83ad73551e3f9f4dee57aeee">00104</a>         Array <a class="code" href="class_class_memplex_register.html#a641f03ad83ad73551e3f9f4dee57aeee">getLayer</a>(<span class="keywordtype">int</span> layer) { <span class="keywordflow">return</span> (Array)0; }
 <a name="l00105"></a>00105 
-<a name="l00107"></a><a class="code" href="class_class_memplex_register.html#a6059f3ed2d7c5e69f0e3c908f17804dc">00107</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_memplex_register.html#a6059f3ed2d7c5e69f0e3c908f17804dc">layerlist</a>;
-<a name="l00108"></a>00108 
-<a name="l00110"></a><a class="code" href="class_class_memplex_register.html#a14741f4e75470082e5adcb7b44b99468">00110</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_memplex_register.html#a14741f4e75470082e5adcb7b44b99468">memplexes</a>;
-<a name="l00111"></a>00111 };
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113 
-<a name="l00116"></a>00116 <span class="keywordtype">int</span> SolutionRegister;
-<a name="l00117"></a><a class="code" href="class_class_view.html">00117</a> <span class="keyword">class </span><a class="code" href="class_class_view.html">ClassView</a>
-<a name="l00118"></a>00118 {
-<a name="l00119"></a>00119 <span class="keyword">public</span>:
-<a name="l00120"></a><a class="code" href="class_class_view.html#ab9c44a013ad37a0e1fc5721f3c04273c">00120</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#ab9c44a013ad37a0e1fc5721f3c04273c">ClassView</a>() { }
-<a name="l00121"></a>00121 
-<a name="l00125"></a><a class="code" href="class_class_view.html#aac4a8d1d877be55e75ae2b01a4475419">00125</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#aac4a8d1d877be55e75ae2b01a4475419">layout</a>() { }
-<a name="l00126"></a>00126 
-<a name="l00135"></a><a class="code" href="class_class_view.html#a528245d56120c944f9d50ebc3b43609b">00135</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#a528245d56120c944f9d50ebc3b43609b">popup</a>(<span class="keywordtype">string</span> height, <span class="keywordtype">string</span> width, <span class="keywordtype">string</span> title, <span class="keywordtype">string</span> content, array button, <span class="keywordtype">string</span> focus) { }
-<a name="l00136"></a>00136 
-<a name="l00140"></a><a class="code" href="class_class_view.html#a7ef51b389d3f1a169e7e3c9bcb84a2eb">00140</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#a7ef51b389d3f1a169e7e3c9bcb84a2eb">loadSolution</a>(<span class="keywordtype">int</span> target) { }
-<a name="l00141"></a>00141 
-<a name="l00144"></a><a class="code" href="class_class_view.html#a0900eaf291f15906c996ab245dab824f">00144</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#a0900eaf291f15906c996ab245dab824f">loadDebates</a>() { }
-<a name="l00145"></a><a class="code" href="class_class_view.html#a4ccf3735e652b9c57500fd8fbb7fca77">00145</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_view.html#a4ccf3735e652b9c57500fd8fbb7fca77">activesolution</a>;
-<a name="l00146"></a>00146 
-<a name="l00150"></a><a class="code" href="class_class_view.html#aa80cba715540c9bccb041f97aa4e6cac">00150</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#aa80cba715540c9bccb041f97aa4e6cac">paintButtons</a>() { }
-<a name="l00151"></a><a class="code" href="class_class_view.html#a2fab0e208e2f4c13e3e6ed4eafc5fa02">00151</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#a2fab0e208e2f4c13e3e6ed4eafc5fa02">paintCommentButton</a>(<span class="keywordtype">void</span> solution, <span class="keywordtype">void</span> comment) { }
+<a name="l00110"></a><a class="code" href="class_class_memplex_register.html#a1e557914ac931669aaa8f285cc35bb7e">00110</a>         Memplex <span class="keyword">get</span>(<span class="keywordtype">int</span> id) { <span class="keywordflow">return</span> (Memplex)0; }
+<a name="l00111"></a>00111 
+<a name="l00113"></a><a class="code" href="class_class_memplex_register.html#a6059f3ed2d7c5e69f0e3c908f17804dc">00113</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_memplex_register.html#a6059f3ed2d7c5e69f0e3c908f17804dc">layerlist</a>;
+<a name="l00114"></a>00114 
+<a name="l00116"></a><a class="code" href="class_class_memplex_register.html#a14741f4e75470082e5adcb7b44b99468">00116</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_memplex_register.html#a14741f4e75470082e5adcb7b44b99468">memplexes</a>;
+<a name="l00117"></a>00117 };
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119 
+<a name="l00122"></a>00122 <span class="keywordtype">int</span> SolutionRegister;
+<a name="l00123"></a><a class="code" href="class_class_view.html">00123</a> <span class="keyword">class </span><a class="code" href="class_class_view.html">ClassView</a>
+<a name="l00124"></a>00124 {
+<a name="l00125"></a>00125 <span class="keyword">public</span>:
+<a name="l00126"></a><a class="code" href="class_class_view.html#ab9c44a013ad37a0e1fc5721f3c04273c">00126</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#ab9c44a013ad37a0e1fc5721f3c04273c">ClassView</a>() { }
+<a name="l00127"></a>00127 
+<a name="l00130"></a><a class="code" href="class_class_view.html#ad04e643b6a24724534332de9da967ed9">00130</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#ad04e643b6a24724534332de9da967ed9">loadList</a>(<span class="keywordtype">void</span> memplexes, <span class="keywordtype">void</span> list) { }
+<a name="l00131"></a>00131 
+<a name="l00134"></a><a class="code" href="class_class_view.html#a0900eaf291f15906c996ab245dab824f">00134</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#a0900eaf291f15906c996ab245dab824f">loadDebates</a>() { }
+<a name="l00135"></a><a class="code" href="class_class_view.html#a4ccf3735e652b9c57500fd8fbb7fca77">00135</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_view.html#a4ccf3735e652b9c57500fd8fbb7fca77">activesolution</a>;
+<a name="l00136"></a><a class="code" href="class_class_view.html#a2fab0e208e2f4c13e3e6ed4eafc5fa02">00136</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#a2fab0e208e2f4c13e3e6ed4eafc5fa02">paintCommentButton</a>(<span class="keywordtype">void</span> solution, <span class="keywordtype">void</span> comment) { }
+<a name="l00137"></a>00137 
+<a name="l00141"></a><a class="code" href="class_class_view.html#aac4a8d1d877be55e75ae2b01a4475419">00141</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#aac4a8d1d877be55e75ae2b01a4475419">layout</a>() { }
+<a name="l00142"></a>00142 
+<a name="l00151"></a><a class="code" href="class_class_view.html#a528245d56120c944f9d50ebc3b43609b">00151</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#a528245d56120c944f9d50ebc3b43609b">popup</a>(<span class="keywordtype">string</span> height, <span class="keywordtype">string</span> width, <span class="keywordtype">string</span> title, <span class="keywordtype">string</span> content, array button, <span class="keywordtype">string</span> focus) { }
 <a name="l00152"></a>00152 
-<a name="l00154"></a><a class="code" href="class_class_view.html#a574c2b19ff1ec4f740afb7b1e51d42d2">00154</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_view.html#a574c2b19ff1ec4f740afb7b1e51d42d2">solutionbutton</a>;
-<a name="l00155"></a>00155 };
-<a name="l00156"></a>00156 
+<a name="l00156"></a><a class="code" href="class_class_view.html#a7ef51b389d3f1a169e7e3c9bcb84a2eb">00156</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#a7ef51b389d3f1a169e7e3c9bcb84a2eb">loadSolution</a>(<span class="keywordtype">int</span> target) { }
 <a name="l00157"></a>00157 
-<a name="l00160"></a>00160 <span class="keywordtype">int</span> DebateRegister;
-<a name="l00161"></a>00161 <span class="keywordtype">int</span> Helper;
-<a name="l00162"></a><a class="code" href="class_class_filter.html">00162</a> <span class="keyword">class </span><a class="code" href="class_class_filter.html">ClassFilter</a>
-<a name="l00163"></a>00163 {
-<a name="l00164"></a>00164 <span class="keyword">public</span>:
-<a name="l00165"></a><a class="code" href="class_class_filter.html#acef57d031f93f1243abd9abc85110b30">00165</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#acef57d031f93f1243abd9abc85110b30">ClassFilter</a>() { }
-<a name="l00166"></a><a class="code" href="class_class_filter.html#a4e9be35f89ff8771720ca1ab02803467">00166</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#a4e9be35f89ff8771720ca1ab02803467">allofCallback</a>() { }
+<a name="l00161"></a><a class="code" href="class_class_view.html#aa80cba715540c9bccb041f97aa4e6cac">00161</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_view.html#aa80cba715540c9bccb041f97aa4e6cac">paintButtons</a>() { }
+<a name="l00162"></a>00162 
+<a name="l00164"></a><a class="code" href="class_class_view.html#a574c2b19ff1ec4f740afb7b1e51d42d2">00164</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_view.html#a574c2b19ff1ec4f740afb7b1e51d42d2">solutionbutton</a>;
+<a name="l00165"></a>00165 };
+<a name="l00166"></a>00166 
 <a name="l00167"></a>00167 
-<a name="l00170"></a><a class="code" href="class_class_filter.html#a222c6b8b3418e0110abc98f518ab69b8">00170</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#a222c6b8b3418e0110abc98f518ab69b8">printFilters</a>() { }
-<a name="l00171"></a>00171 
-<a name="l00173"></a><a class="code" href="class_class_filter.html#ac3d1648af6c98f4e6cbd17b4b561be7e">00173</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_filter.html#ac3d1648af6c98f4e6cbd17b4b561be7e">allof</a>;
-<a name="l00174"></a><a class="code" href="class_class_filter.html#a995fdb567d6261c832ff12e5896136b7">00174</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#a995fdb567d6261c832ff12e5896136b7">getFilterSelector</a>(<span class="keywordtype">void</span> <span class="keywordtype">id</span>, <span class="keywordtype">void</span> callback, <span class="keywordtype">void</span> check) { }
-<a name="l00175"></a>00175 
-<a name="l00180"></a><a class="code" href="class_class_filter.html#a4226919abfe1f91497cb011befe599f3">00180</a>         <span class="keywordtype">boolean</span> <a class="code" href="class_class_filter.html#a4226919abfe1f91497cb011befe599f3">match</a>(<span class="keywordtype">int</span>[] nodes) { <span class="keywordflow">return</span> (<span class="keywordtype">boolean</span>)0; }
-<a name="l00181"></a><a class="code" href="class_class_filter.html#a7e360ec643274836de46e100c17b8245">00181</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_filter.html#a7e360ec643274836de46e100c17b8245">filters</a>;
-<a name="l00182"></a><a class="code" href="class_class_filter.html#a172ae4b800555835fa694acd3e8feb88">00182</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#a172ae4b800555835fa694acd3e8feb88">oneofCallback</a>() { }
-<a name="l00183"></a>00183 
-<a name="l00185"></a><a class="code" href="class_class_filter.html#aa247ab03ea67b4b7f86fefb20d073fbd">00185</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_filter.html#aa247ab03ea67b4b7f86fefb20d073fbd">oneof</a>;
-<a name="l00186"></a><a class="code" href="class_class_filter.html#aab27073f215fc5695c8ef756913d0a73">00186</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#aab27073f215fc5695c8ef756913d0a73">refreshFilters</a>() { }
+<a name="l00170"></a>00170 <span class="keywordtype">int</span> DebateRegister;
+<a name="l00171"></a>00171 <span class="keywordtype">int</span> Helper;
+<a name="l00172"></a><a class="code" href="class_class_filter.html">00172</a> <span class="keyword">class </span><a class="code" href="class_class_filter.html">ClassFilter</a>
+<a name="l00173"></a>00173 {
+<a name="l00174"></a>00174 <span class="keyword">public</span>:
+<a name="l00175"></a><a class="code" href="class_class_filter.html#acef57d031f93f1243abd9abc85110b30">00175</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#acef57d031f93f1243abd9abc85110b30">ClassFilter</a>() { }
+<a name="l00176"></a>00176 
+<a name="l00179"></a><a class="code" href="class_class_filter.html#a4e9be35f89ff8771720ca1ab02803467">00179</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#a4e9be35f89ff8771720ca1ab02803467">allofCallback</a>() { }
+<a name="l00180"></a>00180 
+<a name="l00183"></a><a class="code" href="class_class_filter.html#a222c6b8b3418e0110abc98f518ab69b8">00183</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#a222c6b8b3418e0110abc98f518ab69b8">printFilters</a>() { }
+<a name="l00184"></a>00184 
+<a name="l00186"></a><a class="code" href="class_class_filter.html#ac3d1648af6c98f4e6cbd17b4b561be7e">00186</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_filter.html#ac3d1648af6c98f4e6cbd17b4b561be7e">allof</a>;
 <a name="l00187"></a>00187 
-<a name="l00190"></a><a class="code" href="class_class_filter.html#a2339f31284cd4e734b6558f8a986989e">00190</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#a2339f31284cd4e734b6558f8a986989e">createNewObject</a>() { }
-<a name="l00191"></a><a class="code" href="class_class_filter.html#a4e9cf0200220cf88317e3b2412aa476a">00191</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_filter.html#a4e9cf0200220cf88317e3b2412aa476a">mine</a>;
+<a name="l00191"></a><a class="code" href="class_class_filter.html#af3191eac738a9f8454fae80e0e1ea55b">00191</a>         <span class="keywordtype">string</span> <a class="code" href="class_class_filter.html#af3191eac738a9f8454fae80e0e1ea55b">getFilterSelector</a>(<span class="keywordtype">void</span> <span class="keywordtype">id</span>, <span class="keywordtype">void</span> callback, <span class="keywordtype">void</span> check) { <span class="keywordflow">return</span> (<span class="keywordtype">string</span>)0; }
 <a name="l00192"></a>00192 
-<a name="l00197"></a><a class="code" href="class_class_filter.html#a8871e47c806c31c08781c6f3cc9798cf">00197</a>         <span class="keywordtype">int</span>[] <a class="code" href="class_class_filter.html#a8871e47c806c31c08781c6f3cc9798cf">getSelected</a>(<span class="keywordtype">object</span>/<span class="keywordtype">int</span> <span class="keywordtype">id</span>) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>[])0; }
-<a name="l00198"></a>00198 };
+<a name="l00197"></a><a class="code" href="class_class_filter.html#a4226919abfe1f91497cb011befe599f3">00197</a>         <span class="keywordtype">boolean</span> <a class="code" href="class_class_filter.html#a4226919abfe1f91497cb011befe599f3">match</a>(<span class="keywordtype">int</span>[] nodes) { <span class="keywordflow">return</span> (<span class="keywordtype">boolean</span>)0; }
+<a name="l00198"></a><a class="code" href="class_class_filter.html#a7e360ec643274836de46e100c17b8245">00198</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_filter.html#a7e360ec643274836de46e100c17b8245">filters</a>;
 <a name="l00199"></a>00199 
-<a name="l00200"></a>00200 
-<a name="l00203"></a>00203 <span class="keywordtype">int</span> Filter;
-<a name="l00204"></a>00204 
-<a name="l00207"></a>00207 <span class="keywordtype">int</span> Controller;
-<a name="l00208"></a>00208 
-<a name="l00211"></a>00211 <span class="keywordtype">int</span> language;
-<a name="l00212"></a><a class="code" href="class_class_helper.html">00212</a> <span class="keyword">class </span><a class="code" href="class_class_helper.html">ClassHelper</a>
-<a name="l00213"></a>00213 {
-<a name="l00214"></a>00214 <span class="keyword">public</span>:
-<a name="l00215"></a><a class="code" href="class_class_helper.html#ae456ed7b9397fe81a3e82294a70226b5">00215</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_helper.html#ae456ed7b9397fe81a3e82294a70226b5">ClassHelper</a>() { }
-<a name="l00216"></a>00216 
-<a name="l00220"></a><a class="code" href="class_class_helper.html#aff981d0e5eab99c79da90617cff0a34d">00220</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_helper.html#aff981d0e5eab99c79da90617cff0a34d">show</a>(Object <span class="keywordtype">object</span>) { }
-<a name="l00221"></a>00221 
-<a name="l00226"></a><a class="code" href="class_class_helper.html#a51fe5c1fc704f6c74215f7f6763d4579">00226</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_helper.html#a51fe5c1fc704f6c74215f7f6763d4579">window</a>(Object <span class="keywordtype">object</span>, <span class="keywordtype">string</span> rounded) { }
+<a name="l00202"></a><a class="code" href="class_class_filter.html#a172ae4b800555835fa694acd3e8feb88">00202</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#a172ae4b800555835fa694acd3e8feb88">oneofCallback</a>() { }
+<a name="l00203"></a>00203 
+<a name="l00205"></a><a class="code" href="class_class_filter.html#aa247ab03ea67b4b7f86fefb20d073fbd">00205</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_filter.html#aa247ab03ea67b4b7f86fefb20d073fbd">oneof</a>;
+<a name="l00206"></a>00206 
+<a name="l00209"></a><a class="code" href="class_class_filter.html#aab27073f215fc5695c8ef756913d0a73">00209</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#aab27073f215fc5695c8ef756913d0a73">refreshFilters</a>() { }
+<a name="l00210"></a>00210 
+<a name="l00213"></a><a class="code" href="class_class_filter.html#a2339f31284cd4e734b6558f8a986989e">00213</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_filter.html#a2339f31284cd4e734b6558f8a986989e">createNewObject</a>() { }
+<a name="l00214"></a><a class="code" href="class_class_filter.html#a4e9cf0200220cf88317e3b2412aa476a">00214</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_filter.html#a4e9cf0200220cf88317e3b2412aa476a">mine</a>;
+<a name="l00215"></a>00215 
+<a name="l00220"></a><a class="code" href="class_class_filter.html#a8871e47c806c31c08781c6f3cc9798cf">00220</a>         <span class="keywordtype">int</span>[] <a class="code" href="class_class_filter.html#a8871e47c806c31c08781c6f3cc9798cf">getSelected</a>(<span class="keywordtype">object</span>/<span class="keywordtype">int</span> <span class="keywordtype">id</span>) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>[])0; }
+<a name="l00221"></a>00221 };
+<a name="l00222"></a>00222 
+<a name="l00223"></a>00223 
+<a name="l00226"></a>00226 <span class="keywordtype">int</span> Filter;
 <a name="l00227"></a>00227 
-<a name="l00232"></a><a class="code" href="class_class_helper.html#a68f941d69ba808b9a52d891134877a54">00232</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_helper.html#a68f941d69ba808b9a52d891134877a54">time</a>(Date date) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)0; }
-<a name="l00233"></a>00233 
-<a name="l00242"></a><a class="code" href="class_class_helper.html#a5781a2ff9f33004b34243e7f993786ac">00242</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_helper.html#a5781a2ff9f33004b34243e7f993786ac">createButton</a>(<span class="keywordtype">string</span> text, <span class="keywordtype">string</span> icon, <span class="keywordtype">object</span> append, <span class="keywordtype">string</span> floatdirection, <span class="keyword">function</span> callback, <span class="keywordtype">string</span> <span class="keywordtype">id</span>) { }
-<a name="l00243"></a>00243 
-<a name="l00248"></a><a class="code" href="class_class_helper.html#a8549a3259f8e23cf40dffe492843bd49">00248</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_helper.html#a8549a3259f8e23cf40dffe492843bd49">objectCount</a>(Object <span class="keywordtype">object</span>) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)0; }
-<a name="l00249"></a>00249 
-<a name="l00254"></a><a class="code" href="class_class_helper.html#a482b27e9f1d0f90866b216e2ea4b4c63">00254</a>         <span class="keywordtype">string</span> <a class="code" href="class_class_helper.html#a482b27e9f1d0f90866b216e2ea4b4c63">getLang</a>(<span class="keywordtype">string</span> text) { <span class="keywordflow">return</span> (<span class="keywordtype">string</span>)0; }
-<a name="l00255"></a>00255 
-<a name="l00259"></a><a class="code" href="class_class_helper.html#a61a81931796cda3c72c1b0d35ec7b405">00259</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_helper.html#a61a81931796cda3c72c1b0d35ec7b405">toggleHidden</a>(Object <span class="keywordtype">object</span>) { }
-<a name="l00260"></a>00260 
-<a name="l00264"></a><a class="code" href="class_class_helper.html#a74a0ae85b5db94474670fb356571f886">00264</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_helper.html#a74a0ae85b5db94474670fb356571f886">hide</a>(Object <span class="keywordtype">object</span>) { }
-<a name="l00265"></a>00265 
-<a name="l00272"></a><a class="code" href="class_class_helper.html#ad085c40087bf84558d8c230277aab4db">00272</a>         <span class="keywordtype">string</span> <a class="code" href="class_class_helper.html#ad085c40087bf84558d8c230277aab4db">box</a>(<span class="keywordtype">string</span> title, <span class="keywordtype">string</span> <span class="keywordtype">id</span>, Object target) { <span class="keywordflow">return</span> (<span class="keywordtype">string</span>)0; }
-<a name="l00273"></a>00273 
-<a name="l00278"></a><a class="code" href="class_class_helper.html#acaaf2db46beffbc74df55b6bcd5da3d0">00278</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_helper.html#acaaf2db46beffbc74df55b6bcd5da3d0">getSecondIdFromString</a>(<span class="keywordtype">string</span> <span class="keywordtype">string</span>) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)0; }
-<a name="l00279"></a>00279 
-<a name="l00284"></a><a class="code" href="class_class_helper.html#a36b3691f82dc687ece2fa81102bf734a">00284</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_helper.html#a36b3691f82dc687ece2fa81102bf734a">getIdFromString</a>(<span class="keywordtype">string</span> <span class="keywordtype">string</span>) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)0; }
-<a name="l00285"></a>00285 };
-<a name="l00286"></a>00286 
-<a name="l00287"></a><a class="code" href="class_class_debate_register.html">00287</a> <span class="keyword">class </span><a class="code" href="class_class_debate_register.html">ClassDebateRegister</a>
-<a name="l00288"></a>00288 {
-<a name="l00289"></a>00289 <span class="keyword">public</span>:
-<a name="l00290"></a><a class="code" href="class_class_debate_register.html#a76978614a1e34b9d0ff9e5483d85027a">00290</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_debate_register.html#a76978614a1e34b9d0ff9e5483d85027a">ClassDebateRegister</a>() { }
-<a name="l00291"></a>00291 
-<a name="l00296"></a><a class="code" href="class_class_debate_register.html#aff43e228a45cea3caf88467283abf62e">00296</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_debate_register.html#aff43e228a45cea3caf88467283abf62e">add</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <a class="code" href="class_class_debate.html">ClassDebate</a> debate) { }
-<a name="l00297"></a>00297 
-<a name="l00302"></a><a class="code" href="class_class_debate_register.html#ab963c2262d1f7611a850853b7b285459">00302</a>         <a class="code" href="class_class_debate.html">ClassDebate</a> <span class="keyword">get</span>(<span class="keywordtype">int</span> id) { <span class="keywordflow">return</span> (<a class="code" href="class_class_debate.html">ClassDebate</a>)0; }
-<a name="l00303"></a><a class="code" href="class_class_debate_register.html#a4723b3528970dbfe64eece73da92b11e">00303</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_debate_register.html#a4723b3528970dbfe64eece73da92b11e">debates</a>;
-<a name="l00304"></a>00304 };
-<a name="l00305"></a>00305 
-<a name="l00306"></a><a class="code" href="class_class_debate.html">00306</a> <span class="keyword">class </span><a class="code" href="class_class_debate.html">ClassDebate</a>
-<a name="l00307"></a>00307 {
-<a name="l00308"></a>00308 <span class="keyword">public</span>:
-<a name="l00309"></a><a class="code" href="class_class_debate.html#ad512055d73b8cd938fdaedafd436ddf9">00309</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_debate.html#ad512055d73b8cd938fdaedafd436ddf9">ClassDebate</a>(<span class="keywordtype">void</span> <a class="code" href="class_class_debate.html#a0c41a9333675907dcf8bba0d18f0104b">memplex</a>) { }
-<a name="l00310"></a><a class="code" href="class_class_debate.html#a7e29310ed347947306fad8740cab6919">00310</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_debate.html#a7e29310ed347947306fad8740cab6919">ul</a>;
-<a name="l00311"></a><a class="code" href="class_class_debate.html#a25bbb56253e03519f562dfd3bae70754">00311</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_debate.html#a25bbb56253e03519f562dfd3bae70754">hide</a>;
-<a name="l00312"></a><a class="code" href="class_class_debate.html#a9c398d2a1841f8c917f9e5a459bef222">00312</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_debate.html#a9c398d2a1841f8c917f9e5a459bef222">text</a>;
-<a name="l00313"></a>00313 
-<a name="l00317"></a><a class="code" href="class_class_debate.html#a6aa75b301da7b4b52598592bf22bb3ab">00317</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_debate.html#a6aa75b301da7b4b52598592bf22bb3ab">appendTo</a>(JQuery_HTML_Object <span class="keywordtype">object</span>) { }
-<a name="l00318"></a><a class="code" href="class_class_debate.html#a0c41a9333675907dcf8bba0d18f0104b">00318</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_debate.html#a0c41a9333675907dcf8bba0d18f0104b">memplex</a>;
-<a name="l00319"></a><a class="code" href="class_class_debate.html#a0992715859144995f52147c5c947d133">00319</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_debate.html#a0992715859144995f52147c5c947d133">title</a>;
-<a name="l00320"></a>00320 
-<a name="l00324"></a><a class="code" href="class_class_debate.html#a96d5ca8216b762ad4479503c60afc348">00324</a>         <span class="keywordtype">boolean</span> <a class="code" href="class_class_debate.html#a96d5ca8216b762ad4479503c60afc348">matchFilter</a>() { <span class="keywordflow">return</span> (<span class="keywordtype">boolean</span>)0; }
-<a name="l00325"></a>00325 };
-<a name="l00326"></a>00326 
-<a name="l00327"></a><a class="code" href="class_class_controller.html">00327</a> <span class="keyword">class </span><a class="code" href="class_class_controller.html">ClassController</a>
-<a name="l00328"></a>00328 {
-<a name="l00329"></a>00329 <span class="keyword">public</span>:
-<a name="l00330"></a><a class="code" href="class_class_controller.html#a5ddaacaf9c8f2c5c6b5b0ed7d27afb3f">00330</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a5ddaacaf9c8f2c5c6b5b0ed7d27afb3f">ClassController</a>() { }
-<a name="l00331"></a>00331 
-<a name="l00334"></a><a class="code" href="class_class_controller.html#a52565e79999714364f4f5dac33c8301e">00334</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a52565e79999714364f4f5dac33c8301e">addComment</a>(<span class="keywordtype">void</span> solutionid, <span class="keywordtype">void</span> layer) { }
-<a name="l00335"></a>00335 
-<a name="l00340"></a><a class="code" href="class_class_controller.html#a2f108591a789bbf5db3267ae67f5f974">00340</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a2f108591a789bbf5db3267ae67f5f974">parseMemplex</a>(Memplex data, Memplex parent) { }
-<a name="l00341"></a>00341 
-<a name="l00347"></a><a class="code" href="class_class_controller.html#ae44c4987e741e4e484dbc2d9c70aece9">00347</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#ae44c4987e741e4e484dbc2d9c70aece9">loadComment</a>(<a class="code" href="class_class_solution.html">ClassSolution</a> solution, <span class="keywordtype">int</span> target) { }
-<a name="l00348"></a>00348 
-<a name="l00352"></a><a class="code" href="class_class_controller.html#afd84f7b4f521af0a6601b235b444512b">00352</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#afd84f7b4f521af0a6601b235b444512b">loadDebates</a>() { }
+<a name="l00230"></a>00230 <span class="keywordtype">int</span> Controller;
+<a name="l00231"></a>00231 
+<a name="l00234"></a>00234 <span class="keywordtype">int</span> language;
+<a name="l00235"></a><a class="code" href="class_class_helper.html">00235</a> <span class="keyword">class </span><a class="code" href="class_class_helper.html">ClassHelper</a>
+<a name="l00236"></a>00236 {
+<a name="l00237"></a>00237 <span class="keyword">public</span>:
+<a name="l00238"></a><a class="code" href="class_class_helper.html#ae456ed7b9397fe81a3e82294a70226b5">00238</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_helper.html#ae456ed7b9397fe81a3e82294a70226b5">ClassHelper</a>() { }
+<a name="l00239"></a>00239 
+<a name="l00244"></a><a class="code" href="class_class_helper.html#a50fbdebcb9f32a1b816f55b6b685698b">00244</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_helper.html#a50fbdebcb9f32a1b816f55b6b685698b">getRecursiveChildCount</a>(memplex memplex) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)0; }
+<a name="l00245"></a>00245 
+<a name="l00249"></a><a class="code" href="class_class_helper.html#aff981d0e5eab99c79da90617cff0a34d">00249</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_helper.html#aff981d0e5eab99c79da90617cff0a34d">show</a>(Object <span class="keywordtype">object</span>) { }
+<a name="l00250"></a>00250 
+<a name="l00255"></a><a class="code" href="class_class_helper.html#a51fe5c1fc704f6c74215f7f6763d4579">00255</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_helper.html#a51fe5c1fc704f6c74215f7f6763d4579">window</a>(Object <span class="keywordtype">object</span>, <span class="keywordtype">string</span> rounded) { }
+<a name="l00256"></a>00256 
+<a name="l00261"></a><a class="code" href="class_class_helper.html#a68f941d69ba808b9a52d891134877a54">00261</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_helper.html#a68f941d69ba808b9a52d891134877a54">time</a>(Date date) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)0; }
+<a name="l00262"></a>00262 
+<a name="l00267"></a><a class="code" href="class_class_helper.html#a9b4a08923b3af78d4070bc186f3dd8d7">00267</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_helper.html#a9b4a08923b3af78d4070bc186f3dd8d7">getThirdIdFromString</a>(<span class="keywordtype">string</span> <span class="keywordtype">string</span>) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)0; }
+<a name="l00268"></a>00268 
+<a name="l00277"></a><a class="code" href="class_class_helper.html#a5781a2ff9f33004b34243e7f993786ac">00277</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_helper.html#a5781a2ff9f33004b34243e7f993786ac">createButton</a>(<span class="keywordtype">string</span> text, <span class="keywordtype">string</span> icon, <span class="keywordtype">object</span> append, <span class="keywordtype">string</span> floatdirection, <span class="keyword">function</span> callback, <span class="keywordtype">string</span> <span class="keywordtype">id</span>) { }
+<a name="l00278"></a>00278 
+<a name="l00283"></a><a class="code" href="class_class_helper.html#a8549a3259f8e23cf40dffe492843bd49">00283</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_helper.html#a8549a3259f8e23cf40dffe492843bd49">objectCount</a>(Object <span class="keywordtype">object</span>) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)0; }
+<a name="l00284"></a>00284 
+<a name="l00289"></a><a class="code" href="class_class_helper.html#a482b27e9f1d0f90866b216e2ea4b4c63">00289</a>         <span class="keywordtype">string</span> <a class="code" href="class_class_helper.html#a482b27e9f1d0f90866b216e2ea4b4c63">getLang</a>(<span class="keywordtype">string</span> text) { <span class="keywordflow">return</span> (<span class="keywordtype">string</span>)0; }
+<a name="l00290"></a>00290 
+<a name="l00294"></a><a class="code" href="class_class_helper.html#a61a81931796cda3c72c1b0d35ec7b405">00294</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_helper.html#a61a81931796cda3c72c1b0d35ec7b405">toggleHidden</a>(Object <span class="keywordtype">object</span>) { }
+<a name="l00295"></a>00295 
+<a name="l00299"></a><a class="code" href="class_class_helper.html#a74a0ae85b5db94474670fb356571f886">00299</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_helper.html#a74a0ae85b5db94474670fb356571f886">hide</a>(Object <span class="keywordtype">object</span>) { }
+<a name="l00300"></a>00300 
+<a name="l00309"></a><a class="code" href="class_class_helper.html#a07d1b146a487bc2e777d4673cd1a67a8">00309</a>         <span class="keywordtype">string</span> <a class="code" href="class_class_helper.html#a07d1b146a487bc2e777d4673cd1a67a8">box</a>(<span class="keywordtype">string</span> title, <span class="keywordtype">string</span> <span class="keywordtype">id</span>, Object target, <span class="keywordtype">string</span> url, <span class="keywordtype">string</span> adder) { <span class="keywordflow">return</span> (<span class="keywordtype">string</span>)0; }
+<a name="l00310"></a>00310 
+<a name="l00315"></a><a class="code" href="class_class_helper.html#acaaf2db46beffbc74df55b6bcd5da3d0">00315</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_helper.html#acaaf2db46beffbc74df55b6bcd5da3d0">getSecondIdFromString</a>(<span class="keywordtype">string</span> <span class="keywordtype">string</span>) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)0; }
+<a name="l00316"></a>00316 
+<a name="l00321"></a><a class="code" href="class_class_helper.html#a36b3691f82dc687ece2fa81102bf734a">00321</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_helper.html#a36b3691f82dc687ece2fa81102bf734a">getIdFromString</a>(<span class="keywordtype">string</span> <span class="keywordtype">string</span>) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)0; }
+<a name="l00322"></a>00322 };
+<a name="l00323"></a>00323 
+<a name="l00324"></a><a class="code" href="class_class_list.html">00324</a> <span class="keyword">class </span><a class="code" href="class_class_list.html">ClassList</a>
+<a name="l00325"></a>00325 {
+<a name="l00326"></a>00326 <span class="keyword">public</span>:
+<a name="l00327"></a><a class="code" href="class_class_list.html#a6cb5d273ac3ee408bc1ee5b4ee91d783">00327</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_list.html#a6cb5d273ac3ee408bc1ee5b4ee91d783">ClassList</a>() { }
+<a name="l00328"></a>00328 
+<a name="l00332"></a><a class="code" href="class_class_list.html#aa51751974a336cc3583508a4d09f80f3">00332</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_list.html#aa51751974a336cc3583508a4d09f80f3">add</a>(Memplex memplex) { }
+<a name="l00333"></a>00333 
+<a name="l00341"></a><a class="code" href="class_class_list.html#a9f3e378ca0d60bf52f21335bd4a6c4bf">00341</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_list.html#a9f3e378ca0d60bf52f21335bd4a6c4bf">addSorted</a>(array sorted, <span class="keywordtype">object</span> unsorted, <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">int</span> overwrite, array reverse) { }
+<a name="l00342"></a>00342 
+<a name="l00346"></a><a class="code" href="class_class_list.html#a774041179e225ef5b92c71bf69a839a8">00346</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_list.html#a774041179e225ef5b92c71bf69a839a8">addNew</a>(Memplex memplex) { }
+<a name="l00347"></a>00347 
+<a name="l00351"></a><a class="code" href="class_class_list.html#af517d69ea01a5f05aa617366e0d2f8dd">00351</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_list.html#af517d69ea01a5f05aa617366e0d2f8dd">addUnsolved</a>(Memplex memplex) { }
+<a name="l00352"></a><a class="code" href="class_class_list.html#aae79edb3750fcd15476e754ddb9db6da">00352</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_list.html#aae79edb3750fcd15476e754ddb9db6da">listNew</a>;
 <a name="l00353"></a>00353 
-<a name="l00358"></a><a class="code" href="class_class_controller.html#af9eeabf2615d230c6ef6ff9bcd0564ba">00358</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#af9eeabf2615d230c6ef6ff9bcd0564ba">setLastLoad</a>(<span class="keywordtype">int</span> target, <span class="keywordtype">int</span> time) { }
-<a name="l00359"></a><a class="code" href="class_class_controller.html#ae3226a476249e1b0eb7a565f35998ec0">00359</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_controller.html#ae3226a476249e1b0eb7a565f35998ec0">lastload</a>;
-<a name="l00360"></a><a class="code" href="class_class_controller.html#a4f6378f14b51a4d9d75f9ee95fcfde54">00360</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_controller.html#a4f6378f14b51a4d9d75f9ee95fcfde54">commentTarget</a>;
-<a name="l00361"></a>00361 
-<a name="l00365"></a><a class="code" href="class_class_controller.html#ac2ea4b2368c66c4ba055a398828897c3">00365</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#ac2ea4b2368c66c4ba055a398828897c3">addSolution</a>(<span class="keywordtype">int</span> debateid) { }
-<a name="l00366"></a>00366 
-<a name="l00370"></a><a class="code" href="class_class_controller.html#ad9e86333bfb553667a96610ba619c3ef">00370</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#ad9e86333bfb553667a96610ba619c3ef">storeToMemplex</a>(Memplex data) { }
-<a name="l00371"></a>00371 
-<a name="l00381"></a><a class="code" href="class_class_controller.html#a4c1abecd083574675e62cd7fd5cce83f">00381</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a4c1abecd083574675e62cd7fd5cce83f">addForm</a>(<span class="keywordtype">string</span> name, <span class="keywordtype">string</span> title, <span class="keywordtype">string</span> description, <span class="keywordtype">string</span>[] strings, <span class="keywordtype">int</span> parent, <span class="keywordtype">int</span> layer, <span class="keyword">function</span> callback) { }
+<a name="l00357"></a><a class="code" href="class_class_list.html#aade6ded1005003768fb8e91d1ca5ba04">00357</a>         <span class="keywordtype">object</span> <a class="code" href="class_class_list.html#aade6ded1005003768fb8e91d1ca5ba04">getLatest</a>() { <span class="keywordflow">return</span> (<span class="keywordtype">object</span>)0; }
+<a name="l00358"></a>00358 
+<a name="l00362"></a><a class="code" href="class_class_list.html#ac43bcffe4e5c949f94a4414ad4785b70">00362</a>         <span class="keywordtype">object</span> <a class="code" href="class_class_list.html#ac43bcffe4e5c949f94a4414ad4785b70">getNew</a>() { <span class="keywordflow">return</span> (<span class="keywordtype">object</span>)0; }
+<a name="l00363"></a><a class="code" href="class_class_list.html#ab54c9bb0ec3f4fec7cf3378ca14e87df">00363</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_list.html#ab54c9bb0ec3f4fec7cf3378ca14e87df">listLatest</a>;
+<a name="l00364"></a><a class="code" href="class_class_list.html#a312c39339b79442d64a2998775ba4d83">00364</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_list.html#a312c39339b79442d64a2998775ba4d83">listLatestObjects</a>;
+<a name="l00365"></a><a class="code" href="class_class_list.html#a2b3694b557aa1e3ca1e3d85f697169c0">00365</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_list.html#a2b3694b557aa1e3ca1e3d85f697169c0">defaultLength</a>;
+<a name="l00366"></a><a class="code" href="class_class_list.html#acdb39aa8033d350f96719cd0832453bc">00366</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_list.html#acdb39aa8033d350f96719cd0832453bc">listUnsolved</a>;
+<a name="l00367"></a>00367 
+<a name="l00372"></a><a class="code" href="class_class_list.html#a965a1a944088d7b218e4a9e62778cef6">00372</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_list.html#a965a1a944088d7b218e4a9e62778cef6">addLatest</a>(Memplex memplex, <span class="keywordtype">int</span> overwrite) { }
+<a name="l00373"></a><a class="code" href="class_class_list.html#abe6861c9b45eee51f4f9602f20f1e407">00373</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_list.html#abe6861c9b45eee51f4f9602f20f1e407">listUnsolvedObjects</a>;
+<a name="l00374"></a><a class="code" href="class_class_list.html#a80b54b5eedd23eab625e8cebe3b0a181">00374</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_list.html#a80b54b5eedd23eab625e8cebe3b0a181">listLatestObjectsReverse</a>;
+<a name="l00375"></a><a class="code" href="class_class_list.html#a4fba16405723ea6e310059fb617a3564">00375</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_list.html#a4fba16405723ea6e310059fb617a3564">listNewObjects</a>;
+<a name="l00376"></a>00376 
+<a name="l00380"></a><a class="code" href="class_class_list.html#a96cd0720ca58f25a4d4d6248cdcb5b50">00380</a>         <span class="keywordtype">object</span> <a class="code" href="class_class_list.html#a96cd0720ca58f25a4d4d6248cdcb5b50">getUnsolved</a>() { <span class="keywordflow">return</span> (<span class="keywordtype">object</span>)0; }
+<a name="l00381"></a>00381 };
 <a name="l00382"></a>00382 
-<a name="l00387"></a><a class="code" href="class_class_controller.html#a6b6fea1355d636aa89086194451561c7">00387</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_controller.html#a6b6fea1355d636aa89086194451561c7">lastLoad</a>(<span class="keywordtype">int</span> target) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)0; }
-<a name="l00388"></a>00388 
-<a name="l00391"></a><a class="code" href="class_class_controller.html#a1a782d1ee11550ad914e440db20d9c53">00391</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a1a782d1ee11550ad914e440db20d9c53">addDebate</a>() { }
-<a name="l00392"></a>00392 
-<a name="l00396"></a><a class="code" href="class_class_controller.html#a39c9ce9500f6028c46b0fc9dbae0cc79">00396</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a39c9ce9500f6028c46b0fc9dbae0cc79">loadSolution</a>(<a class="code" href="class_class_solution.html">ClassSolution</a> target) { }
-<a name="l00397"></a>00397 
-<a name="l00401"></a><a class="code" href="class_class_controller.html#a8bd2cb8b2cf6c9ec6bb5cf7e1b90074f">00401</a>         <span class="keywordtype">string</span> <a class="code" href="class_class_controller.html#a8bd2cb8b2cf6c9ec6bb5cf7e1b90074f">popCommentTarget</a>() { <span class="keywordflow">return</span> (<span class="keywordtype">string</span>)0; }
-<a name="l00402"></a>00402 };
-<a name="l00403"></a>00403 
-<a name="l00404"></a>00404 <span class="keywordtype">int</span> MemplexRegister;
-<a name="l00405"></a><a class="code" href="class_class_solution.html">00405</a> <span class="keyword">class </span><a class="code" href="class_class_solution.html">ClassSolution</a>
-<a name="l00406"></a>00406 {
-<a name="l00407"></a>00407 <span class="keyword">public</span>:
-<a name="l00408"></a><a class="code" href="class_class_solution.html#a3c9c7184fc1ee7f9906980027db5bcdc">00408</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#a3c9c7184fc1ee7f9906980027db5bcdc">ClassSolution</a>(<span class="keywordtype">void</span> Memplex) { }
-<a name="l00409"></a><a class="code" href="class_class_solution.html#ab6ac53419a0c5f7a1c9ea849fbe0d295">00409</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#ab6ac53419a0c5f7a1c9ea849fbe0d295">pro</a>;
-<a name="l00410"></a>00410 
-<a name="l00413"></a><a class="code" href="class_class_solution.html#a5af0111119e923bc9fdb44857537c81a">00413</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#a5af0111119e923bc9fdb44857537c81a">loadArguments</a>() { }
-<a name="l00414"></a><a class="code" href="class_class_solution.html#af823c63370b443d95dd928a80a4f1d48">00414</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#af823c63370b443d95dd928a80a4f1d48">object</a>;
-<a name="l00415"></a>00415 
-<a name="l00418"></a><a class="code" href="class_class_solution.html#a5ff6fc1efaba2a88f272fbf635a7979c">00418</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#a5ff6fc1efaba2a88f272fbf635a7979c">getObject</a>() { }
-<a name="l00419"></a><a class="code" href="class_class_solution.html#a6daa5fbff271f94413af858a651e8b6c">00419</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a6daa5fbff271f94413af858a651e8b6c">memplex</a>;
-<a name="l00420"></a><a class="code" href="class_class_solution.html#a4e20a8148825cfb1f2d1df27f49947cf">00420</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a4e20a8148825cfb1f2d1df27f49947cf">neutral</a>;
-<a name="l00421"></a>00421 
-<a name="l00425"></a><a class="code" href="class_class_solution.html#aeb7068efcf645e378c2226bc3e22a6d2">00425</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#aeb7068efcf645e378c2226bc3e22a6d2">bubbleShow</a>(JQueryElement JQueryElement) { }
-<a name="l00426"></a><a class="code" href="class_class_solution.html#a5253a66ff382700c5c4c46a8afdc9d9a">00426</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a5253a66ff382700c5c4c46a8afdc9d9a">contra</a>;
+<a name="l00383"></a><a class="code" href="class_class_debate_register.html">00383</a> <span class="keyword">class </span><a class="code" href="class_class_debate_register.html">ClassDebateRegister</a>
+<a name="l00384"></a>00384 {
+<a name="l00385"></a>00385 <span class="keyword">public</span>:
+<a name="l00386"></a><a class="code" href="class_class_debate_register.html#a76978614a1e34b9d0ff9e5483d85027a">00386</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_debate_register.html#a76978614a1e34b9d0ff9e5483d85027a">ClassDebateRegister</a>() { }
+<a name="l00387"></a>00387 
+<a name="l00392"></a><a class="code" href="class_class_debate_register.html#aff43e228a45cea3caf88467283abf62e">00392</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_debate_register.html#aff43e228a45cea3caf88467283abf62e">add</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <a class="code" href="class_class_debate.html">ClassDebate</a> debate) { }
+<a name="l00393"></a>00393 
+<a name="l00398"></a><a class="code" href="class_class_debate_register.html#ab963c2262d1f7611a850853b7b285459">00398</a>         <a class="code" href="class_class_debate.html">ClassDebate</a> <span class="keyword">get</span>(<span class="keywordtype">int</span> id) { <span class="keywordflow">return</span> (<a class="code" href="class_class_debate.html">ClassDebate</a>)0; }
+<a name="l00399"></a><a class="code" href="class_class_debate_register.html#a4723b3528970dbfe64eece73da92b11e">00399</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_debate_register.html#a4723b3528970dbfe64eece73da92b11e">debates</a>;
+<a name="l00400"></a>00400 };
+<a name="l00401"></a>00401 
+<a name="l00402"></a><a class="code" href="class_class_debate.html">00402</a> <span class="keyword">class </span><a class="code" href="class_class_debate.html">ClassDebate</a>
+<a name="l00403"></a>00403 {
+<a name="l00404"></a>00404 <span class="keyword">public</span>:
+<a name="l00405"></a><a class="code" href="class_class_debate.html#a419bfbef197f82d7212c833991283907">00405</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_debate.html#a419bfbef197f82d7212c833991283907">ClassDebate</a>(<span class="keywordtype">void</span> <a class="code" href="class_class_debate.html#a0c41a9333675907dcf8bba0d18f0104b">memplex</a>, <span class="keywordtype">void</span> full) { }
+<a name="l00406"></a><a class="code" href="class_class_debate.html#a7e29310ed347947306fad8740cab6919">00406</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_debate.html#a7e29310ed347947306fad8740cab6919">ul</a>;
+<a name="l00407"></a><a class="code" href="class_class_debate.html#a25bbb56253e03519f562dfd3bae70754">00407</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_debate.html#a25bbb56253e03519f562dfd3bae70754">hide</a>;
+<a name="l00408"></a><a class="code" href="class_class_debate.html#a9c398d2a1841f8c917f9e5a459bef222">00408</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_debate.html#a9c398d2a1841f8c917f9e5a459bef222">text</a>;
+<a name="l00409"></a>00409 
+<a name="l00413"></a><a class="code" href="class_class_debate.html#a6aa75b301da7b4b52598592bf22bb3ab">00413</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_debate.html#a6aa75b301da7b4b52598592bf22bb3ab">appendTo</a>(JQuery_HTML_Object <span class="keywordtype">object</span>) { }
+<a name="l00414"></a><a class="code" href="class_class_debate.html#a0c41a9333675907dcf8bba0d18f0104b">00414</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_debate.html#a0c41a9333675907dcf8bba0d18f0104b">memplex</a>;
+<a name="l00415"></a><a class="code" href="class_class_debate.html#a0992715859144995f52147c5c947d133">00415</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_debate.html#a0992715859144995f52147c5c947d133">title</a>;
+<a name="l00416"></a>00416 
+<a name="l00420"></a><a class="code" href="class_class_debate.html#a96d5ca8216b762ad4479503c60afc348">00420</a>         <span class="keywordtype">boolean</span> <a class="code" href="class_class_debate.html#a96d5ca8216b762ad4479503c60afc348">matchFilter</a>() { <span class="keywordflow">return</span> (<span class="keywordtype">boolean</span>)0; }
+<a name="l00421"></a>00421 };
+<a name="l00422"></a>00422 
+<a name="l00423"></a><a class="code" href="class_class_controller.html">00423</a> <span class="keyword">class </span><a class="code" href="class_class_controller.html">ClassController</a>
+<a name="l00424"></a>00424 {
+<a name="l00425"></a>00425 <span class="keyword">public</span>:
+<a name="l00426"></a><a class="code" href="class_class_controller.html#a5ddaacaf9c8f2c5c6b5b0ed7d27afb3f">00426</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a5ddaacaf9c8f2c5c6b5b0ed7d27afb3f">ClassController</a>() { }
 <a name="l00427"></a>00427 
-<a name="l00431"></a><a class="code" href="class_class_solution.html#a7ade5aee69c42ef2e1a00ce568c9c38b">00431</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#a7ade5aee69c42ef2e1a00ce568c9c38b">showComment</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) { }
-<a name="l00432"></a><a class="code" href="class_class_solution.html#a3a67f8cbae8e198a3d5413be8b2eb3e1">00432</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a3a67f8cbae8e198a3d5413be8b2eb3e1">text</a>;
-<a name="l00433"></a><a class="code" href="class_class_solution.html#a5a795c48131c5f515a108164f7b60664">00433</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a5a795c48131c5f515a108164f7b60664">activecomment</a>;
-<a name="l00434"></a><a class="code" href="class_class_solution.html#a7ce20fd132935d314f33b6515e22244d">00434</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a7ce20fd132935d314f33b6515e22244d">hidden</a>;
-<a name="l00435"></a>00435 
-<a name="l00440"></a><a class="code" href="class_class_solution.html#a6b77aa2bd78d0b93a75aca560f0a44c1">00440</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#a6b77aa2bd78d0b93a75aca560f0a44c1">loadCommentsRecursive</a>(Memplex <a class="code" href="class_class_solution.html#a6daa5fbff271f94413af858a651e8b6c">memplex</a>, Memplex parent) { }
-<a name="l00441"></a>00441 
-<a name="l00444"></a><a class="code" href="class_class_solution.html#a339ecd64acd282844535ef36d741da17">00444</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#a339ecd64acd282844535ef36d741da17">buttonCallback</a>() { }
-<a name="l00445"></a><a class="code" href="class_class_solution.html#a3a0d5d234a7b349b70f4f828c639c9b3">00445</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a3a0d5d234a7b349b70f4f828c639c9b3">list</a>;
-<a name="l00446"></a>00446 };
-<a name="l00447"></a>00447 
-<a name="l00448"></a><a class="code" href="class_class_solution_register.html">00448</a> <span class="keyword">class </span><a class="code" href="class_class_solution_register.html">ClassSolutionRegister</a>
-<a name="l00449"></a>00449 {
-<a name="l00450"></a>00450 <span class="keyword">public</span>:
-<a name="l00451"></a><a class="code" href="class_class_solution_register.html#a32e283b036ec307a0f6577d67a9c1b8c">00451</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution_register.html#a32e283b036ec307a0f6577d67a9c1b8c">ClassSolutionRegister</a>() { }
-<a name="l00452"></a>00452 
-<a name="l00457"></a><a class="code" href="class_class_solution_register.html#aaba4ed79b328447e2a6d361f5f165ba9">00457</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution_register.html#aaba4ed79b328447e2a6d361f5f165ba9">add</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <a class="code" href="class_class_solution.html">ClassSolution</a> solution) { }
-<a name="l00458"></a>00458 
-<a name="l00463"></a><a class="code" href="class_class_solution_register.html#ab2d86d34f17f49302b6acef9af0104e0">00463</a>         Solution <span class="keyword">get</span>(<span class="keywordtype">int</span> id) { <span class="keywordflow">return</span> (Solution)0; }
-<a name="l00464"></a><a class="code" href="class_class_solution_register.html#aad07dcf8962cf927292f1e45d5df2274">00464</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution_register.html#aad07dcf8962cf927292f1e45d5df2274">solutions</a>;
-<a name="l00465"></a>00465 };
-<a name="l00466"></a>00466 
-<a name="l00467"></a>00467 
+<a name="l00430"></a><a class="code" href="class_class_controller.html#a3840f262093abc322c7ecd2b7cd16265">00430</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a3840f262093abc322c7ecd2b7cd16265">loadList</a>() { }
+<a name="l00431"></a>00431 
+<a name="l00435"></a><a class="code" href="class_class_controller.html#afd84f7b4f521af0a6601b235b444512b">00435</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#afd84f7b4f521af0a6601b235b444512b">loadDebates</a>() { }
+<a name="l00436"></a>00436 
+<a name="l00441"></a><a class="code" href="class_class_controller.html#af9eeabf2615d230c6ef6ff9bcd0564ba">00441</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#af9eeabf2615d230c6ef6ff9bcd0564ba">setLastLoad</a>(<span class="keywordtype">int</span> target, <span class="keywordtype">int</span> time) { }
+<a name="l00442"></a><a class="code" href="class_class_controller.html#a4f6378f14b51a4d9d75f9ee95fcfde54">00442</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_controller.html#a4f6378f14b51a4d9d75f9ee95fcfde54">commentTarget</a>;
+<a name="l00443"></a>00443 
+<a name="l00447"></a><a class="code" href="class_class_controller.html#ad9e86333bfb553667a96610ba619c3ef">00447</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#ad9e86333bfb553667a96610ba619c3ef">storeToMemplex</a>(Memplex data) { }
+<a name="l00448"></a>00448 
+<a name="l00458"></a><a class="code" href="class_class_controller.html#a4c1abecd083574675e62cd7fd5cce83f">00458</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a4c1abecd083574675e62cd7fd5cce83f">addForm</a>(<span class="keywordtype">string</span> name, <span class="keywordtype">string</span> title, <span class="keywordtype">string</span> description, <span class="keywordtype">string</span>[] strings, <span class="keywordtype">int</span> parent, <span class="keywordtype">int</span> layer, <span class="keyword">function</span> callback) { }
+<a name="l00459"></a>00459 
+<a name="l00462"></a><a class="code" href="class_class_controller.html#a1a782d1ee11550ad914e440db20d9c53">00462</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a1a782d1ee11550ad914e440db20d9c53">addDebate</a>() { }
+<a name="l00463"></a>00463 
+<a name="l00467"></a><a class="code" href="class_class_controller.html#a8bd2cb8b2cf6c9ec6bb5cf7e1b90074f">00467</a>         <span class="keywordtype">string</span> <a class="code" href="class_class_controller.html#a8bd2cb8b2cf6c9ec6bb5cf7e1b90074f">popCommentTarget</a>() { <span class="keywordflow">return</span> (<span class="keywordtype">string</span>)0; }
+<a name="l00468"></a>00468 
+<a name="l00471"></a><a class="code" href="class_class_controller.html#a52565e79999714364f4f5dac33c8301e">00471</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a52565e79999714364f4f5dac33c8301e">addComment</a>(<span class="keywordtype">void</span> solutionid, <span class="keywordtype">void</span> layer) { }
+<a name="l00472"></a>00472 
+<a name="l00478"></a><a class="code" href="class_class_controller.html#ae44c4987e741e4e484dbc2d9c70aece9">00478</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#ae44c4987e741e4e484dbc2d9c70aece9">loadComment</a>(<a class="code" href="class_class_solution.html">ClassSolution</a> solution, <span class="keywordtype">int</span> target) { }
+<a name="l00479"></a>00479 
+<a name="l00485"></a><a class="code" href="class_class_controller.html#a5b5b6c7dc659fa922218df3d5b1120aa">00485</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a5b5b6c7dc659fa922218df3d5b1120aa">parseMemplex</a>(Memplex data, Memplex parent, <span class="keywordtype">boolean</span> trace) { }
+<a name="l00486"></a><a class="code" href="class_class_controller.html#ae3226a476249e1b0eb7a565f35998ec0">00486</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_controller.html#ae3226a476249e1b0eb7a565f35998ec0">lastload</a>;
+<a name="l00487"></a>00487 
+<a name="l00490"></a><a class="code" href="class_class_controller.html#ab0445a0c924470980241d70d195e254a">00490</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#ab0445a0c924470980241d70d195e254a">loadLocation</a>(<span class="keywordtype">void</span> location) { }
+<a name="l00491"></a>00491 
+<a name="l00495"></a><a class="code" href="class_class_controller.html#ac2ea4b2368c66c4ba055a398828897c3">00495</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#ac2ea4b2368c66c4ba055a398828897c3">addSolution</a>(<span class="keywordtype">int</span> debateid) { }
+<a name="l00496"></a>00496 
+<a name="l00501"></a><a class="code" href="class_class_controller.html#a6b6fea1355d636aa89086194451561c7">00501</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_controller.html#a6b6fea1355d636aa89086194451561c7">lastLoad</a>(<span class="keywordtype">int</span> target) { <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)0; }
+<a name="l00502"></a><a class="code" href="class_class_controller.html#af9f47ca827258fd6aaeb7a4e2ffa11e6">00502</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_controller.html#af9f47ca827258fd6aaeb7a4e2ffa11e6">lastAdded</a>;
+<a name="l00503"></a>00503 
+<a name="l00507"></a><a class="code" href="class_class_controller.html#a39c9ce9500f6028c46b0fc9dbae0cc79">00507</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_controller.html#a39c9ce9500f6028c46b0fc9dbae0cc79">loadSolution</a>(<a class="code" href="class_class_solution.html">ClassSolution</a> target) { }
+<a name="l00508"></a>00508 };
+<a name="l00509"></a>00509 
+<a name="l00510"></a>00510 
+<a name="l00513"></a>00513 <span class="keywordtype">int</span> List;
+<a name="l00514"></a>00514 <span class="keywordtype">int</span> MemplexRegister;
+<a name="l00515"></a><a class="code" href="class_class_solution.html">00515</a> <span class="keyword">class </span><a class="code" href="class_class_solution.html">ClassSolution</a>
+<a name="l00516"></a>00516 {
+<a name="l00517"></a>00517 <span class="keyword">public</span>:
+<a name="l00518"></a><a class="code" href="class_class_solution.html#a3c9c7184fc1ee7f9906980027db5bcdc">00518</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#a3c9c7184fc1ee7f9906980027db5bcdc">ClassSolution</a>(<span class="keywordtype">void</span> Memplex) { }
+<a name="l00519"></a><a class="code" href="class_class_solution.html#ab6ac53419a0c5f7a1c9ea849fbe0d295">00519</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#ab6ac53419a0c5f7a1c9ea849fbe0d295">pro</a>;
+<a name="l00520"></a>00520 
+<a name="l00523"></a><a class="code" href="class_class_solution.html#a5af0111119e923bc9fdb44857537c81a">00523</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#a5af0111119e923bc9fdb44857537c81a">loadArguments</a>() { }
+<a name="l00524"></a><a class="code" href="class_class_solution.html#af823c63370b443d95dd928a80a4f1d48">00524</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#af823c63370b443d95dd928a80a4f1d48">object</a>;
+<a name="l00525"></a>00525 
+<a name="l00528"></a><a class="code" href="class_class_solution.html#a5ff6fc1efaba2a88f272fbf635a7979c">00528</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#a5ff6fc1efaba2a88f272fbf635a7979c">getObject</a>() { }
+<a name="l00529"></a><a class="code" href="class_class_solution.html#a6daa5fbff271f94413af858a651e8b6c">00529</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a6daa5fbff271f94413af858a651e8b6c">memplex</a>;
+<a name="l00530"></a><a class="code" href="class_class_solution.html#a4e20a8148825cfb1f2d1df27f49947cf">00530</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a4e20a8148825cfb1f2d1df27f49947cf">neutral</a>;
+<a name="l00531"></a>00531 
+<a name="l00535"></a><a class="code" href="class_class_solution.html#aeb7068efcf645e378c2226bc3e22a6d2">00535</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#aeb7068efcf645e378c2226bc3e22a6d2">bubbleShow</a>(JQueryElement JQueryElement) { }
+<a name="l00536"></a><a class="code" href="class_class_solution.html#a5253a66ff382700c5c4c46a8afdc9d9a">00536</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a5253a66ff382700c5c4c46a8afdc9d9a">contra</a>;
+<a name="l00537"></a>00537 
+<a name="l00541"></a><a class="code" href="class_class_solution.html#a7ade5aee69c42ef2e1a00ce568c9c38b">00541</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#a7ade5aee69c42ef2e1a00ce568c9c38b">showComment</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) { }
+<a name="l00542"></a><a class="code" href="class_class_solution.html#a3a67f8cbae8e198a3d5413be8b2eb3e1">00542</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a3a67f8cbae8e198a3d5413be8b2eb3e1">text</a>;
+<a name="l00543"></a><a class="code" href="class_class_solution.html#a5a795c48131c5f515a108164f7b60664">00543</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a5a795c48131c5f515a108164f7b60664">activecomment</a>;
+<a name="l00544"></a><a class="code" href="class_class_solution.html#a7ce20fd132935d314f33b6515e22244d">00544</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a7ce20fd132935d314f33b6515e22244d">hidden</a>;
+<a name="l00545"></a>00545 
+<a name="l00550"></a><a class="code" href="class_class_solution.html#a6b77aa2bd78d0b93a75aca560f0a44c1">00550</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#a6b77aa2bd78d0b93a75aca560f0a44c1">loadCommentsRecursive</a>(Memplex <a class="code" href="class_class_solution.html#a6daa5fbff271f94413af858a651e8b6c">memplex</a>, Memplex parent) { }
+<a name="l00551"></a>00551 
+<a name="l00554"></a><a class="code" href="class_class_solution.html#a339ecd64acd282844535ef36d741da17">00554</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution.html#a339ecd64acd282844535ef36d741da17">buttonCallback</a>() { }
+<a name="l00555"></a><a class="code" href="class_class_solution.html#a3a0d5d234a7b349b70f4f828c639c9b3">00555</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution.html#a3a0d5d234a7b349b70f4f828c639c9b3">list</a>;
+<a name="l00556"></a>00556 };
+<a name="l00557"></a>00557 
+<a name="l00558"></a><a class="code" href="class_class_solution_register.html">00558</a> <span class="keyword">class </span><a class="code" href="class_class_solution_register.html">ClassSolutionRegister</a>
+<a name="l00559"></a>00559 {
+<a name="l00560"></a>00560 <span class="keyword">public</span>:
+<a name="l00561"></a><a class="code" href="class_class_solution_register.html#a32e283b036ec307a0f6577d67a9c1b8c">00561</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution_register.html#a32e283b036ec307a0f6577d67a9c1b8c">ClassSolutionRegister</a>() { }
+<a name="l00562"></a>00562 
+<a name="l00567"></a><a class="code" href="class_class_solution_register.html#aaba4ed79b328447e2a6d361f5f165ba9">00567</a>         <span class="keywordtype">void</span> <a class="code" href="class_class_solution_register.html#aaba4ed79b328447e2a6d361f5f165ba9">add</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <a class="code" href="class_class_solution.html">ClassSolution</a> solution) { }
+<a name="l00568"></a>00568 
+<a name="l00573"></a><a class="code" href="class_class_solution_register.html#ab2d86d34f17f49302b6acef9af0104e0">00573</a>         Solution <span class="keyword">get</span>(<span class="keywordtype">int</span> id) { <span class="keywordflow">return</span> (Solution)0; }
+<a name="l00574"></a><a class="code" href="class_class_solution_register.html#aad07dcf8962cf927292f1e45d5df2274">00574</a>         <span class="keywordtype">int</span> <a class="code" href="class_class_solution_register.html#aad07dcf8962cf927292f1e45d5df2274">solutions</a>;
+<a name="l00575"></a>00575 };
+<a name="l00576"></a>00576 
+<a name="l00577"></a>00577 
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -330,7 +378,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Wed Aug 15 2012 13:05:41 for BasDeM by
+    <li class="footer">Generated on Sun Aug 19 2012 17:24:15 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -182,6 +182,8 @@ ClassHelper.prototype.time = function(date) {
  * @tparam string title Title of the box.
  * @tparam string id HTML ID.
  * @tparam Object target Target object to append the box to.
+ * @tparam string url URL to link to.
+ * @tparam string adder Appended to the (possibly shortened) title.
  * @treturn string HTML code of the box.
  */
 ClassHelper.prototype.box = function(title,id,target,url,adder) {
@@ -314,6 +316,7 @@ ClassController.prototype.loadSolution = function(target) {
 /** Parse loaded Memplexes into MemplexRegister.
  * @tparam Memplex data Memplex to load.
  * @tparam Memplex parent The parent Memplex.
+ * @tparam boolean trace Determines if the last added memplex should be logged.
  */
 ClassController.prototype.parseMemplex = function(data,parent,trace) {
     if ( data.id === 0
@@ -1317,6 +1320,8 @@ ClassFilter.prototype.printFilters = function() {
     }
 }
 
+/** Reloads available filters.
+ */
 ClassFilter.prototype.refreshFilters = function() {
     this.filters = {};
     var filters = MemplexRegister.getLayer(2);
@@ -1327,6 +1332,9 @@ ClassFilter.prototype.refreshFilters = function() {
     }
 }
 
+/** Generates HTML code to display available filters, depending on their status.
+ * @treturn string HTML code.
+ */
 ClassFilter.prototype.getFilterSelector = function(id,callback,check) {
     if ( check == null ) {
         check = {};
@@ -1358,11 +1366,15 @@ ClassFilter.prototype.getFilterSelector = function(id,callback,check) {
     return content;
 }
 
+/** Callback method for the AND filter.
+ */
 ClassFilter.prototype.allofCallback = function() {
     Filter.allof = Filter.getSelected($( this ));
     Filter.printFilters();
 }
 
+/** Callback method for the OR filter.
+ */
 ClassFilter.prototype.oneofCallback = function() {
     Filter.oneof = Filter.getSelected($( this ));
     Filter.printFilters();
@@ -1435,7 +1447,7 @@ function ClassList() {
 var List = new ClassList();
 
 /** Adds the Memplex into the new list as necessary.
- * @tparam memplex Memplex to be added as necessary.
+ * @tparam Memplex memplex to be added as necessary.
  */
 ClassList.prototype.addNew = function(memplex) {
     var addall = false;
@@ -1450,7 +1462,7 @@ ClassList.prototype.addNew = function(memplex) {
 }
 
 /** Adds the Memplex into the unsolved list as necessary.
- * @tparam memplex Memplex to be added as necessary.
+ * @tparam Memplex memplex to be added as necessary.
  */
 ClassList.prototype.addUnsolved = function(memplex) {
     var addall = false;
@@ -1465,7 +1477,8 @@ ClassList.prototype.addUnsolved = function(memplex) {
 }
 
 /** Adds the Memplex or its parent into the latest list as necessary.
- * @tparam memplex Memplex to be added as necessary.
+ * @tparam Memplex memplex to be added as necessary.
+ * @tparam int overwrite ID to be overwritten in the lists.
  */
 ClassList.prototype.addLatest = function(memplex,overwrite) {
     if ( overwrite == null ) {
@@ -1499,7 +1512,7 @@ ClassList.prototype.addLatest = function(memplex,overwrite) {
 }
 
 /** Adds the Memplex into all necessary lists.
- * @tparam memplex Memplex to be added as necessary.
+ * @tparam Memplex memplex to be added as necessary.
  */
 ClassList.prototype.add = function(memplex) {
     switch ( memplex.layer ) {
@@ -1523,9 +1536,11 @@ ClassList.prototype.add = function(memplex) {
 }
 
 /** Adds the Memplex into the specified lists and sorts them.
- * @tparam array Sorted List.
- * @tparam object Unsorted List.
- * @tparam Int Memplex ID to be added.
+ * @tparam array sorted Sorted List.
+ * @tparam object unsorted Unsorted List.
+ * @tparam int id Memplex ID to be added.
+ * @tparam int overwrite ID to be overwritten in the lists.
+ * @tparam array reverse XXX: whatever, it is too hot to write documentation.
  */
 ClassList.prototype.addSorted = function(sorted,unsorted,id,overwrite,reverse) {
     if ( overwrite == null ) {

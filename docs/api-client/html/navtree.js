@@ -7,6 +7,7 @@ var NAVTREE =
       [ "ClassDebateRegister", "class_class_debate_register.html", null ],
       [ "ClassFilter", "class_class_filter.html", null ],
       [ "ClassHelper", "class_class_helper.html", null ],
+      [ "ClassList", "class_class_list.html", null ],
       [ "ClassMemplexRegister", "class_class_memplex_register.html", null ],
       [ "ClassSolution", "class_class_solution.html", null ],
       [ "ClassSolutionRegister", "class_class_solution_register.html", null ],

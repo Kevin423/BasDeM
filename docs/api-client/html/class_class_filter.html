@@ -110,7 +110,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#acef57d031f93f1243abd9abc85110b30">ClassFilter</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a4e9be35f89ff8771720ca1ab02803467">allofCallback</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a222c6b8b3418e0110abc98f518ab69b8">printFilters</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a995fdb567d6261c832ff12e5896136b7">getFilterSelector</a> (void id, void callback, void check)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#af3191eac738a9f8454fae80e0e1ea55b">getFilterSelector</a> (void id, void callback, void check)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a4226919abfe1f91497cb011befe599f3">match</a> (int[] nodes)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a172ae4b800555835fa694acd3e8feb88">oneofCallback</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#aab27073f215fc5695c8ef756913d0a73">refreshFilters</a> ()</td></tr>
@@ -156,6 +156,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Callback method for the AND filter. </p>
 
 </div>
 </div>
@@ -176,12 +177,12 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a995fdb567d6261c832ff12e5896136b7"></a><!-- doxytag: member="ClassFilter::getFilterSelector" ref="a995fdb567d6261c832ff12e5896136b7" args="(void id, void callback, void check)" -->
+<a class="anchor" id="af3191eac738a9f8454fae80e0e1ea55b"></a><!-- doxytag: member="ClassFilter::getFilterSelector" ref="af3191eac738a9f8454fae80e0e1ea55b" args="(void id, void callback, void check)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ClassFilter::getFilterSelector </td>
+          <td class="memname">string ClassFilter::getFilterSelector </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"><em>id</em>, </td>
@@ -206,6 +207,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Generates HTML code to display available filters, depending on their status. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>HTML code. </dd></dl>
 
 </div>
 </div>
@@ -272,6 +275,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Callback method for the OR filter. </p>
 
 </div>
 </div>
@@ -305,6 +309,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Reloads available filters. </p>
 
 </div>
 </div>
@@ -383,7 +388,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Aug 15 2012 13:05:41 for BasDeM by
+    <li class="footer">Generated on Sun Aug 19 2012 17:24:15 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
