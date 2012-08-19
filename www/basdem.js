@@ -169,9 +169,12 @@ ClassHelper.prototype.time = function(date) {
  * @tparam Object target Target object to append the box to.
  * @treturn string HTML code of the box.
  */
-ClassHelper.prototype.box = function(title,id,target) {
+ClassHelper.prototype.box = function(title,id,target,url) {
     if ( title.length > 45 ) {
         title = title.substr(0,42) + '...';
+    }
+    if ( url != null ) {
+        title = '<a href="' + url + '">' + title + '</a>';
     }
     var div = $('<div id="' + id + '" class="solutionargument padded">' + title + '</div>')
         .appendTo(target);
@@ -1038,8 +1041,13 @@ ClassSolution.prototype.loadArguments = function() {
             case 6: li.appendTo(this.contra); break;
             case 7: li.appendTo(this.neutral); break;
         }
-
-        var div = Helper.box(child.title,'solution' + this.memplex.id + 'comment' + child.id,li)
+        
+        var parent = null;
+        var parents = MemplexRegister.getParents(this.memplex.id);
+        for ( p in parents ) {
+            parent = parents[p];
+        }
+        var div = Helper.box(child.title,'solution' + this.memplex.id + 'comment' + child.id,li,'#debate' + parent + 'solution' + this.memplex.id + 'comment' + child.id)
             .click(function(data) {
                 var id = Helper.getSecondIdFromString(data.currentTarget.id);
                 var sid = Helper.getIdFromString(data.currentTarget.id);
@@ -1143,7 +1151,7 @@ function ClassDebate(memplex,full) {
     this.hide = null;
     this.ul = null;
     
-    this.title = $('<h3 id="' + adder + 'debate' + this.memplex.id + 'title" class=""><a href="#">' + this.memplex.title + '</a></h3>');
+    this.title = $('<h3 id="' + adder + 'debate' + this.memplex.id + 'title" class=""><a href="#debate' + this.memplex.id + '">' + this.memplex.title + '</a></h3>');
     this.hide = $('<div id="' + adder + 'debate' + this.memplex.id + 'hide" class="hidden">');
     this.text = $('<div id="' + adder + 'debate' + this.memplex.id + 'text" class="debatetext">').appendTo(this.hide);
     
@@ -1159,7 +1167,7 @@ function ClassDebate(memplex,full) {
 
     for ( c in childs ) {
         var child = MemplexRegister.get(childs[c]);
-        var li = $('<li id="solution' + child.id + '" class="padded debatesolution">' + child.title + '</li>')
+        var li = $('<li id="solution' + child.id + '" class="padded debatesolution"><a href="#debate' + this.memplex.id + 'solution' + child.id + '">' + child.title + '</a></li>')
             .appendTo(this.ul)
             .click(function(data) {
                 var id = Helper.getIdFromString(data.currentTarget.id);
