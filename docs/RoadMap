@@ -10,35 +10,37 @@ Pirate Party assembly in Bochum (BPT12.2).
 
 === ToDo ===
 ==== Coding ====
+===== 0.1 =====
 * install script
 * sql moderation procedures
+* user preferences UI
 * add Meta overview like Debatte.png
 * add database version to the db, to enable future upgrades
 
-===== Future =====
+===== 1.0 =====
+* moderation UI
 * rating system for debates, solutions, arguments, comments
 * enhance filter system
+** creating filters UI
+** better filter UI
 * enhance login system
 ** security check for database changes based on userrights
+* enable browser navigation
+* design according to mockups
+
+===== post 1.0 =====
+* editing arguments, solutions, etc
+* login system with different plugins (ldap, kerberos, etc etc)
+* using Pirate ID for login
+* possibility to post updated solutions and mark the old one as outdated
+* BasDeM update notifications
 
 ==== Quality assurance & community management====
-* i18n
 * tests
 * setting up mailing list
-* setting up Bugzilla
 * setting up Jenkins
 * automatically generate documentation on our server
 
 ==== Marketing ====
-* web site(wordpress set up)
+* web site (wordpress set up)
 ** FAQ
-** imprint
-** demo installation (done)
-
-=== Future features ===
-* editing arguments, solutions, etc
-* using Pirate ID for login
-* possibility to post updated solutions and mark the old one as outdated
-* way to post updated solutions
-* BasDeM update notifications
-
