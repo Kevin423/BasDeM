@@ -187,9 +187,9 @@ ClassHelper.prototype.time = function(date) {
  * @treturn string HTML code of the box.
  */
 ClassHelper.prototype.box = function(title,id,target,url,adder) {
-    if ( title.length > 45 ) {
-        title = title.substr(0,42) + '...';
-    }
+    // if ( title.length > 45 ) {
+        // title = title.substr(0,42) + '...';
+    // }
     if ( adder != null ) {
         title = title + ' (' + adder + ')';
     }
