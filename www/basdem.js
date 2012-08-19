@@ -176,6 +176,7 @@ ClassHelper.prototype.box = function(title,id,target) {
 function ClassController() {
     this.commentTarget = null;
     this.lastload = {};
+    this.lastAdded = {};
 }
 
 /** Static Controller object.
@@ -190,11 +191,23 @@ ClassController.prototype.loadDebates = function() {
         {id: 1,time:  Controller.lastLoad(1)},
         function(data) { // data returned by server
             var json = $.parseJSON(data);
+            if ( json === null ) {
+                return;
+            }
             Controller.parseMemplex(json.data,null);
             Controller.setLastLoad(json.data.id,json.time);
+            Controller.loadList();
             View.loadDebates();
-            View.loadList(MemplexRegister.getLayer(3),'#listNew');
         });
+}
+
+/** Async load Debates into Storage then trigger View for loading of debates.
+ * This one is being called upon initialization. Loads the top node (ID 1).
+ */
+ClassController.prototype.loadList = function() {
+    View.loadList(List.getNew(),'#listNew');
+    View.loadList(List.getUnsolved(),'#listUnsolved');
+    View.loadList(List.getLatest(),'#listLatest');
 }
    
 /** Load solution into storage then trigger View for loading of commentTarget.
@@ -224,8 +237,12 @@ ClassController.prototype.loadSolution = function(target) {
         {id: target,time: Controller.lastLoad(target)},
         function(data) {
             var json = $.parseJSON(data);
+            if ( json === null ) {
+                return;
+            }
             Controller.parseMemplex(json.data,null);
             Controller.setLastLoad(json.data.id,json.time);
+            Controller.loadList();
             View.loadSolution(json.data.id);
         });
 }
@@ -234,7 +251,7 @@ ClassController.prototype.loadSolution = function(target) {
  * @tparam Memplex data Memplex to load.
  * @tparam Memplex parent The parent Memplex.
  */
-ClassController.prototype.parseMemplex = function(data,parent) {
+ClassController.prototype.parseMemplex = function(data,parent,trace) {
     if ( data.id === 0
         || data.title === 0 
         || data.text === 0 
@@ -242,9 +259,15 @@ ClassController.prototype.parseMemplex = function(data,parent) {
         console.log('Faulty data',data,parent);
         return;
     }
+    if ( trace === true ) {
+        if ( parent === null ) {
+            this.lastAdded = {};
+        }
+        this.lastAdded[Helper.objectCount(this.lastAdded)] = data.id;
+    }
     MemplexRegister.add(data,parent);
     for ( c in data.children ) {
-        Controller.parseMemplex(data.children[c],data);
+        Controller.parseMemplex(data.children[c],data,trace);
     }
 }
     
@@ -281,6 +304,7 @@ ClassController.prototype.storeToMemplex = function(data) {
                 Controller.commentTarget = json.createdid;
                 View.activeDebate = json.createdid;
             }
+            Controller.loadList();
             switch ( json.data.layer ) {
                 case 1: View.loadDebates(); break; 
                 case 4: View.loadSolution(json.data.id); break;
@@ -542,7 +566,9 @@ ClassMemplexRegister.prototype.add = function(memplex,parent) {
         this.layerlistreverse[memplex.id] = memplex.layer;
         this.layerlist[memplex.layer][Helper.objectCount(this.layerlist[memplex.layer])] = memplex.id;
     }
-
+    
+    List.add(memplex);
+    
     this.memplexes[memplex.id] = new function() {
         this.id = memplex.id;
         this.author = memplex.author;
@@ -1127,7 +1153,6 @@ ClassDebate.prototype.matchFilter = function() {
     return Filter.match(parents);
 }
 
-
 /** @class ClassFilter
  * ClassFilter implements filtering of debates.
  * During runtime the filter can be accessed using the static Filter object.
@@ -1301,3 +1326,176 @@ ClassFilter.prototype.getSelected = function(id) {
     }
     return ret;
 }
+
+/** @class ClassList
+ * ClassList manages the list data in the west panel.
+ * During runtime the Lists can be accessed using the static List object.
+ */
+function ClassList() {
+    this.defaultLength = 5;
+    this.listNew = [];
+    this.listNewObjects = {};
+    this.listLatest = [];
+    this.listLatestObjects = {};
+    this.listLatestObjectsReverse = {};
+    this.listUnsolved = [];
+    this.listUnsolvedObjects = {};
+}
+
+/** Static List object.
+ */
+var List = new ClassList();
+
+/** Adds the Memplex into the new list as necessary.
+ * @tparam memplex Memplex to be added as necessary.
+ */
+ClassList.prototype.addNew = function(memplex) {
+    var addall = false;
+    // If list is shorter than wanted, just add everything that isn't in it yet
+    if ( this.listNew.length < this.defaultLength ) {
+        addall = true;
+    }
+    // If memplex is newer than oldest listentry delete oldest and add newer.
+    if ( addall || memplex.id > this.listNew[0] ) {
+        this.addSorted(this.listNew,this.listNewObjects,memplex.id);
+    }
+}
+
+/** Adds the Memplex into the unsolved list as necessary.
+ * @tparam memplex Memplex to be added as necessary.
+ */
+ClassList.prototype.addUnsolved = function(memplex) {
+    var addall = false;
+    // If list is shorter than wanted, just add everything that isn't in it yet
+    if ( this.listUnsolved.length < this.defaultLength ) {
+        addall = true;
+    }
+    // If memplex is newer than oldest listentry delete oldest and add newer.
+    if ( addall || memplex.id > this.listUnsolved[0] ) {
+        this.addSorted(this.listUnsolved,this.listUnsolvedObjects,memplex.id);
+    }
+}
+
+/** Adds the Memplex or its parent into the latest list as necessary.
+ * @tparam memplex Memplex to be added as necessary.
+ */
+ClassList.prototype.addLatest = function(memplex,overwrite) {
+    if ( overwrite == null ) {
+        overwrite = memplex.id;
+    }
+    if ( memplex.layer > 3 ) {
+        var parents = MemplexRegister.getParents(memplex.id);
+        var parent = null;
+        for ( p in parents ) {
+            var tmp = MemplexRegister.get(parents[p]);
+            if ( tmp.layer == memplex.layer - 1 ) {
+                parent = tmp;
+                break;
+            }
+            console.log(parents[p]);
+        }
+        if ( parent == null ) {
+            return;
+        }
+        return this.addLatest(parent,overwrite);
+    }
+    
+    var addall = false;
+    // If list is shorter than wanted, just add everything that isn't in it yet
+    if ( this.listLatest.length < this.defaultLength ) {
+        addall = true;
+    }
+    // If memplex is newer than oldest listentry delete oldest and add newer.
+    if ( addall || memplex.id > this.listLatest[0] ) {
+        this.addSorted(this.listLatest,this.listLatestObjects,memplex.id,overwrite,this.listLatestObjectsReverse);
+    }
+}
+
+/** Adds the Memplex into all necessary lists.
+ * @tparam memplex Memplex to be added as necessary.
+ */
+ClassList.prototype.add = function(memplex) {
+    switch ( memplex.layer ) {
+        case 3:
+            this.addLatest(memplex);
+            this.addNew(memplex);
+            if ( Helper.objectCount(memplex.children) == 0 ) {
+                this.addUnsolved(memplex);
+            }
+        break;
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+            this.addLatest(memplex);
+        break;
+        default:
+        return;
+    }
+}
+
+/** Adds the Memplex into the specified lists and sorts them.
+ * @tparam array Sorted List.
+ * @tparam object Unsorted List.
+ * @tparam Int Memplex ID to be added.
+ */
+ClassList.prototype.addSorted = function(sorted,unsorted,id,overwrite,reverse) {
+    if ( overwrite == null ) {
+        overwrite = id;
+    }
+    if ( unsorted[overwrite] == id ) {
+        return;
+    }
+    unsorted[overwrite] = id;
+    
+    if ( reverse != null ) {
+        if ( reverse[id] != null ) {
+            return;
+        }
+        reverse[id] = overwrite;
+    }
+    
+    sorted[sorted.length] = overwrite;
+    sorted.sort(function (a,b) {
+        return a - b;
+    });
+    if ( sorted.length > this.defaultLength ) {
+        delete(unsorted[sorted.shift()]);
+    }
+}
+
+/** Get the new Memplexes.
+ * @treturn object Sorted List.
+ */
+ClassList.prototype.getNew = function() {
+    var tmp = {};
+    for ( l in this.listNew ) {
+        tmp[this.listNew[l]] = this.listNew[l];
+    }
+    return tmp;
+}
+
+/** Get the latest Memplexes.
+ * @treturn object Sorted List.
+ */
+ClassList.prototype.getLatest = function() {
+    var tmp = {};
+    for ( l in this.listLatest ) {
+        tmp[this.listLatest[l]] = this.listLatest[l];
+    }
+    return tmp;
+}
+
+/** Get the unsolved Memplexes.
+ * @treturn object Sorted List.
+ */
+ClassList.prototype.getUnsolved = function() {
+    var tmp = {};
+    for ( l in this.listUnsolved ) {
+        tmp[this.listUnsolved[l]] = this.listUnsolved[l];
+    }
+    return tmp;
+}
+
