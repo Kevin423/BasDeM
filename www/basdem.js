@@ -697,6 +697,8 @@ ClassView.prototype.layout = function() {
         north__minSize: 36,
         west__size: 'auto',
         defaults: {
+            togglerLength_open: -1,
+            togglerLength_closed: -1,
             spacing_closed: 10,
             spacing_open: 10
         }
