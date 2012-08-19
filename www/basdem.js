@@ -696,6 +696,7 @@ ClassView.prototype.layout = function() {
         west__minSize: 380,
         north__minSize: 36,
         west__size: 'auto',
+        enableCursorHotkey: false,
         defaults: {
             togglerLength_open: -1,
             togglerLength_closed: -1,
