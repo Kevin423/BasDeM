@@ -10,7 +10,11 @@ function load(){
     
     View.layout();
     View.paintButtons();
-    Controller.loadDebates();
+    if ( document.location.hash.length > 0 ) {
+        Controller.loadLocation(document.location.hash);
+    } else {
+        Controller.loadDebates();
+    }
 }
 window.onload = load;
 </script>

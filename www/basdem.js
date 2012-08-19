@@ -46,6 +46,19 @@ ClassHelper.prototype.getSecondIdFromString = function(string) {
     }
     return parseInt(result[2]);
 }
+
+/** Get the third complete set of digits in a string.
+ *   @tparam string string String to search for the digits.
+ *   @treturn int ID.
+ */
+ClassHelper.prototype.getThirdIdFromString = function(string) {
+    var search = /(\d+)[^0-9]+(\d+)[^0-9]+(\d+)/;
+    var result = search.exec(string);
+    if ( result == null ) {
+        return null;
+    }
+    return parseInt(result[3]);
+}
     
 /** Get the first complete set of digits in a string.
  *   @tparam string string String to search in.
@@ -183,6 +196,36 @@ function ClassController() {
  */
 var Controller = new ClassController();
 
+/** Async load specified location into Storage then trigger View for loading of it.
+ */
+ClassController.prototype.loadLocation = function(location) {
+    this.location = location;
+    $.post("memplex.php",
+        {id: 1,time:  Controller.lastLoad(1)},
+        function(data) { // data returned by server
+            var json = $.parseJSON(data);
+            if ( json === null ) {
+                return;
+            }
+            Controller.parseMemplex(json.data,null);
+            Controller.setLastLoad(json.data.id,json.time);
+            Controller.loadList();
+            var dID = Helper.getIdFromString(Controller.location);
+            var sID = Helper.getSecondIdFromString(Controller.location);
+            var cID = Helper.getThirdIdFromString(Controller.location);
+            if ( typeof dID == 'number' && !isNaN(dID) ) {
+                View.activeDebate = dID;
+            }
+            View.loadDebates();
+            if ( typeof sID == 'number' && !isNaN(sID) ) {
+                if ( typeof cID == 'number' && !isNaN(cID) ) {
+                    Controller.commentTarget = cID;
+                }
+                Controller.loadSolution(sID);
+            }
+        });
+}
+
 /** Async load Debates into Storage then trigger View for loading of debates.
  * This one is being called upon initialization. Loads the top node (ID 1).
  */
@@ -201,8 +244,7 @@ ClassController.prototype.loadDebates = function() {
         });
 }
 
-/** Async load Debates into Storage then trigger View for loading of debates.
- * This one is being called upon initialization. Loads the top node (ID 1).
+/** Trigger loading of Lists.
  */
 ClassController.prototype.loadList = function() {
     View.loadList(List.getNew(),'#listNew');
@@ -244,6 +286,7 @@ ClassController.prototype.loadSolution = function(target) {
             Controller.setLastLoad(json.data.id,json.time);
             Controller.loadList();
             View.loadSolution(json.data.id);
+            Controller.commentTarget = null;
         });
 }
     
