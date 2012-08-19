@@ -680,6 +680,7 @@ ClassView.prototype.loadList = function(memplexes,list) {
     mycontent.accordion({
         collapsible: true,
         active: act,
+        autoHeight: false,
         change: function(event,ui) {
             View.activeDebate = Helper.getIdFromString(ui.newContent.attr('id'));
             // TODO: Sanitize...
