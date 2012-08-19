@@ -10,19 +10,16 @@ Pirate Party assembly in Bochum (BPT12.2).
 
 === ToDo ===
 ==== Coding ====
-* login system
-** security check for database changes
-* adding debates, solutions, arguments, comments
-* rating system for debates, solutions, arguments, comments
-* filter system
-** creating filters
-* make it possible to unselect filters
-* hot/new/unsolved area
 * install script
 * sql moderation procedures
 * add Meta overview like Debatte.png
 * add database version to the db, to enable future upgrades
-* make it possible to link directly to a debate/solution/argument
+
+===== Future =====
+* rating system for debates, solutions, arguments, comments
+* enhance filter system
+* enhance login system
+** security check for database changes based on userrights
 
 ==== Quality assurance & community management====
 * i18n

@@ -47,6 +47,21 @@ ClassHelper.prototype.getSecondIdFromString = function(string) {
     return parseInt(result[2]);
 }
 
+/** Get the reverse childcount of this memplex.
+ *   @tparam memplex memplex Memplex containing the topnode to be counted.
+ *   @treturn int count.
+ */
+ClassHelper.prototype.getRecursiveChildCount = function(memplex) {
+    if ( memplex.children == null ) {
+        return 0;
+    }
+    var tmp = 0;
+    for ( c in memplex.children ) {
+        tmp += 1 + Helper.getRecursiveChildCount(MemplexRegister.get(memplex.children[c]));
+    }
+    return tmp;
+}
+
 /** Get the third complete set of digits in a string.
  *   @tparam string string String to search for the digits.
  *   @treturn int ID.
@@ -169,9 +184,12 @@ ClassHelper.prototype.time = function(date) {
  * @tparam Object target Target object to append the box to.
  * @treturn string HTML code of the box.
  */
-ClassHelper.prototype.box = function(title,id,target,url) {
+ClassHelper.prototype.box = function(title,id,target,url,adder) {
     if ( title.length > 45 ) {
         title = title.substr(0,42) + '...';
+    }
+    if ( adder != null ) {
+        title = title + ' (' + adder + ')';
     }
     if ( url != null ) {
         title = '<a href="' + url + '">' + title + '</a>';
@@ -608,12 +626,10 @@ ClassMemplexRegister.prototype.add = function(memplex,parent) {
     if ( this.layerlist[memplex.layer] == null ) {
         this.layerlist[memplex.layer] = {};
     }
-    if ( this.layerlistreverse[memplex.id] == null ) { // TODO: Justus says this is wrong
+    if ( this.layerlistreverse[memplex.id] == null ) {
         this.layerlistreverse[memplex.id] = memplex.layer;
         this.layerlist[memplex.layer][Helper.objectCount(this.layerlist[memplex.layer])] = memplex.id;
     }
-    
-    List.add(memplex);
     
     this.memplexes[memplex.id] = new function() {
         this.id = memplex.id;
@@ -626,6 +642,7 @@ ClassMemplexRegister.prototype.add = function(memplex,parent) {
             this.children[c] = memplex.children[c].id;
         }
     }
+    List.add(memplex);
 }
 
 /** Get all MemplexIDs with the param layer.
@@ -1047,7 +1064,13 @@ ClassSolution.prototype.loadArguments = function() {
         for ( p in parents ) {
             parent = parents[p];
         }
-        var div = Helper.box(child.title,'solution' + this.memplex.id + 'comment' + child.id,li,'#debate' + parent + 'solution' + this.memplex.id + 'comment' + child.id)
+        var div = Helper.box(
+            child.title,
+            'solution' + this.memplex.id + 'comment' + child.id,
+            li,
+            '#debate' + parent + 'solution' + this.memplex.id + 'comment' + child.id,
+            Helper.getRecursiveChildCount(child)
+        )
             .click(function(data) {
                 var id = Helper.getSecondIdFromString(data.currentTarget.id);
                 var sid = Helper.getIdFromString(data.currentTarget.id);
@@ -1167,7 +1190,20 @@ function ClassDebate(memplex,full) {
 
     for ( c in childs ) {
         var child = MemplexRegister.get(childs[c]);
-        var li = $('<li id="solution' + child.id + '" class="padded debatesolution"><a href="#debate' + this.memplex.id + 'solution' + child.id + '">' + child.title + '</a></li>')
+        var li = $('<li id="solution' 
+            + child.id 
+            + '" class="padded debatesolution"><a href="#debate' 
+            + this.memplex.id 
+            + 'solution' 
+            + child.id 
+            + '">' 
+            + child.title 
+            /* TODO: Insert once child count is available at this stage?
+             (' 
+            + Helper.getRecursiveChildCount(child) 
+            + ')
+            */
+            + '</a></li>')
             .appendTo(this.ul)
             .click(function(data) {
                 var id = Helper.getIdFromString(data.currentTarget.id);
