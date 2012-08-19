@@ -1332,7 +1332,7 @@ ClassFilter.prototype.getSelected = function(id) {
  * During runtime the Lists can be accessed using the static List object.
  */
 function ClassList() {
-    this.defaultLength = 5;
+    this.defaultLength = 10;
     this.listNew = [];
     this.listNewObjects = {};
     this.listLatest = [];
@@ -1417,7 +1417,6 @@ ClassList.prototype.addLatest = function(memplex,overwrite) {
 ClassList.prototype.add = function(memplex) {
     switch ( memplex.layer ) {
         case 3:
-            this.addLatest(memplex);
             this.addNew(memplex);
             if ( Helper.objectCount(memplex.children) == 0 ) {
                 this.addUnsolved(memplex);
@@ -1483,7 +1482,7 @@ ClassList.prototype.getNew = function() {
 ClassList.prototype.getLatest = function() {
     var tmp = {};
     for ( l in this.listLatest ) {
-        tmp[this.listLatest[l]] = this.listLatest[l];
+        tmp[this.listLatestObjects[this.listLatest[l]]] = this.listLatestObjects[this.listLatest[l]];
     }
     return tmp;
 }
