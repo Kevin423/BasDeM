@@ -174,3 +174,4 @@ li .comment {
     left: 50%;
     margin-left: -250px;
 }
+.ui-selected { background: url("images/ui-bg_inset-hard_75_999999_1x100.png") repeat-x scroll 50% bottom !important; }
