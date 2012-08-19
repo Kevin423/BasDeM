@@ -649,7 +649,7 @@ ClassView.prototype.layout = function() {
     $('<div id="listLatest">').appendTo('#list');
     $('<div id="listUnsolved">').appendTo('#list');
     
-    $('#list').tabs();
+    $('#list').tabs().removeClass('ui-corner-all');
 }
 
 /** Loads all memplexes in the list into their respective div.
@@ -814,8 +814,6 @@ ClassView.prototype.paintButtons = function() {
 ClassView.prototype.popup = function(height,width,title,content,button,focus) {
     $('#viewpopup').remove();
     
-    console.log(button);
-    
     var popup = $('<div id="viewpopup" title="' + title + '">')
        .dialog({
             resizable: false,
@@ -905,16 +903,16 @@ function ClassSolution(Memplex) {
         $('<span>'+Helper.getLang('lang_noArgCon')+'</p>').appendTo(this.contra);
     }
 
-    var buttonpro = $('<div id="solution' + this.memplex.id + 'buttonspro"></div><br>').appendTo(this.pro);
-    var buttonneutral = $('<div id="solution' + this.memplex.id + 'buttonsneutral"></div><br>').appendTo(this.neutral);
-    var buttoncontra = $('<div id="solution' + this.memplex.id + 'buttonscontra"></div><br>').appendTo(this.contra);
+    // var buttonpro = $('<div id="solution' + this.memplex.id + 'buttonspro"></div><br>').appendTo(this.pro);
+    // var buttonneutral = $('<div id="solution' + this.memplex.id + 'buttonsneutral"></div><br>').appendTo(this.neutral);
+    // var buttoncontra = $('<div id="solution' + this.memplex.id + 'buttonscontra"></div><br>').appendTo(this.contra);
 
     // Pro Button
-    Helper.createButton(Helper.getLang('lang_argPro'),null,buttonpro,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 5);
+    Helper.createButton(Helper.getLang('lang_argPro'),null,this.text,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 5);
     // Neutral Button
-    Helper.createButton(Helper.getLang('lang_argNeut'),null,buttonneutral,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 7);
+    Helper.createButton(Helper.getLang('lang_argNeut'),null,this.text,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 7);
     // Contra Button
-    Helper.createButton(Helper.getLang('lang_argCon'),null,buttoncontra,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 6);
+    Helper.createButton(Helper.getLang('lang_argCon'),null,this.text,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 6);
 
     SolutionRegister.add(this.memplex.id,this);
 }
@@ -938,14 +936,7 @@ ClassSolution.prototype.showComment = function(id) {
     if ( View.activecommentbutton != null ) {
         View.activecommentbutton.remove();
     }
-    View.activecommentbutton = Helper.createButton(
-            Helper.getLang('lang_answer'),
-            null,
-            '#menu',
-            'floatright',
-            this.buttonCallback,
-            'comment' + id + 'buttonadd' + 8
-    );
+    
     this.activecomment = id;
     var a = $('#solution' + this.memplex.id + 'comment' + id);
 
@@ -962,6 +953,15 @@ ClassSolution.prototype.showComment = function(id) {
 
     Helper.window($('<div class="padded bigfont">' + comment.title + '</div>').appendTo(this.text),'all');
     Helper.window($('<div class="padded">' + comment.text + '</div>').appendTo(this.text),'all');
+    
+    View.activecommentbutton = Helper.createButton(
+            Helper.getLang('lang_answer'),
+            null,
+            '#solution' + this.memplex.id + 'text',
+            'floatright',
+            this.buttonCallback,
+            'comment' + id + 'buttonadd' + 8
+    );
 }
 
 /** Walks through all parent comment nodes until it finds and shows the hidden topnode.
@@ -1392,7 +1392,6 @@ ClassList.prototype.addLatest = function(memplex,overwrite) {
                 parent = tmp;
                 break;
             }
-            console.log(parents[p]);
         }
         if ( parent == null ) {
             return;

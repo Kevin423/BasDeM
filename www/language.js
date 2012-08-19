@@ -24,17 +24,17 @@ switch ( target ) {
     case 'de_DE':
         switch ( lang ) {
             case 'lang_allFilter': return 'Beitrag erf&uuml;llt alle hier ausgew&auml;hlten Filter:';
-            case 'lang_answer': return 'Antworten';
-            case 'lang_argPro': return 'Pro Argument hinzuf&uuml;gen';
-            case 'lang_argNeut': return 'Neue Antwort hinzuf&uuml;gen';
-            case 'lang_argCon': return 'Contra Argument hinzuf&uuml;gen';
+            case 'lang_answer': return 'Erg&auml;nzen';
+            case 'lang_argPro': return 'Best&auml;rken';
+            case 'lang_argNeut': return 'Erg&auml;nzen';
+            case 'lang_argCon': return 'Entgegnen';
             case 'lang_author': return 'Autor';
             case 'lang_back': return 'zur&uuml;ck';
             case 'lang_cancel': return 'Abbrechen';
-            case 'lang_createArgumentPro': return 'Neues Pro Argument erstellen';
-            case 'lang_createArgumentNeut': return 'Neue Antwort erstellen';
-            case 'lang_createArgumentCon': return 'Neues Contra Argument erstellen';
-            case 'lang_createcomment': return 'Kommentar anlegen';
+            case 'lang_createArgumentPro': return 'Best&auml;rken';
+            case 'lang_createArgumentNeut': return 'Erg&auml;nzen';
+            case 'lang_createArgumentCon': return 'Entgegnen';
+            case 'lang_createcomment': return 'Erg&auml;nzen';
             case 'lang_createsolution': return 'L&ouml;sung anlegen';
             case 'lang_debate': return 'Debatten';
             case 'lang_description': return 'Beschreibung';
