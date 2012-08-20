@@ -30,6 +30,7 @@ switch ( target ) {
             case 'lang_argCon': return 'Entgegnen';
             case 'lang_author': return 'Autor';
             case 'lang_back': return 'zur&uuml;ck';
+            case 'lang_confirm': return 'Bestätigen';
             case 'lang_cancel': return 'Abbrechen';
             case 'lang_createsolution': return 'L&ouml;sung anlegen';
             case 'lang_debate': return 'Debatten';
@@ -49,6 +50,9 @@ switch ( target ) {
             case 'lang_logout': return 'Logout';
             case 'lang_minFilter': return 'Beitrag erf&uuml;llt mindestens einen hier ausgew&auml;hlten Filter:';
             case 'lang_moderate': return 'Moderieren';
+            case 'lang_moderateInactive': return 'Inaktiv';
+            case 'lang_moderateInappropriate': return 'Unangemessen';
+            case 'lang_moderateExplanation': return 'W&auml;hle was du mit dem Beitrag machen m&ouml;chtest.<br><br> "Inaktiv" markiert den Beitrag als abgelaufen oder veraltet. Er kann weiterhin von Usern eingesehen werden.<br><br> "Unangemessen" markiert den Beitrag als nicht gem&auml;&szlig; den Richtlinien der Netiquette, er kann dann nichtmehr von normalen Usern eingesehen werden.';
             case 'lang_multiFilter': return 'Dr&uuml;cke Strg um mehr als einen Filter auszuw&auml;hlen.<br>Achtung: &Auml;nderungen sind sofort wirksam!';
             case 'lang_newDebate': return 'Neue Debatte';
             case 'lang_newDebateCreate': return 'Neue Debatte erstellen';

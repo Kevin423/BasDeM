@@ -19,6 +19,8 @@ Pirate Party assembly in Bochum (BPT12.2).
 
 ===== 1.0 =====
 * moderation UI
+** inactivate
+** flag as inappropriate
 * rating system for debates, solutions, arguments, comments
 * enhance filter system
 ** creating filters UI

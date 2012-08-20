@@ -74,6 +74,8 @@ class Controller {
             return;
         }
         
+        $this->updateMemplexModerationState();
+        
         #$this->updateMemplexData();
         
         #$this->updateChildRelations();
@@ -158,8 +160,35 @@ class Controller {
         return !is_null($this->memplex->getTitle());
     }
 
+    /** Updates a memplexes moderation state based upon POST data.
+     * @return False if POST data was incomplete (moderationstate,parent), else true.
+     */
+    private function updateMemplexModerationState() {
+        if ( !isset($_POST['moderationstate'])
+            || !isset($_POST['parent']) ) {
+            return false;
+        }
+        
+        $this->memplex->setModerationState($_POST['moderationstate']);
+        
+        $this->memplex->store();
+        
+        MemplexRegister::reset();
+        
+        $_POST['id'] = $_POST['parent'];
+        
+        $this->loadTargetMemplex();
+        
+        if ( $this->memplex->getLayer() == 2 ) {
+            $_POST['id'] = 1;
+            $this->loadTargetMemplex();
+        }
+        
+        return true;
+    }
+
     /** Updates a memplex based upon POST data.
-     * @return False if POST data was complete (text, layer, title, author), else true.
+     * @return False if POST data was incomplete (text, layer, title, author), else true.
      */
     private function updateMemplexData() {
         if ( !isset($_POST['text'])

@@ -33,6 +33,7 @@ class Memplex {
     private $title;
     private $text;
     private $layer;
+    private $moderationState = null;
     
     /** Constructor.
      * @param integer $id ID of the memplex to load or array with 'author', 'title', 'text'
@@ -65,6 +66,7 @@ class Memplex {
         $this->setId($tmp[0]['id']);
         $this->setAuthor($tmp[0]['author']);
         $this->setAuthorId($tmp[0]['authorid']);
+        $this->setModerationState($tmp[0]['state']);
         $this->setTitle($tmp[0]['title']);
         $this->setText($tmp[0]['text']);
         $this->setLayer($tmp[0]['layer']);
@@ -96,7 +98,11 @@ class Memplex {
                 continue;
             }
             $tmp->loadChildrenRecursive($level);
-            $this->childarray[] = $tmp->toArray($level);
+            $array = $tmp->toArray($level);
+            if ( count($array) == 0 ) {
+                continue;
+            }
+            $this->childarray[] = $array;
         }
     }
     
@@ -111,7 +117,7 @@ class Memplex {
             return;
         }
         
-        $this->setAuthor(User::getId());
+        $this->setAuthorId(User::getId());
         $this->setTitle($id['title']);
         $this->setText($id['text']);
         $this->setLayer($id['layer']);
@@ -123,7 +129,7 @@ class Memplex {
     public function store() {
         if ( is_null($this->id) ) {
             $this->id = Database::createMemplex(array(
-                'author' => $this->getAuthor(false),
+                'author' => $this->getAuthorId(false),
                 'title' => $this->getTitle(false),
                 'text' => $this->getText(false),
                 'layer' => $this->getLayer(),
@@ -131,10 +137,11 @@ class Memplex {
         } else {
             Database::storeMemplex(array(
                 'id' => $this->getId(),
-                'author' => $this->getAuthor(false),
+                'author' => $this->getAuthorId(false),
                 'title' => $this->getTitle(false),
                 'text' => $this->getText(false),
                 'layer' => $this->getLayer(),
+                'moderationstate' => $this->getModerationState(),
             ));
         }
     }
@@ -145,6 +152,9 @@ class Memplex {
      * @return Array with Keys: 'id', 'author', 'title', 'text', 'layer' and 'children'.
      */
     public function toArray() {
+        if ( $this->getLayer() === (int)null ) {
+            return array();
+        }
         return array(
             'id' => $this->getId(),
             'author' => array(
@@ -154,6 +164,7 @@ class Memplex {
             'title' => $this->getTitle(),
             'text' => $this->getText(),
             'layer' => $this->getLayer(),
+            'moderationstate' => $this->getModerationState(),
             'children' => $this->childarray,
         );
     }
@@ -193,6 +204,24 @@ class Memplex {
      */
     public function getChildren() {
         return $this->children;
+    }
+    
+    /**
+     * Sets the moderation state of the Memplex.
+     *
+     * @param int $state The new moderation state.
+     */
+    public function setModerationState($state) {
+        $this->moderationState = $state;
+    }
+    
+    /**
+     * Get the moderation state of the Memplex.
+     *
+     * @return int The moderation state.
+     */
+    public function getModerationState() {
+        return (int)$this->moderationState;
     }
     
     /**

@@ -112,17 +112,17 @@ br,.clear {
 }
 .solution {
     width: 100%;
-    height: 762px;
+    height: 100%;
 }
 .solutionlist {
     width: 40%;
-    height: 762px;
+    height: 100%;
     float: left;
     overflow: auto;
 }
 .solutiontext {
     width: 60%;
-    height: 762px;
+    height: 100%;
     float: left;
 }
 .solutionpro {
@@ -197,4 +197,15 @@ li .comment {
 .filtercategories {
     float: right;
     font-size: 0.7em;
+}
+.star {
+    background-image: url("css/images/star1.svg");
+    background-size: 20px 20px;
+    width: 20px;
+    height: 20px;
+    float: left;
+}
+
+.staryellow, .star:hover{
+    background-image: url("css/images/star2.svg");
 }

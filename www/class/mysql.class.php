@@ -144,7 +144,9 @@ class Database {
     titles.content as title,
     users.nickname as author,
     authors.userid as authorid,
-    children.child as child
+    children.child as child,
+    m1.state as state,
+    m2.state as state2
 from
     memplex
 join
@@ -157,8 +159,13 @@ join
     users ON authors.userid = users.id
 left join
     children ON children.parent = memplex.id
+left join
+    moderation as m1 ON m1.id = memplex.id
+left join
+    moderation as m2 ON m2.id = children.child
 where
-    memplex.id = :identifier",
+    memplex.id = :identifier
+    AND ( m1.state is null OR ( m1.state <> 1 AND m1.state <> 2 ) )",
    // AND memplex.time > :time",
             array(
                 array(':identifier',$identifier,PDO::PARAM_INT),
@@ -245,6 +252,15 @@ where
                 array(':id',$data['id'],PDO::PARAM_INT),
             )
         );
+        if ( !is_null($data['moderationstate']) ) {
+            self::query(
+                "insert into `moderation` set `state` = :state, `id` = :id on duplicate key update `state` = :state",
+                array(
+                    array(':state',$data['moderationstate'],PDO::PARAM_INT),
+                    array(':id',$data['id'],PDO::PARAM_INT),
+                )
+            );
+        }
     }
 
     /**

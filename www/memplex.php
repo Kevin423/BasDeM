@@ -33,6 +33,10 @@ Database::init();
 
 User::init();
 
+if ( isset($_GET['id']) && !isset($_POST['id']) ) {
+    $_POST['id'] = $_GET['id'];
+}
+
 if ( User::getId() == 2 ) {
     #sleep(1);
 }

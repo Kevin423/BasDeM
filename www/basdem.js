@@ -231,7 +231,7 @@ ClassController.prototype.loadLocation = function(location) {
         {id: 1,time:  Controller.lastLoad(1)},
         function(data) { // data returned by server
             var json = $.parseJSON(data);
-            if ( json === null ) {
+            if ( json === null || json.data === null ) {
                 return;
             }
             Controller.parseUser(json.user);
@@ -262,7 +262,7 @@ ClassController.prototype.loadDebates = function() {
         {id: 1,time:  Controller.lastLoad(1)},
         function(data) { // data returned by server
             var json = $.parseJSON(data);
-            if ( json === null ) {
+            if ( json === null || json.data === null ) {
                 return;
             }
             Controller.parseUser(json.user);
@@ -309,10 +309,9 @@ ClassController.prototype.loadSolution = function(target) {
         {id: target,time: Controller.lastLoad(target)},
         function(data) {
             var json = $.parseJSON(data);
-            if ( json === null ) {
+            if ( json === null || json.data === null ) {
                 return;
             }
-            
             Controller.parseUser(json.user);
             Controller.parseMemplex(json.data,null);
             Controller.setLastLoad(json.data.id,json.time);
@@ -352,6 +351,10 @@ ClassController.prototype.parseMemplex = function(data,parent,trace) {
             this.lastAdded = {};
         }
         this.lastAdded[Helper.objectCount(this.lastAdded)] = data.id;
+    }
+    if ( data.id == 1 ) {
+        MemplexRegister = new ClassMemplexRegister();
+        List = new ClassList();
     }
     MemplexRegister.add(data,parent);
     for ( c in data.children ) {
@@ -439,18 +442,20 @@ ClassController.prototype.addForm = function(name,title,description,strings,pare
         $('<span>' + strings[2] + '</span>').appendTo(span);
         Filter.getFilterSelector('' + name + 'filter',null).appendTo(span);
     }
-
+    
+    var buttons = {};
+    buttons[Helper.getLang('lang_confirm')] = callback;
+    buttons[Helper.getLang('lang_cancel')] = function() {
+        $( this ).dialog( 'close' );
+    };
+    
     View.popup(
         'auto',
         800, // Workaround for 3 year old jqueryUi bug... http://bugs.jqueryui.com/ticket/4820
         title,
         content,
-        {
-            "OK": callback,
-            "Cancel": function() {
-                $( this ).dialog( 'close' );
-            }
-       },name + 'parent');
+        buttons,
+        name + 'parent');
 }
     
 /** Creates a new Debate.
@@ -696,6 +701,7 @@ ClassMemplexRegister.prototype.add = function(memplex,parent) {
         this.title = memplex.title;
         this.text = memplex.text;
         this.layer = memplex.layer;
+        this.moderationstate = memplex.moderationstate;
         this.children = {};
         for ( c in memplex.children ) {
             this.children[c] = memplex.children[c].id;
@@ -710,6 +716,15 @@ ClassMemplexRegister.prototype.add = function(memplex,parent) {
  */
 ClassMemplexRegister.prototype.getLayer = function(layer) {
     return this.layerlist[layer];
+}
+
+/** Reset MemplexRegister.
+ */
+ClassMemplexRegister.prototype.reset = function() {
+    this.memplexes = {};
+    this.parentlist = {};
+    this.layerlist = {};
+    this.layerlistreverse = {};
 }
 
 /** Get all ParentIDs for the specified MemplexID.
@@ -1115,6 +1130,9 @@ ClassSolution.prototype.loadArguments = function() {
     var childs = this.memplex.children;
     for ( c in childs ) {
         var child = MemplexRegister.get(childs[c]);
+        if ( child == null ) {
+            continue;
+        }
         var li = $('<li class="solutionargumentli">');
 
         if ( child.layer == undefined ) {
@@ -1132,8 +1150,12 @@ ClassSolution.prototype.loadArguments = function() {
         for ( p in parents ) {
             parent = parents[p];
         }
+        
+        // TODO: Implement Support System here.
+        var star = '<div class="star"></div>';
+        
         var div = Helper.box(
-            child.title,
+            star + child.title,
             'solution' + this.memplex.id + 'comment' + child.id,
             li,
             '#debate' + parent + 'solution' + this.memplex.id + 'comment' + child.id,
@@ -1231,6 +1253,9 @@ ClassDebateRegister.prototype.get = function(id) {
  * @tparam Memplex memplex The memplex representing the new debate.
  */
 function ClassDebate(memplex,full) {
+    if ( memplex == null ) {
+        return;
+    }
     this.memplex = memplex;
     this.title = null;
     this.text = null;
@@ -1468,18 +1493,19 @@ ClassFilter.prototype.createNewObject = function() {
    this.getFilterSelector('filterAllOf',this.allofCallback,this.allof).appendTo(content);
     $('<br><br><h4>'+Helper.getLang('lang_minFilter')+'</h4>').appendTo(content);
     this.getFilterSelector('filterOneOf',this.oneofCallback,this.oneof).appendTo(content);
-
+    
+    var buttons = {};
+    buttons[Helper.getLang('lang_confirm')] = function() {
+        View.loadDebates();
+        $( this ).dialog( 'close' );
+    };
+    
     View.popup(
         'auto',
         800, // Workaround for 3 year old jqueryUi bug... http://bugs.jqueryui.com/ticket/4820
         Helper.getLang('lang_filter'),
         content,
-        {
-            Ok: function() {
-                View.loadDebates();
-                $( this ).dialog( 'close' );
-            }
-        });
+        buttons);
 }
 
 /** Returns the IDs of the selected filters.
@@ -1736,20 +1762,46 @@ ClassModerator.prototype.getButton = function(id,target) {
 /** Main moderation dispatcher.
  * @tparam int ID MemplexID of the target object.
  */
+ClassModerator.prototype.post = function(id,state,dialog) {
+    var parents = MemplexRegister.getParents(id);
+    var parent = 0;
+    for ( p in parents ) {
+        parent = parents[p];
+    }
+    var out = {
+        'id': id,
+        'parent': parent,
+        'moderationstate': state
+    };
+    
+    Controller.storeToMemplex(out);
+    
+    $( dialog ).dialog( 'close' );
+}
+
+/** Main moderation dispatcher.
+ * @tparam int ID MemplexID of the target object.
+ */
 ClassModerator.prototype.moderate = function(id) {
-    var content = $('<div>bla: ' + id + '</div>');
+    var content = $('<div>' + Helper.getLang('lang_moderateExplanation') + '<input type="hidden" id="moderationtarget" value="' + id + '"></div>"');
     var focus = null;
+    
+    var buttons = {};
+    buttons[Helper.getLang('lang_moderateInactive')] = function(data) {
+        Moderator.post($('#moderationtarget').attr('value'),1,this);
+    };
+    buttons[Helper.getLang('lang_moderateInappropriate')] = function(data) {
+        Moderator.post($('#moderationtarget').attr('value'),2,this);
+    };
+    buttons[Helper.getLang('lang_cancel')] = function() {
+        $( this ).dialog( 'close' );
+    };
+    
     View.popup(
         'auto',
         800, // Workaround for 3 year old jqueryUi bug... http://bugs.jqueryui.com/ticket/4820
         Helper.getLang('lang_moderate'),
         content,
-        {
-            "OK": function(data) {
-                console.log(data);
-            },
-            "Cancel": function() {
-                $( this ).dialog( 'close' );
-            }
-       },focus);
+        buttons,
+        focus);
 }
