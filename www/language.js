@@ -48,6 +48,7 @@ switch ( target ) {
             case 'lang_listOwn': return 'Eigene';
             case 'lang_logout': return 'Logout';
             case 'lang_minFilter': return 'Beitrag erf&uuml;llt mindestens einen hier ausgew&auml;hlten Filter:';
+            case 'lang_moderate': return 'Moderieren';
             case 'lang_multiFilter': return 'Dr&uuml;cke Strg um mehr als einen Filter auszuw&auml;hlen.<br>Achtung: &Auml;nderungen sind sofort wirksam!';
             case 'lang_newDebate': return 'Neue Debatte';
             case 'lang_newDebateCreate': return 'Neue Debatte erstellen';

@@ -154,7 +154,7 @@ ClassHelper.prototype.createButton = function(text,icon,append,floatdirection,ca
         text = "&nbsp;";
         showtext = false;
     }
-    return $('<button>' + text + '</button>')
+    var button = $('<button>' + text + '</button>')
         .button({
             text: showtext,
             icons: {
@@ -163,8 +163,12 @@ ClassHelper.prototype.createButton = function(text,icon,append,floatdirection,ca
         })
         .click(callback)
         .addClass(floatdirection + ' mybutton')
-        .appendTo(append)
         .attr('id',id);
+        
+    if ( append != null ) {
+        button.appendTo(append);
+    }
+    return button;
 }
     
 /** Classic Unix Timestamp.
@@ -1039,6 +1043,8 @@ function ClassSolution(Memplex) {
     // Contra Button
     Helper.createButton(Helper.getLang('lang_argCon'),null,this.text,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 6);
 
+    Moderator.getButton(this.memplex.id,this.text);
+    
     SolutionRegister.add(this.memplex.id,this);
 }
 
@@ -1087,6 +1093,7 @@ ClassSolution.prototype.showComment = function(id) {
             this.buttonCallback,
             'comment' + id + 'buttonadd' + 8
     );
+    Moderator.getButton(comment.id,'#solution' + this.memplex.id + 'text');
 }
 
 /** Walks through all parent comment nodes until it finds and shows the hidden topnode.
@@ -1288,6 +1295,7 @@ function ClassDebate(memplex,full) {
         var id = Helper.getIdFromString($( this ).attr('id'));
         Controller.addSolution(id);
     },'debate' + this.memplex.id + 'buttonadd');
+    Moderator.getButton(this.memplex.id,buttoncontainer);
 
     $('<br>').appendTo(buttoncontainer);
     $('<div class="clear">').appendTo(this.hide);
@@ -1698,3 +1706,36 @@ ClassList.prototype.getUnsolved = function() {
     return tmp;
 }
 
+/** @class ClassModerator
+ * ClassModerator manages the options and functions for moderators.
+ * During runtime the Lists can be accessed using the static Moderator object.
+ */
+function ClassModerator() {
+    
+}
+
+/** Static Moderator object.
+ */
+var Moderator = new ClassModerator();
+
+/** Get the moderation button.
+ * @tparam int ID MemplexID of the target object.
+ * @tparam JQueryObject Object Target object for the button to be appended to.
+ * @treturn object Button.
+ */
+ClassModerator.prototype.getButton = function(id,target) {
+    if ( User.getModerator() != true ) {
+        return null;
+    }
+    return Helper.createButton(Helper.getLang('lang_moderate'),null,target,'',function(data) {
+        var target = Helper.getIdFromString($( this ).attr('id'));
+        Moderator.moderate(target);
+    },'#moderate' + id);
+}
+
+/** Main moderation dispatcher.
+ * @tparam int ID MemplexID of the target object.
+ */
+ClassModerator.prototype.moderate = function(id) {
+    console.log(id);
+}
