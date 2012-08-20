@@ -1737,5 +1737,19 @@ ClassModerator.prototype.getButton = function(id,target) {
  * @tparam int ID MemplexID of the target object.
  */
 ClassModerator.prototype.moderate = function(id) {
-    console.log(id);
+    var content = $('<div>bla: ' + id + '</div>');
+    var focus = null;
+    View.popup(
+        'auto',
+        800, // Workaround for 3 year old jqueryUi bug... http://bugs.jqueryui.com/ticket/4820
+        Helper.getLang('lang_moderate'),
+        content,
+        {
+            "OK": function(data) {
+                console.log(data);
+            },
+            "Cancel": function() {
+                $( this ).dialog( 'close' );
+            }
+       },focus);
 }
