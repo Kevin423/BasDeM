@@ -26,6 +26,7 @@ if ( !defined('INCMS') || INCMS !== true ) {
  */
 class User {
     private static $loggedin = false;
+    private static $error = '';
 
     /**
      * Starts a new session and initializes the object.
@@ -78,10 +79,12 @@ class User {
         $result = Database::getUser($_POST['email'],$password);
         
         if (  $result === false || !is_array($result) ) {
+            self::setError('Unbekannter Benutzername oder Passwort!<br>');
             return;
         }
         
         if (  count($result) != 1 ) {
+            self::setError('Unbekannter Benutzername oder Passwort!<br>');
             return;
         }
         
@@ -105,9 +108,11 @@ class User {
      */
     private static function validatePost() {
         if ( !isset($_POST['email']) ) {
+            self::setError('Unbekannter Benutzername oder Passwort!<br>');
             return false;
         }
         if ( !isset($_POST['password']) ) {
+            self::setError('Unbekannter Benutzername oder Passwort!<br>');
             return false;
         }
         return true;
@@ -127,6 +132,35 @@ class User {
      */
     public static function isLoggedin() {
         return self::$loggedin;
+    }
+    
+    /**
+     * Returns the user moderator status.
+     * TODO: Dummy function.
+     * @return True if moderator, else false.
+     */
+    public static function isModerator() {
+        return true;
+    }
+    
+    private static function setError($error) {
+        self::$error .= $error;
+    }
+    
+    /**
+     * Returns the error string.
+     * @return String Errordescription.
+     */
+    public static function getError() {
+        return self::$error;
+    }
+    
+    /**
+     * Returns wether an error exists.
+     * @return Boolean True if error exists.
+     */
+    public static function hasError() {
+        return !empty(self::$error);
     }
 }
 

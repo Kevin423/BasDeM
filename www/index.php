@@ -46,7 +46,12 @@ if ( User::isLoggedin() !== true ) {
         switch ( $_GET['action'] ) {
             case 'register': $tpl = new Template('index',array('noload','register')); break;
             default:
-            case 'login': $tpl = new Template('index',array('noload','login')); break;
+            case 'login': 
+                $login = 'login';
+                if ( User::hasError() === true ) {
+                    $login = 'loginerror';
+                }
+                $tpl = new Template('index',array('noload',$login)); break;
         }
     }
 } else {

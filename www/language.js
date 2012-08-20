@@ -43,8 +43,9 @@ switch ( target ) {
             case 'lang_helpNewDebate': return '<p>Bitte beschreibe deine neue Debatte sachlich, neutral und verst&auml;ndlich und stelle sicher, dass diese Debatte nicht bereits gef&uuml;hrt wird.</p><p>Der <b>Titel</b> ist die Kurzfassung der Debatte in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Bitte f&uuml;ge die Debatte auch einem oder mehreren <b>Themenbereichen</b> hinzu, sodass sie leicht gefunden werden kann.</p>';
             case 'lang_helpNewSolution': return '<p>Bitte beschreibe deine neue L&ouml;sung sachlich, neutral und verst&auml;ndlich und wiederhole keine L&ouml;sungen, die bereits genannt wurden.</p><p>Der <b>Titel</b> ist die Kurzbeschreibung deiner L&ouml;sung in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Du kannst auch L&ouml;sungen hinzuf&uuml;gen, die du pers&ouml;nlich nicht unterst&uuml;tzt.</p>';
             case 'lang_listNew': return 'Neu';
-            case 'lang_listUnsolved': return 'Ungel&ouml;st';
             case 'lang_listLatest': return 'Aktuell';
+            case 'lang_listUnsolved': return 'Ungel&ouml;st';
+            case 'lang_listOwn': return 'Eigene';
             case 'lang_logout': return 'Logout';
             case 'lang_minFilter': return 'Beitrag erf&uuml;llt mindestens einen hier ausgew&auml;hlten Filter:';
             case 'lang_multiFilter': return 'Dr&uuml;cke Strg um mehr als einen Filter auszuw&auml;hlen.<br>Achtung: &Auml;nderungen sind sofort wirksam!';

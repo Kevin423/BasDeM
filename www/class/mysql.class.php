@@ -143,6 +143,7 @@ class Database {
     texts.content as text,
     titles.content as title,
     users.nickname as author,
+    authors.userid as authorid,
     children.child as child
 from
     memplex

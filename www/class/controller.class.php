@@ -123,6 +123,10 @@ class Controller {
             'time' => time(),
             'createdid' => $this->createdid,
             'data' => $this->memplex->toArray(),
+            'user' => array(
+                'id' => User::getId(),
+                'moderator' => User::isModerator(),
+            ),
         ));
     }
 

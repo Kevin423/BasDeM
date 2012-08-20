@@ -29,6 +29,7 @@ class Memplex {
     private $children;
     private $childarray;
     private $author;
+    private $authorId;
     private $title;
     private $text;
     private $layer;
@@ -63,6 +64,7 @@ class Memplex {
         }
         $this->setId($tmp[0]['id']);
         $this->setAuthor($tmp[0]['author']);
+        $this->setAuthorId($tmp[0]['authorid']);
         $this->setTitle($tmp[0]['title']);
         $this->setText($tmp[0]['text']);
         $this->setLayer($tmp[0]['layer']);
@@ -145,7 +147,10 @@ class Memplex {
     public function toArray() {
         return array(
             'id' => $this->getId(),
-            'author' => $this->getAuthor(),
+            'author' => array(
+                'nick' => $this->getAuthor(),
+                'id' => $this->getAuthorId(),
+            ),
             'title' => $this->getTitle(),
             'text' => $this->getText(),
             'layer' => $this->getLayer(),
@@ -200,6 +205,15 @@ class Memplex {
     }
     
     /**
+     * Sets the authorid of the Memplex.
+     *
+     * @param int $id The new authorid.
+     */
+    public function setAuthorId($id) {
+        $this->authorId = $id;
+    }
+    
+    /**
      * Returns the author of the Memplex, escaped for HTML injection security.
      *
      * @param boolean $escaped Set it to false if you don't need escaped HTML output (optional).
@@ -212,6 +226,15 @@ class Memplex {
         } else {
             return $this->author;
         }
+    }
+    
+    /**
+     * Returns the authorid of the Memplex.
+     *
+     * @return The authorid of the Memplex.
+     */
+    public function getAuthorId($escaped = true) {
+        return $this->authorId;
     }
 
     /**

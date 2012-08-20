@@ -31,6 +31,7 @@ class Template {
         'load' => 'tpl/load.html',
         'noload' => '',
         'login' => 'tpl/login.html',
+        'loginerror' => 'tpl/loginerror.html',
         'register' => 'tpl/register.html',
     );
     private $base = '';
@@ -43,7 +44,7 @@ class Template {
  * @param $base String naming base template to load.
  * @param $adder Array of further templates to append to $base.
  */
-    public function __construct($base,$adder = null) {
+    public function __construct($base,$adder = null,$addString = null) {
         if ( !isset($this->assignments[$base]) ) {
             return;
         }
@@ -60,6 +61,9 @@ class Template {
                     continue;
                 }
                 $this->adder[] = file_get_contents($this->assignments[$add]);
+            }
+            if ( count($this->adder) == 0 && is_string($addString) ) {
+                $this->adder[] = $addString;
             }
             $this->output = vsprintf($this->base,$this->adder);
             return;

@@ -230,6 +230,7 @@ ClassController.prototype.loadLocation = function(location) {
             if ( json === null ) {
                 return;
             }
+            Controller.parseUser(json.user);
             Controller.parseMemplex(json.data,null);
             Controller.setLastLoad(json.data.id,json.time);
             Controller.loadList();
@@ -260,6 +261,7 @@ ClassController.prototype.loadDebates = function() {
             if ( json === null ) {
                 return;
             }
+            Controller.parseUser(json.user);
             Controller.parseMemplex(json.data,null);
             Controller.setLastLoad(json.data.id,json.time);
             Controller.loadList();
@@ -273,6 +275,7 @@ ClassController.prototype.loadList = function() {
     View.loadList(List.getNew(),'#listNew');
     View.loadList(List.getUnsolved(),'#listUnsolved');
     View.loadList(List.getLatest(),'#listLatest');
+    View.loadList(List.getOwn(),'#listOwn');
 }
    
 /** Load solution into storage then trigger View for loading of commentTarget.
@@ -305,6 +308,8 @@ ClassController.prototype.loadSolution = function(target) {
             if ( json === null ) {
                 return;
             }
+            
+            Controller.parseUser(json.user);
             Controller.parseMemplex(json.data,null);
             Controller.setLastLoad(json.data.id,json.time);
             Controller.loadList();
@@ -313,6 +318,18 @@ ClassController.prototype.loadSolution = function(target) {
         });
 }
     
+/** Parse loaded User into ClassUser.
+ * @tparam User data User to load.
+ */
+ClassController.prototype.parseUser = function(data) {
+    if ( data.id == null
+        || data.moderator == null ) {
+        console.log('Faulty data',data);
+        return;
+    }
+    User.set(data.id,data.moderator);
+}
+
 /** Parse loaded Memplexes into MemplexRegister.
  * @tparam Memplex data Memplex to load.
  * @tparam Memplex parent The parent Memplex.
@@ -365,6 +382,7 @@ ClassController.prototype.storeToMemplex = function(data) {
         data,
         function(data) {
             var json = $.parseJSON(data);
+            Controller.parseUser(json.user);
             Controller.parseMemplex(json.data,null);
             Controller.setLastLoad(json.data.id,json.time);
             if ( json.createdid != null ) {
@@ -597,6 +615,40 @@ ClassController.prototype.addComment = function(solutionid,layer) {
     });
 }
 
+/** @class ClassUser
+ * ClassUser contains all Userdata loaded from the server.
+ * During runtime it can be accessed using the static User object.
+ */
+function ClassUser() {
+    this.moderator = false;
+    this.id = 0;
+}
+
+var User = new ClassUser();
+
+/** Set Userdata.
+ * @tparam int userid ID of the user.
+ * @tparam boolean moderator Moderator flag.
+ */
+ClassUser.prototype.set = function(id,moderator) {
+    this.id = id;
+    this.moderator = moderator;
+}
+
+/** Get User ID.
+ * @treturn int id Userid.
+ */
+ClassUser.prototype.getId = function() {
+    return this.id;
+}
+
+/** Get Moderatorstatus.
+ * @treturn boolean moderator Moderator flag.
+ */
+ClassUser.prototype.getModerator = function() {
+    return this.moderator;
+}
+
 /** @class ClassMemplexRegister
  * ClassMemplexRegister contains all Memplexes loaded from the server.
  * During runtime the register can be accessed using the static MemplexRegister object.
@@ -608,7 +660,7 @@ function ClassMemplexRegister() {
     this.parentlist = {};
     /** Object storing Memplex IDs for each layer. */
     this.layerlist = {};
-    /** TODO: Justus says we don't need it. */
+    /** TODO: Justus says we don't need it. / Now I'm not sure anymore. *sigh* */
     this.layerlistreverse = {};
 }
 
@@ -714,9 +766,12 @@ ClassView.prototype.layout = function() {
         .appendTo('#listul');
     $('<li><a href="#listUnsolved">' + Helper.getLang('lang_listUnsolved') + '</a></li>')
         .appendTo('#listul');
+    $('<li><a href="#listOwn">' + Helper.getLang('lang_listOwn') + '</a></li>')
+        .appendTo('#listul');
     $('<div id="listNew">').appendTo('#list');
     $('<div id="listLatest">').appendTo('#list');
     $('<div id="listUnsolved">').appendTo('#list');
+    $('<div id="listOwn">').appendTo('#list');
     
     $('#list').tabs().removeClass('ui-corner-all');
 }
@@ -1452,6 +1507,8 @@ function ClassList() {
     this.listLatestObjectsReverse = {};
     this.listUnsolved = [];
     this.listUnsolvedObjects = {};
+    this.listOwn = [];
+    this.listOwnObjects = {};
 }
 
 /** Static List object.
@@ -1470,6 +1527,24 @@ ClassList.prototype.addNew = function(memplex) {
     // If memplex is newer than oldest listentry delete oldest and add newer.
     if ( addall || memplex.id > this.listNew[0] ) {
         this.addSorted(this.listNew,this.listNewObjects,memplex.id);
+    }
+}
+
+/** Adds the Memplex into the own list as necessary.
+ * @tparam Memplex memplex to be added as necessary.
+ */
+ClassList.prototype.addOwn = function(memplex) {
+    if ( memplex.author.id != User.getId() ) {
+        return;
+    }
+    var addall = false;
+    // If list is shorter than wanted, just add everything that isn't in it yet
+    if ( this.listOwn.length < this.defaultLength ) {
+        addall = true;
+    }
+    // If memplex is newer than oldest listentry delete oldest and add newer.
+    if ( addall || memplex.id > this.listOwn[0] ) {
+        this.addSorted(this.listOwn,this.listOwnObjects,memplex.id);
     }
 }
 
@@ -1529,6 +1604,7 @@ ClassList.prototype.addLatest = function(memplex,overwrite) {
 ClassList.prototype.add = function(memplex) {
     switch ( memplex.layer ) {
         case 3:
+            this.addOwn(memplex);
             this.addNew(memplex);
             if ( Helper.objectCount(memplex.children) == 0 ) {
                 this.addUnsolved(memplex);
@@ -1579,7 +1655,7 @@ ClassList.prototype.addSorted = function(sorted,unsorted,id,overwrite,reverse) {
     }
 }
 
-/** Get the new Memplexes.
+/** Get the new Memplexes list.
  * @treturn object Sorted List.
  */
 ClassList.prototype.getNew = function() {
@@ -1590,7 +1666,7 @@ ClassList.prototype.getNew = function() {
     return tmp;
 }
 
-/** Get the latest Memplexes.
+/** Get the latest Memplexes list.
  * @treturn object Sorted List.
  */
 ClassList.prototype.getLatest = function() {
@@ -1600,8 +1676,18 @@ ClassList.prototype.getLatest = function() {
     }
     return tmp;
 }
+/** Get the own Memplexes list.
+ * @treturn object Sorted List.
+ */
+ClassList.prototype.getOwn = function() {
+    var tmp = {};
+    for ( l in this.listOwn ) {
+        tmp[this.listOwn[l]] = this.listOwn[l];
+    }
+    return tmp;
+}
 
-/** Get the unsolved Memplexes.
+/** Get the unsolved Memplexes list.
  * @treturn object Sorted List.
  */
 ClassList.prototype.getUnsolved = function() {
