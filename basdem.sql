@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 21, 2012 at 02:24 AM
+-- Generation Time: Aug 21, 2012 at 03:13 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -176,9 +176,19 @@ DROP TABLE IF EXISTS `favorite`;
 CREATE TABLE IF NOT EXISTS `favorite` (
   `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`,`user`)
+  UNIQUE KEY `id` (`id`,`user`),
+  KEY `id_2` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `favorite`
+--
+
+INSERT INTO `favorite` (`id`, `user`) VALUES
+(22, 2),
+(25, 2),
+(26, 3),
+(27, 2);
 
 -- --------------------------------------------------------
 
@@ -250,9 +260,17 @@ DROP TABLE IF EXISTS `moderation`;
 CREATE TABLE IF NOT EXISTS `moderation` (
   `id` int(11) NOT NULL,
   `state` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `state` (`state`)
+  KEY `state` (`state`),
+  KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `moderation`
+--
+
+INSERT INTO `moderation` (`id`, `state`) VALUES
+(22, 0),
+(27, 0);
 
 -- --------------------------------------------------------
 
@@ -293,7 +311,7 @@ INSERT INTO `texts` (`id`, `content`) VALUES
 (19, 'Bundesverband'),
 (20, 'Bei Parteitagen wird immer ewig diskutiert und wir kommen kaum zum abstimmen. Viele Argumente werden doppelt und dreifach gebracht und keiner kann wirklich etwas dagegen tun. Bei den vielen Doppelnennungen gehen die wichtigen Argumente dann teilweise unter.'),
 (21, 'BasDeM, das BasisDemokratische Meinungsbildungstool, ist die Antwort auf überlange Diskussionen und ausufernde Debatten.\nEs bietet eine einfache Übersicht über Argumente und eine angegliederte Diskussionsplattform um über die Argumente zu diskutieren.\n\nDebatten werden mit BasDeM gekürzt, da jeder anhand der offen verfügbaren Liste prüfen kann ob sein Argument bereits genannt wurde oder nicht.'),
-(22, 'Mit BasDeM hat man eine schnelle und einfache Möglichkeit sich einen Überblick über eine Debatte zu verschaffen und konkurrierende Lösungsvorschläge zu vergleichen.'),
+(22, 'Mit BasDeM hat man eine schnelle und einfache M?glichkeit sich einen ?berblick ?ber eine Debatte zu verschaffen und konkurrierende L?sungsvorschl?ge zu vergleichen.'),
 (23, 'Hier können Anträge im Vorfeld schonmal abgestimmt werden um herauszufinden wieviele überhaupt von der Idee überzeugt sind. So vermeidet man eventuell unnötige Anträge zu stellen.'),
 (24, 'Mit Urabstimmungen könnte man Parteitage entlasten.'),
 (25, 'Man kann die Meinungsbildung und Diskussions in BasDeM durchführen und das Ergebnis dann mit einer Urabstimmung ermitteln!'),
@@ -352,12 +370,12 @@ INSERT INTO `titles` (`id`, `content`) VALUES
 (19, 'Bundesverband'),
 (20, 'Zu lange Diskussionen bei Parteitagen'),
 (21, 'BasDeM'),
-(22, 'Gute Übersicht über Debatten'),
+(22, 'Gute ?bersicht ?ber Debatten'),
 (23, 'LQFB'),
 (24, 'Urabstimmung'),
 (25, 'Lässt sich mit BasDeM kombinieren'),
 (26, 'Totes Projekt'),
-(27, 'Lässt sich mit Urabstimmung kombinieren (kT)'),
+(27, 'L?sst sich mit Urabstimmung kombinieren (kT)'),
 (28, 'Essen beim KOM-Arbeitstreffen'),
 (29, 'Chili Con Carne'),
 (30, 'lecker'),
@@ -386,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `nickname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `users`
@@ -394,7 +412,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `password`, `email`, `nickname`) VALUES
 (1, '', 'System', 'System'),
-(2, '$6$rounds=50000$This is my salt.$Ep8bSDwz18eVJiceUYBip2kKh5Mj56TN0omwDuABPhNXsuAxtHlW7RpHrzw1ospPDAS1eZ8tdyRA2Ij5ZG9GE.', 'justus@abi007.info', '');
+(2, '$6$rounds=50000$This is my salt.$Ep8bSDwz18eVJiceUYBip2kKh5Mj56TN0omwDuABPhNXsuAxtHlW7RpHrzw1ospPDAS1eZ8tdyRA2Ij5ZG9GE.', 'justus@abi007.info', ''),
+(3, '$6$rounds=50000$This is my salt.$nlehIcZ79/fZ5LruAZZjN0Oh4elUMRsee3kQRdaGorK9ecMqPX6vA/B0TqMkqFZa.xuBmb6WKZjNE0WcP3WT11', 'justusw', '');
 
 --
 -- Constraints for dumped tables
