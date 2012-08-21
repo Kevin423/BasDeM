@@ -108,6 +108,7 @@ class User {
         
         $_SESSION['user']['id'] = $result;
         $_SESSION['user']['email'] = $_POST['email'];
+        $_SESSION['user']['verified'] = $verified;
         $_SESSION['loggedin'] = true;
         self::$loggedin = true;
         
@@ -160,6 +161,7 @@ class User {
         $_SESSION['user']['email'] = $result[0]['email'];
         $_SESSION['user']['nickname'] = $result[0]['nickname'];
         $_SESSION['user']['verified'] = $result[0]['verified'];
+        $_SESSION['user']['moderator'] = $result[0]['moderator'];
         $_SESSION['loggedin'] = true;
         self::$loggedin = true;
     }
@@ -279,7 +281,7 @@ class User {
      * @return True if moderator, else false.
      */
     public static function isModerator() {
-        return true;
+        return $_SESSION['user']['moderator'] === 1;
     }
     
     private static function setError($error) {

@@ -22,8 +22,8 @@ Pirate Party assembly in Bochum (BPT12.2).
 * user preferences UI
 ** change nickname
 ** change password
-====== not yet implemented ======
 ** verify email
+====== not yet implemented ======
 * enhance login system
 ** security check for database changes based on userrights
 

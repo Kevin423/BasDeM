@@ -387,7 +387,7 @@ group by
       */
     static public function getUser($mail,$password) {
         return self::query(
-            "select * from `users` where `email` = :mail and `password` = :password",
+            "select `users`.*,`userrights`.`moderator` as `moderator` from `users` left join `userrights` on `userrights`.`id` = `users`.`id` where `email` = :mail and `password` = :password",
             array(
                 array(':mail',$mail,PDO::PARAM_STR),
                 array(':password',$password,PDO::PARAM_STR),
