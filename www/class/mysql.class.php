@@ -166,12 +166,13 @@ left join
 left join
     favorite as selffavorite ON selffavorite.id = memplex.id AND selffavorite.user = :user
 left join
-    moderation as m1 ON m1.id = memplex.id AND ( m1.state is null OR ( m1.state <> 1 AND m1.state <> 2 ) )
+    moderation as m1 ON m1.id = memplex.id
 left join
     moderation as m2 ON m2.id = children.child
 where
     memplex.id = :identifier
     AND ( 1 OR memplex.id = :user )
+    AND ( m1.state is null OR ( m1.state <> 1 AND m1.state <> 2 ) )
 group by
     memplex.id, children.child",
    // AND memplex.time > :time",
