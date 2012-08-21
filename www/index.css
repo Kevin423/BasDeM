@@ -212,7 +212,7 @@ li .comment {
     height: 20px;
     float: right;
     padding: 0px !important;
-    margin: 0px !important;
+    margin: 7px -5px 0px 0px !important;
 }
 
 .star {

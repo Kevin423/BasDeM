@@ -16,16 +16,16 @@ Pirate Party assembly in Bochum (BPT12.2).
 ** inactivate
 ** flag as inappropriate
 * rating system for debates, solutions, arguments, comments
-====== not yet implemented ======
 * enhance filter system
 ** creating filters UI
 ** better filter UI
-* enhance login system
-** security check for database changes based on userrights
+====== not yet implemented ======
 * user preferences UI
 ** change nickname
 ** change password
 ** verify email
+* enhance login system
+** security check for database changes based on userrights
 
 ===== 1.0 =====
 * editing arguments, solutions, etc
