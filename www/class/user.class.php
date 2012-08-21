@@ -118,19 +118,19 @@ class User {
      * Send Registration Mail.
      */
     private static function registerMail($key) {
-        $header = 'From: webmaster@example.com' . "\r\n" .
-                'Reply-To: webmaster@example.com' . "\r\n" .
+        $header = 'From: webmaster@basdem.de' . "\r\n" .
+                'Reply-To: webmaster@basdem.de' . "\r\n" .
                 'X-Mailer: PHP/' . phpversion();
     
         mail(
             self::getEmail(),
             'Registration auf BasDeM.de',
-'Hallo,
-du hast dich erfolgreich auf BasDeM.de angemeldet. Bitte verifiziere deinen Account mit einem Klick auf folgenden Link:
-http://www.basdem.de/demo/index.php?action=verify&key=' . $key . '
-Wir danken für deine Mitarbeit und wünschen dir viel Spaß beim ausprobieren unserer Funktionalität.
-Gruß,
-Das Entwicklerteam',
+            'Hallo,' . "\r\n"
+            . 'du hast dich erfolgreich auf BasDeM.de angemeldet. Bitte verifiziere deinen Account mit einem Klick auf folgenden Link:' . "\r\n"
+            . 'http://www.basdem.de/demo/index.php?action=verify&key=' . $key . '' . "\r\n"
+            . 'Wir danken fuer deine Mitarbeit und wuenschen dir viel Spass beim ausprobieren unserer Funktionalitaet.' . "\r\n"
+            . 'Gruß,' . "\r\n"
+            . 'Das Entwicklerteam',
             $header
         );
     }
@@ -159,6 +159,7 @@ Das Entwicklerteam',
         $_SESSION['user']['id'] = $result[0]['id'];
         $_SESSION['user']['email'] = $result[0]['email'];
         $_SESSION['user']['nickname'] = $result[0]['nickname'];
+        $_SESSION['user']['verified'] = $result[0]['verified'];
         $_SESSION['loggedin'] = true;
         self::$loggedin = true;
     }
@@ -208,7 +209,31 @@ Das Entwicklerteam',
      * @return String red for unverified, green for verified.
      */
     public static function getVerified() {
-        return 'red';
+        if ( empty($_SESSION['user']['verified']) ) {
+            return 'green';
+        }
+        return 'red';    
+    }
+    
+    /**
+     * Returns the verification key.
+     * @return String key.
+     */
+    public static function getVerificationKey() {
+        return $_SESSION['user']['verified'];
+    }
+    
+    /**
+     * Returns the verification status class.
+     * @return String red for unverified, green for verified.
+     */
+    public static function verify() {
+        if ( !isset($_GET['key']) 
+            || $_GET['key'] != self::getVerificationKey() ) {
+            return;
+        }
+        Database::setVerified(self::getId());
+        $_SESSION['user']['verified'] = '';
     }
     
     /**

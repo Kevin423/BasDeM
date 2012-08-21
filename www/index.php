@@ -84,6 +84,8 @@ if ( User::isLoggedin() !== true ) {
                 )
             );
         break;
+        case 'verify':
+            User::verify();
         default:
             $tpl = new Template('index',array('load','default'));
     }

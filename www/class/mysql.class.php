@@ -281,6 +281,20 @@ group by
     }
 
     /**
+      * Sets verification entry for a user.
+      *
+      * @param int $id UserID.
+      */
+    static public function setVerified($id) {
+        return self::query(
+            "update `users` set `verified` = '' where `id` = :id",
+            array(
+                array(':id',$id,PDO::PARAM_INT),
+            )
+        );
+    }
+    
+    /**
       * Adds a favor entry into the database.
       *
       * @param int $id MemplexID.
