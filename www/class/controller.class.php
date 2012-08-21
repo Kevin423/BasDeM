@@ -38,7 +38,6 @@ class Controller {
      */
     public function __construct() {
         if ( !isset($_POST['id']) && User::getVerified() ) {
-            
             if ( empty($_POST['parent'])
                 || empty($_POST['text'])
                 || empty($_POST['layer'])
@@ -198,7 +197,7 @@ class Controller {
      * @return False if POST data was incomplete (moderationstate,parent), else true.
      */
     private function updateMemplexModerationState() {
-        if ( !User::isModerator ) {
+        if ( !User::isModerator() ) {
             return false;
         }
         if ( !isset($_POST['moderationstate'])
