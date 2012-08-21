@@ -170,9 +170,7 @@ class Controller {
             return false;
         }
         
-        $this->memplex->setSelfFavored(User::getId());
-        
-        $this->memplex->store();
+        Database::setFavored($_POST['id'],User::getId());
         
         MemplexRegister::reset();
         

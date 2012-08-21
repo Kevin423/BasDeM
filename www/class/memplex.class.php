@@ -146,7 +146,6 @@ class Memplex {
                 'text' => $this->getText(false),
                 'layer' => $this->getLayer(),
                 'moderationstate' => $this->getModerationState(),
-                'selffavored' => $this->getSelfFavored(),
             ));
         }
     }

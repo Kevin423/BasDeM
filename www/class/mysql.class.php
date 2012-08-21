@@ -269,15 +269,23 @@ group by
                 )
             );
         }
-        if ( !is_null($data['selffavored']) ) {
-        self::query(
+    }
+
+    /**
+      * Adds a favor entry into the database.
+      *
+      * @param int $id MemplexID.
+      * @param int $user UserID.
+      * @return ID of the new database row.
+      */
+    static public function setFavored($id,$user) {
+        return self::query(
             "insert into `favorite` set `id` = :id, `user` = :user",
             array(
-                array(':id',$data['id'],PDO::PARAM_INT),
-                array(':user',$data['selffavored'],PDO::PARAM_INT),
+                array(':id',$id,PDO::PARAM_INT),
+                array(':user',$user,PDO::PARAM_INT),
             )
         );
-        }
     }
 
     /**
