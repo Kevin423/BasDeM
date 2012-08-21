@@ -281,7 +281,7 @@ class User {
      * @return True if moderator, else false.
      */
     public static function isModerator() {
-        return $_SESSION['user']['moderator'] === 1;
+        return (int)$_SESSION['user']['moderator'] === 1;
     }
     
     private static function setError($error) {
