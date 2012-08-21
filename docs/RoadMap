@@ -11,11 +11,11 @@ Pirate Party assembly in Bochum (BPT12.2).
 === ToDo ===
 ==== Coding ====
 ===== 0.1 =====
-* install script
-* sql moderation procedures
 * user preferences UI
-* add Meta overview like Debatte.png
-* add database version to the db, to enable future upgrades
+** change nickname
+** change password
+** verify email
+* layout
 
 ===== 1.0 =====
 ====== implemented ======
@@ -38,6 +38,9 @@ Pirate Party assembly in Bochum (BPT12.2).
 * using Pirate ID for login
 * possibility to post updated solutions and mark the old one as outdated
 * BasDeM update notifications
+* add Meta overview like Debatte.png
+* install script
+* add database version to the db, to enable future upgrades
 
 ==== Quality assurance & community management====
 * tests

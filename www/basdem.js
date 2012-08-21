@@ -1303,7 +1303,7 @@ function ClassDebate(memplex,full) {
             var parent = MemplexRegister.get(parents[p]);
             categories = categories + parent.title + ',';
         }
-        categories = categories.substr(0,categories.length-1) + ')</div>';
+        categories = categories.substr(0,categories.length-1) + ')</div><div class="clear"></div>';
     }
     
     this.title = $('<h3 id="' + adder + 'debate' + this.memplex.id + 'title" class=""><a href="#debate' + this.memplex.id + '">' + this.memplex.title + categories + '</a></h3>');
