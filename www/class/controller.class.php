@@ -170,7 +170,10 @@ class Controller {
             return false;
         }
         
-        Database::setFavored($_POST['id'],User::getId());
+        switch ( $_POST['favorite'] ) {
+            case '0': Database::unSetFavored($_POST['id'],User::getId()); break;
+            case '1': Database::setFavored($_POST['id'],User::getId()); break;
+        }
         
         MemplexRegister::reset();
         

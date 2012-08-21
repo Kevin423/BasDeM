@@ -288,6 +288,22 @@ group by
             )
         );
     }
+    
+    /**
+      * Removes a favor entry from the database.
+      *
+      * @param int $id MemplexID.
+      * @param int $user UserID.
+      */
+    static public function unSetFavored($id,$user) {
+        self::query(
+            "delete from `favorite` where `id` = :id and `user` = :user",
+            array(
+                array(':id',$id,PDO::PARAM_INT),
+                array(':user',$user,PDO::PARAM_INT),
+            )
+        );
+    }
 
     /**
       * Adds a user to the database.

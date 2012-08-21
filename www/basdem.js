@@ -1186,10 +1186,15 @@ ClassSolution.prototype.loadArguments = function() {
                 var sID = Helper.getIdFromString($(this).attr('id'));
                 var cID = Helper.getSecondIdFromString($(this).attr('id'));
                 
+                var state = 1;
+                if( $(this).attr('class').match(/staryellow/) != null ) {
+                    state = 0;
+                }
+                
                 var out = {
                     'id': cID,
                     'parent': sID,
-                    'favorite': 1
+                    'favorite': state
                 };
                 
                 Controller.storeToMemplex(out);
