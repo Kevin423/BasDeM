@@ -47,6 +47,9 @@ class Controller {
                 echo json_encode(array('success' => false));
                 return;
             }
+            if ( !is_array($_POST['parent']) ) {
+                $_POST['parent'] = array($_POST['parent']);
+            }
             foreach ( $_POST['parent'] as $parent ) {
                 if ( is_array($parent) ) {
                     echo json_encode(array('success' => false));
