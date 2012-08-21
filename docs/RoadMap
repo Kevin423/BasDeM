@@ -11,12 +11,6 @@ Pirate Party assembly in Bochum (BPT12.2).
 === ToDo ===
 ==== Coding ====
 ===== 0.1 =====
-* user preferences UI
-** change nickname
-** change password
-** verify email
-
-===== 1.0 =====
 ====== implemented ======
 * moderation UI
 ** inactivate
@@ -28,10 +22,12 @@ Pirate Party assembly in Bochum (BPT12.2).
 ** better filter UI
 * enhance login system
 ** security check for database changes based on userrights
-* enable browser navigation
-* design according to mockups
+* user preferences UI
+** change nickname
+** change password
+** verify email
 
-===== post 1.0 =====
+===== 1.0 =====
 * editing arguments, solutions, etc
 * login system with different plugins (ldap, kerberos, etc etc)
 * using Pirate ID for login
@@ -40,6 +36,9 @@ Pirate Party assembly in Bochum (BPT12.2).
 * add Meta overview like Debatte.png
 * install script
 * add database version to the db, to enable future upgrades
+* store filters
+* enable browser navigation
+* design according to mockups
 
 ==== Quality assurance & community management====
 * tests
