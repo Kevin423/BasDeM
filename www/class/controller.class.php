@@ -37,8 +37,8 @@ class Controller {
      *
      */
     public function __construct() {
-        if ( !isset($_POST['id']) ) {
-            #print_r($_POST);
+        if ( !isset($_POST['id']) && User::getVerified() ) {
+            
             if ( empty($_POST['parent'])
                 || empty($_POST['text'])
                 || empty($_POST['layer'])
@@ -80,7 +80,7 @@ class Controller {
         $this->loadTargetMemplex();
         
         if ( !$this->checkMemplexLoaded() ) {
-            echo json_encode(array('success' => false));
+            echo json_encode(array('success' => false,'verified'=>User::getVerified()));
             return;
         }
         
@@ -198,6 +198,9 @@ class Controller {
      * @return False if POST data was incomplete (moderationstate,parent), else true.
      */
     private function updateMemplexModerationState() {
+        if ( !User::isModerator ) {
+            return false;
+        }
         if ( !isset($_POST['moderationstate'])
             || !isset($_POST['parent']) ) {
             return false;

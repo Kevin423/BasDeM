@@ -208,11 +208,19 @@ class User {
      * Returns the verification status class.
      * @return String red for unverified, green for verified.
      */
-    public static function getVerified() {
-        if ( empty($_SESSION['user']['verified']) ) {
+    public static function getVerifiedClass() {
+        if ( self::getVerified() ) {
             return 'green';
         }
         return 'red';    
+    }
+    
+    /**
+     * Returns the verification status class.
+     * @return String red for unverified, green for verified.
+     */
+    public static function getVerified() {
+        return empty($_SESSION['user']['verified']);
     }
     
     /**

@@ -396,6 +396,12 @@ ClassController.prototype.storeToMemplex = function(data) {
         data,
         function(data) {
             var json = $.parseJSON(data);
+            if ( json.success == false && json.verified == false ) {
+                alert(Helper.getLang('lang_missingVerification'));
+            }
+            if ( json.success == false ) {
+                return;
+            }
             Controller.parseUser(json.user);
             Controller.parseMemplex(json.data,null);
             Controller.setLastLoad(json.data.id,json.time);

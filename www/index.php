@@ -80,7 +80,7 @@ if ( User::isLoggedin() !== true ) {
                     User::getEmail(),
                     User::getNickname(),
                     User::getError(),
-                    User::getVerified(),
+                    User::getVerifiedClass(),
                 )
             );
         break;
