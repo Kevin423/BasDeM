@@ -108,8 +108,9 @@ class Database {
             return false;
         }
         
-        if ( $return === true )
+        if ( $return === true ) {
             return self::$statements[$hash]->fetchAll();
+        }
         
         return self::$connection->lastInsertId();
     }
@@ -324,6 +325,39 @@ group by
             "insert into `users` set `email` = :mail, `password` = :password",
             array(
                 array(':mail',$mail,PDO::PARAM_STR),
+                array(':password',$password,PDO::PARAM_STR),
+            )
+        );
+    }
+    
+    /**
+      * Change a user nickname in the database.
+      *
+      * @param string $id ID of the User.
+      * @param string $nickname New Nickname.
+      */
+    static public function setNickname($id,$nickname) {
+        self::query(
+            "update `users` set `nickname` = :nickname where `id` = :id",
+            array(
+                array(':id',$id,PDO::PARAM_INT),
+                array(':nickname',$nickname,PDO::PARAM_STR),
+            )
+        );
+    }
+    
+    /**
+      * Change a user nickname in the database.
+      *
+      * @param string $id ID of the User.
+      * @param string $nickname New Nickname.
+      */
+    static public function setPassword($id,$passwordold,$password) {
+        return self::query(
+            "update `users` set `password` = :password where `id` = :id and `password` = :passwordold ",
+            array(
+                array(':id',$id,PDO::PARAM_INT),
+                array(':passwordold',$passwordold,PDO::PARAM_STR),
                 array(':password',$password,PDO::PARAM_STR),
             )
         );

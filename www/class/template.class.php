@@ -37,6 +37,7 @@ class Template {
         'default' => 'tpl/default.html',
         'load' => 'tpl/load.html',
         'noload' => '',
+        'settings' => 'tpl/settings.html',
         'login' => 'tpl/login.html',
         'loginerror' => 'tpl/loginerror.html',
         'register' => 'tpl/register.html',
@@ -76,6 +77,14 @@ class Template {
             return;
         }
         $this->output = $this->base;
+    }
+    
+/** Replace the given needle or needle array with the given replacer or replacer array in the output string.
+ * @param $search String/Array needle.
+ * @param $replace String/Array replace.
+ */
+    public function replace($needle,$replace) {
+        $this->output = str_replace($needle,$replace,$this->output);
     }
 
 /**

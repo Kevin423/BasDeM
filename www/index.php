@@ -61,7 +61,25 @@ if ( User::isLoggedin() !== true ) {
         }
     }
 } else {
-    $tpl = new Template('index',array('load','default'));
+    switch ( $_GET['action'] ) {
+        case 'settings':
+            User::update();
+            
+            $tpl = new Template('index',array('noload','settings'));
+            $tpl->replace(
+                array(
+                    ':::nickname:::',
+                    ':::error:::',
+                ),
+                array(
+                    User::getNickname(),
+                    User::getError(),
+                )
+            );
+        break;
+        default:
+            $tpl = new Template('index',array('load','default'));
+    }
 }
 echo $tpl;
 ?>

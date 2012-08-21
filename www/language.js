@@ -74,6 +74,7 @@ switch ( target ) {
             case 'lang_noArgNeut': return 'Noch keine Erg&auml;nzungen';
             case 'lang_noArgCon': return 'Noch keine Entgegnungen';
             case 'lang_ok': return 'OK';
+            case 'lang_settings': return 'Einstellungen';
             case 'lang_solutionAdd': return 'L&ouml;sung hinzuf&uuml;gen';
             case 'lang_solutionDescription': return 'Bitte beschreibe deine L&ouml;sung in einigen S&auml;tzen!';
             case 'lang_textComment': return 'Beschreibung der Erg&auml;nzung: ';

@@ -53,6 +53,43 @@ class User {
     }
 
     /**
+     * Update the User Object based on POST data.
+     */
+    public static function update() {
+        if ( isset($_POST['nickname']) ) {
+            self::setNickname($_POST['nickname']);
+        } 
+        if ( isset($_POST['password'])
+            && isset($_POST['password2'])
+            && isset($_POST['passwordold'])
+            && !empty($_POST['password'])
+            && !empty($_POST['password2'])
+            && !empty($_POST['passwordold'])
+            && $_POST['password'] == $_POST['password2'] ) {
+            
+            $passwordold = Helper::hash($_POST['passwordold'].self::getEmail());
+            
+            $result = Database::getUser(self::getEmail(),$passwordold);
+            
+            if ( $result === false || !is_array($result) ) {
+                self::setError('Falsches Passwort!<br>');
+                return;
+            }
+            
+            if ( count($result) != 1 ) {
+                self::setError('Falsches Passwort!<br>');
+                return;
+            }
+            
+            $password = Helper::hash($_POST['password'].self::getEmail());
+            $success = Database::setPassword(self::getId(),$passwordold,$password);
+            
+            self::setError('Passwort ge&auml;ndert!<br>');
+        }
+        
+    }
+
+    /**
      * Registers a new user.
      */
     private static function register() {
@@ -96,6 +133,7 @@ class User {
         
         $_SESSION['user']['id'] = $result[0]['id'];
         $_SESSION['user']['email'] = $result[0]['email'];
+        $_SESSION['user']['nickname'] = $result[0]['nickname'];
         $_SESSION['loggedin'] = true;
         self::$loggedin = true;
     }
@@ -129,7 +167,32 @@ class User {
      * @return Current user ID.
      */
     public static function getId() {
-        return $_SESSION['user']['id'];
+        return (int)$_SESSION['user']['id'];
+    }
+    
+    /**
+     * Returns the current user Email.
+     * @return Current user Email.
+     */
+    public static function getEmail() {
+        return $_SESSION['user']['email'];
+    }
+    
+    /**
+     * Returns the current user Nickname.
+     * @return Current user Nickname.
+     */
+    public static function getNickname() {
+        return $_SESSION['user']['nickname'];
+    }
+    
+    /**
+     * Set the current users Nickname.
+     * @param Current user Nickname.
+     */
+    public static function setNickname($nickname) {
+        Database::setNickname(self::getId(),$nickname);
+        $_SESSION['user']['nickname'] = $nickname;
     }
 
     /**

@@ -987,9 +987,15 @@ ClassView.prototype.paintButtons = function() {
     Helper.createButton(Helper.getLang('lang_logout'),null,'#menu','floatleft',function(data) {
         window.location = '?action=logout';
     });
-    Helper.createButton(Helper.getLang('lang_newDebate'),'ui-icon-plus','#menu','floatleft',function(data) {
-        Controller.addDebate();
+    Helper.createButton(Helper.getLang('lang_settings'),null,'#menu','floatleft',function(data) {
+        window.location = '?action=settings';
     });
+    
+    $('<div>')
+        .addClass('floatleft')
+        .attr('style','width: 183px; height: 10px;')
+        .appendTo('#menu');
+    
     Helper.createButton(null,'ui-icon-refresh','#menu','floatleft',function(data) {
         Controller.loadDebates();
     });
@@ -998,6 +1004,9 @@ ClassView.prototype.paintButtons = function() {
     });
     Helper.createButton(Helper.getLang('lang_newFilter'),'ui-icon-plus','#menu','floatright',function(data) {
         Controller.addFilter();
+    });
+    Helper.createButton(Helper.getLang('lang_newDebate'),'ui-icon-plus','#menu','floatright',function(data) {
+        Controller.addDebate();
     });
 }
 
