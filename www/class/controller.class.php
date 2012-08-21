@@ -74,6 +74,8 @@ class Controller {
             return;
         }
         
+        $this->updateMemplexFavorite();
+        
         $this->updateMemplexModerationState();
         
         #$this->updateMemplexData();
@@ -158,6 +160,27 @@ class Controller {
      */
     private function checkMemplexLoaded() {
         return !is_null($this->memplex->getTitle());
+    }
+
+    /** Updates a memplexes moderation state based upon POST data.
+     * @return False if POST data was incomplete (moderationstate,parent), else true.
+     */
+    private function updateMemplexFavorite() {
+        if ( !isset($_POST['favorite']) ) {
+            return false;
+        }
+        
+        $this->memplex->setSelfFavored(User::getId());
+        
+        $this->memplex->store();
+        
+        MemplexRegister::reset();
+        
+        $_POST['id'] = $_POST['parent'];
+        
+        $this->loadTargetMemplex();
+        
+        return true;
     }
 
     /** Updates a memplexes moderation state based upon POST data.

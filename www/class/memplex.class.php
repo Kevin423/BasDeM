@@ -28,6 +28,8 @@ class Memplex {
     private $id;
     private $children;
     private $childarray;
+    private $favored;
+    private $selffavored = null;
     private $author;
     private $authorId;
     private $title;
@@ -59,7 +61,7 @@ class Memplex {
     }
     
     private function loadMemplex($id) {
-        $tmp = Database::getMemplex($id);
+        $tmp = Database::getMemplex($id,User::getId());
         if ( count($tmp) == 0 ) {
             return;
         }
@@ -70,6 +72,8 @@ class Memplex {
         $this->setTitle($tmp[0]['title']);
         $this->setText($tmp[0]['text']);
         $this->setLayer($tmp[0]['layer']);
+        $this->setFavored($tmp[0]['favored']);
+        $this->setSelfFavored($tmp[0]['selffavored']);
         $this->children = array();
         foreach ( $tmp as $key => $value ) {
             if ( empty($value['child']) ) {
@@ -142,6 +146,7 @@ class Memplex {
                 'text' => $this->getText(false),
                 'layer' => $this->getLayer(),
                 'moderationstate' => $this->getModerationState(),
+                'selffavored' => $this->getSelfFavored(),
             ));
         }
     }
@@ -165,6 +170,8 @@ class Memplex {
             'text' => $this->getText(),
             'layer' => $this->getLayer(),
             'moderationstate' => $this->getModerationState(),
+            'favored' => $this->getFavored(),
+            'selffavored' => $this->getSelfFavored(),
             'children' => $this->childarray,
         );
     }
@@ -185,6 +192,42 @@ class Memplex {
      */
     public function getId() {
         return (int)$this->id;
+    }
+    
+    /**
+     * Sets the number of favors of the Memplex.
+     *
+     * @param integer $id The new ID.
+     */
+    public function setSelfFavored($selffavored) {
+        $this->selffavored = $selffavored;
+    }
+    
+    /**
+     * Returns the number of favors of the Memplex.
+     *
+     * @return The ID of the Memplex.
+     */
+    public function getSelfFavored() {
+        return (int)$this->selffavored;
+    }
+    
+    /**
+     * Sets the number of favors of the Memplex.
+     *
+     * @param integer $id The new ID.
+     */
+    public function setFavored($favored) {
+        $this->favored = $favored;
+    }
+    
+    /**
+     * Returns the number of favors of the Memplex.
+     *
+     * @return The ID of the Memplex.
+     */
+    public function getFavored() {
+        return (int)$this->favored;
     }
 
     /**

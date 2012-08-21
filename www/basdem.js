@@ -701,6 +701,8 @@ ClassMemplexRegister.prototype.add = function(memplex,parent) {
         this.title = memplex.title;
         this.text = memplex.text;
         this.layer = memplex.layer;
+        this.favored = memplex.favored;
+        this.selffavored = memplex.selffavored;
         this.moderationstate = memplex.moderationstate;
         this.children = {};
         for ( c in memplex.children ) {
@@ -1151,11 +1153,8 @@ ClassSolution.prototype.loadArguments = function() {
             parent = parents[p];
         }
         
-        // TODO: Implement Support System here.
-        var star = '<div class="star"></div>';
-        
         var div = Helper.box(
-            star + child.title,
+            child.title,
             'solution' + this.memplex.id + 'comment' + child.id,
             li,
             '#debate' + parent + 'solution' + this.memplex.id + 'comment' + child.id,
@@ -1176,6 +1175,32 @@ ClassSolution.prototype.loadArguments = function() {
                 solution.showComment(id);
             });
 
+        // TODO: Implement Support System here.
+        var container = $('<div class="floatleft">').appendTo(div);
+        
+        $('<div class="floatleft">(' + child.favored + ')</div>')
+            .appendTo(container);
+        
+        var star = $('<div id="solution' + this.memplex.id + 'comment' + child.id + 'star" class="star"></div>')
+            .click(function(data) {
+                var sID = Helper.getIdFromString($(this).attr('id'));
+                var cID = Helper.getSecondIdFromString($(this).attr('id'));
+                
+                var out = {
+                    'id': cID,
+                    'parent': sID,
+                    'favorite': 1
+                };
+                
+                Controller.storeToMemplex(out);
+                
+                return false;
+            })
+            .appendTo(container);
+        
+        if ( child.selffavored != 0 ) {
+            star.addClass('staryellow');
+        }
 
         this.hidden[child.id] = $('<div id="solution' + this.memplex.id + 'comment' + child.id + 'hidden" class="solutioncomment hidden">').appendTo(li);
         for ( c in child.children ) {

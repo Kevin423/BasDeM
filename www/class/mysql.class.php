@@ -128,11 +128,11 @@ class Database {
       * Fetches a Memplex from the database.
       *
       * @param integer $identifier ID of the Memplex to load.
-      * @param integer $time Only load a Memplex if it is newer than $time or has been changed (optional).
+      * @param integer $userid UserID of calling user.
       *
       * @return Array of result set rows.
       */ 
-    static public function getMemplex($identifier,$time = 0) {
+    static public function getMemplex($identifier,$user) {
         /*
         TODO: Select comments by layer and parent relation to both L4 and L5+
         */
@@ -146,7 +146,9 @@ class Database {
     authors.userid as authorid,
     children.child as child,
     m1.state as state,
-    m2.state as state2
+    m2.state as state2,
+    count(favorite.user) as favored,
+    selffavorite.user as selffavored
 from
     memplex
 join
@@ -160,16 +162,22 @@ join
 left join
     children ON children.parent = memplex.id
 left join
-    moderation as m1 ON m1.id = memplex.id
+    favorite ON favorite.id = memplex.id
+left join
+    favorite as selffavorite ON selffavorite.id = memplex.id AND selffavorite.user = :user
+left join
+    moderation as m1 ON m1.id = memplex.id AND ( m1.state is null OR ( m1.state <> 1 AND m1.state <> 2 ) )
 left join
     moderation as m2 ON m2.id = children.child
 where
     memplex.id = :identifier
-    AND ( m1.state is null OR ( m1.state <> 1 AND m1.state <> 2 ) )",
+    AND ( 1 OR memplex.id = :user )
+group by
+    memplex.id, children.child",
    // AND memplex.time > :time",
             array(
                 array(':identifier',$identifier,PDO::PARAM_INT),
-                // array(':time',$time,PDO::PARAM_INT),
+                array(':user',$user,PDO::PARAM_INT),
             ),
             true,
             false
@@ -260,6 +268,15 @@ where
                     array(':id',$data['id'],PDO::PARAM_INT),
                 )
             );
+        }
+        if ( !is_null($data['selffavored']) ) {
+        self::query(
+            "insert into `favorite` set `id` = :id, `user` = :user",
+            array(
+                array(':id',$data['id'],PDO::PARAM_INT),
+                array(':user',$data['selffavored'],PDO::PARAM_INT),
+            )
+        );
         }
     }
 

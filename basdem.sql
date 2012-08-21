@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 26, 2012 at 04:31 PM
+-- Generation Time: Aug 21, 2012 at 02:24 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -169,6 +169,20 @@ INSERT INTO `children` (`parent`, `child`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `favorite`
+--
+
+DROP TABLE IF EXISTS `favorite`;
+CREATE TABLE IF NOT EXISTS `favorite` (
+  `id` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`,`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `memplex`
 --
 
@@ -178,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `memplex` (
   `layer` int(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `layer` (`layer`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=54 ;
 
 --
 -- Dumping data for table `memplex`
@@ -229,6 +243,20 @@ INSERT INTO `memplex` (`id`, `layer`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `moderation`
+--
+
+DROP TABLE IF EXISTS `moderation`;
+CREATE TABLE IF NOT EXISTS `moderation` (
+  `id` int(11) NOT NULL,
+  `state` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `state` (`state`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `texts`
 --
 
@@ -237,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `texts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` mediumtext CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=54 ;
 
 --
 -- Dumping data for table `texts`
@@ -296,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `titles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` varchar(255) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=54 ;
 
 --
 -- Dumping data for table `titles`
@@ -358,31 +386,31 @@ CREATE TABLE IF NOT EXISTS `users` (
   `nickname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `password`, `email`, `nickname`) VALUES
-(1, '', 'System', 'System');
+(1, '', 'System', 'System'),
+(2, '$6$rounds=50000$This is my salt.$Ep8bSDwz18eVJiceUYBip2kKh5Mj56TN0omwDuABPhNXsuAxtHlW7RpHrzw1ospPDAS1eZ8tdyRA2Ij5ZG9GE.', 'justus@abi007.info', '');
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `authors`
+-- Constraints for table `favorite`
 --
-ALTER TABLE `authors`
-  ADD CONSTRAINT `authors_ibfk_1` FOREIGN KEY (`id`) REFERENCES `memplex` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `favorite`
+  ADD CONSTRAINT `favorite_ibfk_1` FOREIGN KEY (`id`) REFERENCES `memplex` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `children`
+-- Constraints for table `moderation`
 --
-ALTER TABLE `children`
-  ADD CONSTRAINT `children_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `memplex` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `children_ibfk_2` FOREIGN KEY (`child`) REFERENCES `memplex` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `moderation`
+  ADD CONSTRAINT `moderation_ibfk_1` FOREIGN KEY (`id`) REFERENCES `memplex` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `texts`
