@@ -18,10 +18,12 @@ Pirate Party assembly in Bochum (BPT12.2).
 * add database version to the db, to enable future upgrades
 
 ===== 1.0 =====
+====== implemented ======
 * moderation UI
 ** inactivate
 ** flag as inappropriate
 * rating system for debates, solutions, arguments, comments
+====== not yet implemented ======
 * enhance filter system
 ** creating filters UI
 ** better filter UI
