@@ -75,6 +75,11 @@ class Controller {
             // return;
         }
         
+        if ( !isset($_POST['id']) ) {
+            echo json_encode(array('success' => false,'verified'=>User::getVerified()));
+            return;
+        }
+        
         // Load or edit an existing Memplex. Editing disabled for now.
         $this->loadTargetMemplex();
         
