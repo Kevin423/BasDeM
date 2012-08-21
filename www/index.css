@@ -205,6 +205,16 @@ li .comment {
     float: right;
     font-size: 0.7em;
 }
+.squarecross {
+    background-image: url("css/images/square-cross.svg");
+    background-size: 20px 20px;
+    width: 20px;
+    height: 20px;
+    float: right;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
 .star {
     background-image: url("css/images/star1.svg");
     background-size: 20px 20px;

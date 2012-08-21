@@ -951,8 +951,8 @@ ClassView.prototype.paintButtons = function() {
     Helper.createButton(Helper.getLang('lang_debate'),null,'#menu','floatleft',function(data) {
         View.loadDebates();
     });
-    Helper.createButton(Helper.getLang('lang_filterSelect'),null,'#menu','floatright',function(data) {
-        Filter.createNewObject();
+    Helper.createButton(Helper.getLang('lang_newFilter'),'ui-icon-plus','#menu','floatright',function(data) {
+        Filter.create();
     });
 }
 
@@ -1388,6 +1388,7 @@ ClassDebate.prototype.matchFilter = function() {
 function ClassFilter() {
     /**  */
     this.filters = {};
+    this.tmplist = {};
     /** AND filters. */
     this.allof = {};
     /** OR filters. */
@@ -1438,23 +1439,71 @@ ClassFilter.prototype.match = function(nodes) {
 ClassFilter.prototype.printFilters = function() {
     var list = $('#activefilterlist').empty();
 
+    
+    Helper.createButton(Helper.getLang('lang_filterAdd'),'ui-icon-plus','#activefilterlist','floatright',function(data) {
+        Filter.createNewObject();
+    });
+    
     var allof = $('<p>').appendTo(list);
     $('<br>').appendTo(list);
     var oneof = $('<p>').appendTo(list);
     $('<br>').appendTo(list);
 
-    $('<p>All of:</p>').appendTo(allof);
-    $('<p>One of:</p>').appendTo(oneof);
+    $('<p>' + Helper.getLang('lang_filterAndShort') + '</p>').appendTo(allof);
+    $('<p>' + Helper.getLang('lang_filterOrShort') + '</p>').appendTo(oneof);
 
     for ( a in this.allof ) {
         var m = MemplexRegister.get(this.allof[a]);
-        Helper.window($('<p>' + m.title + '</p>').appendTo(allof),'all');
+        var tmp = $('<p>')
+            .appendTo(allof);
+        $('<p>' + m.title + '</p>')
+            .addClass('floatright')
+            .appendTo(tmp);
+        
+        this.removeButton(this.allof,m.id ).appendTo(tmp);
+        
+        Helper.window(tmp,'all');
     }
 
     for ( o in this.oneof ) {
         var m = MemplexRegister.get(this.oneof[o]);
-        Helper.window($('<p>' + m.title + '</p>').appendTo(oneof),'all');
+        var tmp = $('<p>')
+            .appendTo(oneof);
+        $('<p>' + m.title + '</p>')
+            .addClass('floatright')
+            .appendTo(tmp);
+        
+        this.removeButton(this.oneof,m.id ).appendTo(tmp);
+        
+        Helper.window(tmp,'all');
     }
+}
+
+/** Return the removal button.
+ */
+ClassFilter.prototype.removeButton = function(filter,id) {
+    return $('<p id="allof' + id + '">')
+            .click(function(data) {
+                var catID = Helper.getIdFromString($(this).attr('id'));
+                Filter.remove(catID,filter);
+                Filter.printFilters();
+                View.loadDebates();
+            })
+            .addClass('squarecross');
+}
+
+/** Appends the new filters to the list.
+* @tparam object filterlist The list to be appended to.
+* @tparam object filterlist The list to be appended.
+ */
+ClassFilter.prototype.append = function(list,newlist) {
+    for ( n in newlist ) {
+        Filter.remove(list,newlist[n]);
+    }
+    for ( n in newlist ) {
+        list[Helper.objectCount(list)] = newlist[n];
+    }
+    newlist = {};
 }
 
 /** Reloads available filters.
@@ -1503,20 +1552,6 @@ ClassFilter.prototype.getFilterSelector = function(id,callback,check) {
     return content;
 }
 
-/** Callback method for the AND filter.
- */
-ClassFilter.prototype.allofCallback = function() {
-    Filter.allof = Filter.getSelected($( this ));
-    Filter.printFilters();
-}
-
-/** Callback method for the OR filter.
- */
-ClassFilter.prototype.oneofCallback = function() {
-    Filter.oneof = Filter.getSelected($( this ));
-    Filter.printFilters();
-}
-
 /** Gets the Object representation of the new filter form.
  */
 ClassFilter.prototype.createNewObject = function() {
@@ -1526,14 +1561,24 @@ ClassFilter.prototype.createNewObject = function() {
 
     $('<p>'+Helper.getLang('lang_multiFilter')+'</p>').appendTo(content);
 
-   $('<h4>'+Helper.getLang('lang_allFilter')+'</h4>').appendTo(content);
-   this.getFilterSelector('filterAllOf',this.allofCallback,this.allof).appendTo(content);
-    $('<br><br><h4>'+Helper.getLang('lang_minFilter')+'</h4>').appendTo(content);
-    this.getFilterSelector('filterOneOf',this.oneofCallback,this.oneof).appendTo(content);
+    $('<h4>'+Helper.getLang('lang_allFilter')+'</h4>').appendTo(content);
+    
+    this.getFilterSelector('filterAllOf',function() {
+        Filter.tmplist = Filter.getSelected($( this ));
+    }).appendTo(content);
     
     var buttons = {};
-    buttons[Helper.getLang('lang_confirm')] = function() {
+    buttons[Helper.getLang('lang_filterAnd')] = function() {
+        Filter.append(Filter.allof,Filter.tmplist);
         View.loadDebates();
+        $( this ).dialog( 'close' );
+    };
+    buttons[Helper.getLang('lang_filterOr')] = function() {
+        Filter.append(Filter.oneof,Filter.tmplist);
+        View.loadDebates();
+        $( this ).dialog( 'close' );
+    };
+    buttons[Helper.getLang('lang_cancel')] = function() {
         $( this ).dialog( 'close' );
     };
     
@@ -1563,6 +1608,22 @@ ClassFilter.prototype.getSelected = function(id) {
         ret[z++] = Helper.getIdFromString(found[i].id);
     }
     return ret;
+}
+
+/** Removes the IDs of the selected filter.
+ * @tparam int id FilterID to be removed.
+ * @tparam object filter Filter to be used.
+ */
+ClassFilter.prototype.remove = function(id,filter) {
+    for ( f in filter ) {
+        if ( filter[f] != id ) {
+            continue;
+        }
+        
+        delete(filter[f]);
+        
+        break;
+    }
 }
 
 /** @class ClassList

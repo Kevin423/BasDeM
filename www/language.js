@@ -45,7 +45,11 @@ switch ( target ) {
             case 'lang_errorLayer': return 'Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!';
             case 'lang_errorDebateTitle': return 'Bitte gib einen Titel f&uuml;r deine Debatte an!';
             case 'lang_filter': return 'W&auml;hle die gew&uuml;nschten Filter aus';
-            case 'lang_filterSelect': return 'Filter einstellen';
+            case 'lang_filterAdd': return 'Filter hinzuf&uuml;gen';
+            case 'lang_filterAnd': return 'Muss alle ausgewählten enthalten';
+            case 'lang_filterOr': return 'Muss einen ausgewählten enthalten';
+            case 'lang_filterAndShort': return 'Und Filter:';
+            case 'lang_filterOrShort': return 'Oder Filter:';
             case 'lang_helpNewComment': return '<p>Bitte beschreibe dein neues Argument sachlich und verst&auml;ndlich und wiederhole keine Punkte, die bereits genannt wurden.</p><p>Der <b>Titel</b> ist die Kurzfassung deines Argumentes in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Du kannst auch Argumente hinzuf&uuml;gen, die nicht deine pers&ouml;nliche Meinung st&uuml;tzen.</p>';
             case 'lang_helpNewDebate': return '<p>Bitte beschreibe deine neue Debatte sachlich, neutral und verst&auml;ndlich und stelle sicher, dass diese Debatte nicht bereits gef&uuml;hrt wird.</p><p>Der <b>Titel</b> ist die Kurzfassung der Debatte in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Bitte f&uuml;ge die Debatte auch einem oder mehreren <b>Themenbereichen</b> hinzu, sodass sie leicht gefunden werden kann.</p>';
             case 'lang_helpNewSolution': return '<p>Bitte beschreibe deine neue L&ouml;sung sachlich, neutral und verst&auml;ndlich und wiederhole keine L&ouml;sungen, die bereits genannt wurden.</p><p>Der <b>Titel</b> ist die Kurzbeschreibung deiner L&ouml;sung in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Du kannst auch L&ouml;sungen hinzuf&uuml;gen, die du pers&ouml;nlich nicht unterst&uuml;tzt.</p>';
@@ -62,6 +66,7 @@ switch ( target ) {
             case 'lang_multiFilter': return 'Dr&uuml;cke Strg um mehr als einen Filter auszuw&auml;hlen.<br>Achtung: &Auml;nderungen sind sofort wirksam!';
             case 'lang_newDebate': return 'Neue Debatte';
             case 'lang_newDebateCreate': return 'Neue Debatte erstellen';
+            case 'lang_newFilter': return 'Neue Filterkategorie';
             case 'lang_newSolution': return 'Neue L&ouml;sung erstellen';
             case 'lang_noArgPro': return 'Noch keine Best&auml;rkungen';
             case 'lang_noArgNeut': return 'Noch keine Erg&auml;nzungen';
