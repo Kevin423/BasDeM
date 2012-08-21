@@ -27,6 +27,7 @@ Pirate Party assembly in Bochum (BPT12.2).
 ** security check for database changes based on userrights
 
 ===== 1.0 =====
+====== not implemented ====== 
 * editing arguments, solutions, etc
 * login system with different plugins (ldap, kerberos, etc etc)
 * using Pirate ID for login
