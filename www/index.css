@@ -179,11 +179,11 @@ li .comment {
 .comment {
     margin: 2px;
 }
-.addcomment span span, .addsolution span span, .adddebate span span {
+.addcomment span span, .addsolution span span, .adddebate span span, .addfilter span span {
     float: left;
     width: 150px;
 }
-.addcomment span input, .addcomment span textarea, .addsolution span input, .addsolution span textarea, .adddebate span input, .adddebate span textarea {
+.addcomment span input, .addcomment span textarea, .addsolution span input, .addsolution span textarea, .adddebate span input, .adddebate span textarea, .addfilter span input, .addfilter span textarea {
     float: left;
     width: 500px;
 }

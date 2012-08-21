@@ -52,6 +52,7 @@ switch ( target ) {
             case 'lang_filterOrShort': return 'Oder Filter:';
             case 'lang_helpNewComment': return '<p>Bitte beschreibe dein neues Argument sachlich und verst&auml;ndlich und wiederhole keine Punkte, die bereits genannt wurden.</p><p>Der <b>Titel</b> ist die Kurzfassung deines Argumentes in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Du kannst auch Argumente hinzuf&uuml;gen, die nicht deine pers&ouml;nliche Meinung st&uuml;tzen.</p>';
             case 'lang_helpNewDebate': return '<p>Bitte beschreibe deine neue Debatte sachlich, neutral und verst&auml;ndlich und stelle sicher, dass diese Debatte nicht bereits gef&uuml;hrt wird.</p><p>Der <b>Titel</b> ist die Kurzfassung der Debatte in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Bitte f&uuml;ge die Debatte auch einem oder mehreren <b>Themenbereichen</b> hinzu, sodass sie leicht gefunden werden kann.</p>';
+            case 'lang_helpNewFilter': return '<p>Bitte beschreibe deine neue Filterkategorie sachlich, neutral und verst&auml;ndlich und stelle sicher, dass diese Filterkategorie nicht bereits vorhanden ist.</p><p>Der <b>Titel</b> ist die Kurzfassung der Filterkategorie in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. <p>';
             case 'lang_helpNewSolution': return '<p>Bitte beschreibe deine neue L&ouml;sung sachlich, neutral und verst&auml;ndlich und wiederhole keine L&ouml;sungen, die bereits genannt wurden.</p><p>Der <b>Titel</b> ist die Kurzbeschreibung deiner L&ouml;sung in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Du kannst auch L&ouml;sungen hinzuf&uuml;gen, die du pers&ouml;nlich nicht unterst&uuml;tzt.</p>';
             case 'lang_listNew': return 'Neu';
             case 'lang_listLatest': return 'Aktuell';
@@ -67,6 +68,7 @@ switch ( target ) {
             case 'lang_newDebate': return 'Neue Debatte';
             case 'lang_newDebateCreate': return 'Neue Debatte erstellen';
             case 'lang_newFilter': return 'Neue Filterkategorie';
+            case 'lang_newFilterCreate': return 'Neue Filterkategorie erstellen';
             case 'lang_newSolution': return 'Neue L&ouml;sung erstellen';
             case 'lang_noArgPro': return 'Noch keine Best&auml;rkungen';
             case 'lang_noArgNeut': return 'Noch keine Erg&auml;nzungen';
@@ -76,9 +78,11 @@ switch ( target ) {
             case 'lang_solutionDescription': return 'Bitte beschreibe deine L&ouml;sung in einigen S&auml;tzen!';
             case 'lang_textComment': return 'Beschreibung der Erg&auml;nzung: ';
             case 'lang_textDebate': return 'Beschreibung der Debatte: ';
+            case 'lang_textFilter': return 'Beschreibung der Filterkategorie: ';
             case 'lang_textSolution': return 'Beschreibung der L&ouml;sung: ';
             case 'lang_titleComment': return 'Titel der Erg&auml;nzung: ';
             case 'lang_titleDebate': return 'Titel der Debatte: ';
+            case 'lang_titleFilter': return 'Titel der Filterkategorie: ';
             case 'lang_titleSolution': return 'Titel der L&ouml;sung: ';
             case 'lang_topics': return 'Themenbereiche: ';
             case 'lang_yArg': return 'dein Argument';

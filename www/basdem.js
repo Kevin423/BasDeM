@@ -464,7 +464,7 @@ ClassController.prototype.addForm = function(name,title,description,strings,pare
         buttons,
         name + 'parent');
 }
-    
+
 /** Creates a new Debate.
  */
 ClassController.prototype.addDebate = function() {
@@ -512,6 +512,51 @@ ClassController.prototype.addDebate = function() {
         Controller.storeToMemplex(out);
         $( this ).dialog( 'close' );
     });
+}
+
+/** Creates a new Filter.
+ */
+ClassController.prototype.addFilter = function() {
+    this.addForm(
+        'addfilter',
+        Helper.getLang('lang_newFilterCreate'),
+        Helper.getLang('lang_helpNewFilter'),
+        [Helper.getLang('lang_titleFilter'),Helper.getLang('lang_textFilter')],
+        null,null,function() {
+            var bad = false;
+
+            var error = $('#addfiltererror').empty();
+
+            var title = $('#addfiltertitle');
+            var text = $('#addfiltertext');
+
+            title.parent().removeClass('formerror');
+            text.parent().removeClass('formerror');
+
+            if ( title.val() == '' ) {
+                bad = true;
+                title.parent().addClass('formerror');
+                $('<p>'+Helper.getLang('lang_errorFilterTitle')+'</p>').appendTo(error);
+           }
+            if ( text.val() == '' ) {
+                bad = true;
+                text.parent().addClass('formerror');
+                $('<p>'+Helper.getLang('lang_filterDescription')+'</p>').appendTo(error);
+            }
+
+            if ( bad == true ) {
+                return;
+            }
+            var out = {
+                'parent': 1,
+                'title': title.val(),
+                'text': text.val(),
+                'layer': 2,
+                'loadid': 1
+            };
+            Controller.storeToMemplex(out);
+            $( this ).dialog( 'close' );
+        });
 }
 
 /** Create a new Solution.
@@ -952,7 +997,7 @@ ClassView.prototype.paintButtons = function() {
         View.loadDebates();
     });
     Helper.createButton(Helper.getLang('lang_newFilter'),'ui-icon-plus','#menu','floatright',function(data) {
-        Filter.create();
+        Controller.addFilter();
     });
 }
 
