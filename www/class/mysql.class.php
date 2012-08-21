@@ -320,7 +320,7 @@ group by
       * @param string $password Hashed password.
       * @return ID of the new database row.
       */
-    static public function createUser($mail,$password,$verified {
+    static public function createUser($mail,$password,$verified) {
         return self::query(
             "insert into `users` set `email` = :mail, `password` = :password, `verified` = :verified",
             array(

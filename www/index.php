@@ -61,6 +61,9 @@ if ( User::isLoggedin() !== true ) {
         }
     }
 } else {
+    if ( !isset($_GET['action']) ) {
+        $_GET['action'] = '';
+    }
     switch ( $_GET['action'] ) {
         case 'settings':
             User::update();
