@@ -98,7 +98,7 @@ class User {
         }
         $password = Helper::hash($_POST['password'].$_POST['email']);
         
-        $verified = md5($_POST['email'].$password,microtime(true));
+        $verified = md5($_POST['email'].$password.microtime(true));
         
         $result = Database::createUser($_POST['email'],$password,$verified);
         
