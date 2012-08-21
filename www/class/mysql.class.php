@@ -320,12 +320,13 @@ group by
       * @param string $password Hashed password.
       * @return ID of the new database row.
       */
-    static public function createUser($mail,$password) {
+    static public function createUser($mail,$password,$verified {
         return self::query(
-            "insert into `users` set `email` = :mail, `password` = :password",
+            "insert into `users` set `email` = :mail, `password` = :password, `verified` = :verified",
             array(
                 array(':mail',$mail,PDO::PARAM_STR),
                 array(':password',$password,PDO::PARAM_STR),
+                array(':verified',$verified,PDO::PARAM_STR),
             )
         );
     }

@@ -97,8 +97,10 @@ class User {
             return;
         }
         $password = Helper::hash($_POST['password'].$_POST['email']);
-
-        $result = Database::createUser($_POST['email'],$password);
+        
+        $verified = md5($_POST['email'].$password,microtime(true));
+        
+        $result = Database::createUser($_POST['email'],$password,$verified);
         
         if (  $result === false || !is_numeric($result) ) {
             return;
@@ -108,6 +110,29 @@ class User {
         $_SESSION['user']['email'] = $_POST['email'];
         $_SESSION['loggedin'] = true;
         self::$loggedin = true;
+        
+        self::registerMail($verified);
+    }
+
+    /**
+     * Send Registration Mail.
+     */
+    private static function registerMail($key) {
+        $header = 'From: webmaster@example.com' . "\r\n" .
+                'Reply-To: webmaster@example.com' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+    
+        mail(
+            self::getEmail(),
+            'Registration auf BasDeM.de',
+'Hallo,
+du hast dich erfolgreich auf BasDeM.de angemeldet. Bitte verifiziere deinen Account mit einem Klick auf folgenden Link:
+http://www.basdem.de/demo/index.php?action=verify&key=' . $key . '
+Wir danken für deine Mitarbeit und wünschen dir viel Spaß beim ausprobieren unserer Funktionalität.
+Gruß,
+Das Entwicklerteam',
+            $header
+        );
     }
 
     /**
@@ -179,6 +204,14 @@ class User {
     }
     
     /**
+     * Returns the verification status class.
+     * @return String red for unverified, green for verified.
+     */
+    public static function getVerified() {
+        return 'red';
+    }
+    
+    /**
      * Returns the current user Nickname.
      * @return Current user Nickname.
      */
@@ -191,6 +224,9 @@ class User {
      * @param Current user Nickname.
      */
     public static function setNickname($nickname) {
+        if ( self::getNickname() == $nickname ) {
+            return;
+        }
         Database::setNickname(self::getId(),$nickname);
         $_SESSION['user']['nickname'] = $nickname;
         self::setError('Nickname ge&auml;ndert!<br>');

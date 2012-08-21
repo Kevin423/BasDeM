@@ -19,10 +19,10 @@ Pirate Party assembly in Bochum (BPT12.2).
 * enhance filter system
 ** creating filters UI
 ** better filter UI
-====== not yet implemented ======
 * user preferences UI
 ** change nickname
 ** change password
+====== not yet implemented ======
 ** verify email
 * enhance login system
 ** security check for database changes based on userrights

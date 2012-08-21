@@ -227,3 +227,9 @@ li .comment {
 .staryellow, .star:hover{
     background-image: url("css/images/star2.svg");
 }
+.red {
+    color: red;
+}
+.green {
+    color: green;
+}

@@ -68,12 +68,16 @@ if ( User::isLoggedin() !== true ) {
             $tpl = new Template('index',array('noload','settings'));
             $tpl->replace(
                 array(
+                    ':::email:::',
                     ':::nickname:::',
                     ':::error:::',
+                    ':::verified:::',
                 ),
                 array(
+                    User::getEmail(),
                     User::getNickname(),
                     User::getError(),
+                    User::getVerified(),
                 )
             );
         break;
