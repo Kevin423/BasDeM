@@ -193,6 +193,7 @@ class User {
     public static function setNickname($nickname) {
         Database::setNickname(self::getId(),$nickname);
         $_SESSION['user']['nickname'] = $nickname;
+        self::setError('Nickname ge&auml;ndert!<br>');
     }
 
     /**
