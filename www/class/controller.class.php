@@ -200,7 +200,7 @@ class Controller {
         
         $this->loadTargetMemplex();
         
-        if ( $this->memplex->getLayer() == 2 ) {
+        if ( $this->memplex->getLayer() <= 3 ) {
             $_POST['id'] = 1;
             $this->loadTargetMemplex();
         }
