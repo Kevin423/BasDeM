@@ -29,7 +29,7 @@ this.get = function(target,lang) {
 switch ( target ) {
     case 'de_DE':
         switch ( lang ) {
-            case 'lang_allFilter': return 'Beitrag erf&uuml;llt alle hier ausgew&auml;hlten Filter:';
+            case 'lang_allFilter': return 'Verfügbare Filterkategorien:';
             case 'lang_answer': return 'Erg&auml;nzen';
             case 'lang_argPro': return 'Best&auml;rken';
             case 'lang_argNeut': return 'Erg&auml;nzen';
@@ -41,18 +41,17 @@ switch ( target ) {
             case 'lang_createsolution': return 'L&ouml;sung anlegen';
             case 'lang_debate': return 'Debatten';
             case 'lang_description': return 'Beschreibung';
-            case 'lang_errorPartent':
-            case 'lang_errorLayer': return 'Es ist ein schwerer Fehler aufgetreten. Bitte Klicke auf Abbrechen!';
+            case 'lang_errorLayer': return 'Es ist ein schwerer Fehler aufgetreten. Bitte klicke auf Abbrechen!';
             case 'lang_errorDebateTitle': return 'Bitte gib einen Titel f&uuml;r deine Debatte an!';
             case 'lang_filter': return 'W&auml;hle die gew&uuml;nschten Filter aus';
             case 'lang_filterAdd': return 'Filter hinzuf&uuml;gen';
-            case 'lang_filterAnd': return 'Muss alle ausgewählten enthalten';
-            case 'lang_filterOr': return 'Muss einen ausgewählten enthalten';
+            case 'lang_filterAnd': return 'müssen alle erfüllt sein (UND)';
+            case 'lang_filterOr': return 'eins muss erfüllt sein (ODER)';
             case 'lang_filterAndShort': return 'Und Filter:';
             case 'lang_filterOrShort': return 'Oder Filter:';
             case 'lang_helpNewComment': return '<p>Bitte beschreibe dein neues Argument sachlich und verst&auml;ndlich und wiederhole keine Punkte, die bereits genannt wurden.</p><p>Der <b>Titel</b> ist die Kurzfassung deines Argumentes in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Du kannst auch Argumente hinzuf&uuml;gen, die nicht deine pers&ouml;nliche Meinung st&uuml;tzen.</p>';
             case 'lang_helpNewDebate': return '<p>Bitte beschreibe deine neue Debatte sachlich, neutral und verst&auml;ndlich und stelle sicher, dass diese Debatte nicht bereits gef&uuml;hrt wird.</p><p>Der <b>Titel</b> ist die Kurzfassung der Debatte in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Bitte f&uuml;ge die Debatte auch einem oder mehreren <b>Themenbereichen</b> hinzu, sodass sie leicht gefunden werden kann.</p>';
-            case 'lang_helpNewFilter': return '<p>Bitte beschreibe deine neue Filterkategorie sachlich, neutral und verst&auml;ndlich und stelle sicher, dass diese Filterkategorie nicht bereits vorhanden ist.</p><p>Der <b>Titel</b> ist die Kurzfassung der Filterkategorie in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. <p>';
+            case 'lang_helpNewFilter': return '<p>Bitte beschreibe deine neue Filterkategorie sachlich, neutral und verst&auml;ndlich und stelle sicher, dass diese Filterkategorie nicht bereits vorhanden ist.</p><p>Der <b>Titel</b> ist die Kurzfassung der Filterkategorie in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern.<p>';
             case 'lang_helpNewSolution': return '<p>Bitte beschreibe deine neue L&ouml;sung sachlich, neutral und verst&auml;ndlich und wiederhole keine L&ouml;sungen, die bereits genannt wurden.</p><p>Der <b>Titel</b> ist die Kurzbeschreibung deiner L&ouml;sung in wenigen Worten. Details und Quellen kannst du in der <b>Beschreibung</b> erl&auml;utern. Du kannst auch L&ouml;sungen hinzuf&uuml;gen, die du pers&ouml;nlich nicht unterst&uuml;tzt.</p>';
             case 'lang_listNew': return 'Neu';
             case 'lang_listLatest': return 'Aktuell';
@@ -65,7 +64,7 @@ switch ( target ) {
             case 'lang_moderateInactive': return 'Inaktiv';
             case 'lang_moderateInappropriate': return 'Unangemessen';
             case 'lang_moderateExplanation': return 'W&auml;hle was du mit dem Beitrag machen m&ouml;chtest.<br><br> "Inaktiv" markiert den Beitrag als abgelaufen oder veraltet. Er kann weiterhin von Usern eingesehen werden.<br><br> "Unangemessen" markiert den Beitrag als nicht gem&auml;&szlig; den Richtlinien der Netiquette, er kann dann nichtmehr von normalen Usern eingesehen werden.';
-            case 'lang_multiFilter': return 'Dr&uuml;cke Strg um mehr als einen Filter auszuw&auml;hlen.<br>Achtung: &Auml;nderungen sind sofort wirksam!';
+            case 'lang_multiFilter': return '<p>Filter erlauben, nur für dich interessante Debatten anzuzeigen. Du kannst die Ansicht auf Debatten einschränken, die in mehreren Kategorien gleichzeitig sind (z.B.: "Bundesparteitag" UND "Umwelt") oder Debatten aus mehreren Kategorien zusammenführen (z.B.: "Soziales" ODER "Gesundheit"). Dr&uuml;cke Strg um mehr als einen Filter auszuw&auml;hlen.</p>';
             case 'lang_newDebate': return 'Neue Debatte';
             case 'lang_newDebateCreate': return 'Neue Debatte erstellen';
             case 'lang_newFilter': return 'Neue Filterkategorie';
