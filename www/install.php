@@ -45,7 +45,8 @@ function printForm($selector) {
     echo '<span style="color: red;">' . $error . '</span>',NLB,NLB;
     switch ( $selector ) {
         case 4:
-            echo '<span>Everything is done. Have fun using BasDeM!</span>',NLB,NLB;
+            echo '<span>Everything is done. Have fun using BasDeM!',NLB;
+            echo 'You can register or login <a href="index.php">here</a></span>',NLB;
         break;
         case 3:
             echo '<span>Installation done. For your own security we advise you to delete the install.php in your installation directory.</span>',NLB,NLB;
