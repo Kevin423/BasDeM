@@ -164,7 +164,8 @@ function checkSQLSubmit() {
         die;
     }
     if ( isset($_POST['update']) ) {
-        echo "update".NLB;
+        $error = 'Sadly this feature is not available for your version of BasDeM. Please use the "Full (re-)install" Option.';
+        return;
     }
 }
 
