@@ -5,8 +5,14 @@ define('NLB',"<br>\r\n");
 define('INCMS',true);
 define('CONF_DIR','class/');
 define('CONF_FILE','conf.php');
+$installerVersion = array(0,0,92);
 
 $error = '';
+$acceptedVersions = array(
+    '0.0.91' => true,
+    '0.0.92' => true,
+);
+$version = null;
 
 if ( !isset($_GET['step']) ) {
     $_GET['step'] = '1';
@@ -148,7 +154,7 @@ function SQLConnect() {
 }
 
 function checkSQLSubmit() {
-    global $error;
+    global $error,$version,$installerVersion;
     if ( isset($_POST['full']) ) {
         SQLConnect();
         
@@ -167,9 +173,38 @@ function checkSQLSubmit() {
         die;
     }
     if ( isset($_POST['update']) ) {
-        $error = 'Sadly this feature is not available for your version of BasDeM. Please use the "Full (re-)install" Option.';
-        return;
+        SQLConnect();
+        if ( !checkVersion() ) {
+            $error = 'Sadly this feature is not available for your version of BasDeM. Please use the "Full (re-)install" Option.';
+            return;
+        }
+        if ( implode('.',$installerVersion) == $version ) {
+            $error .= 'Your installation is now or allready was at the installer version (' . $version . '). <a href="?step=3">Please proceed to the last step of the installation.</a>';
+            return;
+        }
+        if ( $version == '0.0.91' ) {
+            update0d0d91();
+            checkSQLSubmit();
+        }
     }
+}
+
+function update0d0d91() {
+    mysql_query("update `version` set `primary` = 0, `secondary` = 0, `tertiary` = 92");
+}
+
+function checkVersion() {
+    global $version,$acceptedVersions;
+    $q = mysql_query('select * from version');
+    if ( mysql_num_rows($q) != 1 ) {
+        return false;
+    }
+    $r = mysql_fetch_array($q);
+    $version = $r['primary'] . '.' . $r['secondary'] . '.' . $r['tertiary'];
+    if ( isset($acceptedVersions[$version]) && $acceptedVersions[$version] === true ) {
+        return true;
+    }
+    return false;
 }
 
 function setForeignKeys() {
@@ -206,6 +241,7 @@ function setForeignKeys() {
 }
 
 function insertDefaultValues() {
+    global $installerVersion;
     // Create User System.
     mysql_query("INSERT INTO `users` (`id`, `password`, `email`, `nickname`, `verified`) VALUES
 (1, '', 'System', 'System', '');");
@@ -215,7 +251,7 @@ function insertDefaultValues() {
     mysql_query("INSERT INTO `titles` (`id`, `content`) VALUES (1, 'System');");
     mysql_query("INSERT INTO `texts` (`id`, `content`) VALUES (1, 'System');");
     
-    mysql_query("INSERT INTO `version` (`primary`, `secondary`, `tertiary`) VALUES (0, 0, 91);");
+    mysql_query("INSERT INTO `version` (`primary`, `secondary`, `tertiary`) VALUES (" . implode($installerVersion) . ");");
 }
 
 function createAllTables() {
