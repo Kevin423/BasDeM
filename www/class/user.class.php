@@ -96,6 +96,9 @@ class User {
         if ( !self::validatePost() ) {
             return;
         }
+        
+        $_POST['email'] = strtolower($_POST['email']);
+        
         $password = Helper::hash($_POST['password'].$_POST['email']);
         
         $verified = md5($_POST['email'].$password.microtime(true));
@@ -143,6 +146,8 @@ class User {
         if ( !self::validatePost() ) {
             return;
         }
+        $_POST['email'] = strtolower($_POST['email']);
+        
         $password = Helper::hash($_POST['password'].$_POST['email']);
         
         $result = Database::getUser($_POST['email'],$password);
