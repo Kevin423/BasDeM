@@ -297,6 +297,14 @@ function createAllTables() {
   UNIQUE KEY `email` (`email`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;"
     );
+    // version
+    mysql_query(
+"CREATE TABLE IF NOT EXISTS `version` (
+  `primary` int(2) NOT NULL,
+  `secondary` int(2) NOT NULL,
+  `tertiary` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
+    );
 }
 
 function dropAllTables() {
