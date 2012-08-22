@@ -83,7 +83,6 @@ function checkFinalSubmit() {
     } else {
         unlink('install.php');
         $error = 'Everything is done. Enjoy using BasDeM!';
-        die;
     }
 }
 
