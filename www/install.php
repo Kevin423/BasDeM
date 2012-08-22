@@ -210,6 +210,8 @@ function insertDefaultValues() {
     mysql_query("INSERT INTO `authors` (`id`, `userid`) VALUES (1, 1);");
     mysql_query("INSERT INTO `titles` (`id`, `content`) VALUES (1, 'System');");
     mysql_query("INSERT INTO `texts` (`id`, `content`) VALUES (1, 'System');");
+    
+    mysql_query("INSERT INTO `version` (`primary`, `secondary`, `tertiary`) VALUES (0, 0, 91);");
 }
 
 function createAllTables() {
