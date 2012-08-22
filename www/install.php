@@ -58,7 +58,7 @@ function printForm($selector) {
         break;
         case 1:
         default:
-            echo '<span>Setting up the config. <a href="?step=2">Skip config.</span>',NLB,NLB;
+            echo '<span>Setting up the config. <a href="?step=2">Skip config.</a></span>',NLB,NLB;
             echo '<form action="?step=1" method="post">',NL;
             echo '<table>',NL;
             echo '<tr><td>Database User' , defaultValue('user') , '</td><td><input type="text" name="dbuser"></td></tr>',NL;
