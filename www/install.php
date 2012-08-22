@@ -146,6 +146,7 @@ function SQLConnect() {
 }
 
 function checkSQLSubmit() {
+    global $error;
     if ( isset($_POST['full']) ) {
         SQLConnect();
         
