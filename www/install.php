@@ -81,7 +81,9 @@ function checkFinalSubmit() {
     if ( !is_writeable('install.php') && file_exists('install.php') ) {
         $error = 'install.php is not writeable. Please remove it by hand.';
     } else {
-        header('Location: ?step=4');
+        unlink('install.php');
+        $error = 'Everything is done. Enjoy using BasDeM!';
+        die;
     }
 }
 
