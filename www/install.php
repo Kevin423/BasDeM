@@ -82,7 +82,8 @@ function checkFinalSubmit() {
         $error = 'install.php is not writeable. Please remove it by hand.';
     } else {
         unlink('install.php');
-        $error = 'Everything is done. Enjoy using BasDeM!';
+        printForm(4);
+        die;
     }
 }
 
