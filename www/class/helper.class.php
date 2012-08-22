@@ -41,7 +41,10 @@ class Helper {
         
         // Crypt with the salt. Make sure the used hashing algorithm is available!
         // Default is 6 = SHA512. Change in Config!
-        return crypt($string,Config::get('database','hashalgorithm') . Config::get('database','salt'));
+        $hash = crypt($string,Config::get('database','hashalgorithm') . Config::get('database','salt'));
+        
+        // Select the password itself.
+        return substr($hash,strlen(Config::get('database','hashalgorithm')) + 17);
     }
 
 /** Checks if the selected hashing algorithm is available.

@@ -31,37 +31,27 @@ if ( !defined('INCMS') || INCMS !== true ) {
  * Manages config settings.
  */
 class Config {
-	static private $conf = array(
-		'database' => array(
-			'engine' => 'mysql',
-			'host' => 'localhost',
-			'user' => 'root',
-			'password' => '',
-			'database' => 'basdem',
-            // Important: Defines the algorithm. 6 = SHA512 make sure it is available.
-            // This setting directly influences password security on your system!
-            // rounds=50000 leads to 0.13 seconds per hash calculation. Whoever breaks this, he deserves it.
-			'hashalgorithm' => '$6$rounds=50000$',
-            // Adapt the salt to your wishes. 
-			'salt' => 'This is my salt... it is really stupid, but long!',
-		),
-	);
-/**
- * Returns specific parts of the config or the config array itself.
- * @param ... Various keys to look up in the array.
- *
- * Config array layout:
- * Key 'database' which itself contains an array with keys 'engine', 'host', 'user',
- * 'password', 'database' and 'salt'.
- *
- * @return Excerpts of the config array or a copy of the array itself.
- * 
- * Examples:
- * - get(); // returns the config array
- * - get('database'); // returns the database array
- * - get('database','host'); // returns the host
- */	
+	static private $conf = null;
+    
+    /**
+    * Returns specific parts of the config or the config array itself.
+    * @param ... Various keys to look up in the array.
+    *
+    * Config array layout:
+    * Key 'database' which itself contains an array with keys 'engine', 'host', 'user',
+    * 'password', 'database' and 'salt'.
+    *
+    * @return Excerpts of the config array or a copy of the array itself.
+    * 
+    * Examples:
+    * - get(); // returns the config array
+    * - get('database'); // returns the database array
+    * - get('database','host'); // returns the host
+    */	
 	static public function get() {
+        if ( is_null(self::$conf) ) {
+            self::load();
+        }
 		$tmp = Config::$conf;
 		foreach ( func_get_args() as $arg ) {
 			if ( !isset($tmp[$arg]) )
@@ -70,6 +60,11 @@ class Config {
 		}
 		return $tmp;
 	}
+    
+    static private function load() {
+        require_once('conf.php');
+        self::$conf = $conf;
+    }
 }
 
 ?>
