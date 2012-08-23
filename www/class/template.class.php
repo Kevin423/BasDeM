@@ -49,8 +49,9 @@ class Template {
 /**
  * Loads the given templates. All templates can be found in the www/tpl/ directory.
  * To select a template use the file name without '.html'.
- * @param $base String naming base template to load.
- * @param $adder Array of further templates to append to $base.
+ * @param $base string String naming base template to load.
+ * @param $adder array Array of further templates to append to $base (optional).
+ * @param $addString printed after successfull load (optional).
  */
     public function __construct($base,$adder = null,$addString = null) {
         if ( !isset($this->assignments[$base]) ) {
@@ -80,7 +81,7 @@ class Template {
     }
     
 /** Replace the given needle or needle array with the given replacer or replacer array in the output string.
- * @param $search String/Array needle.
+ * @param $needle String/Array needle.
  * @param $replace String/Array replace.
  */
     public function replace($needle,$replace) {

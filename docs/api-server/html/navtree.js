@@ -16,6 +16,7 @@ var NAVTREE =
     [ "Data Fields", "functions.html", null ],
     [ "File List", "files.html", [
       [ "/home/sven/BasDeM/www/index.php", "index_8php.html", null ],
+      [ "/home/sven/BasDeM/www/install.php", "install_8php.html", null ],
       [ "/home/sven/BasDeM/www/memplex.php", "memplex_8php.html", null ],
       [ "/home/sven/BasDeM/www/class/config.class.php", "config_8class_8php.html", null ],
       [ "/home/sven/BasDeM/www/class/controller.class.php", "controller_8class_8php.html", null ],

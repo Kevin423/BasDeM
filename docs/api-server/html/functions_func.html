@@ -123,7 +123,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>__construct()
 : <a class="el" href="class_controller.html#a095c5d389db211932136b53f25f39685">Controller</a>
 , <a class="el" href="class_memplex.html#abbda66c832a371bc9b6ec05cb8734efc">Memplex</a>
-, <a class="el" href="class_template.html#a4f0fb5bd41e83bdc1a20c34e4ea145bf">Template</a>
+, <a class="el" href="class_template.html#aee48df552a0b1bd89ecdc1d1cbc04a86">Template</a>
 , <a class="el" href="class_p_d_o_config.html#acf2ad978657d47ceab41038dc7d95737">PDOConfig</a>
 </li>
 <li>__toString()
@@ -153,7 +153,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="class_controller.html#a197743df08a0e269640174995a858457">Controller</a>
 </li>
 <li>createUser()
-: <a class="el" href="class_database.html#a826c2a76af51eb29da8fa00d7b6701fd">Database</a>
+: <a class="el" href="class_database.html#a63b7dc58e6f7d8614e85e10297ade64d">Database</a>
 </li>
 </ul>
 
@@ -166,8 +166,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>getAuthor()
 : <a class="el" href="class_memplex.html#a4dc830113ac7083ccb94920092824906">Memplex</a>
 </li>
+<li>getAuthorId()
+: <a class="el" href="class_memplex.html#a0c4b2e580cc52ec6b12b5c8acb1cf254">Memplex</a>
+</li>
 <li>getChildren()
 : <a class="el" href="class_memplex.html#a8650a4f6150ed357d88fa043f1685ac5">Memplex</a>
+</li>
+<li>getEmail()
+: <a class="el" href="class_user.html#ada7fd08aea3111f69fd4cc8e566957f9">User</a>
+</li>
+<li>getError()
+: <a class="el" href="class_user.html#a85eeb94a4dc4eece8e735def856be405">User</a>
+</li>
+<li>getFavored()
+: <a class="el" href="class_memplex.html#a8b9eba3213196c506363abe3e8f56bad">Memplex</a>
 </li>
 <li>getId()
 : <a class="el" href="class_memplex.html#a12251d0c022e9e21c137a105ff683f13">Memplex</a>
@@ -177,7 +189,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="class_memplex.html#aae0e88ca02a6132f3ed8f00524805330">Memplex</a>
 </li>
 <li>getMemplex()
-: <a class="el" href="class_database.html#a05bb304646396de0c08f2f6e2d364777">Database</a>
+: <a class="el" href="class_database.html#a4f5b18889c8ae0f5349cbbc4fb622f02">Database</a>
+</li>
+<li>getModerationState()
+: <a class="el" href="class_memplex.html#af5ce888a4d1d66194816178d44fd03a7">Memplex</a>
+</li>
+<li>getNickname()
+: <a class="el" href="class_user.html#a42109d9de9f0066fe92dd6300ca13393">User</a>
+</li>
+<li>getSelfFavored()
+: <a class="el" href="class_memplex.html#a24b5d47485fc05b41029b3ede4828f7a">Memplex</a>
 </li>
 <li>getText()
 : <a class="el" href="class_memplex.html#ae1f782d5db095e3e4177f1e620c4fdbd">Memplex</a>
@@ -188,10 +209,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>getUser()
 : <a class="el" href="class_database.html#a98fcc00202299853d8812878400d84b4">Database</a>
 </li>
+<li>getVerificationKey()
+: <a class="el" href="class_user.html#a5917a5c4be3218729f70b09d016d9898">User</a>
+</li>
+<li>getVerified()
+: <a class="el" href="class_user.html#abdde778b2587d0a7ac15bdb48957361c">User</a>
+</li>
+<li>getVerifiedClass()
+: <a class="el" href="class_user.html#ad1593fff720c8b7f75035dbf3779a1b0">User</a>
+</li>
 </ul>
 
 
 <h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
+<li>hasError()
+: <a class="el" href="class_user.html#a9336a0a03cf6a8a0a84a12081cf68e10">User</a>
+</li>
 <li>hash()
 : <a class="el" href="class_helper.html#a1853efa6b1b6907a6d995176a373e41a">Helper</a>
 </li>
@@ -206,10 +239,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>isLoggedin()
 : <a class="el" href="class_user.html#ac444a5882fe96e442c4f9b9eeb3ea4e0">User</a>
 </li>
+<li>isModerator()
+: <a class="el" href="class_user.html#a9efbae50b751fd757c1f9a8257fe5444">User</a>
+</li>
 </ul>
 
 
 <h3><a class="anchor" id="index_l"></a>- l -</h3><ul>
+<li>load()
+: <a class="el" href="class_config.html#a72c5352010f3f5eb1e28131abdb83831">Config</a>
+</li>
 <li>loadChildrenRecursive()
 : <a class="el" href="class_memplex.html#a1c54521a5f1bd6270eae196c93b96917">Memplex</a>
 </li>
@@ -245,8 +284,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>register()
 : <a class="el" href="class_user.html#a610b9c89b82e11ea426e1804874a6ef4">User</a>
 </li>
+<li>registerMail()
+: <a class="el" href="class_user.html#ab992c33013ea7e2eab9a015667768949">User</a>
+</li>
 <li>reloadMemplex()
 : <a class="el" href="class_controller.html#a159ca6b0ef787db569f91024348a2193">Controller</a>
+</li>
+<li>replace()
+: <a class="el" href="class_template.html#aec0850a96909a7b04f3782d665747ae8">Template</a>
 </li>
 <li>reset()
 : <a class="el" href="class_memplex_register.html#a2325df26721fdbe820d577d2482725f8">MemplexRegister</a>
@@ -258,17 +303,43 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>setAuthor()
 : <a class="el" href="class_memplex.html#afde85a369fc83b442db3cf5c6ac31d4a">Memplex</a>
 </li>
+<li>setAuthorId()
+: <a class="el" href="class_memplex.html#a44a94b995f655d537c333121b2d42bcc">Memplex</a>
+</li>
+<li>setError()
+: <a class="el" href="class_user.html#a6f346c7d0479b23cb87c0fc26b451f2d">User</a>
+</li>
+<li>setFavored()
+: <a class="el" href="class_memplex.html#ab369108a5cb4cd393a6cb553ebe8cc62">Memplex</a>
+, <a class="el" href="class_database.html#aea87d906efab85c8e765634d00d6860c">Database</a>
+</li>
 <li>setId()
 : <a class="el" href="class_memplex.html#a87313ad678fb2a2a8efb435cf0bdb9a0">Memplex</a>
 </li>
 <li>setLayer()
 : <a class="el" href="class_memplex.html#a2998e0c46cf079d0315d8a240b8b5c53">Memplex</a>
 </li>
+<li>setModerationState()
+: <a class="el" href="class_memplex.html#ab14851561ccdc9e897313a39211e1edc">Memplex</a>
+</li>
+<li>setNickname()
+: <a class="el" href="class_database.html#aaad17e6e3336c8a1f831e97a4d723b6c">Database</a>
+, <a class="el" href="class_user.html#ac1422688bf71370ad65fbd0685d7aa17">User</a>
+</li>
+<li>setPassword()
+: <a class="el" href="class_database.html#aa74ad1ecd68ae4146ddb4f74e4f378b1">Database</a>
+</li>
+<li>setSelfFavored()
+: <a class="el" href="class_memplex.html#ab0efe41ad384ae83b014647f7e26d944">Memplex</a>
+</li>
 <li>setText()
 : <a class="el" href="class_memplex.html#aed98453b92e9e7e961179dfff24c4a3a">Memplex</a>
 </li>
 <li>setTitle()
 : <a class="el" href="class_memplex.html#a884ba9bb0d54bde7839e798db7964476">Memplex</a>
+</li>
+<li>setVerified()
+: <a class="el" href="class_database.html#a9e44649439378d6027079d458f634004">Database</a>
 </li>
 <li>showMemplex()
 : <a class="el" href="class_controller.html#af3f47b587270539c44cc48ea04297966">Controller</a>
@@ -290,11 +361,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
+<li>unSetFavored()
+: <a class="el" href="class_database.html#ac2e02720384efbd0dabe7e29d540bbfe">Database</a>
+</li>
+<li>update()
+: <a class="el" href="class_user.html#a00ce4d238d0651db584337f8e0b38c68">User</a>
+</li>
 <li>updateChildRelations()
 : <a class="el" href="class_controller.html#a9d1a6e7522933f9bdfe1058f86e68c0f">Controller</a>
 </li>
 <li>updateMemplexData()
 : <a class="el" href="class_controller.html#a46803d8c00e5d83a972a19e5f69df623">Controller</a>
+</li>
+<li>updateMemplexFavorite()
+: <a class="el" href="class_controller.html#add749bb6b8ef315242a37d0cb4d297b8">Controller</a>
+</li>
+<li>updateMemplexModerationState()
+: <a class="el" href="class_controller.html#a2f547f4c0ff41d08107df61bdf6024e4">Controller</a>
 </li>
 </ul>
 
@@ -302,6 +385,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3><a class="anchor" id="index_v"></a>- v -</h3><ul>
 <li>validatePost()
 : <a class="el" href="class_user.html#a193e23ac2506253ce6159fa8a0581cda">User</a>
+</li>
+<li>verify()
+: <a class="el" href="class_user.html#aafda6e540935c5816dbf383f8fbc2ef6">User</a>
 </li>
 </ul>
 </div>
@@ -323,7 +409,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Wed Aug 15 2012 12:08:35 for BasDeM by
+    <li class="footer">Generated on Thu Aug 23 2012 09:46:04 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -136,7 +136,7 @@ class Database {
       * Fetches a Memplex from the database.
       *
       * @param integer $identifier ID of the Memplex to load.
-      * @param integer $userid UserID of calling user.
+      * @param integer $user UserID of calling user.
       *
       * @return Array of result set rows.
       */ 
@@ -332,6 +332,7 @@ group by
       *
       * @param string $mail Mail address.
       * @param string $password Hashed password.
+      * @param string $verified E-Mail verification string.
       * @return ID of the new database row.
       */
     static public function createUser($mail,$password,$verified) {
@@ -348,8 +349,8 @@ group by
     /**
       * Change a user nickname in the database.
       *
-      * @param string $id ID of the User.
-      * @param string $nickname New Nickname.
+      * @param string $id ID of the user.
+      * @param string $nickname New nickname.
       */
     static public function setNickname($id,$nickname) {
         self::query(
@@ -362,10 +363,11 @@ group by
     }
     
     /**
-      * Change a user nickname in the database.
+      * Change a user password in the database.
       *
-      * @param string $id ID of the User.
-      * @param string $nickname New Nickname.
+      * @param string $id ID of the user.
+      * @param string $passwordold Old password.
+      * @param string $password New password.
       */
     static public function setPassword($id,$passwordold,$password) {
         return self::query(

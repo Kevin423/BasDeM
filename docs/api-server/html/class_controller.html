@@ -113,6 +113,8 @@ Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#ae774928317d0b56fde9abdd00e50778d">loadMemplexChildren</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#ab3b82933087c2e33ac43365c0cf20864">loadTargetMemplex</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a3ab5a78d3bfe796f5214cc646958f3d5">checkMemplexLoaded</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#add749bb6b8ef315242a37d0cb4d297b8">updateMemplexFavorite</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a2f547f4c0ff41d08107df61bdf6024e4">updateMemplexModerationState</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a46803d8c00e5d83a972a19e5f69df623">updateMemplexData</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a9d1a6e7522933f9bdfe1058f86e68c0f">updateChildRelations</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
@@ -272,7 +274,43 @@ Private Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>Updates a memplex based upon POST data. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>False if POST data was complete (text, layer, title, author), else true. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>False if POST data was incomplete (text, layer, title, author), else true. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="add749bb6b8ef315242a37d0cb4d297b8"></a><!-- doxytag: member="Controller::updateMemplexFavorite" ref="add749bb6b8ef315242a37d0cb4d297b8" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">updateMemplexFavorite </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Updates a memplexes moderation state based upon POST data. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>False if POST data was incomplete (moderationstate,parent), else true. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2f547f4c0ff41d08107df61bdf6024e4"></a><!-- doxytag: member="Controller::updateMemplexModerationState" ref="a2f547f4c0ff41d08107df61bdf6024e4" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">updateMemplexModerationState </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [private]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Updates a memplexes moderation state based upon POST data. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>False if POST data was incomplete (moderationstate,parent), else true. </dd></dl>
 
 </div>
 </div>
@@ -313,7 +351,7 @@ Private Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Aug 15 2012 12:08:35 for BasDeM by
+    <li class="footer">Generated on Thu Aug 23 2012 09:46:04 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

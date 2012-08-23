@@ -213,7 +213,7 @@ class User {
     
     /**
      * Returns the verification status class.
-     * @return String red for unverified, green for verified.
+     * @return String Possible values: red for unverified, green for verified.
      */
     public static function getVerifiedClass() {
         if ( self::getVerified() ) {
@@ -224,7 +224,7 @@ class User {
     
     /**
      * Returns the verification status class.
-     * @return String red for unverified, green for verified.
+     * @return String Possible values: red for unverified, green for verified.
      */
     public static function getVerified() {
         return empty($_SESSION['user']['verified']);
@@ -232,7 +232,7 @@ class User {
     
     /**
      * Returns the verification key.
-     * @return String key.
+     * @return String Verification key.
      */
     public static function getVerificationKey() {
         return $_SESSION['user']['verified'];
@@ -240,7 +240,7 @@ class User {
     
     /**
      * Returns the verification status class.
-     * @return String red for unverified, green for verified.
+     * @return String Possible values: red for unverified, green for verified.
      */
     public static function verify() {
         if ( !isset($_GET['key']) 
@@ -252,7 +252,7 @@ class User {
     }
     
     /**
-     * Returns the current user Nickname.
+     * Returns the current user nickname.
      * @return Current user Nickname.
      */
     public static function getNickname() {
@@ -261,7 +261,7 @@ class User {
     
     /**
      * Set the current users Nickname.
-     * @param Current user Nickname.
+     * @param $nickname string Current user nickname.
      */
     public static function setNickname($nickname) {
         if ( self::getNickname() == $nickname ) {

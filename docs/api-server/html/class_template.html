@@ -103,7 +103,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <!-- doxytag: class="Template" --><table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_template.html#a4f0fb5bd41e83bdc1a20c34e4ea145bf">__construct</a> ($base, $adder=null)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_template.html#aee48df552a0b1bd89ecdc1d1cbc04a86">__construct</a> ($base, $adder=null, $addString=null)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_template.html#aec0850a96909a7b04f3782d665747ae8">replace</a> ($needle, $replace)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_template.html#a7516ca30af0db3cdbf9a7739b48ce91d">__toString</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -115,7 +116,7 @@ Private Attributes</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Loads and prints HTML templates. </p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a4f0fb5bd41e83bdc1a20c34e4ea145bf"></a><!-- doxytag: member="Template::__construct" ref="a4f0fb5bd41e83bdc1a20c34e4ea145bf" args="($base, $adder=null)" -->
+<a class="anchor" id="aee48df552a0b1bd89ecdc1d1cbc04a86"></a><!-- doxytag: member="Template::__construct" ref="aee48df552a0b1bd89ecdc1d1cbc04a86" args="($base, $adder=null, $addString=null)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -129,7 +130,13 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>adder</em> = <code>null</code>&#160;</td>
+          <td class="paramname"><em>adder</em> = <code>null</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>addString</em> = <code>null</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -142,8 +149,9 @@ Private Attributes</h2></td></tr>
 <p>Loads the given templates. All templates can be found in the www/tpl/ directory. To select a template use the file name without '.html'. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">$base</td><td>String naming base template to load. </td></tr>
-    <tr><td class="paramname">$adder</td><td>Array of further templates to append to $base. </td></tr>
+    <tr><td class="paramname">$base</td><td>string String naming base template to load. </td></tr>
+    <tr><td class="paramname">$adder</td><td>array Array of further templates to append to $base (optional). </td></tr>
+    <tr><td class="paramname">$addString</td><td>printed after successfull load (optional). </td></tr>
   </table>
   </dd>
 </dl>
@@ -166,6 +174,41 @@ Private Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Returns the loaded template. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>The resulting template as a string. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aec0850a96909a7b04f3782d665747ae8"></a><!-- doxytag: member="Template::replace" ref="aec0850a96909a7b04f3782d665747ae8" args="($needle, $replace)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">replace </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>needle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>replace</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Replace the given needle or needle array with the given replacer or replacer array in the output string. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$needle</td><td>String/Array needle. </td></tr>
+    <tr><td class="paramname">$replace</td><td>String/Array replace. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -198,7 +241,9 @@ Private Attributes</h2></td></tr>
         <span class="stringliteral">&#39;default&#39;</span> =&gt; <span class="stringliteral">&#39;tpl/default.html&#39;</span>,
         <span class="stringliteral">&#39;load&#39;</span> =&gt; <span class="stringliteral">&#39;tpl/load.html&#39;</span>,
         <span class="stringliteral">&#39;noload&#39;</span> =&gt; <span class="stringliteral">&#39;&#39;</span>,
+        <span class="stringliteral">&#39;settings&#39;</span> =&gt; <span class="stringliteral">&#39;tpl/settings.html&#39;</span>,
         <span class="stringliteral">&#39;login&#39;</span> =&gt; <span class="stringliteral">&#39;tpl/login.html&#39;</span>,
+        <span class="stringliteral">&#39;loginerror&#39;</span> =&gt; <span class="stringliteral">&#39;tpl/loginerror.html&#39;</span>,
         <span class="stringliteral">&#39;register&#39;</span> =&gt; <span class="stringliteral">&#39;tpl/register.html&#39;</span>,
     )
 </pre></div><p>Known templates. </p>
@@ -254,7 +299,7 @@ Private Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Aug 15 2012 12:08:35 for BasDeM by
+    <li class="footer">Generated on Thu Aug 23 2012 09:46:04 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

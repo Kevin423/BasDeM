@@ -200,36 +200,36 @@ class Memplex {
     }
     
     /**
-     * Sets the number of favors of the Memplex.
+     * Sets the number of selffavors of the Memplex. FIXME: what distinguished selffavored from favored?
      *
-     * @param integer $id The new ID.
+     * @param integer $selffavored New number of favors.
      */
     public function setSelfFavored($selffavored) {
         $this->selffavored = $selffavored;
     }
     
     /**
-     * Returns the number of favors of the Memplex.
+     * Returns the number of selffavors of the Memplex. FIXME: what distinguished selffavored from favored?
      *
-     * @return The ID of the Memplex.
+     * @return The number of selffavors of the Memplex.
      */
     public function getSelfFavored() {
         return (int)$this->selffavored;
     }
     
     /**
-     * Sets the number of favors of the Memplex.
+     * Sets the number of favors of the Memplex. FIXME: what distinguished selffavored from favored?
      *
-     * @param integer $id The new ID.
+     * @param integer $favored New number of favors.
      */
     public function setFavored($favored) {
         $this->favored = $favored;
     }
     
     /**
-     * Returns the number of favors of the Memplex.
+     * Returns the number of favors of the Memplex. FIXME: what distinguished selffavored from favored?
      *
-     * @return The ID of the Memplex.
+     * @return The number of favors of the Memplex.
      */
     public function getFavored() {
         return (int)$this->favored;
