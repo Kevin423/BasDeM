@@ -9,8 +9,10 @@ var NAVTREE =
       [ "ClassHelper", "class_class_helper.html", null ],
       [ "ClassList", "class_class_list.html", null ],
       [ "ClassMemplexRegister", "class_class_memplex_register.html", null ],
+      [ "ClassModerator", "class_class_moderator.html", null ],
       [ "ClassSolution", "class_class_solution.html", null ],
       [ "ClassSolutionRegister", "class_class_solution_register.html", null ],
+      [ "ClassUser", "class_class_user.html", null ],
       [ "ClassView", "class_class_view.html", null ]
     ] ],
     [ "Class Index", "classes.html", null ],

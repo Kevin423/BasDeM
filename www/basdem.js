@@ -694,7 +694,7 @@ function ClassUser() {
 var User = new ClassUser();
 
 /** Set Userdata.
- * @tparam int userid ID of the user.
+ * @tparam int id ID of the user.
  * @tparam boolean moderator Moderator flag.
  */
 ClassUser.prototype.set = function(id,moderator) {
@@ -1553,8 +1553,8 @@ ClassFilter.prototype.removeButton = function(filter,id) {
 }
 
 /** Appends the new filters to the list.
-* @tparam object filterlist The list to be appended to.
-* @tparam object filterlist The list to be appended.
+* @tparam object list The list to appended the filters to.
+* @tparam object newlist List of new filters.
  */
 ClassFilter.prototype.append = function(list,newlist) {
     for ( n in newlist ) {
@@ -1903,8 +1903,8 @@ function ClassModerator() {
 var Moderator = new ClassModerator();
 
 /** Get the moderation button.
- * @tparam int ID MemplexID of the target object.
- * @tparam JQueryObject Object Target object for the button to be appended to.
+ * @tparam int id MemplexID of the target object.
+ * @tparam JQueryObject target Object for the button to be appended to.
  * @treturn object Button.
  */
 ClassModerator.prototype.getButton = function(id,target) {
@@ -1918,7 +1918,9 @@ ClassModerator.prototype.getButton = function(id,target) {
 }
 
 /** Main moderation dispatcher.
- * @tparam int ID MemplexID of the target object.
+ * @tparam int id MemplexID of the target object.
+ * @tparam int state Moderation status. Possible values: 1 (inactive), 2 (inappropriate).
+ * @tparam Dialog dialog Dialog we work on.
  */
 ClassModerator.prototype.post = function(id,state,dialog) {
     var parents = MemplexRegister.getParents(id);
@@ -1938,7 +1940,7 @@ ClassModerator.prototype.post = function(id,state,dialog) {
 }
 
 /** Main moderation dispatcher.
- * @tparam int ID MemplexID of the target object.
+ * @tparam int id MemplexID of the target object.
  */
 ClassModerator.prototype.moderate = function(id) {
     var content = $('<div>' + Helper.getLang('lang_moderateExplanation') + '<input type="hidden" id="moderationtarget" value="' + id + '"></div>"');

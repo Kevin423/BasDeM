@@ -109,6 +109,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#a5ddaacaf9c8f2c5c6b5b0ed7d27afb3f">ClassController</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#a3840f262093abc322c7ecd2b7cd16265">loadList</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#af7a5d8a0b7d45f0490b5b3ef41c5990f">addFilter</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#afd84f7b4f521af0a6601b235b444512b">loadDebates</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#af9eeabf2615d230c6ef6ff9bcd0564ba">setLastLoad</a> (int target, int time)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#ad9e86333bfb553667a96610ba619c3ef">storeToMemplex</a> (Memplex data)</td></tr>
@@ -121,6 +122,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#ab0445a0c924470980241d70d195e254a">loadLocation</a> (void location)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#ac2ea4b2368c66c4ba055a398828897c3">addSolution</a> (int debateid)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#a6b6fea1355d636aa89086194451561c7">lastLoad</a> (int target)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#aa4b9795134b5cf0a0bff3cf518a6ec8b">parseUser</a> (User data)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_controller.html#a39c9ce9500f6028c46b0fc9dbae0cc79">loadSolution</a> (<a class="el" href="class_class_solution.html">ClassSolution</a> target)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -190,6 +192,23 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>Creates a new Debate. </p>
+
+</div>
+</div>
+<a class="anchor" id="af7a5d8a0b7d45f0490b5b3ef41c5990f"></a><!-- doxytag: member="ClassController::addFilter" ref="af7a5d8a0b7d45f0490b5b3ef41c5990f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ClassController::addFilter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Creates a new Filter. </p>
 
 </div>
 </div>
@@ -466,6 +485,30 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa4b9795134b5cf0a0bff3cf518a6ec8b"></a><!-- doxytag: member="ClassController::parseUser" ref="aa4b9795134b5cf0a0bff3cf518a6ec8b" args="(User data)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ClassController::parseUser </td>
+          <td>(</td>
+          <td class="paramtype">User&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Parse loaded User into <a class="el" href="class_class_user.html">ClassUser</a>. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>User to load. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a8bd2cb8b2cf6c9ec6bb5cf7e1b90074f"></a><!-- doxytag: member="ClassController::popCommentTarget" ref="a8bd2cb8b2cf6c9ec6bb5cf7e1b90074f" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -603,7 +646,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Sun Aug 19 2012 17:24:15 for BasDeM by
+    <li class="footer">Generated on Thu Aug 23 2012 11:26:29 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -115,9 +115,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_list.html#aade6ded1005003768fb8e91d1ca5ba04">getLatest</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_list.html#ac43bcffe4e5c949f94a4414ad4785b70">getNew</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_list.html#a965a1a944088d7b218e4a9e62778cef6">addLatest</a> (Memplex memplex, int overwrite)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_list.html#a85624f8645f945f0e32b498424a659bd">getOwn</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_list.html#ace1635600f166167c5b14ee0f8fe8033">addOwn</a> (Memplex memplex)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_list.html#a96cd0720ca58f25a4d4d6248cdcb5b50">getUnsolved</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_list.html#acc3b9f11883746f498e41d85e6ee253e">listOwnObjects</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_list.html#a9c0ff8fa5604154283a9f2a0d58d3946">listOwn</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_list.html#aae79edb3750fcd15476e754ddb9db6da">listNew</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_list.html#ab54c9bb0ec3f4fec7cf3378ca14e87df">listLatest</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_list.html#a312c39339b79442d64a2998775ba4d83">listLatestObjects</a></td></tr>
@@ -230,6 +234,30 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ace1635600f166167c5b14ee0f8fe8033"></a><!-- doxytag: member="ClassList::addOwn" ref="ace1635600f166167c5b14ee0f8fe8033" args="(Memplex memplex)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ClassList::addOwn </td>
+          <td>(</td>
+          <td class="paramtype">Memplex&#160;</td>
+          <td class="paramname"><em>memplex</em></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Adds the Memplex into the own list as necessary. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memplex</td><td>to be added as necessary. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a9f3e378ca0d60bf52f21335bd4a6c4bf"></a><!-- doxytag: member="ClassList::addSorted" ref="a9f3e378ca0d60bf52f21335bd4a6c4bf" args="(array sorted, object unsorted, int id, int overwrite, array reverse)" -->
 <div class="memitem">
 <div class="memproto">
@@ -323,7 +351,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Get the latest Memplexes. </p>
+<p>Get the latest Memplexes list. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Sorted List. </dd></dl>
 
 </div>
@@ -341,7 +369,25 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Get the new Memplexes. </p>
+<p>Get the new Memplexes list. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Sorted List. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a85624f8645f945f0e32b498424a659bd"></a><!-- doxytag: member="ClassList::getOwn" ref="a85624f8645f945f0e32b498424a659bd" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">object ClassList::getOwn </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get the own Memplexes list. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Sorted List. </dd></dl>
 
 </div>
@@ -359,7 +405,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Get the unsolved Memplexes. </p>
+<p>Get the unsolved Memplexes list. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Sorted List. </dd></dl>
 
 </div>
@@ -443,6 +489,32 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a9c0ff8fa5604154283a9f2a0d58d3946"></a><!-- doxytag: member="ClassList::listOwn" ref="a9c0ff8fa5604154283a9f2a0d58d3946" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_class_list.html#a9c0ff8fa5604154283a9f2a0d58d3946">ClassList::listOwn</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acc3b9f11883746f498e41d85e6ee253e"></a><!-- doxytag: member="ClassList::listOwnObjects" ref="acc3b9f11883746f498e41d85e6ee253e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_class_list.html#acc3b9f11883746f498e41d85e6ee253e">ClassList::listOwnObjects</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="acdb39aa8033d350f96719cd0832453bc"></a><!-- doxytag: member="ClassList::listUnsolved" ref="acdb39aa8033d350f96719cd0832453bc" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -489,7 +561,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Sun Aug 19 2012 17:24:15 for BasDeM by
+    <li class="footer">Generated on Thu Aug 23 2012 11:26:29 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

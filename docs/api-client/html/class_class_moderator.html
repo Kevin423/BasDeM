@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>BasDeM: ClassDebateRegister Class Reference</title>
+<title>BasDeM: ClassModerator Class Reference</title>
 
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
@@ -89,40 +89,37 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-  initNavTree('class_class_debate_register.html','');
+  initNavTree('class_class_moderator.html','');
 </script>
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a>  </div>
+<a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
-<div class="title">ClassDebateRegister Class Reference</div>  </div>
+<div class="title">ClassModerator Class Reference</div>  </div>
 </div>
 <div class="contents">
-<!-- doxytag: class="ClassDebateRegister" -->
+<!-- doxytag: class="ClassModerator" -->
 <p><code>#include &lt;<a class="el" href="basdem_8h_source.html">basdem.h</a>&gt;</code></p>
 
-<p><a href="class_class_debate_register-members.html">List of all members.</a></p>
+<p><a href="class_class_moderator-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_debate_register.html#a76978614a1e34b9d0ff9e5483d85027a">ClassDebateRegister</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_debate_register.html#aff43e228a45cea3caf88467283abf62e">add</a> (int id, <a class="el" href="class_class_debate.html">ClassDebate</a> debate)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_class_debate.html">ClassDebate</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_debate_register.html#ab963c2262d1f7611a850853b7b285459">get</a> (int id)</td></tr>
-<tr><td colspan="2"><h2><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_debate_register.html#a4723b3528970dbfe64eece73da92b11e">debates</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_moderator.html#a327fde1761ebc83b056cb5e54ba7c450">ClassModerator</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_moderator.html#aeaee411155dc18d316fab118e1a61929">moderate</a> (int id)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_moderator.html#a6bae50461b06ea9a0bf087eace719cdf">post</a> (int id, int state, Dialog dialog)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_moderator.html#ac21b4b5d22a4a88f30d7b1dd99f83614">getButton</a> (int id, JQueryObject target)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="class_class_debate_register.html">ClassDebateRegister</a> contains all loaded debates. During runtime the register can be accessed using the static DebateRegister object. </p>
+<div class="textblock"><p><a class="el" href="class_class_moderator.html">ClassModerator</a> manages the options and functions for moderators. During runtime the Lists can be accessed using the static Moderator object. </p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a76978614a1e34b9d0ff9e5483d85027a"></a><!-- doxytag: member="ClassDebateRegister::ClassDebateRegister" ref="a76978614a1e34b9d0ff9e5483d85027a" args="()" -->
+<a class="anchor" id="a327fde1761ebc83b056cb5e54ba7c450"></a><!-- doxytag: member="ClassModerator::ClassModerator" ref="a327fde1761ebc83b056cb5e54ba7c450" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ClassDebateRegister::ClassDebateRegister </td>
+          <td class="memname">void ClassModerator::ClassModerator </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td><code> [inline]</code></td>
@@ -134,12 +131,12 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="aff43e228a45cea3caf88467283abf62e"></a><!-- doxytag: member="ClassDebateRegister::add" ref="aff43e228a45cea3caf88467283abf62e" args="(int id, ClassDebate debate)" -->
+<a class="anchor" id="ac21b4b5d22a4a88f30d7b1dd99f83614"></a><!-- doxytag: member="ClassModerator::getButton" ref="ac21b4b5d22a4a88f30d7b1dd99f83614" args="(int id, JQueryObject target)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ClassDebateRegister::add </td>
+          <td class="memname">object ClassModerator::getButton </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>id</em>, </td>
@@ -147,8 +144,8 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_class_debate.html">ClassDebate</a>&#160;</td>
-          <td class="paramname"><em>debate</em>&#160;</td>
+          <td class="paramtype">JQueryObject&#160;</td>
+          <td class="paramname"><em>target</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -158,23 +155,24 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Adds a debate to the register. </p>
+<p>Get the moderation button. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>Id to be added. </td></tr>
-    <tr><td class="paramname">debate</td><td>Debate to be added. </td></tr>
+    <tr><td class="paramname">id</td><td>MemplexID of the target object. </td></tr>
+    <tr><td class="paramname">target</td><td>Object for the button to be appended to. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Button. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ab963c2262d1f7611a850853b7b285459"></a><!-- doxytag: member="ClassDebateRegister::get" ref="ab963c2262d1f7611a850853b7b285459" args="(int id)" -->
+<a class="anchor" id="aeaee411155dc18d316fab118e1a61929"></a><!-- doxytag: member="ClassModerator::moderate" ref="aeaee411155dc18d316fab118e1a61929" args="(int id)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_class_debate.html">ClassDebate</a> ClassDebateRegister::get </td>
+          <td class="memname">void ClassModerator::moderate </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>id</em></td><td>)</td>
@@ -183,28 +181,55 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Gets a debate from the register. </p>
+<p>Main moderation dispatcher. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>Id to be fetched. </td></tr>
+    <tr><td class="paramname">id</td><td>MemplexID of the target object. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>Selected Debate. </dd></dl>
 
 </div>
 </div>
-<hr/><h2>Member Data Documentation</h2>
-<a class="anchor" id="a4723b3528970dbfe64eece73da92b11e"></a><!-- doxytag: member="ClassDebateRegister::debates" ref="a4723b3528970dbfe64eece73da92b11e" args="" -->
+<a class="anchor" id="a6bae50461b06ea9a0bf087eace719cdf"></a><!-- doxytag: member="ClassModerator::post" ref="a6bae50461b06ea9a0bf087eace719cdf" args="(int id, int state, Dialog dialog)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="class_class_debate_register.html#a4723b3528970dbfe64eece73da92b11e">ClassDebateRegister::debates</a></td>
+          <td class="memname">void ClassModerator::post </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Dialog&#160;</td>
+          <td class="paramname"><em>dialog</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Main moderation dispatcher. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>MemplexID of the target object. </td></tr>
+    <tr><td class="paramname">state</td><td>Moderation status. Possible values: 1 (inactive), 2 (inappropriate). </td></tr>
+    <tr><td class="paramname">dialog</td><td>Dialog we work on. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -212,7 +237,7 @@ Public Attributes</h2></td></tr>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><a class="el" href="class_class_debate_register.html">ClassDebateRegister</a>      </li>
+      <li class="navelem"><a class="el" href="class_class_moderator.html">ClassModerator</a>      </li>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"

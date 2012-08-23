@@ -94,6 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_f"><span>f</span></a></li>
       <li><a href="#index_g"><span>g</span></a></li>
       <li><a href="#index_h"><span>h</span></a></li>
+      <li><a href="#index_i"><span>i</span></a></li>
       <li><a href="#index_l"><span>l</span></a></li>
       <li><a href="#index_m"><span>m</span></a></li>
       <li><a href="#index_n"><span>n</span></a></li>
@@ -142,6 +143,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>addDebate()
 : <a class="el" href="class_class_controller.html#a1a782d1ee11550ad914e440db20d9c53">ClassController</a>
 </li>
+<li>addFilter()
+: <a class="el" href="class_class_controller.html#af7a5d8a0b7d45f0490b5b3ef41c5990f">ClassController</a>
+</li>
 <li>addForm()
 : <a class="el" href="class_class_controller.html#a4c1abecd083574675e62cd7fd5cce83f">ClassController</a>
 </li>
@@ -150,6 +154,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>addNew()
 : <a class="el" href="class_class_list.html#a774041179e225ef5b92c71bf69a839a8">ClassList</a>
+</li>
+<li>addOwn()
+: <a class="el" href="class_class_list.html#ace1635600f166167c5b14ee0f8fe8033">ClassList</a>
 </li>
 <li>addSolution()
 : <a class="el" href="class_class_controller.html#ac2ea4b2368c66c4ba055a398828897c3">ClassController</a>
@@ -163,8 +170,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>allof
 : <a class="el" href="class_class_filter.html#ac3d1648af6c98f4e6cbd17b4b561be7e">ClassFilter</a>
 </li>
-<li>allofCallback()
-: <a class="el" href="class_class_filter.html#a4e9be35f89ff8771720ca1ab02803467">ClassFilter</a>
+<li>append()
+: <a class="el" href="class_class_filter.html#aca300f702efba3685d1155fdff1594f3">ClassFilter</a>
 </li>
 <li>appendTo()
 : <a class="el" href="class_class_debate.html#a6aa75b301da7b4b52598592bf22bb3ab">ClassDebate</a>
@@ -207,11 +214,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>ClassMemplexRegister()
 : <a class="el" href="class_class_memplex_register.html#ae1432856d23930d9f991584ab9f94208">ClassMemplexRegister</a>
 </li>
+<li>ClassModerator()
+: <a class="el" href="class_class_moderator.html#a327fde1761ebc83b056cb5e54ba7c450">ClassModerator</a>
+</li>
 <li>ClassSolution()
 : <a class="el" href="class_class_solution.html#a3c9c7184fc1ee7f9906980027db5bcdc">ClassSolution</a>
 </li>
 <li>ClassSolutionRegister()
 : <a class="el" href="class_class_solution_register.html#a32e283b036ec307a0f6577d67a9c1b8c">ClassSolutionRegister</a>
+</li>
+<li>ClassUser()
+: <a class="el" href="class_class_user.html#ae1e61abc14e707610d48721e4db1c5aa">ClassUser</a>
 </li>
 <li>ClassView()
 : <a class="el" href="class_class_view.html#ab9c44a013ad37a0e1fc5721f3c04273c">ClassView</a>
@@ -254,8 +267,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="class_class_debate_register.html#ab963c2262d1f7611a850853b7b285459">ClassDebateRegister</a>
 , <a class="el" href="class_class_solution_register.html#ab2d86d34f17f49302b6acef9af0104e0">ClassSolutionRegister</a>
 </li>
+<li>getButton()
+: <a class="el" href="class_class_moderator.html#ac21b4b5d22a4a88f30d7b1dd99f83614">ClassModerator</a>
+</li>
 <li>getFilterSelector()
 : <a class="el" href="class_class_filter.html#af3191eac738a9f8454fae80e0e1ea55b">ClassFilter</a>
+</li>
+<li>getId()
+: <a class="el" href="class_class_user.html#a124491a4483083e74d11271825355442">ClassUser</a>
 </li>
 <li>getIdFromString()
 : <a class="el" href="class_class_helper.html#a36b3691f82dc687ece2fa81102bf734a">ClassHelper</a>
@@ -269,11 +288,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>getLayer()
 : <a class="el" href="class_class_memplex_register.html#a641f03ad83ad73551e3f9f4dee57aeee">ClassMemplexRegister</a>
 </li>
+<li>getModerator()
+: <a class="el" href="class_class_user.html#a7223d5267a6d7380fbbd4c4b57f113b0">ClassUser</a>
+</li>
 <li>getNew()
 : <a class="el" href="class_class_list.html#ac43bcffe4e5c949f94a4414ad4785b70">ClassList</a>
 </li>
 <li>getObject()
 : <a class="el" href="class_class_solution.html#a5ff6fc1efaba2a88f272fbf635a7979c">ClassSolution</a>
+</li>
+<li>getOwn()
+: <a class="el" href="class_class_list.html#a85624f8645f945f0e32b498424a659bd">ClassList</a>
 </li>
 <li>getParents()
 : <a class="el" href="class_class_memplex_register.html#abb6e400a14d483e095737c94becdfd4d">ClassMemplexRegister</a>
@@ -303,6 +328,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>hide()
 : <a class="el" href="class_class_helper.html#a74a0ae85b5db94474670fb356571f886">ClassHelper</a>
 , <a class="el" href="class_class_debate.html#a25bbb56253e03519f562dfd3bae70754">ClassDebate</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
+<li>id
+: <a class="el" href="class_class_user.html#a49f983e905b2ba9eda8fd856b73055ce">ClassUser</a>
 </li>
 </ul>
 
@@ -343,6 +375,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>listNewObjects
 : <a class="el" href="class_class_list.html#a4fba16405723ea6e310059fb617a3564">ClassList</a>
+</li>
+<li>listOwn
+: <a class="el" href="class_class_list.html#a9c0ff8fa5604154283a9f2a0d58d3946">ClassList</a>
+</li>
+<li>listOwnObjects
+: <a class="el" href="class_class_list.html#acc3b9f11883746f498e41d85e6ee253e">ClassList</a>
 </li>
 <li>listUnsolved
 : <a class="el" href="class_class_list.html#acdb39aa8033d350f96719cd0832453bc">ClassList</a>
@@ -394,6 +432,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>mine
 : <a class="el" href="class_class_filter.html#a4e9cf0200220cf88317e3b2412aa476a">ClassFilter</a>
 </li>
+<li>moderate()
+: <a class="el" href="class_class_moderator.html#aeaee411155dc18d316fab118e1a61929">ClassModerator</a>
+</li>
+<li>moderator
+: <a class="el" href="class_class_user.html#a0c04ebe2967c85eeaaaefd92e3cb15a9">ClassUser</a>
+</li>
 </ul>
 
 
@@ -414,9 +458,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>oneof
 : <a class="el" href="class_class_filter.html#aa247ab03ea67b4b7f86fefb20d073fbd">ClassFilter</a>
 </li>
-<li>oneofCallback()
-: <a class="el" href="class_class_filter.html#a172ae4b800555835fa694acd3e8feb88">ClassFilter</a>
-</li>
 </ul>
 
 
@@ -433,11 +474,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>parseMemplex()
 : <a class="el" href="class_class_controller.html#a5b5b6c7dc659fa922218df3d5b1120aa">ClassController</a>
 </li>
+<li>parseUser()
+: <a class="el" href="class_class_controller.html#aa4b9795134b5cf0a0bff3cf518a6ec8b">ClassController</a>
+</li>
 <li>popCommentTarget()
 : <a class="el" href="class_class_controller.html#a8bd2cb8b2cf6c9ec6bb5cf7e1b90074f">ClassController</a>
 </li>
 <li>popup()
 : <a class="el" href="class_class_view.html#a528245d56120c944f9d50ebc3b43609b">ClassView</a>
+</li>
+<li>post()
+: <a class="el" href="class_class_moderator.html#a6bae50461b06ea9a0bf087eace719cdf">ClassModerator</a>
 </li>
 <li>printFilters()
 : <a class="el" href="class_class_filter.html#a222c6b8b3418e0110abc98f518ab69b8">ClassFilter</a>
@@ -452,10 +499,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>refreshFilters()
 : <a class="el" href="class_class_filter.html#aab27073f215fc5695c8ef756913d0a73">ClassFilter</a>
 </li>
+<li>remove()
+: <a class="el" href="class_class_filter.html#a73f37ce0ab776627ee3bbab27df6b0ce">ClassFilter</a>
+</li>
+<li>removeButton()
+: <a class="el" href="class_class_filter.html#a5bf6ba93804a9f3a2974f39b1e922a2a">ClassFilter</a>
+</li>
+<li>reset()
+: <a class="el" href="class_class_memplex_register.html#adb9562c566f06e66177585834b09d492">ClassMemplexRegister</a>
+</li>
 </ul>
 
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
+<li>set()
+: <a class="el" href="class_class_user.html#afa1fb7f2fde6989afa25cea5ebbedea8">ClassUser</a>
+</li>
 <li>setLastLoad()
 : <a class="el" href="class_class_controller.html#af9eeabf2615d230c6ef6ff9bcd0564ba">ClassController</a>
 </li>
@@ -487,6 +546,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>title
 : <a class="el" href="class_class_debate.html#a0992715859144995f52147c5c947d133">ClassDebate</a>
+</li>
+<li>tmplist
+: <a class="el" href="class_class_filter.html#a1679d4a5787fb2d47f350ff0dcb1aea5">ClassFilter</a>
 </li>
 <li>toggleHidden()
 : <a class="el" href="class_class_helper.html#a61a81931796cda3c72c1b0d35ec7b405">ClassHelper</a>
@@ -525,7 +587,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Sun Aug 19 2012 17:24:15 for BasDeM by
+    <li class="footer">Generated on Thu Aug 23 2012 11:26:29 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

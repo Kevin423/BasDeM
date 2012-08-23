@@ -108,11 +108,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#acef57d031f93f1243abd9abc85110b30">ClassFilter</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a4e9be35f89ff8771720ca1ab02803467">allofCallback</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a73f37ce0ab776627ee3bbab27df6b0ce">remove</a> (int id, object filter)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a222c6b8b3418e0110abc98f518ab69b8">printFilters</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#af3191eac738a9f8454fae80e0e1ea55b">getFilterSelector</a> (void id, void callback, void check)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a4226919abfe1f91497cb011befe599f3">match</a> (int[] nodes)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a172ae4b800555835fa694acd3e8feb88">oneofCallback</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a5bf6ba93804a9f3a2974f39b1e922a2a">removeButton</a> (void filter, void id)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#aca300f702efba3685d1155fdff1594f3">append</a> (object list, object newlist)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#aab27073f215fc5695c8ef756913d0a73">refreshFilters</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a2339f31284cd4e734b6558f8a986989e">createNewObject</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a8871e47c806c31c08781c6f3cc9798cf">getSelected</a> (object/int id)</td></tr>
@@ -121,6 +122,7 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#ac3d1648af6c98f4e6cbd17b4b561be7e">allof</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a7e360ec643274836de46e100c17b8245">filters</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#aa247ab03ea67b4b7f86fefb20d073fbd">oneof</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a1679d4a5787fb2d47f350ff0dcb1aea5">tmplist</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_filter.html#a4e9cf0200220cf88317e3b2412aa476a">mine</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
@@ -143,20 +145,38 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a4e9be35f89ff8771720ca1ab02803467"></a><!-- doxytag: member="ClassFilter::allofCallback" ref="a4e9be35f89ff8771720ca1ab02803467" args="()" -->
+<a class="anchor" id="aca300f702efba3685d1155fdff1594f3"></a><!-- doxytag: member="ClassFilter::append" ref="aca300f702efba3685d1155fdff1594f3" args="(object list, object newlist)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ClassFilter::allofCallback </td>
+          <td class="memname">void ClassFilter::append </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [inline]</code></td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>list</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>newlist</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Callback method for the AND filter. </p>
+<p>Appends the new filters to the list. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">list</td><td>The list to appended the filters to. </td></tr>
+    <tr><td class="paramname">newlist</td><td>List of new filters. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -262,23 +282,6 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a172ae4b800555835fa694acd3e8feb88"></a><!-- doxytag: member="ClassFilter::oneofCallback" ref="a172ae4b800555835fa694acd3e8feb88" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ClassFilter::oneofCallback </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td><code> [inline]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Callback method for the OR filter. </p>
-
-</div>
-</div>
 <a class="anchor" id="a222c6b8b3418e0110abc98f518ab69b8"></a><!-- doxytag: member="ClassFilter::printFilters" ref="a222c6b8b3418e0110abc98f518ab69b8" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -310,6 +313,69 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>Reloads available filters. </p>
+
+</div>
+</div>
+<a class="anchor" id="a73f37ce0ab776627ee3bbab27df6b0ce"></a><!-- doxytag: member="ClassFilter::remove" ref="a73f37ce0ab776627ee3bbab27df6b0ce" args="(int id, object filter)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ClassFilter::remove </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">object&#160;</td>
+          <td class="paramname"><em>filter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Removes the IDs of the selected filter. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>FilterID to be removed. </td></tr>
+    <tr><td class="paramname">filter</td><td>Filter to be used. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5bf6ba93804a9f3a2974f39b1e922a2a"></a><!-- doxytag: member="ClassFilter::removeButton" ref="a5bf6ba93804a9f3a2974f39b1e922a2a" args="(void filter, void id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ClassFilter::removeButton </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"><em>filter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Return the removal button. </p>
 
 </div>
 </div>
@@ -368,6 +434,19 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a1679d4a5787fb2d47f350ff0dcb1aea5"></a><!-- doxytag: member="ClassFilter::tmplist" ref="a1679d4a5787fb2d47f350ff0dcb1aea5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="class_class_filter.html#a1679d4a5787fb2d47f350ff0dcb1aea5">ClassFilter::tmplist</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 </div>
 </div>
   <div id="nav-path" class="navpath">
@@ -388,7 +467,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Sun Aug 19 2012 17:24:15 for BasDeM by
+    <li class="footer">Generated on Thu Aug 23 2012 11:26:29 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
