@@ -5,12 +5,13 @@ define('NLB',"<br>\r\n");
 define('INCMS',true);
 define('CONF_DIR','class/');
 define('CONF_FILE','conf.php');
-$installerVersion = array(0,0,92);
+$installerVersion = '0.0.93';
 
 $error = '';
 $acceptedVersions = array(
     '0.0.91' => true,
     '0.0.92' => true,
+    '0.0.93' => true,
 );
 $version = null;
 
@@ -179,7 +180,7 @@ function checkSQLSubmit() {
             $error = 'Sadly this feature is not available for your version of BasDeM. Please use the "Full (re-)install" Option.';
             return;
         }
-        if ( implode('.',$installerVersion) == $version ) {
+        if ( $installerVersion == $version ) {
             $error .= 'Your installation is now or allready was at the installer version (' . $version . '). <a href="?step=3">Please proceed to the last step of the installation.</a>';
             return;
         }
@@ -187,11 +188,20 @@ function checkSQLSubmit() {
             update0d0d91();
             checkSQLSubmit();
         }
+        if ( $version == '0.0.92' ) {
+            update0d0d92();
+            checkSQLSubmit();
+        }
     }
 }
 
 function update0d0d91() {
     mysql_query("update `version` set `primary` = 0, `secondary` = 0, `tertiary` = 92");
+}
+
+function update0d0d92() {
+    mysql_query("alter table `moderation` drop foreign key `moderation_ibfk_1`;");
+    mysql_query("update `version` set `primary` = 0, `secondary` = 0, `tertiary` = 93");
 }
 
 function checkVersion() {
@@ -252,7 +262,7 @@ function insertDefaultValues() {
     mysql_query("INSERT INTO `titles` (`id`, `content`) VALUES (1, 'System');");
     mysql_query("INSERT INTO `texts` (`id`, `content`) VALUES (1, 'System');");
     
-    mysql_query("INSERT INTO `version` (`primary`, `secondary`, `tertiary`) VALUES (" . implode($installerVersion) . ");");
+    mysql_query("INSERT INTO `version` (`primary`, `secondary`, `tertiary`) VALUES (" . $installerVersion . ");");
 }
 
 function createAllTables() {

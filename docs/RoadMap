@@ -25,6 +25,7 @@ Pirate Party assembly in Bochum (BPT12.2).
 ** verify email
 * enhance login system
 ** security check for database changes based on userrights
+* install script
 
 ===== 1.0 =====
 ====== not implemented ====== 
@@ -34,7 +35,6 @@ Pirate Party assembly in Bochum (BPT12.2).
 * possibility to post updated solutions and mark the old one as outdated
 * BasDeM update notifications
 * add Meta overview like Debatte.png
-* install script
 * add database version to the db, to enable future upgrades
 * store filters
 * enable browser navigation
