@@ -1,5 +1,14 @@
 == BasDeM ChangeLog ==
 (C) 2012 the BasDeM authors.
 
-=== Version 0.X.Y ===
-
+=== Version 0.1 ===
+* initial release
+* basic functionality works:
+** adding debates, solutions, comments
+** adding filters
+** filtering
+** user account creation and mail verification
+** user preferences
+** interactive "west pane"
+** moderation
+** install script
