@@ -41,6 +41,8 @@ switch ( target ) {
             case 'lang_createsolution': return 'L&ouml;sung anlegen';
             case 'lang_debate': return 'Debatten';
             case 'lang_description': return 'Beschreibung';
+            case 'lang_errorFilterDescription': return 'Die Beschreibung der neuen Filterkategorie muss angegeben werden.';
+            case 'lang_errorFilterTitle': return 'Der Titel der neuen Filterkategorie muss angegeben werden.';
             case 'lang_errorLayer': return 'Es ist ein schwerer Fehler aufgetreten. Bitte klicke auf Abbrechen!';
             case 'lang_errorDebateTitle': return 'Bitte gib einen Titel f&uuml;r deine Debatte an!';
             case 'lang_favoriteDescription': return 'Zu Favoriten hinzuf&uuml;gen';

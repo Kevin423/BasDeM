@@ -547,7 +547,7 @@ ClassController.prototype.addFilter = function() {
             if ( text.val() == '' ) {
                 bad = true;
                 text.parent().addClass('formerror');
-                $('<p>'+Helper.getLang('lang_filterDescription')+'</p>').appendTo(error);
+                $('<p>'+Helper.getLang('lang_errorFilterDescription')+'</p>').appendTo(error);
             }
 
             if ( bad == true ) {
