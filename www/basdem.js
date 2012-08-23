@@ -590,12 +590,12 @@ ClassController.prototype.addSolution = function(debateid) {
         if ( title.val() == '' ) {
             bad = true;
             title.parent().addClass('formerror');
-            $('<p>'+Helper.getLang('lang_errorDebateTitle')+'</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_errorSolutionTitle')+'</p>').appendTo(error);
         }
         if ( text.val() == '' ) {
             bad = true;
             text.parent().addClass('formerror');
-            $('<p>'+Helper.getLang('lang_solutionDescription')+'</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_errorSolutionDescription')+'</p>').appendTo(error);
         }
 
         if ( bad == true ) {
