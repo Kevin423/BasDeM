@@ -497,12 +497,12 @@ ClassController.prototype.addDebate = function() {
         if ( text.val() == '' ) {
             bad = true;
             text.parent().addClass('formerror');
-            $('<p>'+Helper.getLang('lang_debateDescription')+'</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_errorDebateDescription')+'</p>').appendTo(error);
         }
         if ( Helper.objectCount(parents) == 0 ) {
             bad = true;
             filter.parent().parent().addClass('formerror');
-            $('<p>'+Helper.getLang('lang_debateFilter')+'</p>').appendTo(error);
+            $('<p>'+Helper.getLang('lang_errorDebateFilter')+'</p>').appendTo(error);
         }
 
         if ( bad == true ) {

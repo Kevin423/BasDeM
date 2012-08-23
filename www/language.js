@@ -41,6 +41,9 @@ switch ( target ) {
             case 'lang_createsolution': return 'L&ouml;sung anlegen';
             case 'lang_debate': return 'Debatten';
             case 'lang_description': return 'Beschreibung';
+            case 'lang_errorDebateDescription': return 'Die Beschreibung der neuen Debatte muss angegeben werden.';
+            case 'lang_errorDebateFilter': return 'Eine Debatte muss mindestens einer Filterkategorie zugeordnet werden.';
+            case 'lang_errorDebateTitle': return 'Der Titel der neuen Debatte muss angegeben werden.';
             case 'lang_errorFilterDescription': return 'Die Beschreibung der neuen Filterkategorie muss angegeben werden.';
             case 'lang_errorFilterTitle': return 'Der Titel der neuen Filterkategorie muss angegeben werden.';
             case 'lang_errorLayer': return 'Es ist ein schwerer Fehler aufgetreten. Bitte klicke auf Abbrechen!';
