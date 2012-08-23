@@ -1248,7 +1248,7 @@ ClassSolution.prototype.loadArguments = function() {
         $('<div class="floatleft">(' + child.favored + ')</div>')
             .appendTo(container);
         
-        var star = $('<div id="solution' + this.memplex.id + 'comment' + child.id + 'star" class="star"></div>')
+        var star = $('<div id="solution' + this.memplex.id + 'comment' + child.id + 'star" class="star" title="' + Helper.getLang('lang_favoriteDescription') + '"></div>')
             .click(function(data) {
                 var sID = Helper.getIdFromString($(this).attr('id'));
                 var cID = Helper.getSecondIdFromString($(this).attr('id'));

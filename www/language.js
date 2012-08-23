@@ -43,6 +43,7 @@ switch ( target ) {
             case 'lang_description': return 'Beschreibung';
             case 'lang_errorLayer': return 'Es ist ein schwerer Fehler aufgetreten. Bitte klicke auf Abbrechen!';
             case 'lang_errorDebateTitle': return 'Bitte gib einen Titel f&uuml;r deine Debatte an!';
+            case 'lang_favoriteDescription': return 'Zu Favoriten hinzuf&uuml;gen';
             case 'lang_filter': return 'W&auml;hle die gew&uuml;nschten Filter aus';
             case 'lang_filterAdd': return 'Filter hinzuf&uuml;gen';
             case 'lang_filterAnd': return 'müssen alle erfüllt sein (UND)';
