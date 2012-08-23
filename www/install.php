@@ -5,13 +5,12 @@ define('NLB',"<br>\r\n");
 define('INCMS',true);
 define('CONF_DIR','class/');
 define('CONF_FILE','conf.php');
-$installerVersion = '0.0.93';
+$installerVersion = '0.0.92';
 
 $error = '';
 $acceptedVersions = array(
     '0.0.91' => true,
     '0.0.92' => true,
-    '0.0.93' => true,
 );
 $version = null;
 
@@ -188,20 +187,11 @@ function checkSQLSubmit() {
             update0d0d91();
             checkSQLSubmit();
         }
-        if ( $version == '0.0.92' ) {
-            update0d0d92();
-            checkSQLSubmit();
-        }
     }
 }
 
 function update0d0d91() {
     mysql_query("update `version` set `primary` = 0, `secondary` = 0, `tertiary` = 92");
-}
-
-function update0d0d92() {
-    mysql_query("alter table `moderation` drop foreign key `moderation_ibfk_1`;");
-    mysql_query("update `version` set `primary` = 0, `secondary` = 0, `tertiary` = 93");
 }
 
 function checkVersion() {
