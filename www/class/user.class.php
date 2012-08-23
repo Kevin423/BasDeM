@@ -256,6 +256,10 @@ class User {
      * @return Current user Nickname.
      */
     public static function getNickname() {
+        if ( !isset($_SESSION['user']['nickname']) 
+            || empty($_SESSION['user']['nickname']) ) {
+            return "Anonym";
+        }
         return $_SESSION['user']['nickname'];
     }
     

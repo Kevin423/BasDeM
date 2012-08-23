@@ -278,7 +278,11 @@ class Memplex {
      * @param string $author The new author.
      */
     public function setAuthor($author) {
-        $this->author = $author;
+        if ( empty($author) || is_null($author) ) {
+            $this->author = "Anonym";
+        } else {
+            $this->author = $author;
+        }
     }
     
     /**

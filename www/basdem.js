@@ -1097,7 +1097,7 @@ function ClassSolution(Memplex) {
     this.neutral = $('<ul id="solution' + this.memplex.id + 'neutral" class="solutionneutral">').appendTo(this.list);
     this.contra = $('<ul id="solution' + this.memplex.id + 'contra" class="solutioncontra">').appendTo(this.list);
 
-    Helper.window($('<div class="padded bigfont">' + this.memplex.title + '</div>').appendTo(this.text),'all');
+    Helper.window($('<div class="padded bigfont">' + this.memplex.title + ' - ' + this.memplex.author.nick + '</div>').appendTo(this.text),'all');
     Helper.window($('<div class="padded">' + this.memplex.text + '</div>').appendTo(this.text),'all');
 
     Helper.window(this.pro);
@@ -1166,7 +1166,7 @@ ClassSolution.prototype.showComment = function(id) {
 
     this.text.empty();
 
-    Helper.window($('<div class="padded bigfont">' + comment.title + '</div>').appendTo(this.text),'all');
+    Helper.window($('<div class="padded bigfont">' + comment.title + ' - ' + comment.author.nick + '</div>').appendTo(this.text),'all');
     Helper.window($('<div class="padded">' + comment.text + '</div>').appendTo(this.text),'all');
     
     View.activecommentbutton = Helper.createButton(
@@ -1221,7 +1221,7 @@ ClassSolution.prototype.loadArguments = function() {
         }
         
         var div = Helper.box(
-            child.title,
+            child.title + ' - ' + child.author.nick,
             'solution' + this.memplex.id + 'comment' + child.id,
             li,
             '#debate' + parent + 'solution' + this.memplex.id + 'comment' + child.id,
@@ -1290,7 +1290,7 @@ ClassSolution.prototype.loadCommentsRecursive = function(memplex,parent) {
     var ul = $("<ul class=\"comment\">").appendTo(parent);
     var li = $("<li class=\"comment\">").appendTo(ul);
 
-    var div = Helper.box(memplex.title,'solution' + this.memplex.id + 'comment' + memplex.id,li)
+    var div = Helper.box(memplex.title + ' - ' + memplex.author.nick,'solution' + this.memplex.id + 'comment' + memplex.id,li)
         .click(function(data) {
             var sid = Helper.getIdFromString(data.currentTarget.id);
             var cid = Helper.getSecondIdFromString(data.currentTarget.id);
@@ -1397,6 +1397,7 @@ function ClassDebate(memplex,full) {
             + child.id 
             + '">' 
             + child.title 
+             + ' - ' + child.author.nick
             /* TODO: Insert once child count is available at this stage?
              (' 
             + Helper.getRecursiveChildCount(child) 
