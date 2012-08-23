@@ -474,7 +474,7 @@ ClassController.prototype.addForm = function(name,title,description,strings,pare
 /** Creates a new Debate.
  */
 ClassController.prototype.addDebate = function() {
-    this.addForm('adddebate',Helper.getLang('lang_newDebateCreate'),Helper.getLang('lang_helpNewDebate'),[Helper.getLang('lang_titleDebate'),Helper.getLang('lang_textDebate'),Helper.getLang('lang_topics')],null,null,function() {
+    this.addForm('adddebate',Helper.getLang('lang_newDebateCreate'),Helper.getLang('lang_helpNewDebate'),[Helper.getLang('lang_titleDebate'),Helper.getLang('lang_textDebate'),Helper.getLang('lang_filters')],null,null,function() {
         var bad = false;
 
         var error = $('#adddebateerror').empty();

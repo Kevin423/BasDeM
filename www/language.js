@@ -47,11 +47,11 @@ switch ( target ) {
             case 'lang_errorFilterDescription': return 'Bitte gib eine Beschreibung der neuen Filterkategorie an.';
             case 'lang_errorFilterTitle': return 'Bitte gib einen Titel f&uuml;r deine neue Filterkategorie an..';
             case 'lang_errorLayer': return 'Es ist ein schwerer Fehler aufgetreten. Bitte klicke auf Abbrechen.';
-            case 'lang_errorDebateTitle': return 'Bitte gib einen Titel f&uuml;r deine Debatte an.';
             case 'lang_errorSolutionDescription': return 'Bitte beschreibe deine L&ouml;sung in einigen S&auml;tzen.';
             case 'lang_errorSolutionTitle': return 'Bitte gib einen Titel f&uuml;r deine Lösung an.';
             case 'lang_favoriteDescription': return 'Zu Favoriten hinzuf&uuml;gen';
             case 'lang_filter': return 'W&auml;hle die gew&uuml;nschten Filter aus';
+            case 'lang_filters': return 'Filterkategorien: ';
             case 'lang_filterAdd': return 'Filter hinzuf&uuml;gen';
             case 'lang_filterAnd': return 'müssen alle erfüllt sein (UND)';
             case 'lang_filterOr': return 'eins muss erfüllt sein (ODER)';
@@ -92,7 +92,6 @@ switch ( target ) {
             case 'lang_titleDebate': return 'Titel der Debatte: ';
             case 'lang_titleFilter': return 'Titel der Filterkategorie: ';
             case 'lang_titleSolution': return 'Titel der L&ouml;sung: ';
-            case 'lang_topics': return 'Themenbereiche: ';
             case 'lang_yArg': return 'dein Argument';
             case 'lang_yAnsw': return 'deine Erg&auml;nzung';
             default: return 'undefined';
