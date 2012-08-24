@@ -80,7 +80,7 @@ class Controller {
             return;
         }
         
-        // Load or edit an existing Memplex. Editing disabled for now.
+        // Load and/or edit an existing Memplex.
         $this->loadTargetMemplex();
         
         if ( !$this->checkMemplexLoaded() ) {
@@ -144,6 +144,7 @@ class Controller {
             'user' => array(
                 'id' => User::getId(),
                 'moderator' => User::isModerator(),
+                'supermoderator' => User::isSuperModerator(),
             ),
         ));
     }
@@ -247,6 +248,15 @@ class Controller {
         #$this->memplex->setAuthor($_POST['author']);
         
         $this->memplex->store();
+        
+        MemplexRegister::reset();
+        
+        if ( isset($_POST['loadid']) ) {
+            $this->createdid = $_POST['id'];
+            $_POST['id'] = $_POST['loadid'];
+        }
+        
+        $this->loadTargetMemplex();
         
         return true;
     }

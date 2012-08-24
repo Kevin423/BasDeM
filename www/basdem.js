@@ -45,6 +45,22 @@ var Helper = new ClassHelper();
  *   @tparam string string String to search for the digits.
  *   @treturn int ID.
  */
+ClassHelper.prototype.getParentMemplexByLayer = function(memplexid,targetlayer) {
+    var parents = MemplexRegister.getParents(memplexid);
+    for ( p in parents ) {
+        var parent = MemplexRegister.get(parents[p]);
+        if ( parent.layer == targetlayer ) {
+            return parent.id;
+        }
+        return Helper.getParentMemplexByLayer(parent.id,targetlayer);
+    }
+    return null;
+}
+
+/** Get the second complete set of digits in a string.
+ *   @tparam string string String to search for the digits.
+ *   @treturn int ID.
+ */
 ClassHelper.prototype.getSecondIdFromString = function(string) {
     var search = /(\d+)[^0-9]+(\d+)/;
     var result = search.exec(string);
@@ -333,11 +349,12 @@ ClassController.prototype.loadSolution = function(target) {
  */
 ClassController.prototype.parseUser = function(data) {
     if ( data.id == null
-        || data.moderator == null ) {
+        || data.moderator == null
+        || data.supermoderator == null ) {
         console.log('Faulty data',data);
         return;
     }
-    User.set(data.id,data.moderator);
+    User.set(data.id,data.moderator,data.supermoderator);
 }
 
 /** Parse loaded Memplexes into MemplexRegister.
@@ -417,12 +434,60 @@ ClassController.prototype.storeToMemplex = function(data) {
             Controller.commentTarget = null;
         });
 }
+
+/** Create a specific form to edit Memplexes.
+ * @tparam string name CSS class name of the form.
+ * @tparam string title User visible title.
+ * @tparam string description User visible description of the form.
+ * @tparam string[] strings I suppose those are the fucking labels in the form. But Justus hates writing documentation. - I still do, but you guess so well why should I?
+ * @tparam Memplex memplex ID of the Memplex.
+ * @tparam function callback
+ */
+ClassController.prototype.editForm = function(name,title,description,strings,memplex,callback) {
+    var content = $('<div class="' + name + '">');
+
+    $('<p>' + description + '</p>').appendTo(content);
+    $('<p id="' + name + 'error" class="formerror"></p>').appendTo(content);
+ 
+    var span;
+ 
+    span = $('<span>').appendTo(content);
+    $('<span>' + strings[0] + '</span>').appendTo(span);
     
+    $('<input id="' + name + 'id" type="hidden" value="' + memplex.id + '">').appendTo(span);
+    
+    $('<input id="' + name + 'title" type="text" value="' + memplex.title + '"><br>').appendTo(span);
+
+    span = $('<span>').appendTo(content);
+    $('<span>' + strings[1] + '</span>').appendTo(span);
+    $('<textarea id="' + name + 'text" rows="20" cols="50">' + memplex.text + '</textarea><br>').appendTo(span);
+
+    if ( strings[2] != null ) {
+        Filter.refreshFilters();
+        span = $('<span>').appendTo(content);
+        $('<span>' + strings[2] + '</span>').appendTo(span);
+        Filter.getFilterSelector('' + name + 'filter',null).appendTo(span);
+    }
+    
+    var buttons = {};
+    buttons[Helper.getLang('lang_confirm')] = callback;
+    buttons[Helper.getLang('lang_cancel')] = function() {
+        $( this ).dialog( 'close' );
+    };
+    
+    View.popup(
+        'auto',
+        800, // Workaround for 3 year old jqueryUi bug... http://bugs.jqueryui.com/ticket/4820
+        title,
+        content,
+        buttons,
+        name + 'parent');
+} 
 /** Create a specific form to add Memplexes.
  * @tparam string name CSS class name of the form.
  * @tparam string title User visible title.
  * @tparam string description User visible description of the form.
- * @tparam string[] strings I suppose those are the fucking labels in the form. But Justus hates writing documentation.
+ * @tparam string[] strings I suppose those are the fucking labels in the form. But Justus hates writing documentation. - I still do, but you guess so well why should I?
  * @tparam int parent ID of the parent Memplex.
  * @tparam int layer Layer of the new Memplex.
  * @tparam function callback
@@ -565,6 +630,52 @@ ClassController.prototype.addFilter = function() {
         });
 }
 
+/** Edit a Solution.
+ * @tparam int solutionid ID of the Memplex we want to edit.
+ */
+ClassController.prototype.editSolution = function(solutionid) {
+    this.editForm('addsolution',Helper.getLang('lang_editSolution'),Helper.getLang('lang_helpEditSolution'),[Helper.getLang('lang_titleSolution'),Helper.getLang('lang_textSolution')],MemplexRegister.get(solutionid),function() {
+        var bad = false;
+
+        var error = $('#addsolutionerror').empty();
+
+        var id = $('#addsolutionid');
+        var title = $('#addsolutiontitle');
+        var text = $('#addsolutiontext');
+
+        title.parent().removeClass('formerror');
+        text.parent().removeClass('formerror');
+
+        if ( id.val() == '' ) {
+            bad = true;
+            title.parent().addClass('formerror');
+            $('<p>'+Helper.getLang('lang_errorID')+'</p>').appendTo(error);
+        }
+
+        if ( title.val() == '' ) {
+            bad = true;
+            title.parent().addClass('formerror');
+            $('<p>'+Helper.getLang('lang_errorSolutionTitle')+'</p>').appendTo(error);
+        }
+        if ( text.val() == '' ) {
+            bad = true;
+            text.parent().addClass('formerror');
+            $('<p>'+Helper.getLang('lang_errorSolutionDescription')+'</p>').appendTo(error);
+        }
+
+        if ( bad == true ) {
+            return;
+        }
+        var out = {
+            'id': id.val(),
+            'title': title.val(),
+            'text': text.val()
+        };
+        Controller.storeToMemplex(out);
+        $( this ).dialog( 'close' );
+    });
+}
+
 /** Create a new Solution.
  * @tparam int debateid ID of the Memplex we want to add a solution to.
  */
@@ -607,6 +718,61 @@ ClassController.prototype.addSolution = function(debateid) {
             'text': text.val(),
             'layer': 4,
             'loadid': 1
+        };
+        Controller.storeToMemplex(out);
+        $( this ).dialog( 'close' );
+    });
+}
+
+/** Edit a comment or argument.
+ */
+ClassController.prototype.editComment = function(commentid,solutionid) {
+    var comment = MemplexRegister.get(commentid);
+    var title = '';
+    switch ( comment.layer ) {
+        case 5: title = Helper.getLang('lang_argProEdit'); break;
+        case 6: title = Helper.getLang('lang_argConEdit'); break;
+        case 7:
+        case 8: title = Helper.getLang('lang_argNeutEdit'); break;
+    }
+    this.editForm('addcomment',title,Helper.getLang('lang_helpEditComment'),[Helper.getLang('lang_titleComment'),Helper.getLang('lang_textComment')],comment,function() {
+        var bad = false;
+        
+        var error = $('#addcommenterror').empty();
+
+        var id = $('#addcommentid');
+        var title = $('#addcommenttitle');
+        var text = $('#addcommenttext');
+
+        title.parent().removeClass('formerror');
+        text.parent().removeClass('formerror');
+
+        if ( id.val() == '' ) {
+            bad = true;
+            title.parent().addClass('formerror');
+            $('<p>'+Helper.getLang('lang_errorID')+'</p>').appendTo(error);
+        }
+
+        if ( title.val() == '' ) {
+            bad = true;
+            title.parent().addClass('formerror');
+            $('<p>' + Helper.getLang('lang_errorCommentTitle') + '</p>').appendTo(error);
+        }
+        if ( text.val() == '' ) {
+            bad = true;
+            text.parent().addClass('formerror');
+            $('<p>' + Helper.getLang('lang_errorCommentDescription') + '</p>').appendTo(error);
+        }
+
+        if ( bad == true ) {
+            return;
+        }
+        
+        var out = {
+            'id': id.val(),
+            'title': title.val(),
+            'text': text.val(),
+            'loadid': Helper.getParentMemplexByLayer(id.val(),4)
         };
         Controller.storeToMemplex(out);
         $( this ).dialog( 'close' );
@@ -697,9 +863,10 @@ var User = new ClassUser();
  * @tparam int id ID of the user.
  * @tparam boolean moderator Moderator flag.
  */
-ClassUser.prototype.set = function(id,moderator) {
+ClassUser.prototype.set = function(id,moderator,supermoderator) {
     this.id = id;
     this.moderator = moderator;
+    this.supermoderator = supermoderator;
 }
 
 /** Get User ID.
@@ -714,6 +881,13 @@ ClassUser.prototype.getId = function() {
  */
 ClassUser.prototype.getModerator = function() {
     return this.moderator;
+}
+
+/** Get Supermoderatorstatus.
+ * @treturn boolean supermoderator Supermoderator flag.
+ */
+ClassUser.prototype.getSuperModerator = function() {
+    return this.supermoderator;
 }
 
 /** @class ClassMemplexRegister
@@ -1127,12 +1301,19 @@ function ClassSolution(Memplex) {
     // var buttoncontra = $('<div id="solution' + this.memplex.id + 'buttonscontra"></div><br>').appendTo(this.contra);
 
     // Pro Button
-    Helper.createButton(Helper.getLang('lang_argPro'),null,this.text,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 5);
+    Helper.createButton(Helper.getLang('lang_argPro'),null,this.text,'floatleft',this.buttonCallback,'solution' + this.memplex.id + 'buttonadd' + 5);
     // Neutral Button
-    Helper.createButton(Helper.getLang('lang_argNeut'),null,this.text,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 7);
+    Helper.createButton(Helper.getLang('lang_argNeut'),null,this.text,'floatleft',this.buttonCallback,'solution' + this.memplex.id + 'buttonadd' + 7);
     // Contra Button
-    Helper.createButton(Helper.getLang('lang_argCon'),null,this.text,'floatleft',this.buttonCallback,'debate' + this.memplex.id + 'buttonadd' + 6);
+    Helper.createButton(Helper.getLang('lang_argCon'),null,this.text,'floatleft',this.buttonCallback,'solution' + this.memplex.id + 'buttonadd' + 6);
 
+    if ( User.isSuperModerator || User.getId() == this.memplex.author.id ) {
+        Helper.createButton(Helper.getLang("lang_solutionEdit"),null,this.text,'floatleft',function(data) {
+            var id = Helper.getIdFromString($( this ).attr('id'));
+            Controller.editSolution(id);
+        },'solution' + this.memplex.id + 'buttonedit');
+    }
+    
     Moderator.getButton(this.memplex.id,this.text);
     
     SolutionRegister.add(this.memplex.id,this);
@@ -1189,6 +1370,14 @@ ClassSolution.prototype.showComment = function(id) {
             this.buttonCallback,
             'comment' + id + 'buttonadd' + 8
     );
+    
+    if ( User.isSuperModerator || User.getId() == comment.author.id ) {
+        Helper.createButton(Helper.getLang("lang_commentEdit"),null,'#solution' + this.memplex.id + 'text','floatleft',function(data) {
+            var id = Helper.getIdFromString($( this ).attr('id'));
+            Controller.editComment(id);
+        },'#solution' + comment.id + 'buttonedit');
+    }
+    
     Moderator.getButton(comment.id,'#solution' + this.memplex.id + 'text');
 }
 
