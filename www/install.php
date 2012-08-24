@@ -5,12 +5,18 @@ define('NLB',"<br>\r\n");
 define('INCMS',true);
 define('CONF_DIR','class/');
 define('CONF_FILE','conf.php');
-$installerVersion = '0.0.92';
+
+define('PRIMARY_VERSION','0');
+define('SECONDARY_VERSION','0');
+define('TERTIARY_VERSION','93');
+
+$installerVersion = PRIMARY_VERSION . '.' . SECONDARY_VERSION . '.' . TERTIARY_VERSION;
 
 $error = '';
 $acceptedVersions = array(
     '0.0.91' => true,
     '0.0.92' => true,
+    '0.0.93' => true,
 );
 $version = null;
 
@@ -187,11 +193,46 @@ function checkSQLSubmit() {
             update0d0d91();
             checkSQLSubmit();
         }
+        if ( $version == '0.0.92' ) {
+            update0d0d92();
+            checkSQLSubmit();
+        }
     }
 }
 
 function update0d0d91() {
     mysql_query("update `version` set `primary` = 0, `secondary` = 0, `tertiary` = 92");
+}
+
+function update0d0d92() {
+
+    // oldtexts
+    mysql_query(
+"CREATE TABLE IF NOT EXISTS `oldtexts` (
+  `id` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`,`time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
+    );
+    // oldtitles
+    mysql_query(
+"CREATE TABLE IF NOT EXISTS `oldtitles` (
+  `id` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
+  `text` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`,`time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
+    );
+    // Supermoderator
+    mysql_query(
+"ALTER TABLE `userrights` ADD `supermoderator` TINYINT( 1 ) NOT NULL"
+    );
+    mysql_query(
+"ALTER TABLE `userrights` ADD INDEX ( `supermoderator` ) "
+    );
+    // version updated
+    mysql_query("update `version` set `primary` = 0, `secondary` = 0, `tertiary` = 93");
 }
 
 function checkVersion() {
@@ -252,7 +293,7 @@ function insertDefaultValues() {
     mysql_query("INSERT INTO `titles` (`id`, `content`) VALUES (1, 'System');");
     mysql_query("INSERT INTO `texts` (`id`, `content`) VALUES (1, 'System');");
     
-    mysql_query("INSERT INTO `version` (`primary`, `secondary`, `tertiary`) VALUES (" . $installerVersion . ");");
+    mysql_query("update `version` set `primary` = ".PRIMARY_VERSION.", `secondary` = ".SECONDARY_VERSION.", `tertiary` = ".TERTIARY_VERSION."");
 }
 
 function createAllTables() {
@@ -322,8 +363,10 @@ function createAllTables() {
 "CREATE TABLE IF NOT EXISTS `userrights` (
   `id` int(11) NOT NULL,
   `moderator` tinyint(1) NOT NULL,
+  `supermoderator` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `moderator` (`moderator`)
+  KEY `supermoderator` (`supermoderator`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
     );
     // users
@@ -344,6 +387,24 @@ function createAllTables() {
   `primary` int(2) NOT NULL,
   `secondary` int(2) NOT NULL,
   `tertiary` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
+    );
+    // oldtexts
+    mysql_query(
+"CREATE TABLE IF NOT EXISTS `oldtexts` (
+  `id` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
+  `text` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`,`time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
+    );
+    // oldtitles
+    mysql_query(
+"CREATE TABLE IF NOT EXISTS `oldtitles` (
+  `id` int(11) NOT NULL,
+  `time` int(11) NOT NULL,
+  `text` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`,`time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
     );
 }

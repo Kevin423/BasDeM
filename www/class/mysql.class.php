@@ -256,10 +256,24 @@ group by
             )
         );
         self::query(
+            "insert into `oldtitles` set `text` = (select `content` from `titles` where `id` = :id), `id` = :id, `time` = :time",
+            array(
+                array(':id',$data['id'],PDO::PARAM_INT),
+                array(':time',time(),PDO::PARAM_INT),
+            )
+        );
+        self::query(
             "update `titles` set `content` = :content where `id` = :id",
             array(
                 array(':content',$data['title'],PDO::PARAM_STR),
                 array(':id',$data['id'],PDO::PARAM_INT),
+            )
+        );
+        self::query(
+            "insert into `oldtexts` set `text` = (select `content` from `texts` where `id` = :id), `id` = :id, `time` = :time",
+            array(
+                array(':id',$data['id'],PDO::PARAM_INT),
+                array(':time',time(),PDO::PARAM_INT),
             )
         );
         self::query(
@@ -389,7 +403,7 @@ group by
       */
     static public function getUser($mail,$password) {
         return self::query(
-            "select `users`.*,`userrights`.`moderator` as `moderator` from `users` left join `userrights` on `userrights`.`id` = `users`.`id` where `email` = :mail and `password` = :password",
+            "select `users`.*,`userrights`.`moderator` as `moderator`,`userrights`.`supermoderator` as `supermoderator` from `users` left join `userrights` on `userrights`.`id` = `users`.`id` where `email` = :mail and `password` = :password",
             array(
                 array(':mail',$mail,PDO::PARAM_STR),
                 array(':password',$password,PDO::PARAM_STR),

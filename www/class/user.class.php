@@ -167,6 +167,7 @@ class User {
         $_SESSION['user']['nickname'] = $result[0]['nickname'];
         $_SESSION['user']['verified'] = $result[0]['verified'];
         $_SESSION['user']['moderator'] = $result[0]['moderator'];
+        $_SESSION['user']['supermoderator'] = $result[0]['supermoderator'];
         $_SESSION['loggedin'] = true;
         self::$loggedin = true;
     }
@@ -286,11 +287,18 @@ class User {
     
     /**
      * Returns the user moderator status.
-     * TODO: Dummy function.
      * @return True if moderator, else false.
      */
     public static function isModerator() {
         return (int)$_SESSION['user']['moderator'] === 1;
+    }
+    
+    /**
+     * Returns the user supermoderator status.
+     * @return True if supermoderator, else false.
+     */
+    public static function isSuperModerator() {
+        return (int)$_SESSION['user']['supermoderator'] === 1;
     }
     
     private static function setError($error) {

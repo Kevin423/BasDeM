@@ -92,7 +92,7 @@ class Controller {
         
         $this->updateMemplexModerationState();
         
-        #$this->updateMemplexData();
+        $this->updateMemplexData();
         
         #$this->updateChildRelations();
         
@@ -229,20 +229,22 @@ class Controller {
     }
 
     /** Updates a memplex based upon POST data.
-     * @return False if POST data was incomplete (text, layer, title, author), else true.
+     * @return False if POST data was incomplete (text, layer, title, author) or authorization is insufficient, else true.
      */
     private function updateMemplexData() {
         if ( !isset($_POST['text'])
-            || !isset($_POST['layer'])
-            || !isset($_POST['title'])
-            || !isset($_POST['author']) ) {
+            || !isset($_POST['title']) ) {
+            return false;
+        }
+        if ( !$this->memplex->getAuthorId() != User::getId()
+            && User::isSuperModerator()  ) {
             return false;
         }
         
         $this->memplex->setText($_POST['text']);
-        $this->memplex->setLayer($_POST['layer']);
+        #$this->memplex->setLayer($_POST['layer']);
         $this->memplex->setTitle($_POST['title']);
-        $this->memplex->setAuthor($_POST['author']);
+        #$this->memplex->setAuthor($_POST['author']);
         
         $this->memplex->store();
         
