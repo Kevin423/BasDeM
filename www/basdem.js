@@ -1091,6 +1091,8 @@ ClassView.prototype.loadDebates = function() {
     $('#content')
         .empty();
 
+    Controller.relocated = 1;
+    window.location.hash = '';
     $('<div>')
         .attr('id','activefilterlist')
         .appendTo('#content');
@@ -1115,11 +1117,15 @@ ClassView.prototype.loadDebates = function() {
     if ( act == -1 ) {
         act = false;
     }
+    
     mycontent.accordion({
         collapsible: true,
         active: act,
         change: function(event,ui) {
-            View.activeDebate = Helper.getIdFromString(ui.newContent.attr('id'));
+            var id = Helper.getIdFromString(ui.newContent.attr('id'));
+            Controller.relocated = 1;
+            window.location.hash = 'debate' + id;
+            View.activeDebate = id;
         }
     });
 };
@@ -1129,7 +1135,8 @@ ClassView.prototype.loadDebates = function() {
  */
 ClassView.prototype.loadSolution = function(target) {
     var content = $('#content').empty();
-
+    
+    
     var solution = MemplexRegister.get(target);
     this.activesolution = target;
 
@@ -1155,9 +1162,14 @@ ClassView.prototype.loadSolution = function(target) {
     var tmp = new ClassSolution(solution);
     tmp.getObject().appendTo(content);
 
-    var target = Controller.popCommentTarget();
-    if ( target != null ) {
-        tmp.showComment(target);
+    var ctarget = Controller.popCommentTarget();
+    if ( ctarget != null ) {
+        Controller.relocated = 1;
+        window.location.hash = 'debate' + Helper.getParentMemplexByLayer(target,3) + 'solution' + target + 'comment' + ctarget
+        tmp.showComment(ctarget);;
+    } else {
+        Controller.relocated = 1;
+        window.location.hash = 'debate' + Helper.getParentMemplexByLayer(target,3) + 'solution' + target;
     }
 };
 
