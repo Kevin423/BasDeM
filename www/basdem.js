@@ -240,6 +240,7 @@ function ClassController() {
     this.commentTarget = null;
     this.lastload = {};
     this.lastAdded = {};
+    this.relocated = 0;
 }
 
 /** Static Controller object.
@@ -249,6 +250,9 @@ var Controller = new ClassController();
 /** Async load specified location into Storage then trigger View for loading of it.
  */
 ClassController.prototype.loadLocation = function(location) {
+    if ( this.relocated-- > 0 ) {
+        return;
+    }
     this.location = location;
     $.post("memplex.php",
         {id: 1,time:  Controller.lastLoad(1)},
@@ -281,6 +285,7 @@ ClassController.prototype.loadLocation = function(location) {
  * This one is being called upon initialization. Loads the top node (ID 1).
  */
 ClassController.prototype.loadDebates = function() {
+    this.relocated = 1;
     $.post("memplex.php",
         {id: 1,time:  Controller.lastLoad(1)},
         function(data) { // data returned by server
@@ -328,6 +333,7 @@ ClassController.prototype.popCommentTarget = function() {
  * @tparam ClassSolution target Solution to load.
  */
 ClassController.prototype.loadSolution = function(target) {
+    this.relocated = 1;
     $.post("memplex.php",
         {id: target,time: Controller.lastLoad(target)},
         function(data) {
@@ -1349,6 +1355,7 @@ ClassSolution.prototype.buttonCallback = function() {
  * @tparam int id ID of the Memplex representing the comment.
  */
 ClassSolution.prototype.showComment = function(id) {
+    Controller.relocated = 1;
     if ( this.activecomment != null ) {
         $('#solution' + this.memplex.id + 'comment' + this.activecomment)
             .removeClass('ui-selected');

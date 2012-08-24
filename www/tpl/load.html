@@ -6,7 +6,11 @@ function load(){
     });
     $(document).ajaxStop(function() {
         $('#loading').hide();
+        Controller.relocated = 0;
     });
+    window.onhashchange = function() {
+        Controller.loadLocation(document.location.hash);
+    };
     
     View.layout();
     View.paintButtons();
