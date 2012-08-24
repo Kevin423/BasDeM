@@ -350,11 +350,12 @@ ClassController.prototype.loadSolution = function(target) {
 ClassController.prototype.parseUser = function(data) {
     if ( data.id == null
         || data.moderator == null
+        || data.verified == null
         || data.supermoderator == null ) {
         console.log('Faulty data',data);
         return;
     }
-    User.set(data.id,data.moderator,data.supermoderator);
+    User.set(data.id,data.verified,data.moderator,data.supermoderator);
 }
 
 /** Parse loaded Memplexes into MemplexRegister.
@@ -863,8 +864,9 @@ var User = new ClassUser();
  * @tparam int id ID of the user.
  * @tparam boolean moderator Moderator flag.
  */
-ClassUser.prototype.set = function(id,moderator,supermoderator) {
+ClassUser.prototype.set = function(id,verified,moderator,supermoderator) {
     this.id = id;
+    this.verified = verified;
     this.moderator = moderator;
     this.supermoderator = supermoderator;
 }
@@ -874,6 +876,13 @@ ClassUser.prototype.set = function(id,moderator,supermoderator) {
  */
 ClassUser.prototype.getId = function() {
     return this.id;
+}
+
+/** Get Moderatorstatus.
+ * @treturn boolean moderator Moderator flag.
+ */
+ClassUser.prototype.isVerified = function() {
+    return this.verified;
 }
 
 /** Get Moderatorstatus.
@@ -1183,9 +1192,15 @@ ClassView.prototype.paintButtons = function() {
         View.loadDebates();
     });
     Helper.createButton(Helper.getLang('lang_newFilter'),'ui-icon-plus','#menu','floatright',function(data) {
+        if ( !User.isVerified() ) {
+            return alert(Helper.getLang('lang_missingVerification'));
+        }
         Controller.addFilter();
     });
     Helper.createButton(Helper.getLang('lang_newDebate'),'ui-icon-plus','#menu','floatright',function(data) {
+        if ( !User.isVerified() ) {
+            return alert(Helper.getLang('lang_missingVerification'));
+        }
         Controller.addDebate();
     });
 }
@@ -1324,6 +1339,9 @@ function ClassSolution(Memplex) {
 ClassSolution.prototype.buttonCallback = function() {
     var id = Helper.getIdFromString($( this ).attr('id'));
     var layer = Helper.getSecondIdFromString($( this ).attr('id'));
+    if ( !User.isVerified() ) {
+        return alert(Helper.getLang('lang_missingVerification'));
+    }
     Controller.addComment(id,layer);
 };
 
@@ -1623,6 +1641,9 @@ function ClassDebate(memplex,full) {
     // text,icon,append,floatdirection,callback,id
     Helper.createButton(Helper.getLang("lang_solutionAdd"),null,buttoncontainer,'floatleft',function(data) {
         var id = Helper.getIdFromString($( this ).attr('id'));
+        if ( !User.isVerified() ) {
+            return alert(Helper.getLang('lang_missingVerification'));
+        }
         Controller.addSolution(id);
     },'debate' + this.memplex.id + 'buttonadd');
     Moderator.getButton(this.memplex.id,buttoncontainer);

@@ -143,6 +143,7 @@ class Controller {
             'data' => $this->memplex->toArray(),
             'user' => array(
                 'id' => User::getId(),
+                'verified' => User::getVerified(),
                 'moderator' => User::isModerator(),
                 'supermoderator' => User::isSuperModerator(),
             ),
