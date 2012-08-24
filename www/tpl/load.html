@@ -8,6 +8,7 @@ function load(){
         $('#loading').hide();
         Controller.relocated = 0;
     });
+    window.location.hash = '';
     window.onhashchange = function() {
         Controller.loadLocation(document.location.hash);
     };

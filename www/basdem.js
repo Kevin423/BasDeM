@@ -1093,6 +1093,7 @@ ClassView.prototype.loadDebates = function() {
 
     Controller.relocated = 1;
     window.location.hash = '';
+    
     $('<div>')
         .attr('id','activefilterlist')
         .appendTo('#content');
