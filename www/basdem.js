@@ -1097,7 +1097,13 @@ function ClassSolution(Memplex) {
     this.neutral = $('<ul id="solution' + this.memplex.id + 'neutral" class="solutionneutral">').appendTo(this.list);
     this.contra = $('<ul id="solution' + this.memplex.id + 'contra" class="solutioncontra">').appendTo(this.list);
 
-    Helper.window($('<div class="padded bigfont">' + this.memplex.title + ' - ' + this.memplex.author.nick + '</div>').appendTo(this.text),'all');
+    var parents = MemplexRegister.getParents(this.memplex.id);
+    var parent = null;
+    for ( p in parents ) {
+        parent = parents[p];
+    }
+    
+    Helper.window($('<div class="padded bigfont"><a href="#debate' + parent + 'solution' + this.memplex.id + '"><div class="externallink"></div>' + this.memplex.title + ' - ' + this.memplex.author.nick + '</a></div>').appendTo(this.text),'all');
     Helper.window($('<div class="padded">' + this.memplex.text + '</div>').appendTo(this.text),'all');
 
     Helper.window(this.pro);
