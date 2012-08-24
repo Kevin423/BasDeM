@@ -214,7 +214,13 @@ li .comment {
     padding: 0px !important;
     margin: 0px -5px 0px 0px !important;
 }
-
+.externallink {
+    background-image: url("css/overcast/images/ui-icons_454545_256x240.png");
+    background-position: -32px -80px;
+    width: 20px;
+    height: 20px;
+    float: left;
+}
 .star {
     background-image: url("css/images/star1.svg");
     background-size: 20px 20px;

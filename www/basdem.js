@@ -205,7 +205,7 @@ ClassHelper.prototype.box = function(title,id,target,url,adder) {
         title = title + ' (' + adder + ')';
     }
     if ( url != null ) {
-        title = '<a href="' + url + '">' + title + '</a>';
+        title = '<a href="' + url + '"><div class="externallink"></div>' + title + '</a>';
     }
     var div = $('<div id="' + id + '" class="solutionargument padded">' + title + '</div>')
         .appendTo(target);
@@ -1165,8 +1165,14 @@ ClassSolution.prototype.showComment = function(id) {
     }
 
     this.text.empty();
-
-    Helper.window($('<div class="padded bigfont">' + comment.title + ' - ' + comment.author.nick + '</div>').appendTo(this.text),'all');
+    
+    var parents = MemplexRegister.getParents(this.memplex.id);
+    var parent = null;
+    for ( p in parents ) {
+        parent = parents[p];
+    }
+    
+    Helper.window($('<div class="padded bigfont"><a href="#debate' + parent + 'solution' + this.memplex.id + 'comment' + this.activecomment + '"><div class="externallink"></div>' + comment.title + ' - ' + comment.author.nick + '</a></div>').appendTo(this.text),'all');
     Helper.window($('<div class="padded">' + comment.text + '</div>').appendTo(this.text),'all');
     
     View.activecommentbutton = Helper.createButton(
@@ -1289,8 +1295,14 @@ ClassSolution.prototype.loadArguments = function() {
 ClassSolution.prototype.loadCommentsRecursive = function(memplex,parent) {
     var ul = $("<ul class=\"comment\">").appendTo(parent);
     var li = $("<li class=\"comment\">").appendTo(ul);
-
-    var div = Helper.box(memplex.title + ' - ' + memplex.author.nick,'solution' + this.memplex.id + 'comment' + memplex.id,li)
+    
+    var parents = MemplexRegister.getParents(this.memplex.id);
+    var parent = null;
+    for ( p in parents ) {
+        parent = parents[p];
+    }
+    
+    var div = Helper.box('<a href="#debate' + parent + 'solution' + this.memplex.id + 'comment' + memplex.id + '"><div class="externallink"></div>' + memplex.title + ' - ' + memplex.author.nick + '</a>','solution' + this.memplex.id + 'comment' + memplex.id,li)
         .click(function(data) {
             var sid = Helper.getIdFromString(data.currentTarget.id);
             var cid = Helper.getSecondIdFromString(data.currentTarget.id);
@@ -1373,7 +1385,7 @@ function ClassDebate(memplex,full) {
         categories = categories.substr(0,categories.length-1) + ')</div><div class="clear"></div>';
     }
     
-    this.title = $('<h3 id="' + adder + 'debate' + this.memplex.id + 'title" class=""><a href="#debate' + this.memplex.id + '">' + this.memplex.title + categories + '</a></h3>');
+    this.title = $('<h3 id="' + adder + 'debate' + this.memplex.id + 'title" class=""><a href="#debate' + this.memplex.id + '"><div class="externallink"></div>' + this.memplex.title + categories + '</a></h3>');
     this.hide = $('<div id="' + adder + 'debate' + this.memplex.id + 'hide" class="hidden">');
     this.text = $('<div id="' + adder + 'debate' + this.memplex.id + 'text" class="debatetext">').appendTo(this.hide);
     
@@ -1395,7 +1407,7 @@ function ClassDebate(memplex,full) {
             + this.memplex.id 
             + 'solution' 
             + child.id 
-            + '">' 
+            + '"><div class="externallink"></div>' 
             + child.title 
              + ' - ' + child.author.nick
             /* TODO: Insert once child count is available at this stage?
