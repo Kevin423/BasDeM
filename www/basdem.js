@@ -271,12 +271,13 @@ ClassController.prototype.loadLocation = function(location) {
             if ( typeof dID == 'number' && !isNaN(dID) ) {
                 View.activeDebate = dID;
             }
-            View.loadDebates();
             if ( typeof sID == 'number' && !isNaN(sID) ) {
                 if ( typeof cID == 'number' && !isNaN(cID) ) {
                     Controller.commentTarget = cID;
                 }
                 Controller.loadSolution(sID);
+            } else {
+                View.loadDebates();
             }
         });
 }

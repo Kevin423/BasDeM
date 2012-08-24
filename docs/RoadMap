@@ -28,6 +28,8 @@ Pirate Party assembly in Bochum (BPT12.2).
 * editing arguments, solutions, etc
 * install script
 ** add database version to the db, to enable future upgrades
+* enable browser navigation
+** A bit unelegant but it works.
 
 ===== 1.0 =====
 ====== not implemented ====== 
@@ -37,7 +39,6 @@ Pirate Party assembly in Bochum (BPT12.2).
 * BasDeM update notifications
 * add Meta overview like Debatte.png
 * store filters
-* enable browser navigation
 * design according to mockups
 
 ==== Quality assurance & community management====
