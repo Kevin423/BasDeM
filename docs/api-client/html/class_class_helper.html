@@ -115,6 +115,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a5781a2ff9f33004b34243e7f993786ac">createButton</a> (string text, string icon, object append, string floatdirection, function callback, string id)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a8549a3259f8e23cf40dffe492843bd49">objectCount</a> (Object object)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a482b27e9f1d0f90866b216e2ea4b4c63">getLang</a> (string text)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#ad9062026adc0fc4c296cf8ff4ea22965">getParentMemplexByLayer</a> (int memplexid, int targetlayer)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a61a81931796cda3c72c1b0d35ec7b405">toggleHidden</a> (Object object)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a74a0ae85b5db94474670fb356571f886">hide</a> (Object object)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_helper.html#a07d1b146a487bc2e777d4673cd1a67a8">box</a> (string title, string id, Object target, string url, string adder)</td></tr>
@@ -311,6 +312,42 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad9062026adc0fc4c296cf8ff4ea22965"></a><!-- doxytag: member="ClassHelper::getParentMemplexByLayer" ref="ad9062026adc0fc4c296cf8ff4ea22965" args="(int memplexid, int targetlayer)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ClassHelper::getParentMemplexByLayer </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>memplexid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>targetlayer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Gets the parent of a given Memplex by layer. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memplexid</td><td>ID of the child Memplexs. </td></tr>
+    <tr><td class="paramname">targetlayer</td><td>Layer of the child Memplexs. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>ID of the parent Memplex. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a50fbdebcb9f32a1b816f55b6b685698b"></a><!-- doxytag: member="ClassHelper::getRecursiveChildCount" ref="a50fbdebcb9f32a1b816f55b6b685698b" args="(memplex memplex)" -->
 <div class="memitem">
 <div class="memproto">
@@ -350,7 +387,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Get the second complete set of digits in a string. </p>
+<p>Gets the second complete set of digits in a string. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td>String to search for the digits. </td></tr>
@@ -563,7 +600,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Thu Aug 23 2012 11:26:29 for BasDeM by
+    <li class="footer">Generated on Sat Aug 25 2012 21:06:25 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

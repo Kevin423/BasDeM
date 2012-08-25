@@ -41,9 +41,10 @@ function ClassHelper() {};
  */
 var Helper = new ClassHelper();
 
-/** Get the second complete set of digits in a string.
- *   @tparam string string String to search for the digits.
- *   @treturn int ID.
+/** Gets the parent of a given Memplex by layer.
+ *   @tparam int memplexid ID of the child Memplexs.
+ *   @tparam int targetlayer Layer of the child Memplexs.
+ *   @treturn int ID of the parent Memplex.
  */
 ClassHelper.prototype.getParentMemplexByLayer = function(memplexid,targetlayer) {
     var parents = MemplexRegister.getParents(memplexid);
@@ -57,7 +58,7 @@ ClassHelper.prototype.getParentMemplexByLayer = function(memplexid,targetlayer) 
     return null;
 }
 
-/** Get the second complete set of digits in a string.
+/** Gets the second complete set of digits in a string.
  *   @tparam string string String to search for the digits.
  *   @treturn int ID.
  */
@@ -889,7 +890,9 @@ var User = new ClassUser();
 
 /** Set Userdata.
  * @tparam int id ID of the user.
+ * @tparam boolean verified Verified flag.
  * @tparam boolean moderator Moderator flag.
+ * @tparam boolean supermoderator Supermoderator flag.
  */
 ClassUser.prototype.set = function(id,verified,moderator,supermoderator) {
     this.id = id;

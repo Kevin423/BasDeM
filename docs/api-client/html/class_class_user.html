@@ -110,7 +110,9 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_user.html#ae1e61abc14e707610d48721e4db1c5aa">ClassUser</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_user.html#a124491a4483083e74d11271825355442">getId</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_user.html#a7223d5267a6d7380fbbd4c4b57f113b0">getModerator</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_user.html#afa1fb7f2fde6989afa25cea5ebbedea8">set</a> (int <a class="el" href="class_class_user.html#a49f983e905b2ba9eda8fd856b73055ce">id</a>, boolean <a class="el" href="class_class_user.html#a0c04ebe2967c85eeaaaefd92e3cb15a9">moderator</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_user.html#a14d914c1ceb0d33204e3645a890ac799">getSuperModerator</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_user.html#a6a8d8f33c26e728d879737667c61c1f9">isVerified</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_user.html#a9298c095ded990dd68c10a1babce331c">set</a> (int <a class="el" href="class_class_user.html#a49f983e905b2ba9eda8fd856b73055ce">id</a>, boolean verified, boolean <a class="el" href="class_class_user.html#a0c04ebe2967c85eeaaaefd92e3cb15a9">moderator</a>, boolean supermoderator)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_class_user.html#a0c04ebe2967c85eeaaaefd92e3cb15a9">moderator</a></td></tr>
@@ -172,7 +174,43 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afa1fb7f2fde6989afa25cea5ebbedea8"></a><!-- doxytag: member="ClassUser::set" ref="afa1fb7f2fde6989afa25cea5ebbedea8" args="(int id, boolean moderator)" -->
+<a class="anchor" id="a14d914c1ceb0d33204e3645a890ac799"></a><!-- doxytag: member="ClassUser::getSuperModerator" ref="a14d914c1ceb0d33204e3645a890ac799" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean ClassUser::getSuperModerator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get Supermoderatorstatus. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>supermoderator Supermoderator flag. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6a8d8f33c26e728d879737667c61c1f9"></a><!-- doxytag: member="ClassUser::isVerified" ref="a6a8d8f33c26e728d879737667c61c1f9" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean ClassUser::isVerified </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get Moderatorstatus. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>moderator Moderator flag. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9298c095ded990dd68c10a1babce331c"></a><!-- doxytag: member="ClassUser::set" ref="a9298c095ded990dd68c10a1babce331c" args="(int id, boolean verified, boolean moderator, boolean supermoderator)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -186,7 +224,19 @@ Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">boolean&#160;</td>
-          <td class="paramname"><em>moderator</em>&#160;</td>
+          <td class="paramname"><em>verified</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">boolean&#160;</td>
+          <td class="paramname"><em>moderator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">boolean&#160;</td>
+          <td class="paramname"><em>supermoderator</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -200,7 +250,9 @@ Public Attributes</h2></td></tr>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td>ID of the user. </td></tr>
+    <tr><td class="paramname">verified</td><td>Verified flag. </td></tr>
     <tr><td class="paramname">moderator</td><td>Moderator flag. </td></tr>
+    <tr><td class="paramname">supermoderator</td><td>Supermoderator flag. </td></tr>
   </table>
   </dd>
 </dl>
@@ -254,7 +306,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Thu Aug 23 2012 11:26:29 for BasDeM by
+    <li class="footer">Generated on Sat Aug 25 2012 21:06:25 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
