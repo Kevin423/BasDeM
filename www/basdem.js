@@ -138,7 +138,7 @@ ClassHelper.prototype.hide = function(object) {
  *   @tparam Object object The target object.
  */
 ClassHelper.prototype.show = function(object) {
-    object.attr("class",object.attr("class").replace(/hidden/,''));
+    object.removeClass('hidden');
 }
     
 /** Adds standardwindowclasses.
