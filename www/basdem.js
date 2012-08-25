@@ -1429,8 +1429,8 @@ ClassSolution.prototype.bubbleShow = function(JQueryElement) {
     var name = JQueryElement.prop('nodeName');
     if ( name != 'UL'
         && name != 'LI' 
-        && ( JQueryElement.attr('class') == undefined || JQueryElement.attr('class').search(/solutioncomment/) == -1 )
-        && ( JQueryElement.attr('class') == undefined || JQueryElement.attr('class').search(/solutionargument/) == -1 ) ) {
+        && !JQueryElement.hasClass('solutioncomment')
+        && !JQueryElement.hasClass('solutionargument') ) {
         
         return;
     }
@@ -1483,7 +1483,7 @@ ClassSolution.prototype.loadArguments = function() {
 
                 var target = $('#solution' + sid + 'comment' + id + 'hidden');
                 if ( solution.activecomment == argument.id
-                    || target.attr('class').search(/hidden/) != -1 ) {
+                    || target.hasClass('hidden') ) {
                     Helper.toggleHidden(target);
                 }
 
