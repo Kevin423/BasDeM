@@ -108,6 +108,9 @@ Enumerations</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#aed03536db1eb113784231705c85a8563">INCMS</a> </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#a9ae51209521de1ba43726f34c08280a6">CONF_DIR</a> </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#a75891b5e38ca9afb52ad3e940c03f05a">CONF_FILE</a> </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#a71010c90162079d8f3f1e97bc44c8910">PRIMARY_VERSION</a> </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#ab3a8b377771c731fd614789402afdca7">SECONDARY_VERSION</a> </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#a8bae44c0c68cc673e2a01e34df8cb171">TERTIARY_VERSION</a> </td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">switch($_GET['step'])&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#ac5210fed669c7da071b22a621ead36e2">printForm</a> ($selector)</td></tr>
@@ -117,6 +120,7 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#ad8ad0e2f9290656d0e0b0689a0362f2b">SQLConnect</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#a803116723a2392312f3c68235dd358ea">checkSQLSubmit</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#a59dc1057207a489098694fa735fc5ed7">update0d0d91</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#aee9b4311986258935181c1d0c337384b">update0d0d92</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#af756da46839c595b07b569327cc8d5e9">checkVersion</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#a7935c1512bf6f2d5f660e10fd2969c26">setForeignKeys</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#a755db7c9573cef0d2f0ead904196244c">insertDefaultValues</a> ()</td></tr>
@@ -127,7 +131,7 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#a6505cb160deee3e7ad1e4fc055b9fc64">defaultConf</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#a8fbd96daf0373720e968639fc4a9eeb0">$installerVersion</a> = array(0,0,92)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#a8fbd96daf0373720e968639fc4a9eeb0">$installerVersion</a> = <a class="el" href="install_8php.html#a71010c90162079d8f3f1e97bc44c8910">PRIMARY_VERSION</a> . '.' . <a class="el" href="install_8php.html#ab3a8b377771c731fd614789402afdca7">SECONDARY_VERSION</a> . '.' . <a class="el" href="install_8php.html#a8bae44c0c68cc673e2a01e34df8cb171">TERTIARY_VERSION</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#aeba2ab722cedda53dbb7ec1a59f45550">$error</a> = ''</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#af5a9ee87ef4370eb15fc6d4b22cd6a7d">$acceptedVersions</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="install_8php.html#a17c8948c68aa44fa9961ae169b6a8961">$version</a> = null</td></tr>
@@ -192,6 +196,45 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">enum <a class="el" href="install_8php.html#abaaf7b49220a413cb6ac9e7b5a4292b0">NLB</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a71010c90162079d8f3f1e97bc44c8910"></a><!-- doxytag: member="install.php::PRIMARY_VERSION" ref="a71010c90162079d8f3f1e97bc44c8910" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="install_8php.html#a71010c90162079d8f3f1e97bc44c8910">PRIMARY_VERSION</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab3a8b377771c731fd614789402afdca7"></a><!-- doxytag: member="install.php::SECONDARY_VERSION" ref="ab3a8b377771c731fd614789402afdca7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="install_8php.html#ab3a8b377771c731fd614789402afdca7">SECONDARY_VERSION</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8bae44c0c68cc673e2a01e34df8cb171"></a><!-- doxytag: member="install.php::TERTIARY_VERSION" ref="a8bae44c0c68cc673e2a01e34df8cb171" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="install_8php.html#a8bae44c0c68cc673e2a01e34df8cb171">TERTIARY_VERSION</a></td>
         </tr>
       </table>
 </div>
@@ -442,6 +485,22 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aee9b4311986258935181c1d0c337384b"></a><!-- doxytag: member="install.php::update0d0d92" ref="aee9b4311986258935181c1d0c337384b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">update0d0d92 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <hr/><h2>Variable Documentation</h2>
 <a class="anchor" id="afd69c6f231d29db446ed904e8a6ed1f0"></a><!-- doxytag: member="install.php::$_GET" ref="afd69c6f231d29db446ed904e8a6ed1f0" args="['step']" -->
 <div class="memitem">
@@ -469,6 +528,7 @@ Variables</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><pre class="fragment"> array(
     <span class="stringliteral">&#39;0.0.91&#39;</span> =&gt; <span class="keyword">true</span>,
     <span class="stringliteral">&#39;0.0.92&#39;</span> =&gt; <span class="keyword">true</span>,
+    <span class="stringliteral">&#39;0.0.93&#39;</span> =&gt; <span class="keyword">true</span>,
 )
 </pre></div>
 </div>
@@ -491,7 +551,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">$installerVersion = array(0,0,92)</td>
+          <td class="memname">$installerVersion = <a class="el" href="install_8php.html#a71010c90162079d8f3f1e97bc44c8910">PRIMARY_VERSION</a> . '.' . <a class="el" href="install_8php.html#ab3a8b377771c731fd614789402afdca7">SECONDARY_VERSION</a> . '.' . <a class="el" href="install_8php.html#a8bae44c0c68cc673e2a01e34df8cb171">TERTIARY_VERSION</a></td>
         </tr>
       </table>
 </div>
@@ -532,7 +592,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Thu Aug 23 2012 09:46:04 for BasDeM by
+    <li class="footer">Generated on Sat Aug 25 2012 20:54:16 for BasDeM by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
