@@ -265,6 +265,10 @@ ClassController.prototype.loadLocation = function(location) {
             Controller.parseMemplex(json.data,null);
             Controller.setLastLoad(json.data.id,json.time);
             Controller.loadList();
+            
+            View.activeDebate = null;
+            Controller.commentTarget = null;
+            
             var dID = Helper.getIdFromString(Controller.location);
             var sID = Helper.getSecondIdFromString(Controller.location);
             var cID = Helper.getThirdIdFromString(Controller.location);
@@ -1108,8 +1112,6 @@ ClassView.prototype.loadDebates = function() {
     $('#content')
         .empty();
     
-    Controller.setLocation('debate');
-    
     $('<div>')
         .attr('id','activefilterlist')
         .appendTo('#content');
@@ -1133,6 +1135,9 @@ ClassView.prototype.loadDebates = function() {
     }
     if ( act == -1 ) {
         act = false;
+        Controller.setLocation('debate');
+    } else {
+        Controller.setLocation('debate' + this.activeDebate);
     }
     
     mycontent.accordion({
