@@ -1426,12 +1426,17 @@ ClassSolution.prototype.showComment = function(id) {
  * @tparam JQueryElement JQueryElement jQuery DOM document wrapper, see jQuery documentation.
  */
 ClassSolution.prototype.bubbleShow = function(JQueryElement) {
-    if ( JQueryElement.attr('class') != undefined 
-        && ( JQueryElement.attr('class').search(/comment/) == -1 
-        || ( JQueryElement.attr('id') != undefined && JQueryElement.attr('id').search(/hidden/) != -1 ) ) ) {
-        Helper.show(JQueryElement);
+    var name = JQueryElement.prop('nodeName');
+    if ( name != 'UL'
+        && name != 'LI' 
+        && ( JQueryElement.attr('class') == undefined || JQueryElement.attr('class').search(/solutioncomment/) == -1 )
+        && ( JQueryElement.attr('class') == undefined || JQueryElement.attr('class').search(/solutionargument/) == -1 ) ) {
+        console.log(JQueryElement);
         return;
     }
+    
+    Helper.show(JQueryElement);
+    
     this.bubbleShow(JQueryElement.parent());
 }
 
