@@ -1431,7 +1431,7 @@ ClassSolution.prototype.bubbleShow = function(JQueryElement) {
         && name != 'LI' 
         && ( JQueryElement.attr('class') == undefined || JQueryElement.attr('class').search(/solutioncomment/) == -1 )
         && ( JQueryElement.attr('class') == undefined || JQueryElement.attr('class').search(/solutionargument/) == -1 ) ) {
-        console.log(JQueryElement);
+        
         return;
     }
     
