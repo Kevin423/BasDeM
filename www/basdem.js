@@ -1094,6 +1094,7 @@ ClassView.prototype.loadList = function(memplexes,list) {
             View.activeDebate = Helper.getIdFromString(ui.newContent.attr('id'));
             // TODO: Sanitize...
             View.loadDebates();
+            Controller.forceLocation();
         }
     });
 };
@@ -1141,6 +1142,7 @@ ClassView.prototype.loadDebates = function() {
             var id = Helper.getIdFromString(ui.newContent.attr('id'));
             Controller.setLocation('debate' + id);
             View.activeDebate = id;
+            Controller.forceLocation();
         }
     });
 };
