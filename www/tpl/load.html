@@ -2,13 +2,17 @@
 function load(){
     
     $(document).ajaxStart(function() {
+        console.log("ajax Start",Controller.relocated);
         $('#loading').show();
     });
     $(document).ajaxStop(function() {
         $('#loading').hide();
-        Controller.relocated = 0;
+        Controller.forceLocation();
     });
-    window.location.hash = 'debate';
+    
+    if ( window.location.hash == '' ) {
+        window.location.hash = 'debate';
+    }
     window.onhashchange = function() {
         Controller.loadLocation(document.location.hash);
     };

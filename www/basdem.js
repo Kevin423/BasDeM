@@ -282,6 +282,22 @@ ClassController.prototype.loadLocation = function(location) {
         });
 }
 
+/** Set location the system is supposed to be on.
+ */
+ClassController.prototype.setLocation = function(location) {
+    this.location = location;
+}
+
+/** Go to the set location the system is supposed to be on.
+ */
+ClassController.prototype.forceLocation = function() {
+    this.relocated = 0;
+    if ( window.location.hash != '#' + this.location ) {
+        this.relocated = 1;
+        window.location.hash = this.location;
+    }
+}
+
 /** Async load Debates into Storage then trigger View for loading of debates.
  * This one is being called upon initialization. Loads the top node (ID 1).
  */
@@ -1090,9 +1106,8 @@ ClassView.prototype.loadDebates = function() {
     }
     $('#content')
         .empty();
-
-    Controller.relocated = 1;
-    window.location.hash = 'debate';
+    
+    Controller.setLocation('debate');
     
     $('<div>')
         .attr('id','activefilterlist')
@@ -1124,8 +1139,7 @@ ClassView.prototype.loadDebates = function() {
         active: act,
         change: function(event,ui) {
             var id = Helper.getIdFromString(ui.newContent.attr('id'));
-            Controller.relocated = 1;
-            window.location.hash = 'debate' + id;
+            Controller.setLocation('debate' + id);
             View.activeDebate = id;
         }
     });
@@ -1165,29 +1179,11 @@ ClassView.prototype.loadSolution = function(target) {
 
     var ctarget = Controller.popCommentTarget();
     if ( ctarget != null ) {
-        Controller.relocated = 1;
-        window.location.hash = 'debate' + Helper.getParentMemplexByLayer(target,3) + 'solution' + target + 'comment' + ctarget
-        tmp.showComment(ctarget);;
+        tmp.showComment(ctarget);
     } else {
-        Controller.relocated = 1;
-        window.location.hash = 'debate' + Helper.getParentMemplexByLayer(target,3) + 'solution' + target;
+        Controller.setLocation('debate' + Helper.getParentMemplexByLayer(target,3) + 'solution' + target);
     }
 };
-
-ClassView.prototype.paintCommentButton = function(solution,comment) {
-    if ( this.commentbutton != null ) {
-        this.commentbutton.remove();
-    }
-    // this.commentbutton = $('<button id="solution' + solution.id + 'comment' + comment.id + 'button">Argument: ' + comment.title + '</button>')
-        // .appendTo('#menu')
-        // .click(function(data) {
-            // var solution = Helper.getIdFromString(data.currentTarget.id);
-            // var comment = Helper.getSecondIdFromString(data.currentTarget.id);
-            // Controller.loadComment(solution,comment);
-        // })
-        // .button()
-        // .addClass('mybutton');
-}
 
 /** Paints the primary menubuttons.
  * This one is being called upon initialization.
@@ -1210,6 +1206,7 @@ ClassView.prototype.paintButtons = function() {
     });
     Helper.createButton(Helper.getLang('lang_debate'),null,'#menu','floatleft',function(data) {
         View.loadDebates();
+        Controller.forceLocation();
     });
     Helper.createButton(Helper.getLang('lang_newFilter'),'ui-icon-plus','#menu','floatright',function(data) {
         if ( !User.isVerified() ) {
@@ -1369,7 +1366,6 @@ ClassSolution.prototype.buttonCallback = function() {
  * @tparam int id ID of the Memplex representing the comment.
  */
 ClassSolution.prototype.showComment = function(id) {
-    Controller.relocated = 1;
     if ( this.activecomment != null ) {
         $('#solution' + this.memplex.id + 'comment' + this.activecomment)
             .removeClass('ui-selected');
@@ -1377,6 +1373,8 @@ ClassSolution.prototype.showComment = function(id) {
     if ( View.activecommentbutton != null ) {
         View.activecommentbutton.remove();
     }
+    
+    Controller.setLocation('debate' + Helper.getParentMemplexByLayer(this.memplex.id,3) + 'solution' + this.memplex.id + 'comment' + id);
     
     this.activecomment = id;
     var a = $('#solution' + this.memplex.id + 'comment' + id);
@@ -1386,9 +1384,6 @@ ClassSolution.prototype.showComment = function(id) {
     this.bubbleShow(a);
 
     var comment = MemplexRegister.get(id);
-    if ( comment.layer >= 5 && comment.layer <= 7 ) {
-        View.paintCommentButton(this.memplex,comment);
-    }
 
     this.text.empty();
     
@@ -1476,10 +1471,12 @@ ClassSolution.prototype.loadArguments = function() {
 
                 var target = $('#solution' + sid + 'comment' + id + 'hidden');
                 if ( solution.activecomment == argument.id
-                    || target.attr('class').search(/hidden/) != -1 )
-                Helper.toggleHidden(target);
+                    || target.attr('class').search(/hidden/) != -1 ) {
+                    Helper.toggleHidden(target);
+                }
 
                 solution.showComment(id);
+                Controller.forceLocation();
             });
 
         // TODO: Implement Support System here.
@@ -1546,6 +1543,7 @@ ClassSolution.prototype.loadCommentsRecursive = function(memplex,parent) {
             var solution = SolutionRegister.get(sid);
 
             solution.showComment(cid);
+            Controller.forceLocation();
         });
 
     for ( c in memplex.children ) {

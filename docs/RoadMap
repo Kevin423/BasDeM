@@ -29,6 +29,8 @@ Pirate Party assembly in Bochum (BPT12.2).
 * install script
 ** add database version to the db, to enable future upgrades
 * enable browser navigation
+====== not implemented ====== 
+* Enable verification without prior login
 
 ===== 1.0 =====
 ====== not implemented ====== 
