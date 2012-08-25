@@ -2,7 +2,6 @@
 function load(){
     
     $(document).ajaxStart(function() {
-        console.log("ajax Start",Controller.relocated);
         $('#loading').show();
     });
     $(document).ajaxStop(function() {
