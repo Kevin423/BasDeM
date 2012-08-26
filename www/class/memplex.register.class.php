@@ -27,19 +27,22 @@ if ( !defined('INCMS') || INCMS !== true ) {
         die;
 }
 
+require_once __DIR__ . '/Exceptions/MemplexNotFoundException.class.php';
+
 /**
  * An array containing Memplex objects.
  */
 class MemplexRegister {
     private static $memplexCache = array();
+    private static $database = NULL;
     
     /**
      * load one or many entries
      */
-    public static function load($id) {
+    public static function load($id=NULL) {
         if ( is_array($id) ) {
             // load list of memplexes
-            return self::getMemplexListByIds($id);
+            return self::getByValues($id);
         } else if ( is_numeric($id)) {
             // load memplex by id
             return self::get($id);
@@ -84,7 +87,7 @@ class MemplexRegister {
      *   - the Memplex to load if the ID is valid
      *   - or an empty Memplex if the ID does not yet exist.
      */
-    public function get($id) {
+    public static function get($id) {
         if ( !is_numeric($id) ) {
             return null;
         }
@@ -114,6 +117,23 @@ class MemplexRegister {
     }
 
     /**
+     * get by values
+     */
+    public static function getByValues($values) {
+        $memplex = new Memplex();
+        if(isset($values['id'])) $memplex->setId($values['id']);
+        if(isset($values['author'])) $memplex->setAuthor($values['author']);
+        if(isset($values['authorid'])) $memplex->setAuthorId($values['authorid']);
+        if(isset($values['state'])) $memplex->setModerationState($values['state']);
+        if(isset($values['title'])) $memplex->setTitle($values['title']);
+        if(isset($values['text'])) $memplex->setText($values['text']);
+        if(isset($values['layer'])) $memplex->setLayer($values['layer']);
+        if(isset($values['favored'])) $memplex->setFavored($values['favored']);
+        if(isset($values['selffavored'])) $memplex->setSelfFavored($values['selffavored']);
+        return $memplex;
+    }
+
+    /**
      * load Memplex by id from database
      * 
      * @param int id
@@ -121,10 +141,10 @@ class MemplexRegister {
      * @return Memplex
      * 
      */
-    public function loadMemplexById($id, $user_id) {
-        $memplex_data = Database::getMemplex($id, $user_id);
-
-        if(0 === count($memplex)) {
+    public static function loadMemplexById($id, $user_id) {
+        $memplex_data = self::$database->getMemplex($id, $user_id);
+        
+        if(0 === count($memplex_data)) {
             throw new MemplexNotFoundException("Error Processing Request", 1);
         }
 
@@ -155,8 +175,9 @@ class MemplexRegister {
      * @param Memplex
      * @return int insert memplex id
      */
-    public function create(Memplex $memplex) {
-        return Database::createMemplex(array(
+    public static function create(Memplex $memplex) {
+        #var_dump('RET:', self::$database, self::$database->__phpunit_getInvocationMocker(), self::$database->__phpunit_getStaticInvocationMocker());
+        return self::$database->createMemplex(array(
             'author' => $memplex->getAuthorId(false),
             'title' => $memplex->getTitle(false),
             'text' => $memplex->getText(false),
@@ -170,8 +191,8 @@ class MemplexRegister {
      * @param Memplex
      * @return int update memplex id
      */
-    public function update(Memplex $memplex) {
-        return Database::storeMemplex(array(
+    public static function update(Memplex $memplex) {
+        return self::$database->storeMemplex(array(
             'id' => $memplex->getId(),
             'author' => $memplex->getAuthorId(false),
             'title' => $memplex->getTitle(false),
@@ -189,6 +210,10 @@ class MemplexRegister {
      */
     public function delete(Memplex $memplex) {
         // TBD
+    }
+
+    public static function setDatabase(Database $database) {
+        self::$database = $database;
     }
 }
 
