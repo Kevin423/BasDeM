@@ -27,12 +27,12 @@ if ( !defined('INCMS') || INCMS !== true ) {
     define('INCMS',true);
 }
 
-require_once('../www/class/memplex.class.php');
+require_once(__DIR__ . '/../www/class/memplex.class.php');
 
 // for tests depending on db:
-require_once('../www/class/config.class.php');
-require_once('../www/class/mysql.class.php');
-require_once('../www/class/user.class.php');
+require_once(__DIR__ . '/../www/class/config.class.php');
+require_once(__DIR__ . '/../www/class/mysql.class.php');
+require_once(__DIR__ . '/../www/class/user.class.php');
 
 class TestMemplex extends PHPUnit_Framework_TestCase {
 
