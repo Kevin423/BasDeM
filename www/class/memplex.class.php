@@ -26,6 +26,9 @@
 if ( !defined('INCMS') || INCMS !== true ) {
         die;
 }
+
+require 'memplex.register.class.php';
+
 /**
  * A Memplex is the central datastructure of BasDeM, representing everything the user
  * may want to add or view in the system.
