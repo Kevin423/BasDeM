@@ -27,7 +27,7 @@ if ( !defined('INCMS') || INCMS !== true ) {
         die;
 }
 
-require 'memplex.register.class.php';
+require_once(__DIR__ . '/memplex.register.class.php');
 
 /**
  * A Memplex is the central datastructure of BasDeM, representing everything the user
@@ -45,8 +45,6 @@ class Memplex {
     private $text = '';
     private $layer;
     private $moderationState = null;
-
-    private $memplexRegister;
     
     /** Constructor.
      * @param integer $id ID of the memplex to load or array with 'author', 'title', 'text'
@@ -54,12 +52,8 @@ class Memplex {
      *
      * @return The new Memplex.
      */
-    public function __construct(MemplexRegister $memplexRegister = null) {
+    public function __construct() {
         $this->reset(); 
-
-        $this->memplexRegister = is_null($memplexRegister)
-            ? new MemplexRegister
-            : $memplexRegister;
     }
 
     private function reset() {
@@ -87,7 +81,7 @@ class Memplex {
             return;
         }
         foreach ( $this->children as $child ) {
-            $tmp = $this->memplexRegister->get($child);
+            $tmp = MemplexRegister::get($child);
             if ( is_null($tmp) ) {
                 continue;
             }
@@ -122,14 +116,15 @@ class Memplex {
      */
     public function store() {
         if($this->isNew()) {
-            $this->id = $this->memplexRegister->create($this);
+            $this->id = MemplexRegister::create($this);
         } else {
-            $this->id = $this->memplexRegister->update($this);
+            $this->id = MemplexRegister::update($this);
         }
+        return $this->id;
     }
 
     public function isNew() {
-        return (bool) $this->id;
+        return is_null($this->id);
     }
     
     /**
