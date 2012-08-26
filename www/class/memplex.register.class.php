@@ -37,11 +37,11 @@ class MemplexRegister {
     private static $database = NULL;
     
     /**
-     * load one or many entries
+     * load a memplex
      */
     public static function load($id=NULL) {
         if ( is_array($id) ) {
-            // load list of memplexes
+            // load memplex by values
             return self::getByValues($id);
         } else if ( is_numeric($id)) {
             // load memplex by id
