@@ -36,12 +36,19 @@ require_once('../www/class/user.class.php');
 
 class TestMemplex extends PHPUnit_Framework_TestCase {
 
+    public function setUp() {
+        $_SESSION['loggedin'] = true;
+        $_SESSION['user'] = array();
+        $_SESSION['user']['id'] = 'testauthor';
+        $_SESSION['user']['email'] = 'test@basdem.de';
+    }
+
     public function testConstruct() {
         // empty Memplex
         $memplex = new Memplex();
         $this->assertEquals(0,$memplex->getId());
         $this->assertEquals(0,count($memplex->getChildren()));
-        $this->assertEquals('',$memplex->getAuthor());
+        $this->assertEquals('Anonym',$memplex->getAuthor());
         $this->assertEquals('',$memplex->getTitle());
         $this->assertEquals('',$memplex->getText());
         $this->assertEquals(0,$memplex->getLayer());
@@ -130,15 +137,15 @@ class TestMemplex extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @dataProvider stringProvider
+     * @dataProvider authorProvider
      */
-    public function testSetAndGetAuthor($a) {
+    public function testSetAndGetAuthor($val, $expect) {
         $memplex = new Memplex();
-        $this->assertEquals('',$memplex->getAuthor());
+        $this->assertEquals('Anonym',$memplex->getAuthor());
 
-        $memplex->setAuthor($a);
-        $this->assertEquals($a,$memplex->getAuthor(false));
-        $this->assertEquals(htmlentities($a),$memplex->getAuthor());
+        $memplex->setAuthor($val);
+        $this->assertEquals($expect,$memplex->getAuthor(false));
+        $this->assertEquals(htmlentities($expect),$memplex->getAuthor());
     }
 
     /**
@@ -178,6 +185,15 @@ class TestMemplex extends PHPUnit_Framework_TestCase {
 
 
 /* Data providers */
+
+    public function authorProvider() {
+        return array(
+            array('', 'Anonym'),
+            array('test', 'test'),
+            array('äöüß', 'äöüß'),
+            array('<br/>', '<br/>')
+        );
+    }
 
     public function stringProvider() {
         return array(
