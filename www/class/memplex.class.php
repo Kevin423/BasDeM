@@ -32,16 +32,18 @@ if ( !defined('INCMS') || INCMS !== true ) {
  */
 class Memplex {
     private $id;
-    private $children;
-    private $childarray;
-    private $favored;
-    private $selffavored = null;
-    private $author;
+    private $children = array();
+    private $childarray = array();
+    private $favored = 0;
+    private $selffavored = 0;
+    private $author = 'Anonym';
     private $authorId;
-    private $title;
-    private $text;
+    private $title = '';
+    private $text = '';
     private $layer;
     private $moderationState = null;
+
+    private $memplexRegister;
     
     /** Constructor.
      * @param integer $id ID of the memplex to load or array with 'author', 'title', 'text'
@@ -49,46 +51,25 @@ class Memplex {
      *
      * @return The new Memplex.
      */
-    public function __construct($id = null) {
+    public function __construct(MemplexRegister $memplexRegister = null) {
+        $this->reset(); 
+
+        $this->memplexRegister = is_null($memplexRegister)
+            ? new MemplexRegister
+            : $memplexRegister;
+    }
+
+    private function reset() {
         $this->id = null;
         $this->children = array();
         $this->setAuthor(null);
         $this->setTitle(null);
         $this->setText(null);
         $this->setLayer(null);
+        $this->setFavored(0);
+        $this->setSelfFavored(0);
+    }
         
-        if ( is_null($id) ) {
-            $this->createMemplex();
-        } else if ( is_array($id) ) {
-            $this->createMemplex($id);
-        } else {
-            $this->loadMemplex($id);
-        }
-    }
-    
-    private function loadMemplex($id) {
-        $tmp = Database::getMemplex($id,User::getId());
-        if ( count($tmp) == 0 ) {
-            return;
-        }
-        $this->setId($tmp[0]['id']);
-        $this->setAuthor($tmp[0]['author']);
-        $this->setAuthorId($tmp[0]['authorid']);
-        $this->setModerationState($tmp[0]['state']);
-        $this->setTitle($tmp[0]['title']);
-        $this->setText($tmp[0]['text']);
-        $this->setLayer($tmp[0]['layer']);
-        $this->setFavored($tmp[0]['favored']);
-        $this->setSelfFavored($tmp[0]['selffavored']);
-        $this->children = array();
-        foreach ( $tmp as $key => $value ) {
-            if ( empty($value['child']) ) {
-                continue;
-            }
-            $this->children[] = $value['child'];
-        }
-    }
-    
     /**
      * Loads all children of this Memplex.
      * WARNING: If ID is 1 (the Memplex ist the root Memplex) and level is undefined or -1
@@ -103,7 +84,7 @@ class Memplex {
             return;
         }
         foreach ( $this->children as $child ) {
-            $tmp = MemplexRegister::get($child);
+            $tmp = $this->memplexRegister->get($child);
             if ( is_null($tmp) ) {
                 continue;
             }
@@ -137,23 +118,15 @@ class Memplex {
      * Stores the Memplex permanently in the database.
      */
     public function store() {
-        if ( is_null($this->id) ) {
-            $this->id = Database::createMemplex(array(
-                'author' => $this->getAuthorId(false),
-                'title' => $this->getTitle(false),
-                'text' => $this->getText(false),
-                'layer' => $this->getLayer(),
-            ));
+        if($this->isNew()) {
+            $this->id = $this->memplexRegister->create($this);
         } else {
-            Database::storeMemplex(array(
-                'id' => $this->getId(),
-                'author' => $this->getAuthorId(false),
-                'title' => $this->getTitle(false),
-                'text' => $this->getText(false),
-                'layer' => $this->getLayer(),
-                'moderationstate' => $this->getModerationState(),
-            ));
+            $this->id = $this->memplexRegister->update($this);
         }
+    }
+
+    public function isNew() {
+        return (bool) $this->id;
     }
     
     /**
@@ -162,7 +135,7 @@ class Memplex {
      * @return Array with Keys: 'id', 'author', 'title', 'text', 'layer' and 'children'.
      */
     public function toArray() {
-        if ( $this->getLayer() === (int)null ) {
+        if ( $this->getLayer() === 0 ) {
             return array();
         }
         return array(
@@ -184,61 +157,61 @@ class Memplex {
     /**
      * Sets the ID of the Memplex.
      *
-     * @param integer $id The new ID.
+     * @param int $id The new ID.
      */
     public function setId($id) {
-        $this->id = $id;
+        $this->id = (int) $id;
     }
     
     /**
      * Returns the ID of the Memplex.
      *
-     * @return The ID of the Memplex.
+     * @return int The ID of the Memplex.
      */
     public function getId() {
-        return (int)$this->id;
+        return $this->id;
     }
     
     /**
      * Sets the number of selffavors of the Memplex. FIXME: what distinguished selffavored from favored?
      *
-     * @param integer $selffavored New number of favors.
+     * @param int $selffavored New number of favors.
      */
     public function setSelfFavored($selffavored) {
-        $this->selffavored = $selffavored;
+        $this->selffavored = (int) $selffavored;
     }
     
     /**
      * Returns the number of selffavors of the Memplex. FIXME: what distinguished selffavored from favored?
      *
-     * @return The number of selffavors of the Memplex.
+     * @return int The number of selffavors of the Memplex.
      */
     public function getSelfFavored() {
-        return (int)$this->selffavored;
+        return $this->selffavored;
     }
     
     /**
      * Sets the number of favors of the Memplex. FIXME: what distinguished selffavored from favored?
      *
-     * @param integer $favored New number of favors.
+     * @param int $favored New number of favors.
      */
     public function setFavored($favored) {
-        $this->favored = $favored;
+        $this->favored = (int) $favored;
     }
     
     /**
      * Returns the number of favors of the Memplex. FIXME: what distinguished selffavored from favored?
      *
-     * @return The number of favors of the Memplex.
+     * @return int The number of favors of the Memplex.
      */
     public function getFavored() {
-        return (int)$this->favored;
+        return $this->favored;
     }
 
     /**
      * Adds a child to the Memplex.
      *
-     * @param integer $id ID of the new child.
+     * @param int $id ID of the new child.
      */
     public function addChild($id) {
         Database::addChild($this->id,$id);
@@ -248,7 +221,7 @@ class Memplex {
     /**
      * Returns the IDs of the children of the Memplex.
      *
-     * @return Array with IDs of the children.
+     * @return array with IDs of the children.
      */
     public function getChildren() {
         return $this->children;
@@ -260,7 +233,7 @@ class Memplex {
      * @param int $state The new moderation state.
      */
     public function setModerationState($state) {
-        $this->moderationState = $state;
+        $this->moderationState = (int) $state;
     }
     
     /**
@@ -269,7 +242,7 @@ class Memplex {
      * @return int The moderation state.
      */
     public function getModerationState() {
-        return (int)$this->moderationState;
+        return $this->moderationState;
     }
     
     /**
@@ -279,7 +252,7 @@ class Memplex {
      */
     public function setAuthor($author) {
         if ( empty($author) || is_null($author) ) {
-            $this->author = "Anonym";
+            $this->author = 'Anonym';
         } else {
             $this->author = $author;
         }
@@ -372,10 +345,10 @@ class Memplex {
      * The various layers are documented in our UML documentation at
      * https://github.com/Kevin423/BasDeM/blob/master/docs/BasDeM.png
      *
-     * @param integer $layer The new layer.
+     * @param int $layer The new layer.
      */
     public function setLayer($layer) {
-        $this->layer = $layer;
+        $this->layer = (int) $layer;
     }
     
     /**
@@ -384,10 +357,10 @@ class Memplex {
      * The various layers are documented in our UML documentation at
      * https://github.com/Kevin423/BasDeM/blob/master/docs/BasDeM.png
      *
-     * @return The layer of the Memplex.
+     * @return int The layer of the Memplex.
      */
     public function getLayer() {
-        return (int)$this->layer;
+        return $this->layer;
     }
 }
 ?>

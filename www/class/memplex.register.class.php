@@ -31,25 +31,70 @@ if ( !defined('INCMS') || INCMS !== true ) {
  * An array containing Memplex objects.
  */
 class MemplexRegister {
-    private static $memplexlist = array();
+    private static $memplexCache = array();
     
+    /**
+     * load one or many entries
+     */
+    public static function load($id) {
+        if ( is_array($id) ) {
+            // load list of memplexes
+            return self::getMemplexListByIds($id);
+        } else if ( is_numeric($id) {
+            // load memplex by id
+            return self::get($id);
+        }
+        // return empty memplex
+        return self::getEmptyMemplex();
+    }
+
+    /**
+     * get empty memplex
+     *
+     * @return Memplex 
+     */
+    public static function getEmptyMemplex() {
+        return new Memplex();
+    }
+
+    /**
+     * get a list of memplexes by ids
+     * 
+     * @param array ids
+     * @return MemplexList
+     */
+    public static function getMemplexListByIds($ids) {
+        $list = new MemplexList();
+        foreach($ids as $id) {
+            $list->append(
+                self::get($id);
+            );
+        }
+        return $list;
+    }
+
     /**
      * Returns the Memplex identified by $id and automatically registers it.
      * No database access is needed if the Memplex has alredy been registered using reg().
      *
-     * @param $id ID of the Memplex to load.
+     * @param int $id ID of the Memplex to load.
      *
-     * @return null if the ID is not numeric, the Memplex to load if the ID is valid
-     * or an empty Memplex if the ID does not yet exist.
+     * @return Memplex
+     *   - null if the ID is not numeric, 
+     *   - the Memplex to load if the ID is valid
+     *   - or an empty Memplex if the ID does not yet exist.
      */
-    public static function get($id) {
+    public function get($id) {
         if ( !is_numeric($id) ) {
             return null;
         }
-        if ( !isset(self::$memplexlist[$id]) ) {
-            self::$memplexlist[$id] = new Memplex($id);
+        if ( !isset(self::$memplexCache[$id]) ) {
+            // cache miss, load by id, register
+            self::register(
+                self::loadMemplexById($id, User::getId())
+            );
         }
-        return self::$memplexlist[$id];
+        return self::$memplexCache[$id];
     }
     
     /**
@@ -57,15 +102,93 @@ class MemplexRegister {
      *
      * @param Memplex $memplex The Memplex to register.
      */
-    public static function reg($memplex) {
-        self::$memplexlist[$memplex->getId()] = $memplex;
+    public static function register(Memplex $memplex) {
+        self::$memplexCache[$memplex->getId()] = $memplex;
     }
     
     /**
-     * Reset the Register.
+     * Reset the cache of register
      */
     public static function reset() {
-        self::$memplexlist = array();
+        self::$memplexCache = array();
+    }
+
+    /**
+     * load Memplex by id from database
+     * 
+     * @param int id
+     * @param int user id
+     * @return Memplex
+     * 
+     */
+    public function loadMemplexById($id, $user_id) {
+        $memplex_data = Database::getMemplex($id, $user_id);
+
+        if(0 === count($memplex)) {
+            throw new MemplexNotFoundException("Error Processing Request", 1);
+        }
+
+        $memplex = new Memplex();
+        $memplex->setId($memplex_data[0]['id']);
+        $memplex->setAuthor($memplex_data[0]['author']);
+        $memplex->setAuthorId($memplex_data[0]['authorid']);
+        $memplex->setModerationState($memplex_data[0]['state']);
+        $memplex->setTitle($memplex_data[0]['title']);
+        $memplex->setText($memplex_data[0]['text']);
+        $memplex->setLayer($memplex_data[0]['layer']);
+        $memplex->setFavored($memplex_data[0]['favored']);
+        $memplex->setSelfFavored($memplex_data[0]['selffavored']);
+
+        foreach ( $memplex_data as $key => $value ) {
+            if ( empty($value['child']) ) {
+                continue;
+            }
+            $memplex->addChild($value['child']);
+        }
+
+        return $memplex;
+    }
+
+    /**
+     * create memplex
+     *
+     * @param Memplex
+     * @return int insert memplex id
+     */
+    public function create(Memplex $memplex) {
+        return Database::createMemplex(array(
+            'author' => $memplex->getAuthorId(false),
+            'title' => $memplex->getTitle(false),
+            'text' => $memplex->getText(false),
+            'layer' => $memplex->getLayer(),
+        ));
+    }
+
+    /**
+     * persistent update memplex
+     *
+     * @param Memplex
+     * @return int update memplex id
+     */
+    public function update(Memplex $memplex) {
+        return Database::storeMemplex(array(
+            'id' => $memplex->getId(),
+            'author' => $memplex->getAuthorId(false),
+            'title' => $memplex->getTitle(false),
+            'text' => $memplex->getText(false),
+            'layer' => $memplex->getLayer(),
+            'moderationstate' => $memplex->getModerationState(),
+        ));
+    }
+
+    /**
+     * persistent delete memplex
+     * 
+     * @param Memplex
+     * @return bool
+     */
+    public function delete(Memplex $memplex) {
+        // TBD
     }
 }
 
