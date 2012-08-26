@@ -40,7 +40,7 @@ class MemplexRegister {
         if ( is_array($id) ) {
             // load list of memplexes
             return self::getMemplexListByIds($id);
-        } else if ( is_numeric($id) {
+        } else if ( is_numeric($id)) {
             // load memplex by id
             return self::get($id);
         }
@@ -67,7 +67,7 @@ class MemplexRegister {
         $list = new MemplexList();
         foreach($ids as $id) {
             $list->append(
-                self::get($id);
+                self::get($id)
             );
         }
         return $list;
