@@ -165,12 +165,20 @@ function SQLConnect() {
     require_once('class/config.class.php');
     mysql_connect(Config::get('database','host'),Config::get('database','user'),Config::get('database','password'));
     mysql_select_db(Config::get('database','database'));
+    if ( mysql_errno() != 0 ) {
+        return mysql_error();
+    }
+    return true;
 }
 
 function checkSQLSubmit() {
     global $error,$version,$installerVersion;
     if ( isset($_POST['full']) ) {
-        SQLConnect();
+        $connect = SQLConnect();
+        if ( $connect !== true ) {
+            $error = $connect;
+            return;
+        }
         
         // Drop all foreign key constraints.
         dropForeignKeys();
@@ -417,7 +425,7 @@ function createAllTables() {
 }
 
 function dropAllTables() {
-    $q = mysql_query("show tables") or die(mysql_error());
+    $q = mysql_query("show tables");
     if ( mysql_num_rows($q) == 0 ) {
         return;
     }
