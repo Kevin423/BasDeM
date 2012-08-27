@@ -84,6 +84,21 @@ ClassHelper.prototype.getParentMemplexByLayer = function(memplexid,targetlayer) 
     return null;
 }
 
+/** Replaces all umlauts and special characters from their html equivalent back to the original
+ *   @tparam string string String to be worked on.
+ *   @treturn string Replaced the string with all replacements.
+ */
+ClassHelper.prototype.htmlToUmlaut = function(string) {
+    string = string.replace(/&Auml;/g,'Ä');
+    string = string.replace(/&auml;/g,'ä');
+    string = string.replace(/&Ouml;/g,'Ö');
+    string = string.replace(/&ouml;/g,'ö');
+    string = string.replace(/&Uuml;/g,'Ü');
+    string = string.replace(/&uuml;/g,'ü');
+    string = string.replace(/&szlig;/g,'ß');
+    return string;
+}
+
 /** Gets the second complete set of digits in a string.
  *   @tparam string string String to search for the digits.
  *   @treturn int ID.
@@ -1167,6 +1182,11 @@ ClassView.prototype.loadDebates = function() {
         Controller.setLocation('debate');
     } else {
         Controller.setLocation('debate' + this.activeDebate);
+        debate = DebateRegister.get(this.activeDebate);
+        document.title = 'BasDeM: ' + debate.memplex.title;
+        document.title = Helper.htmlToUmlaut(document.title);
+            
+        Helper.addSocialLinkers(debate.text,'http://www.basdem.de/demo/#debate' + this.activeDebate);
     }
     
     mycontent.accordion({
@@ -1174,6 +1194,12 @@ ClassView.prototype.loadDebates = function() {
         active: act,
         change: function(event,ui) {
             var id = Helper.getIdFromString(ui.newContent.attr('id'));
+            var debate = DebateRegister.get(id);
+            document.title = 'BasDeM: ' + debate.memplex.title;
+            document.title = Helper.htmlToUmlaut(document.title);
+            
+            Helper.addSocialLinkers(debate.text,'http://www.basdem.de/demo/#debate' + id);
+            
             Controller.setLocation('debate' + id);
             View.activeDebate = id;
             Controller.forceLocation();
@@ -1364,9 +1390,9 @@ function ClassSolution(Memplex) {
         $('<span>'+Helper.getLang('lang_noArgCon')+'</p>').appendTo(this.contra);
     }
     
-    
-    
     document.title = 'BasDeM: ' + MemplexRegister.get(parent).title + ' - ' + this.memplex.title;
+    
+    document.title = Helper.htmlToUmlaut(document.title);
     
     Helper.addSocialLinkers(this.text,'http://www.basdem.de/demo/#debate' + Helper.getParentMemplexByLayer(this.memplex.id,3) + 'solution' + this.memplex.id);
 
@@ -1436,6 +1462,8 @@ ClassSolution.prototype.showComment = function(id) {
     Helper.window($('<div class="padded">' + comment.text + '</div>').appendTo(this.text),'all');
     
     document.title = 'BasDeM: ' + MemplexRegister.get(parent).title + ' - ' + MemplexRegister.get(this.memplex.id).title + ' - ' + comment.title;
+    
+    document.title = Helper.htmlToUmlaut(document.title);
     
     Helper.addSocialLinkers(this.text,'http://www.basdem.de/demo/#debate' + parent + 'solution' + this.memplex.id + 'comment' + this.activecomment);
     
