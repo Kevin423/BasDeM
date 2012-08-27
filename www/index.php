@@ -47,33 +47,32 @@ if ( isset($_GET['action']) && $_GET['action'] == 'logout' ) {
 
 if ( User::isLoggedin() !== true ) {
     if ( !isset($_GET['action']) ) {
-        $tpl = new Template('index',array('noload','login'));
-    } else {
-        switch ( $_GET['action'] ) {
-            case 'register':
-                $tpl = new Template('index',array('noload','register'));
-                $tpl->replace(
-                    array(
-                        ':::error:::',
-                    ),
-                    array(
-                        User::getError(),
-                    )
-                );
+        $_GET['action'] = '';
+    }
+    switch ( $_GET['action'] ) {
+        case 'register':
+            $tpl = new Template('index',array('noload','register'));
+            $tpl->replace(
+                array(
+                    ':::error:::',
+                ),
+                array(
+                    User::getError(),
+                )
+            );
+        break;
+        default:
+        case 'login':
+            $tpl = new Template('index',array('noload','login'));
+            $tpl->replace(
+                array(
+                    ':::error:::',
+                ),
+                array(
+                    User::getError(),
+                )
+            );
             break;
-            default:
-            case 'login':
-                $tpl = new Template('index',array('noload','login'));
-                $tpl->replace(
-                    array(
-                        ':::error:::',
-                    ),
-                    array(
-                        User::getError(),
-                    )
-                );
-                break;
-        }
     }
 } else {
     if ( !isset($_GET['action']) ) {
