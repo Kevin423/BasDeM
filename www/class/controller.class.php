@@ -239,7 +239,7 @@ class Controller {
             return false;
         }
         if ( !$this->memplex->getAuthorId() != User::getId()
-            && User::isSuperModerator()  ) {
+            && !User::isSuperModerator()  ) {
             return false;
         }
         
