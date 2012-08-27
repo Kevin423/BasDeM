@@ -41,6 +41,32 @@ function ClassHelper() {};
  */
 var Helper = new ClassHelper();
 
+/** Add the social links to target.
+ *   @tparam JQueryObject target to be expanded with the new SocialLinker.
+ */
+ClassHelper.prototype.addSocialLinkers = function(target,url) {
+    $('#sociallinks').remove();
+    
+    var sl = $('<div id="sociallinks">').socialSharePrivacy({
+        services : {
+            facebook : {
+                'perma_option': 'off',
+                'dummy_img': 'css/images/dummy_facebook.png'
+            }, 
+            twitter : {
+                'perma_option': 'off',
+                'dummy_img': 'css/images/dummy_twitter.png'
+            },
+            gplus : {
+                'perma_option': 'off',
+                'dummy_img': 'css/images/dummy_gplus.png'
+            }
+        },
+        'css_path': 'css/socialshareprivacy.css',
+        uri: url
+    }).appendTo(target);
+}
+
 /** Gets the parent of a given Memplex by layer.
  *   @tparam int memplexid ID of the child Memplexs.
  *   @tparam int targetlayer Layer of the child Memplexs.
@@ -1337,10 +1363,12 @@ function ClassSolution(Memplex) {
     if ( this.contra.children().length == 0 ) {
         $('<span>'+Helper.getLang('lang_noArgCon')+'</p>').appendTo(this.contra);
     }
-
-    // var buttonpro = $('<div id="solution' + this.memplex.id + 'buttonspro"></div><br>').appendTo(this.pro);
-    // var buttonneutral = $('<div id="solution' + this.memplex.id + 'buttonsneutral"></div><br>').appendTo(this.neutral);
-    // var buttoncontra = $('<div id="solution' + this.memplex.id + 'buttonscontra"></div><br>').appendTo(this.contra);
+    
+    
+    
+    document.title = 'BasDeM: ' + MemplexRegister.get(parent).title + ' - ' + this.memplex.title;
+    
+    Helper.addSocialLinkers(this.text,'http://www.basdem.de/demo/#debate' + Helper.getParentMemplexByLayer(this.memplex.id,3) + 'solution' + this.memplex.id);
 
     // Pro Button
     Helper.createButton(Helper.getLang('lang_argPro'),null,this.text,'floatleft',this.buttonCallback,'solution' + this.memplex.id + 'buttonadd' + 5);
@@ -1349,6 +1377,7 @@ function ClassSolution(Memplex) {
     // Contra Button
     Helper.createButton(Helper.getLang('lang_argCon'),null,this.text,'floatleft',this.buttonCallback,'solution' + this.memplex.id + 'buttonadd' + 6);
 
+    
     if ( User.isSuperModerator || User.getId() == this.memplex.author.id ) {
         Helper.createButton(Helper.getLang("lang_solutionEdit"),null,this.text,'floatleft',function(data) {
             var id = Helper.getIdFromString($( this ).attr('id'));
@@ -1405,6 +1434,10 @@ ClassSolution.prototype.showComment = function(id) {
     
     Helper.window($('<div class="padded bigfont"><a href="#debate' + parent + 'solution' + this.memplex.id + 'comment' + this.activecomment + '"><div class="externallink"></div>' + comment.title + ' - ' + comment.author.nick + '</a></div>').appendTo(this.text),'all');
     Helper.window($('<div class="padded">' + comment.text + '</div>').appendTo(this.text),'all');
+    
+    document.title = 'BasDeM: ' + MemplexRegister.get(parent).title + ' - ' + MemplexRegister.get(this.memplex.id).title + ' - ' + comment.title;
+    
+    Helper.addSocialLinkers(this.text,'http://www.basdem.de/demo/#debate' + parent + 'solution' + this.memplex.id + 'comment' + this.activecomment);
     
     View.activecommentbutton = Helper.createButton(
             Helper.getLang('lang_answer'),
