@@ -40,6 +40,9 @@ Pirate Party assembly in Bochum (BPT12.2).
 * store filters
 * design according to mockups
 * add Meta overview like Debatte.png
+* social media integration, maybe using http://www.heise.de/extras/socialshareprivacy/
+* password reset functionality
+* add missing error message on account creation, if account already exists (maybe with some delay on account generation generally to make account guessing harder)
 
 ===== future updates =====
 ====== not implemented ====== 
