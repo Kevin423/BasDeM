@@ -380,7 +380,7 @@ function createAllTables() {
   `moderator` tinyint(1) NOT NULL,
   `supermoderator` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `moderator` (`moderator`)
+  KEY `moderator` (`moderator`),
   KEY `supermoderator` (`supermoderator`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
     );
