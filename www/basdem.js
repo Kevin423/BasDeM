@@ -1194,14 +1194,19 @@ ClassView.prototype.loadDebates = function() {
         active: act,
         change: function(event,ui) {
             var id = Helper.getIdFromString(ui.newContent.attr('id'));
-            var debate = DebateRegister.get(id);
-            document.title = 'BasDeM: ' + debate.memplex.title;
-            document.title = Helper.htmlToUmlaut(document.title);
+            if ( !isNaN(id) ) {
+                var debate = DebateRegister.get(id);
+                document.title = 'BasDeM: ' + debate.memplex.title;
+                document.title = Helper.htmlToUmlaut(document.title);
+                
+                Helper.addSocialLinkers(debate.text,'http://www.basdem.de/demo/#debate' + id);
+                Controller.setLocation('debate' + id);
+                View.activeDebate = id;
+            } else {
+                Controller.setLocation('debate');
+                View.activeDebate = null;
+            }
             
-            Helper.addSocialLinkers(debate.text,'http://www.basdem.de/demo/#debate' + id);
-            
-            Controller.setLocation('debate' + id);
-            View.activeDebate = id;
             Controller.forceLocation();
         }
     });
