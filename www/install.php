@@ -74,16 +74,23 @@ function printForm($selector) {
             echo '<span>Setting up the config. <a href="?step=2">Skip config.</a></span>',NLB,NLB;
             echo '<form action="?step=1" method="post">',NL;
             echo '<table>',NL;
-            echo '<tr><td>Database User' , defaultValue('user') , '</td><td><input type="text" name="dbuser"></td></tr>',NL;
-            echo '<tr><td>Database Password' , defaultValue('password') , '</td><td><input type="password" name="dbpassword"></td></tr>',NL;
-            echo '<tr><td>Database Host' , defaultValue('host') , '</td><td><input type="text" name="dbhost"></td></tr>',NL;
-            echo '<tr><td>Database Database' , defaultValue('database') , '</td><td><input type="text" name="dbdb"></td></tr>',NL;
-            echo '<tr><td>Salt' , defaultValue('salt') , '</td><td><input type="text" name="salt"></td></tr>',NL;
+            echo '<tr><td>Database User' , defaultValue('user') , '</td><td><input type="text" name="dbuser" value="' , postValue('dbuser') , '"></td></tr>',NL;
+            echo '<tr><td>Database Password' , defaultValue('password') , '</td><td><input type="password" name="dbpassword" value="' , postValue('dbpassword') , '"></td></tr>',NL;
+            echo '<tr><td>Database Host' , defaultValue('host') , '</td><td><input type="text" name="dbhost" value="' , postValue('dbhost') , '"></td></tr>',NL;
+            echo '<tr><td>Database Database' , defaultValue('database') , '</td><td><input type="text" name="dbdb" value="' , postValue('dbdb') , '"></td></tr>',NL;
+            echo '<tr><td>Salt' , defaultValue('salt') , '</td><td><input type="text" name="salt" value="' , postValue('salt') , '"></td></tr>',NL;
             echo '<tr><td></td><td><input type="submit" name="dbsubmit" value="Install"></td></tr>',NL;
             echo '</table>',NL;
             echo '</form>',NL;
     }
     echo '</body>',NL,'</html>';
+}
+
+function postValue($name) {
+    if ( !isset($_POST[$name]) ) {
+        return '';
+    }
+    return $_POST[$name];
 }
 
 function checkFinalSubmit() {
