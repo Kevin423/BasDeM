@@ -79,6 +79,7 @@ function printForm($selector) {
             echo '<tr><td>Database Host' , defaultValue('host') , '</td><td><input type="text" name="dbhost" value="' , postValue('dbhost') , '"></td></tr>',NL;
             echo '<tr><td>Database Database' , defaultValue('database') , '</td><td><input type="text" name="dbdb" value="' , postValue('dbdb') , '"></td></tr>',NL;
             echo '<tr><td>Salt' , defaultValue('salt') , '</td><td><input type="text" name="salt" value="' , postValue('salt') , '"></td></tr>',NL;
+            echo '<tr><td>BaseURL' , defaultValue('baseurl') , '</td><td><input type="text" name="baseurl" value="' , postValue('baseurl') , '"></td></tr>',NL;
             echo '<tr><td></td><td><input type="submit" name="dbsubmit" value="Install"></td></tr>',NL;
             echo '</table>',NL;
             echo '</form>',NL;
@@ -115,6 +116,7 @@ function createConf() {
     $tmp['database']['host'] = $_POST['dbhost'];
     $tmp['database']['database'] = $_POST['dbdb'];
     $tmp['database']['salt'] = $_POST['salt'];
+    $tmp['baseurl'] = $_POST['baseurl'];
     
     $out = '<?php' . NL . '$conf = ' . var_export($tmp,true) . ';' . NL . '?>';
     
@@ -132,6 +134,7 @@ function createConf() {
             $error .= '<input type="hidden" name="dbhost" value="'.$_POST['dbhost'].'">';
             $error .= '<input type="hidden" name="dbdb" value="'.$_POST['dbdb'].'">';
             $error .= '<input type="hidden" name="salt" value="'.$_POST['salt'].'">';
+            $error .= '<input type="hidden" name="baseurl" value="'.$_POST['baseurl'].'">';
             $error .= '<input type="submit" name="overwrite" value="Overwrite">';
             $error .= '</form>';
             return false;
@@ -151,7 +154,8 @@ function checkConfSubmit() {
         && isset($_POST['dbpassword'])
         && isset($_POST['dbhost'])
         && isset($_POST['dbdb'])
-        && isset($_POST['salt']) ) {
+        && isset($_POST['salt'])
+        && isset($_POST['baseurl']) ) {
         if ( createConf() == false ) {
             $error .= 'The config creation failed.';
             return;
@@ -453,6 +457,7 @@ function defaultValue($target) {
         case 'host': $out .= $tmp['database']['host']; break;
         case 'database': $out .= $tmp['database']['database']; break;
         case 'salt': $out .= $tmp['database']['salt']; break;
+        case 'baseurl': $out .= $tmp['baseurl']; break;
     }
     $out .= '")';
     return $out;
@@ -473,6 +478,7 @@ function defaultConf() {
             // Adapt the salt to your wishes.
 			'salt' => '16 chars long!!',
 		),
+        'baseurl' => 'http://www.basdem.de/demo/',
 	);
 }
 

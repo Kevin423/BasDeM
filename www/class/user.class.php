@@ -131,7 +131,7 @@ class User {
             'Registration auf BasDeM.de',
             'Hallo,' . "\r\n"
             . 'du hast dich erfolgreich auf BasDeM.de angemeldet. Bitte verifiziere deinen Account mit einem Klick auf folgenden Link:' . "\r\n"
-            . 'http://www.basdem.de/demo/index.php?action=verify&key=' . $key . '' . "\r\n"
+            . Config::get('baseurl') . 'index.php?action=verify&key=' . $key . '' . "\r\n"
             . 'Wir danken fuer deine Mitarbeit und wuenschen dir viel Spass beim ausprobieren unserer Funktionalitaet.' . "\r\n"
             . 'Gruß,' . "\r\n"
             . 'Das Entwicklerteam',
