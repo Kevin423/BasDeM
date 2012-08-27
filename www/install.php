@@ -312,7 +312,7 @@ function insertDefaultValues() {
     mysql_query("INSERT INTO `titles` (`id`, `content`) VALUES (1, 'System');");
     mysql_query("INSERT INTO `texts` (`id`, `content`) VALUES (1, 'System');");
     
-    mysql_query("update `version` set `primary` = ".PRIMARY_VERSION.", `secondary` = ".SECONDARY_VERSION.", `tertiary` = ".TERTIARY_VERSION."");
+    mysql_query("insert into `version` set `primary` = ".PRIMARY_VERSION.", `secondary` = ".SECONDARY_VERSION.", `tertiary` = ".TERTIARY_VERSION."");
 }
 
 function createAllTables() {
