@@ -1,6 +1,7 @@
 <?php
 /****************************************************************************************
  * Copyright (c) 2012 Justus Wingert <justus_wingert@web.de>                            *
+ * Copyright (c) 2012 defel <defel@gmx.de>                                              *
  *                                                                                      *
  * This file is part of BasDeM.                                                         *
  *                                                                                      *

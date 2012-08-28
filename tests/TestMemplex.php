@@ -1,6 +1,7 @@
 <?php
 /****************************************************************************************
  * Copyright (c) 2012 Sven Krohlas <sven@getamarok.com>                                 *
+ * Copyright (c) 2012 defel <defel@gmx.de>                                              *
  *                                                                                      *
  * This file is part of BasDeM.                                                         *
  *                                                                                      *
