@@ -280,7 +280,6 @@ ClassHelper.prototype.box = function(title,id,target,url,adder) {
         .appendTo(target);
 
     Helper.window(div,'all');
-    div.width(300);
 
     return div;
 }
@@ -1393,17 +1392,21 @@ function ClassSolution(Memplex) {
     Helper.window(this.pro);
     Helper.window(this.neutral);
     Helper.window(this.contra);
+    
+    Helper.window($('<div>'+Helper.getLang('lang_argProHeadline')+'</div>').appendTo(this.pro).addClass('padded').attr('style','text-align: center;'),'all');
+    Helper.window($('<div>'+Helper.getLang('lang_argNeutHeadline')+'</div>').appendTo(this.neutral).addClass('padded').attr('style','text-align: center;'),'all');
+    Helper.window($('<div>'+Helper.getLang('lang_argConHeadline')+'</div>').appendTo(this.contra).addClass('padded').attr('style','text-align: center;'),'all');
 
     this.loadArguments();
 
-    if ( this.pro.children().length == 0 ) {
-        $('<span>'+Helper.getLang('lang_noArgPro')+'</p>').appendTo(this.pro);
+    if ( this.pro.children().length == 1 ) {
+        $('<span><br>'+Helper.getLang('lang_noArgPro')+'</p>').appendTo(this.pro);
     }
-    if ( this.neutral.children().length == 0 ) {
-        $('<span>'+Helper.getLang('lang_noArgNeut')+'</p>').appendTo(this.neutral);
+    if ( this.neutral.children().length == 1 ) {
+        $('<span><br>'+Helper.getLang('lang_noArgNeut')+'</p>').appendTo(this.neutral);
     }
-    if ( this.contra.children().length == 0 ) {
-        $('<span>'+Helper.getLang('lang_noArgCon')+'</p>').appendTo(this.contra);
+    if ( this.contra.children().length == 1 ) {
+        $('<span><br>'+Helper.getLang('lang_noArgCon')+'</p>').appendTo(this.contra);
     }
     
     document.title = 'BasDeM: ' + MemplexRegister.get(parent).title + ' - ' + this.memplex.title;

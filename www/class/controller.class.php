@@ -38,38 +38,13 @@ class Controller {
      */
     public function __construct() {
         if ( !isset($_POST['id']) && User::getVerified() ) {
-            if ( empty($_POST['parent'])
-                || empty($_POST['text'])
-                || empty($_POST['layer'])
-                || empty($_POST['loadid'])
-                || empty($_POST['title']) ) {
+            
+            if ( !$this->checkValidCreatePost() ) {
                 echo json_encode(array('success' => false));
-                return;
             }
-            if ( !is_array($_POST['parent']) ) {
-                $_POST['parent'] = array($_POST['parent']);
-            }
-            foreach ( $_POST['parent'] as $parent ) {
-                if ( is_array($parent) ) {
-                    echo json_encode(array('success' => false));
-                    return;
-                }
-            }
+            
             // Create a new Memplex.
             $this->createMemplex();
-            
-            
-            if ( $this->memplex->getLayer() == 4 ) {
-                $this->createdid = $_POST['parent'][0];
-            } else {
-                $this->createdid = $this->memplex->getId();
-            }
-            
-            $load = $_POST['loadid'];
-            
-            unset($_POST);
-            
-            $_POST['id'] = $load;
             
             MemplexRegister::reset();
             
@@ -105,6 +80,28 @@ class Controller {
         $this->showMemplex();
     }
 
+    /** Check if the post data is valid to create a Memplex.
+     *
+     */
+    private function checkValidCreatePost() {
+        if ( empty($_POST['parent'])
+            || empty($_POST['text'])
+            || empty($_POST['layer'])
+            || empty($_POST['loadid'])
+            || empty($_POST['title']) ) {
+            return false;
+        }
+        if ( !is_array($_POST['parent']) ) {
+            $_POST['parent'] = array($_POST['parent']);
+        }
+        foreach ( $_POST['parent'] as $parent ) {
+            if ( is_array($parent) ) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /** Reloads the current Memplex.
      *
      */
@@ -134,6 +131,18 @@ class Controller {
             $parent = MemplexRegister::get($_POST['parent']);
             $parent->addChild($this->memplex->getId());
         }
+        
+        if ( $this->memplex->getLayer() == 4 ) {
+            $this->createdid = $_POST['parent'][0];
+        } else {
+            $this->createdid = $this->memplex->getId();
+        }
+        
+        $load = $_POST['loadid'];
+        
+        unset($_POST);
+        
+        $_POST['id'] = $load;
     }
 
     /** Debug method, prints the current Memplex data.

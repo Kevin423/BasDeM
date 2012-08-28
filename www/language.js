@@ -33,10 +33,13 @@ switch ( target ) {
             case 'lang_answer': return 'Erg&auml;nzen';
             case 'lang_argPro': return 'Best&auml;rken';
             case 'lang_argProEdit': return 'Best&auml;rkung editieren';
+            case 'lang_argProHeadline': return 'Best&auml;rkungen';
             case 'lang_argNeut': return 'Erg&auml;nzen';
             case 'lang_argNeutEdit': return 'Erg&auml;nzung editieren';
+            case 'lang_argNeutHeadline': return 'Erg&auml;nzungen';
             case 'lang_argCon': return 'Entgegnen';
             case 'lang_argConEdit': return 'Entgegnung editieren';
+            case 'lang_argConHeadline': return 'Entgegnungen';
             case 'lang_author': return 'Autor';
             case 'lang_back': return 'zur&uuml;ck';
             case 'lang_confirm': return 'Bestätigen';
