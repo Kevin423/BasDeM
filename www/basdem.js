@@ -47,6 +47,8 @@ var Helper = new ClassHelper();
 ClassHelper.prototype.addSocialLinkers = function(target,url) {
     $('#sociallinks').remove();
     
+    url = window.location.protocol + '//' + window.location.host + window.location.pathname + url;
+    
     var sl = $('<div id="sociallinks">').socialSharePrivacy({
         services : {
             facebook : {
@@ -1185,8 +1187,8 @@ ClassView.prototype.loadDebates = function() {
         debate = DebateRegister.get(this.activeDebate);
         document.title = 'BasDeM: ' + debate.memplex.title;
         document.title = Helper.htmlToUmlaut(document.title);
-            
-        Helper.addSocialLinkers(debate.text,'http://www.basdem.de/demo/#debate' + this.activeDebate);
+        
+        Helper.addSocialLinkers(debate.text,'#debate' + this.activeDebate);
     }
     
     mycontent.accordion({
@@ -1199,7 +1201,7 @@ ClassView.prototype.loadDebates = function() {
                 document.title = 'BasDeM: ' + debate.memplex.title;
                 document.title = Helper.htmlToUmlaut(document.title);
                 
-                Helper.addSocialLinkers(debate.text,'http://www.basdem.de/demo/#debate' + id);
+                Helper.addSocialLinkers(debate.text,'#debate' + id);
                 Controller.setLocation('debate' + id);
                 View.activeDebate = id;
             } else {
