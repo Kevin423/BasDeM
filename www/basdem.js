@@ -1410,7 +1410,7 @@ function ClassSolution(Memplex) {
     
     document.title = Helper.htmlToUmlaut(document.title);
     
-    Helper.addSocialLinkers(this.text,'http://www.basdem.de/demo/#debate' + Helper.getParentMemplexByLayer(this.memplex.id,3) + 'solution' + this.memplex.id);
+    Helper.addSocialLinkers(this.text,'#debate' + Helper.getParentMemplexByLayer(this.memplex.id,3) + 'solution' + this.memplex.id);
 
     // Pro Button
     Helper.createButton(Helper.getLang('lang_argPro'),null,this.text,'floatleft',this.buttonCallback,'solution' + this.memplex.id + 'buttonadd' + 5);
@@ -1481,7 +1481,7 @@ ClassSolution.prototype.showComment = function(id) {
     
     document.title = Helper.htmlToUmlaut(document.title);
     
-    Helper.addSocialLinkers(this.text,'http://www.basdem.de/demo/#debate' + parent + 'solution' + this.memplex.id + 'comment' + this.activecomment);
+    Helper.addSocialLinkers(this.text,'#debate' + parent + 'solution' + this.memplex.id + 'comment' + this.activecomment);
     
     View.activecommentbutton = Helper.createButton(
             Helper.getLang('lang_answer'),
