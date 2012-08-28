@@ -1420,7 +1420,7 @@ function ClassSolution(Memplex) {
     Helper.createButton(Helper.getLang('lang_argCon'),null,this.text,'floatleft',this.buttonCallback,'solution' + this.memplex.id + 'buttonadd' + 6);
 
     
-    if ( User.isSuperModerator || User.getId() == this.memplex.author.id ) {
+    if ( User.getSuperModerator() || User.getId() == this.memplex.author.id ) {
         Helper.createButton(Helper.getLang("lang_solutionEdit"),null,this.text,'floatleft',function(data) {
             var id = Helper.getIdFromString($( this ).attr('id'));
             Controller.editSolution(id);
@@ -1492,7 +1492,7 @@ ClassSolution.prototype.showComment = function(id) {
             'comment' + id + 'buttonadd' + 8
     );
     
-    if ( User.isSuperModerator || User.getId() == comment.author.id ) {
+    if ( User.getSuperModerator() || User.getId() == comment.author.id ) {
         Helper.createButton(Helper.getLang("lang_commentEdit"),null,'#solution' + this.memplex.id + 'text','floatleft',function(data) {
             var id = Helper.getIdFromString($( this ).attr('id'));
             Controller.editComment(id);
