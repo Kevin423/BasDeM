@@ -105,14 +105,14 @@ class Controller {
      *
      */
     private function reloadMemplex() {
-        $this->memplex = new Memplex($this->memplex->getId());
+        $this->memplex = MemplexRegister::load($this->memplex->getId());
     }
 
     /** Creates a new Memplex and stores it to the database, including updated parent/child relations.
      *
      */
     private function createMemplex() {
-        $this->memplex = new Memplex(array(
+        $this->memplex = MemplexRegister::load(array(
             'text' => $_POST['text'],
             'layer' => $_POST['layer'],
             'title' => $_POST['title'],
@@ -167,7 +167,6 @@ class Controller {
     *
     **/
     private function loadTargetMemplex() {
-        
         $this->memplex = MemplexRegister::get($_POST['id']);
     }
 

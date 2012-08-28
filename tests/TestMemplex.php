@@ -43,18 +43,21 @@ class TestMemplex extends PHPUnit_Framework_TestCase {
         $_SESSION['user'] = array();
         $_SESSION['user']['id'] = 'testauthor';
         $_SESSION['user']['email'] = 'test@basdem.de';
+
+        $this->mock_db = $this->getMock('Database');
+        MemplexRegister::setDatabase($this->mock_db);
     }
 
 
     public function testConstruct() {
         // mock database
-        $database = $this->getMock('Database');
-        $database
+        $this->mock_db
             ->staticExpects($this->any())
             ->method('getMemplex')
+            ->with(1)
             ->will($this->returnValue(array($this->getTestDataArray(1))));
         
-        MemplexRegister::setDatabase($database);
+        
 
         // Memplex by ID
         $memplex4 = MemplexRegister::load(1);
