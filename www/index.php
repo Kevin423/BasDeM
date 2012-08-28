@@ -69,7 +69,8 @@ if ( User::isLoggedin() !== true && User::isGuest() !== true ) {
                     ':::error:::',
                 ),
                 array(
-                    User::getError(),
+                    '<a href="?action=guest">Klicke hier</a> um den Gastzugang zu benutzen.<br>'
+                    . User::getError(),
                 )
             );
             break;
