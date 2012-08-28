@@ -65,7 +65,11 @@ class Controller {
                 $this->createdid = $this->memplex->getId();
             }
             
-            $_POST['id'] = $_POST['loadid'];
+            $load = $_POST['loadid'];
+            
+            unset($_POST);
+            
+            $_POST['id'] = $load;
             
             MemplexRegister::reset();
             
