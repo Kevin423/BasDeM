@@ -360,7 +360,7 @@ class Memplex {
      */
     public function getText($escaped = true) {
         if ( $escaped ) {
-            return htmlentities($this->text);
+            return nl2br(htmlentities($this->text));
         } else {
             return $this->text;
         }
