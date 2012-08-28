@@ -33,6 +33,7 @@ if ( !defined('INCMS') || INCMS !== true ) {
 class User {
     private static $loggedin = false;
     private static $error = '';
+    private static $guest = false;
 
     /**
      * Starts a new session and initializes the object.
@@ -41,6 +42,10 @@ class User {
         session_start();
         if ( isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true ) {
             self::$loggedin = true;
+        }
+        
+        if ( isset($_GET['action']) && $_GET['action'] == 'guest' ) {
+            self::setGuest();
         }
         
         if ( isset($_GET['action']) && $_GET['action'] == 'register' ) {
@@ -178,6 +183,7 @@ class User {
     public static function logout() {
         $_SESSION = array();
         self::$loggedin = false;
+        self::$guest = false;
     }
 
     /**
@@ -376,6 +382,26 @@ class User {
      */
     public static function getError() {
         return self::$error;
+    }
+    
+    /**
+     * Sets the guest state to true.
+     */
+    private static function setGuest() {
+        if ( Config::get('guest') !== true ) {
+            User::setError('Der Gastzugang wurde deaktiviert!');
+            return;
+        }
+        $_SESSION['user']['verified'] = 'no';
+        $_SESSION['user']['guest'] = true;
+    }
+    
+    /**
+     * Returns the guest state.
+     * @return Boolean Guest.
+     */
+    public static function isGuest() {
+        return isset($_SESSION['user']['guest']) && $_SESSION['user']['guest'] === true;
     }
     
     /**

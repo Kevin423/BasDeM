@@ -79,6 +79,7 @@ switch ( target ) {
             case 'lang_logout': return 'Logout';
             case 'lang_minFilter': return 'Beitrag erf&uuml;llt mindestens einen hier ausgew&auml;hlten Filter:';
             case 'lang_missingVerification': return 'Du musst erst deine E-Mail Adresse verifizieren bevor du posten kannst!';
+            case 'lang_missingVerificationGuest': return 'Du bist als Gast eingeloggt, logge dich aus, lege einen Account an und verifiziere deine E-Mail Adresse um zu posten!';
             case 'lang_moderate': return 'Moderieren';
             case 'lang_moderateInactive': return 'Inaktiv';
             case 'lang_moderateInappropriate': return 'Unangemessen';

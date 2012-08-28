@@ -45,7 +45,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'logout' ) {
     User::logout();
 }
 
-if ( User::isLoggedin() !== true ) {
+if ( User::isLoggedin() !== true && User::isGuest() !== true ) {
     if ( !isset($_GET['action']) ) {
         $_GET['action'] = '';
     }

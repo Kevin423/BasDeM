@@ -43,11 +43,7 @@ if ( isset($_GET['id']) && !isset($_POST['id']) ) {
     $_POST['id'] = $_GET['id'];
 }
 
-if ( User::getId() == 2 ) {
-    #sleep(1);
-}
-
-if ( User::isLoggedin() !== true ) {
+if ( User::isLoggedin() !== true && !User::isGuest() ) {
     die(json_encode(array('login' => false)));
 }
 

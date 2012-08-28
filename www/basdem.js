@@ -249,6 +249,15 @@ ClassHelper.prototype.time = function(date) {
     return Math.round(date.getTime() / 1000);
 }
 
+/** Alert for missing verification.
+ */
+ClassHelper.prototype.missingVerification = function() {
+    if ( User.getId() == 0 ) {
+        return alert(Helper.getLang('lang_missingVerificationGuest'));
+    }
+    return alert(Helper.getLang('lang_missingVerification'));
+}
+
 /** Create a div-box
  * @tparam string title Title of the box.
  * @tparam string id HTML ID.
@@ -486,7 +495,7 @@ ClassController.prototype.storeToMemplex = function(data) {
         function(data) {
             var json = $.parseJSON(data);
             if ( json.success == false && json.verified == false ) {
-                alert(Helper.getLang('lang_missingVerification'));
+                return Helper.missingVerification();
             }
             if ( json.success == false ) {
                 return;
@@ -1279,13 +1288,13 @@ ClassView.prototype.paintButtons = function() {
     });
     Helper.createButton(Helper.getLang('lang_newFilter'),'ui-icon-plus','#menu','floatright',function(data) {
         if ( !User.isVerified() ) {
-            return alert(Helper.getLang('lang_missingVerification'));
+            return Helper.missingVerification();
         }
         Controller.addFilter();
     });
     Helper.createButton(Helper.getLang('lang_newDebate'),'ui-icon-plus','#menu','floatright',function(data) {
         if ( !User.isVerified() ) {
-            return alert(Helper.getLang('lang_missingVerification'));
+            return Helper.missingVerification();
         }
         Controller.addDebate();
     });
@@ -1429,7 +1438,7 @@ ClassSolution.prototype.buttonCallback = function() {
     var id = Helper.getIdFromString($( this ).attr('id'));
     var layer = Helper.getSecondIdFromString($( this ).attr('id'));
     if ( !User.isVerified() ) {
-        return alert(Helper.getLang('lang_missingVerification'));
+        return Helper.missingVerification();
     }
     Controller.addComment(id,layer);
 };
@@ -1744,7 +1753,7 @@ function ClassDebate(memplex,full) {
     Helper.createButton(Helper.getLang("lang_solutionAdd"),null,buttoncontainer,'floatleft',function(data) {
         var id = Helper.getIdFromString($( this ).attr('id'));
         if ( !User.isVerified() ) {
-            return alert(Helper.getLang('lang_missingVerification'));
+            return Helper.missingVerification();
         }
         Controller.addSolution(id);
     },'debate' + this.memplex.id + 'buttonadd');

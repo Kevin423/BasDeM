@@ -182,7 +182,7 @@ class Controller {
      * @return False if POST data was incomplete (moderationstate,parent), else true.
      */
     private function updateMemplexFavorite() {
-        if ( !isset($_POST['favorite']) ) {
+        if ( !isset($_POST['favorite']) || !User::isLoggedin() ) {
             return false;
         }
         

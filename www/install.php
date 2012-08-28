@@ -8,7 +8,15 @@ define('CONF_FILE','conf.php');
 
 define('PRIMARY_VERSION','0');
 define('SECONDARY_VERSION','0');
-define('TERTIARY_VERSION','93');
+define('TERTIARY_VERSION','94');
+
+require_once('class/config.class.php');
+
+if ( file_exists(CONF_DIR.CONF_FILE) ) {
+    define('LOADCONF',true);
+} else {
+    define('LOADCONF',false);
+}
 
 $installerVersion = PRIMARY_VERSION . '.' . SECONDARY_VERSION . '.' . TERTIARY_VERSION;
 
@@ -17,6 +25,7 @@ $acceptedVersions = array(
     '0.0.91' => true,
     '0.0.92' => true,
     '0.0.93' => true,
+    '0.0.94' => true,
 );
 $version = null;
 
@@ -80,6 +89,7 @@ function printForm($selector) {
             echo '<tr><td>Database Database' , defaultValue('database') , '</td><td><input type="text" name="dbdb" value="' , postValue('dbdb') , '"></td></tr>',NL;
             echo '<tr><td>Salt' , defaultValue('salt') , '</td><td><input type="text" name="salt" value="' , postValue('salt') , '"></td></tr>',NL;
             echo '<tr><td>BaseURL' , defaultValue('baseurl') , '</td><td><input type="text" name="baseurl" value="' , postValue('baseurl') , '"></td></tr>',NL;
+            echo '<tr><td>Guest Account</td><td><input type="checkbox" name="guest"' , ( postValue('guest') == 'on' )?' checked':'', '></td></tr>',NL;
             echo '<tr><td></td><td><input type="submit" name="dbsubmit" value="Install"></td></tr>',NL;
             echo '</table>',NL;
             echo '</form>',NL;
@@ -89,7 +99,7 @@ function printForm($selector) {
 
 function postValue($name) {
     if ( !isset($_POST[$name]) ) {
-        return '';
+        return defaultConfValue($name);
     }
     return $_POST[$name];
 }
@@ -117,6 +127,7 @@ function createConf() {
     $tmp['database']['database'] = $_POST['dbdb'];
     $tmp['database']['salt'] = $_POST['salt'];
     $tmp['baseurl'] = $_POST['baseurl'];
+    $tmp['guest'] = ( $_POST['guest'] == 'on' );
     
     $out = '<?php' . NL . '$conf = ' . var_export($tmp,true) . ';' . NL . '?>';
     
@@ -135,6 +146,7 @@ function createConf() {
             $error .= '<input type="hidden" name="dbdb" value="'.$_POST['dbdb'].'">';
             $error .= '<input type="hidden" name="salt" value="'.$_POST['salt'].'">';
             $error .= '<input type="hidden" name="baseurl" value="'.$_POST['baseurl'].'">';
+            $error .= '<input type="hidden" name="guest" value="'.$_POST['guest'].'">';
             $error .= '<input type="submit" name="overwrite" value="Overwrite">';
             $error .= '</form>';
             return false;
@@ -166,7 +178,6 @@ function checkConfSubmit() {
 }
 
 function SQLConnect() {
-    require_once('class/config.class.php');
     mysql_connect(Config::get('database','host'),Config::get('database','user'),Config::get('database','password'));
     mysql_select_db(Config::get('database','database'));
     if ( mysql_errno() != 0 ) {
@@ -216,6 +227,10 @@ function checkSQLSubmit() {
             update0d0d92();
             checkSQLSubmit();
         }
+        if ( $version == '0.0.93' ) {
+            update0d0d93();
+            checkSQLSubmit();
+        }
     }
 }
 
@@ -252,6 +267,10 @@ function update0d0d92() {
     );
     // version updated
     mysql_query("update `version` set `primary` = 0, `secondary` = 0, `tertiary` = 93");
+}
+
+function update0d0d93() {
+    mysql_query("update `version` set `primary` = 0, `secondary` = 0, `tertiary` = 94");
 }
 
 function checkVersion() {
@@ -463,6 +482,26 @@ function defaultValue($target) {
     return $out;
 }
 
+function defaultConfValue($target) {
+    $tmp = defaultConf();
+    if ( LOADCONF === true ) {
+        $tmp['database']['user'] = Config::get('database','user');
+        $tmp['database']['host'] = Config::get('database','host');
+        $tmp['database']['database'] = Config::get('database','database');
+        $tmp['database']['salt'] = Config::get('database','salt');
+        $tmp['baseurl'] = Config::get('baseurl');
+    }
+    switch ( $target ) {
+        case 'dbuser': return $tmp['database']['user'];
+        case 'dbpassword': return $tmp['database']['password'];
+        case 'dbhost': return $tmp['database']['host'];
+        case 'dbdb': return $tmp['database']['database'];
+        case 'salt': return $tmp['database']['salt'];
+        case 'baseurl': return $tmp['baseurl'];
+    }
+    return '';
+}
+
 function defaultConf() {
     return array(
 		'database' => array(
@@ -479,6 +518,7 @@ function defaultConf() {
 			'salt' => '16 chars long!!',
 		),
         'baseurl' => 'http://www.basdem.de/demo/',
+        'guest' => false,
 	);
 }
 
