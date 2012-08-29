@@ -1097,8 +1097,9 @@ ClassView.prototype.layout = function() {
     View.layoutobject = $('#container').layout({
         applyDefaultStyles: true,
         west__minSize: 380,
+        west__size: 380,
         north__minSize: 36,
-        west__size: 'auto',
+        north__size: 36,
         enableCursorHotkey: false,
         defaults: {
             togglerLength_open: -1,

@@ -385,7 +385,7 @@ group by
       */
     static public function setPassword($id,$passwordold,$password) {
         return self::query(
-            "update `users` set `password` = :password where `id` = :id and `password` = :passwordold ",
+            "update `users` dset `password` = :password where `id` = :id and `password` = :passwordold ",
             array(
                 array(':id',$id,PDO::PARAM_INT),
                 array(':passwordold',$passwordold,PDO::PARAM_STR),
@@ -407,6 +407,22 @@ group by
             array(
                 array(':mail',$mail,PDO::PARAM_STR),
                 array(':password',$password,PDO::PARAM_STR),
+            ),
+            true
+        );
+    }
+    
+    /**
+      * Checks if a user exists in the database.
+      *
+      * @param string $mail Mail address.
+      * @return Array of result set rows.
+      */
+    static public function checkUser($mail) {
+        return self::query(
+            "select * from `users` where `email` = :mail",
+            array(
+                array(':mail',$mail,PDO::PARAM_STR),
             ),
             true
         );

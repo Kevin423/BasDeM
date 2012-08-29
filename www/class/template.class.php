@@ -41,6 +41,7 @@ class Template {
         'login' => 'tpl/login.html',
         'loginerror' => 'tpl/loginerror.html',
         'register' => 'tpl/register.html',
+        'password' => 'tpl/password.html',
     );
     private $base = '';
     private $adder = array();

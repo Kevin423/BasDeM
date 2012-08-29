@@ -54,7 +54,46 @@ class User {
         if ( isset($_GET['action']) && $_GET['action'] == 'login' ) {
             self::login();
         }
+        if ( isset($_GET['action']) && $_GET['action'] == 'password' ) {
+            self::password();
+        }
         
+    }
+
+    /**
+     * Send the user his new password.
+     */
+    public static function password() {
+        if ( !isset($_POST['email']) ) {
+            return;
+        }
+        
+        $password = substr(Helper::hash(rand(0,16^32).$_POST['email']),0,12);
+        
+        $result = Database::checkUser($_POST['email']);
+        
+        if ( $result === false || !is_array($result) ) {
+            self::setError('Unbekannter Benutzer!<br>');
+            return;
+        }
+        
+        if ( count($result) != 1 ) {
+            self::setError('Schwerer Datenbankfehler, bitte kontaktiere einen Administrator!<br>');
+            return;
+        }
+        
+        $id = $result[0]['id'];
+        $passwordold = $result[0]['password'];
+        
+        $pw = Helper::hash($password.$_POST['email']);
+        
+        $success = Database::setPassword($id,$passwordold,$pw);
+        if ( $success !== false ) {
+            $this->passwordMail($_POST['email'],$password);
+            self::setError('Ein neues Passwort wurde dir zugeschickt!<br>');
+        } else {
+            self::setError('Schwerer Datenbankfehler, bitte kontaktiere einen Administrator!<br>');
+        }
     }
 
     /**
@@ -139,6 +178,27 @@ class User {
             . Config::get('baseurl') . 'index.php?action=verify&key=' . $key . '' . "\r\n"
             . 'Wir danken fuer deine Mitarbeit und wuenschen dir viel Spass beim ausprobieren unserer Funktionalitaet.' . "\r\n"
             . 'Gruß,' . "\r\n"
+            . 'Das Entwicklerteam',
+            $header
+        );
+    }
+    
+    /**
+     * Send Password forgotten mail.
+     */
+    private static function passwordMail($mail,$password) {
+        $header = 'From: webmaster@basdem.de' . "\r\n" .
+                'Reply-To: webmaster@basdem.de' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+    
+        mail(
+            $mail,
+            'Passwort reset.',
+            'Hallo,' . "\r\n"
+            . 'du hast dein Passwort zurueckgesetzt.' . "\r\n"
+            . 'Dein neues Passwort ist: ' . $password . '' . "\r\n"
+            . 'Wir danken fuer deine Mitarbeit und wuenschen dir weiterhin viel Spass.' . "\r\n"
+            . 'Gruss,' . "\r\n"
             . 'Das Entwicklerteam',
             $header
         );

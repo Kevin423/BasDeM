@@ -50,6 +50,17 @@ if ( User::isLoggedin() !== true && User::isGuest() !== true ) {
         $_GET['action'] = '';
     }
     switch ( $_GET['action'] ) {
+        case 'password':
+            $tpl = new Template('index',array('noload','password'));
+            $tpl->replace(
+                array(
+                    ':::error:::',
+                ),
+                array(
+                    User::getError(),
+                )
+            );
+        break;
         case 'register':
             $tpl = new Template('index',array('noload','register'));
             $tpl->replace(
