@@ -232,6 +232,10 @@ function checkSQLSubmit() {
             update0d0d93();
             checkSQLSubmit();
         }
+        if ( $version == '0.0.94' ) {
+            update0d0d94();
+            checkSQLSubmit();
+        }
     }
 }
 
