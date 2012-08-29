@@ -385,7 +385,7 @@ group by
       */
     static public function setPassword($id,$passwordold,$password) {
         return self::query(
-            "update `users` dset `password` = :password where `id` = :id and `password` = :passwordold ",
+            "update `users` set `password` = :password where `id` = :id and `password` = :passwordold ",
             array(
                 array(':id',$id,PDO::PARAM_INT),
                 array(':passwordold',$passwordold,PDO::PARAM_STR),
