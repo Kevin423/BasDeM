@@ -63,18 +63,20 @@ Check out our demo at
   http://www.basdem.de/demo/
 
 === Server ===
-1. Install the basdem.sql
-2. Export the www directory to a place of your choice, preferably one you can reach via webbrowser (BasDeM being a webapp and all ;)).
-3. Adapt the class/config.class.php in accordance to your wishes.
-    Important: Change the salt and check if the chosen algorithm (default SHA512) is available in your installation!
-4. Enjoy.
+1. Copy the contents of the www/ directory in our tarball onto your web server.
+2. Make sure you have a database set up for BasDeM
+3. Open install.php in your browser.
+4. Follow the instructions.
+5. Enjoy.
 
 
 == Support ==
 You can contact us via
 
 * IRC: #basdem on chat.freenode.net, see http://freenode.net/ for details
-* Mailing list: TODO, not yet set up
+* Mailing list
+** BasDeM-user, our support list: http://basdem.de/cgi-bin/mailman/listinfo/basdem-user
+** BasDeM-dev, our list for developers: http://basdem.de/cgi-bin/mailman/listinfo/basdem-dev
 
 Please be aware that our computers might be online 24/7 on IRC but we
 might not. :-)
