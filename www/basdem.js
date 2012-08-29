@@ -41,6 +41,14 @@ function ClassHelper() {};
  */
 var Helper = new ClassHelper();
 
+/** Replace NL with <br>.
+ *   @tparam String string to be worked on.
+ *   @treturn String replaced.
+ */
+ClassHelper.prototype.nl2br = function(string) {
+    return string.replace(/\n/g,"<br>\n");
+}
+
 /** Add the social links to target.
  *   @tparam JQueryObject target to be expanded with the new SocialLinker.
  */
@@ -1387,7 +1395,7 @@ function ClassSolution(Memplex) {
     }
     
     Helper.window($('<div class="padded bigfont"><a href="#debate' + parent + 'solution' + this.memplex.id + '"><div class="externallink"></div>' + this.memplex.title + ' - ' + this.memplex.author.nick + '</a></div>').appendTo(this.text),'all');
-    Helper.window($('<div class="padded">' + this.memplex.text + '</div>').appendTo(this.text),'all');
+    Helper.window($('<div class="padded">' + Helper.nl2br(this.memplex.text) + '</div>').appendTo(this.text),'all');
 
     Helper.window(this.pro);
     Helper.window(this.neutral);
@@ -1478,7 +1486,7 @@ ClassSolution.prototype.showComment = function(id) {
     }
     
     Helper.window($('<div class="padded bigfont"><a href="#debate' + parent + 'solution' + this.memplex.id + 'comment' + this.activecomment + '"><div class="externallink"></div>' + comment.title + ' - ' + comment.author.nick + '</a></div>').appendTo(this.text),'all');
-    Helper.window($('<div class="padded">' + comment.text + '</div>').appendTo(this.text),'all');
+    Helper.window($('<div class="padded">' + Helper.nl2br(comment.text) + '</div>').appendTo(this.text),'all');
     
     document.title = 'BasDeM: ' + MemplexRegister.get(parent).title + ' - ' + MemplexRegister.get(this.memplex.id).title + ' - ' + comment.title;
     
@@ -1716,7 +1724,7 @@ function ClassDebate(memplex,full) {
     this.hide = $('<div id="' + adder + 'debate' + this.memplex.id + 'hide" class="hidden">');
     this.text = $('<div id="' + adder + 'debate' + this.memplex.id + 'text" class="debatetext">').appendTo(this.hide);
     
-    Helper.window($('<div class="padded">' + this.memplex.text + '</div>').appendTo(this.text),'all');
+    Helper.window($('<div class="padded">' + Helper.nl2br(this.memplex.text) + '</div>').appendTo(this.text),'all');
     
     if ( full === false ) {
         return;
