@@ -7,8 +7,8 @@ define('CONF_DIR','class/');
 define('CONF_FILE','conf.php');
 
 define('PRIMARY_VERSION','0');
-define('SECONDARY_VERSION','0');
-define('TERTIARY_VERSION','94');
+define('SECONDARY_VERSION','1');
+define('TERTIARY_VERSION','0');
 
 require_once('class/config.class.php');
 
@@ -26,6 +26,7 @@ $acceptedVersions = array(
     '0.0.92' => true,
     '0.0.93' => true,
     '0.0.94' => true,
+    '0.1.0' => true,
 );
 $version = null;
 
@@ -271,6 +272,10 @@ function update0d0d92() {
 
 function update0d0d93() {
     mysql_query("update `version` set `primary` = 0, `secondary` = 0, `tertiary` = 94");
+}
+
+function update0d0d94() {
+    mysql_query("update `version` set `primary` = 0, `secondary` = 1, `tertiary` = 0");
 }
 
 function checkVersion() {
