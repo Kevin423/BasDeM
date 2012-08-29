@@ -251,7 +251,7 @@ class Controller {
             || !isset($_POST['title']) ) {
             return false;
         }
-        if ( !$this->memplex->getAuthorId() != User::getId()
+        if ( $this->memplex->getAuthorId() != User::getId()
             && !User::isSuperModerator()  ) {
             return false;
         }
