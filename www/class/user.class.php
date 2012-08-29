@@ -89,7 +89,7 @@ class User {
         
         $success = Database::setPassword($id,$passwordold,$pw);
         if ( $success !== false ) {
-            $this->passwordMail($_POST['email'],$password);
+            self::passwordMail($_POST['email'],$password);
             self::setError('Ein neues Passwort wurde dir zugeschickt!<br>');
         } else {
             self::setError('Schwerer Datenbankfehler, bitte kontaktiere einen Administrator!<br>');
