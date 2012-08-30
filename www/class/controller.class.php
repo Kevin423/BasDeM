@@ -120,7 +120,7 @@ class Controller {
             'author' => 'System',// TODO: Load author from user class
         ));
         $this->memplex->store();
-        MemplexRegister::reg($this->memplex);
+        MemplexRegister::register($this->memplex);
         
         if ( is_array($_POST['parent']) ) {
             foreach ( $_POST['parent'] as $pdata ) {
