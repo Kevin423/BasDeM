@@ -1,7 +1,11 @@
 == BasDeM ChangeLog ==
 (C) 2012 the BasDeM authors.
 
-=== Version 0.1 (2012-08-29)===
+=== Version 0.2 ===
+* added password reset functionality
+
+
+=== Version 0.1 (2012-08-29) ===
 * initial release
 * basic functionality works:
 ** adding debates, solutions, comments
