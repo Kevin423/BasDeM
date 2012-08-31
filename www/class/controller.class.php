@@ -109,6 +109,21 @@ class Controller {
         $this->memplex = new Memplex($this->memplex->getId());
     }
 
+    /** Add the new parents for a memplex.
+     *
+     */
+    private function addParents() {
+        if ( is_array($_POST['parent']) ) {
+            foreach ( $_POST['parent'] as $pdata ) {
+                $parent = MemplexRegister::get($pdata);
+                $parent->addChild($this->memplex->getId());
+            }
+        } else if ( is_num($_POST['parent']) ) {
+            $parent = MemplexRegister::get($_POST['parent']);
+            $parent->addChild($this->memplex->getId());
+        }
+    }
+     
     /** Creates a new Memplex and stores it to the database, including updated parent/child relations.
      *
      */
@@ -122,15 +137,7 @@ class Controller {
         $this->memplex->store();
         MemplexRegister::reg($this->memplex);
         
-        if ( is_array($_POST['parent']) ) {
-            foreach ( $_POST['parent'] as $pdata ) {
-                $parent = MemplexRegister::get($pdata);
-                $parent->addChild($this->memplex->getId());
-            }
-        } else if ( is_num($_POST['parent']) ) {
-            $parent = MemplexRegister::get($_POST['parent']);
-            $parent->addChild($this->memplex->getId());
-        }
+        $this->addParents();
         
         if ( $this->memplex->getLayer() == 4 ) {
             $this->createdid = $_POST['parent'][0];

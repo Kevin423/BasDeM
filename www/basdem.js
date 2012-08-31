@@ -1970,12 +1970,23 @@ ClassFilter.prototype.getFilterSelector = function(id,callback,check) {
 
     for ( f in this.filters ) {
         var li = $('<li id="filterListElement' 
-            + this.filters[f].id + '" ><input type="checkbox" id="filterListInput' 
-            + this.filters[f].id + '" class="filterListInput" value="' 
-            + this.filters[f].id + '" name="filterListElement[]">'
+            + this.filters[f].id + '" >'
             + this.filters[f].title + '</li>')
             .appendTo(list)
+            .click(function(event) {
+                var input = $(this).find('input');
+                if ( event.target.id == input.attr('id') ) {
+                    return;
+                }
+                input.attr('checked',!input.attr('checked'));
+            })
             .addClass('ui-widget-content ui-corner-all filterlistelement');
+        
+        $('<input type="checkbox" id="filterListInput' 
+            + this.filters[f].id + '" class="filterListInput" value="' 
+            + this.filters[f].id + '" name="filterListElement[]">')
+        .appendTo(li);
+        
         for ( c in check ) {
             if ( check[c] == this.filters[f].id ) {
                 li.attr('selected','selected');
