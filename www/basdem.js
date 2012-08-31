@@ -1969,22 +1969,22 @@ ClassFilter.prototype.getFilterSelector = function(id,callback,check) {
         .appendTo(content);
 
     for ( f in this.filters ) {
-        var li = $('<li id="filterListElement' + this.filters[f].id + '">' 
-            + this.filters[f].title 
-            + '</li>')
+        var li = $('<li id="filterListElement' 
+            + this.filters[f].id + '" ><input type="checkbox" id="filterListInput' 
+            + this.filters[f].id + '" value="' 
+            + this.filters[f].id + '" name="filterListElement[]">'
+            + this.filters[f].title + '</li>')
             .appendTo(list)
-            .addClass('ui-widget-content filterlistelement');
+            .addClass('ui-widget-content ui-corner-all filterlistelement');
         for ( c in check ) {
             if ( check[c] == this.filters[f].id ) {
-                li.addClass('ui-selected');
+                li.attr('selected','selected');
                 break;
             }
         }
     }
 
-    list.selectable({
-        stop: callback
-    });
+    list.click(callback);
 
     return content;
 }
@@ -2034,9 +2034,9 @@ ClassFilter.prototype.createNewObject = function() {
 ClassFilter.prototype.getSelected = function(id) {
     var found = null;
     if ( typeof id == 'object' ) {
-        found = id.find('.ui-selected');
+        found = id.find(':checked');
     } else {
-        found = $('#' + id).find('.ui-selected');
+        found = $('#' + id).find(':checked');
     }
     var i = -1;
     var z = 0;
@@ -2044,6 +2044,7 @@ ClassFilter.prototype.getSelected = function(id) {
     while ( ++i < found.length ) {
         ret[z++] = Helper.getIdFromString(found[i].id);
     }
+    
     return ret;
 }
 
@@ -2245,6 +2246,7 @@ ClassList.prototype.getLatest = function() {
     }
     return tmp;
 }
+
 /** Get the own Memplexes list.
  * @treturn object Sorted List.
  */
