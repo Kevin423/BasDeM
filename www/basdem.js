@@ -1971,7 +1971,7 @@ ClassFilter.prototype.getFilterSelector = function(id,callback,check) {
     for ( f in this.filters ) {
         var li = $('<li id="filterListElement' 
             + this.filters[f].id + '" ><input type="checkbox" id="filterListInput' 
-            + this.filters[f].id + '" value="' 
+            + this.filters[f].id + '" class="filterListInput" value="' 
             + this.filters[f].id + '" name="filterListElement[]">'
             + this.filters[f].title + '</li>')
             .appendTo(list)

@@ -109,6 +109,9 @@ br,.clear {
 .solutionargument, .solutioncommentlink {
     cursor: pointer;
 }
+.filterListInput {
+    width: auto !important;
+}
 .filterlist {
     list-style: none;
 }
