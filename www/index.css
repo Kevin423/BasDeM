@@ -85,6 +85,11 @@ br,.clear {
     padding-left: 5px;
     line-height: 2.5em;
 }
+.sociallinks {
+    margin-top: 20px;
+    height: 45px;
+}
+
 .ui-layout-center, .ui-layout-west, .ui-layout-north {
     padding: 0px !important;
     overflow: hidden !important;

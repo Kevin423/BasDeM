@@ -387,7 +387,7 @@ ClassController.prototype.loadDebates = function() {
 ClassController.prototype.loadList = function() {
     View.loadList(List.getNew(),'#listNew');
     View.loadList(List.getUnsolved(),'#listUnsolved');
-    View.loadList(List.getLatest(),'#listLatest');
+    //View.loadList(List.getLatest(),'#listLatest'); TODO doesn't work atm, latest memplexes not loaded by default...
     View.loadList(List.getOwn(),'#listOwn');
 }
    
@@ -1114,14 +1114,16 @@ ClassView.prototype.layout = function() {
     
     $('<li><a href="#listNew">' + Helper.getLang('lang_listNew') + '</a></li>')
         .appendTo('#listul');
-    $('<li><a href="#listLatest">' + Helper.getLang('lang_listLatest') + '</a></li>')
-        .appendTo('#listul');
+    // See Controller.loadList for details.
+    // $('<li><a href="#listLatest">' + Helper.getLang('lang_listLatest') + '</a></li>')
+        // .appendTo('#listul');
     $('<li><a href="#listUnsolved">' + Helper.getLang('lang_listUnsolved') + '</a></li>')
         .appendTo('#listul');
     $('<li><a href="#listOwn">' + Helper.getLang('lang_listOwn') + '</a></li>')
         .appendTo('#listul');
     $('<div id="listNew">').appendTo('#list');
-    $('<div id="listLatest">').appendTo('#list');
+    // See Controller.loadList for details.
+    // $('<div id="listLatest">').appendTo('#list');
     $('<div id="listUnsolved">').appendTo('#list');
     $('<div id="listOwn">').appendTo('#list');
     
@@ -1140,15 +1142,13 @@ ClassView.prototype.loadList = function(memplexes,list) {
     var act = i;
     for ( m in memplexes ) {
         i++;
-        var debate = new ClassDebate(MemplexRegister.get(memplexes[m]),false);
+        var memplex = MemplexRegister.get(memplexes[m]);
         // TODO: Decide if filters apply to quicklists.
         // if ( !debate.matchFilter() ) {
             // continue;
         // }
-        if ( this.activeDebate == debate.memplex.id ) {
-            act = i;
-        }
-        debate.appendTo(mycontent);
+        var title = $('<h3 id="list' + memplex.id + 'title" class=""><a>' + memplex.title + '</a></h3>').appendTo(mycontent);
+        var hide = $('<div id="list' + memplex.id + 'hide" class="hidden">' + memplex.text + '</div>').appendTo(mycontent);
     }
     if ( act == -1 ) {
         act = false;
@@ -1205,7 +1205,7 @@ ClassView.prototype.loadDebates = function() {
         document.title = 'BasDeM: ' + debate.memplex.title;
         document.title = Helper.htmlToUmlaut(document.title);
         
-        Helper.addSocialLinkers(debate.text,'#debate' + this.activeDebate);
+        Helper.addSocialLinkers(debate.social,'#debate' + this.activeDebate);
     }
     
     mycontent.accordion({
@@ -1218,7 +1218,7 @@ ClassView.prototype.loadDebates = function() {
                 document.title = 'BasDeM: ' + debate.memplex.title;
                 document.title = Helper.htmlToUmlaut(document.title);
                 
-                Helper.addSocialLinkers(debate.text,'#debate' + id);
+                Helper.addSocialLinkers(debate.social,'#debate' + id);
                 Controller.setLocation('debate' + id);
                 View.activeDebate = id;
             } else {
@@ -1759,6 +1759,8 @@ function ClassDebate(memplex,full) {
             });
         Helper.window(li,'all');
     }
+    
+    this.social = $('<div class="sociallinks">').appendTo(this.text);
 
     var buttoncontainer = $('<div id="debate' + this.memplex.id + 'buttons">').appendTo(this.hide);
     // text,icon,append,floatdirection,callback,id
@@ -1921,13 +1923,36 @@ ClassFilter.prototype.append = function(list,newlist) {
 /** Reloads available filters.
  */
 ClassFilter.prototype.refreshFilters = function() {
-    this.filters = {};
+    this.filters = [];
     var filters = MemplexRegister.getLayer(2);
-
+    
     for ( f in filters ) {
         var tmp = MemplexRegister.get(filters[f]);
-        this.filters[Helper.objectCount(this.filters)] = tmp;
+        this.filters[this.filters.length] = tmp;
     }
+    this.filters.sort(Filter.sort);
+}
+
+/** Sorting function for memplexes.
+ * @tparam a Memplex First Memplex.
+ * @tparam b Memplex Second Memplex.
+ * @tparam i int Charposition.
+ * @treturn int Sortorder.
+ */
+ClassFilter.prototype.sort = function(a,b,i) {
+    if ( i == null ) {
+        i = 0;
+    }
+    
+    if ( i > a.title.length && i > b.title.length ) {
+        return 0;
+    }
+    
+    if ( a.title.charCodeAt(i) == b.title.charCodeAt(i) ) {
+        return Filter.sort(a,b,i+1);
+    }
+    
+    return a.title.charCodeAt(i) - b.title.charCodeAt(i);
 }
 
 /** Generates HTML code to display available filters, depending on their status.
@@ -2112,24 +2137,24 @@ ClassList.prototype.addUnsolved = function(memplex) {
  * @tparam int overwrite ID to be overwritten in the lists.
  */
 ClassList.prototype.addLatest = function(memplex,overwrite) {
-    if ( overwrite == null ) {
-        overwrite = memplex.id;
-    }
-    if ( memplex.layer > 3 ) {
-        var parents = MemplexRegister.getParents(memplex.id);
-        var parent = null;
-        for ( p in parents ) {
-            var tmp = MemplexRegister.get(parents[p]);
-            if ( tmp.layer == memplex.layer - 1 ) {
-                parent = tmp;
-                break;
-            }
-        }
-        if ( parent == null ) {
-            return;
-        }
-        return this.addLatest(parent,overwrite);
-    }
+    // if ( overwrite == null ) {
+        // overwrite = memplex.id;
+    // }
+    // if ( memplex.layer > 3 ) {
+        // var parents = MemplexRegister.getParents(memplex.id);
+        // var parent = null;
+        // for ( p in parents ) {
+            // var tmp = MemplexRegister.get(parents[p]);
+            // if ( tmp.layer == memplex.layer - 1 ) {
+                // parent = tmp;
+                // break;
+            // }
+        // }
+        // if ( parent == null ) {
+            // return;
+        // }
+        // return this.addLatest(parent,overwrite);
+    // }
     
     var addall = false;
     // If list is shorter than wanted, just add everything that isn't in it yet
@@ -2138,7 +2163,7 @@ ClassList.prototype.addLatest = function(memplex,overwrite) {
     }
     // If memplex is newer than oldest listentry delete oldest and add newer.
     if ( addall || memplex.id > this.listLatest[0] ) {
-        this.addSorted(this.listLatest,this.listLatestObjects,memplex.id,overwrite,this.listLatestObjectsReverse);
+        this.addSorted(this.listLatest,this.listLatestObjects,memplex.id);
     }
 }
 
@@ -2216,7 +2241,7 @@ ClassList.prototype.getNew = function() {
 ClassList.prototype.getLatest = function() {
     var tmp = {};
     for ( l in this.listLatest ) {
-        tmp[this.listLatestObjects[this.listLatest[l]]] = this.listLatestObjects[this.listLatest[l]];
+        tmp[this.listLatest[l]] = this.listLatest[l];
     }
     return tmp;
 }
