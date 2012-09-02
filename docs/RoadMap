@@ -44,6 +44,9 @@ Pirate Party assembly in Bochum (BPT12.2).
 * add Meta overview like Debatte.png
 * add missing error message on account creation, if account already exists (maybe with some delay on account generation generally to make account guessing harder)
 * Fix charset problems with less common characters like alt + 2026
+* allow for anonymous postings and persistent nickname changes
+** decouple memplexes from userid
+** create oldnickname table
 
 ===== future updates =====
 ====== not implemented ====== 
