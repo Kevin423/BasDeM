@@ -29,6 +29,8 @@ Pirate Party assembly in Bochum (BPT12.2).
 * install script
 ** add database version to the db, to enable future upgrades
 * enable browser navigation
+* social media integration, maybe using http://www.heise.de/extras/socialshareprivacy/
+* password reset functionality
 ====== not implemented ====== 
 * Enable verification without prior login
 
@@ -40,9 +42,8 @@ Pirate Party assembly in Bochum (BPT12.2).
 * store filters
 * design according to mockups
 * add Meta overview like Debatte.png
-* social media integration, maybe using http://www.heise.de/extras/socialshareprivacy/
-* password reset functionality
 * add missing error message on account creation, if account already exists (maybe with some delay on account generation generally to make account guessing harder)
+* Fix charset problems with less common characters like alt + 2026
 
 ===== future updates =====
 ====== not implemented ====== 
