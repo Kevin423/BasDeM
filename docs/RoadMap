@@ -47,6 +47,8 @@ Pirate Party assembly in Bochum (BPT12.2).
 * allow for anonymous postings and persistent nickname changes
 ** decouple memplexes from userid
 ** create oldnickname table
+* unread memplex flag
+* Allow setting memplexes to inactive for author
 
 ===== future updates =====
 ====== not implemented ====== 
