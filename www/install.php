@@ -62,9 +62,6 @@ function printForm($selector) {
     echo '<span>This installer allows you to install BasDeM without having to go through sql imports and config files yourself.</span>',NLB;
     echo '<span style="color: red;">' . $error . '</span>',NLB,NLB;
     switch ( $selector ) {
-        case 0:
-            echo '<span>A necessary hashing algorithm is not available. Please update to PHP 5.3.2 or higher.</span>',NLB;
-        break;
         case 4:
             echo '<span>Everything is done. Have fun using BasDeM!',NLB;
             echo 'You can register or login <a href="index.php">here</a></span>',NLB;
