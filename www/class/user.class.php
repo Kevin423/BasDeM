@@ -166,19 +166,14 @@ class User {
      * Send Registration Mail.
      */
     private static function registerMail($key) {
-        $header = 'From: webmaster@basdem.de' . "\r\n" .
-                'Reply-To: webmaster@basdem.de' . "\r\n" .
+        $header = 'From: ' . Config::get('mail','sender') . "\r\n" .
+                'Reply-To: ' . Config::get('mail','sender') . "\r\n" .
                 'X-Mailer: PHP/' . phpversion();
     
         mail(
             self::getEmail(),
-            'Registration auf BasDeM.de',
-            'Hallo,' . "\r\n"
-            . 'du hast dich erfolgreich auf BasDeM.de angemeldet. Bitte verifiziere deinen Account mit einem Klick auf folgenden Link:' . "\r\n"
-            . Config::get('baseurl') . 'index.php?action=verify&key=' . $key . '' . "\r\n"
-            . 'Wir danken fuer deine Mitarbeit und wuenschen dir viel Spass beim ausprobieren unserer Funktionalitaet.' . "\r\n"
-            . 'Gruss,' . "\r\n"
-            . 'Das Entwicklerteam',
+            Config::get('mail','register','subject'),
+            sprintf(Config::get('mail','register','text'), Config::get('baseurl') . 'index.php?action=verify&key=' . $key),
             $header
         );
     }
@@ -187,19 +182,14 @@ class User {
      * Send Password forgotten mail.
      */
     private static function passwordMail($mail,$password) {
-        $header = 'From: webmaster@basdem.de' . "\r\n" .
-                'Reply-To: webmaster@basdem.de' . "\r\n" .
+        $header = 'From: ' . Config::get('mail','sender') . "\r\n" .
+                'Reply-To: ' . Config::get('mail','sender') . "\r\n" .
                 'X-Mailer: PHP/' . phpversion();
     
         mail(
             $mail,
-            'Passwort reset.',
-            'Hallo,' . "\r\n"
-            . 'du hast dein Passwort zurueckgesetzt.' . "\r\n"
-            . 'Dein neues Passwort ist: ' . $password . '' . "\r\n"
-            . 'Wir danken fuer deine Mitarbeit und wuenschen dir weiterhin viel Spass.' . "\r\n"
-            . 'Gruss,' . "\r\n"
-            . 'Das Entwicklerteam',
+            Config::get('mail','password','subject'),
+            sprintf(Config::get('mail','password','text'),$password),
             $header
         );
     }

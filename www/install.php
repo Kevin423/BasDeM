@@ -46,6 +46,9 @@ switch ( $_GET['step'] ) {
     break;
     case 2:
         Helper::canHash();
+        if ( is_null(Config::get('mail','sender')) ) {
+            die('Configuration file is not up to date, the e-mail section is missing.' . NLB . ' Please go back and press overwrite in the first step!');
+        }
         checkSQLSubmit();
         printForm(2);
     break;
@@ -85,14 +88,19 @@ function printForm($selector) {
         default:
             echo '<span>Setting up the config. <a href="?step=2">Skip config.</a></span>',NLB,NLB;
             echo '<form action="?step=1" method="post">',NL;
-            echo '<table>',NL;
-            echo '<tr><td>Database User' , defaultValue('user') , '</td><td><input type="text" name="dbuser" value="' , postValue('dbuser') , '"></td></tr>',NL;
+            echo '<table border="1">',NL;
+            echo '<tr><td width="200">Database User' , defaultValue('user') , '</td><td><input type="text" name="dbuser" value="' , postValue('dbuser') , '"></td></tr>',NL;
             echo '<tr><td>Database Password' , defaultValue('password') , '</td><td><input type="password" name="dbpassword" value="' , postValue('dbpassword') , '"></td></tr>',NL;
             echo '<tr><td>Database Host' , defaultValue('host') , '</td><td><input type="text" name="dbhost" value="' , postValue('dbhost') , '"></td></tr>',NL;
             echo '<tr><td>Database Database' , defaultValue('database') , '</td><td><input type="text" name="dbdb" value="' , postValue('dbdb') , '"></td></tr>',NL;
             echo '<tr><td>Salt' , defaultValue('salt') , '</td><td><input type="text" name="salt" value="' , postValue('salt') , '"></td></tr>',NL;
             echo '<tr><td>BaseURL' , defaultValue('baseurl') , '</td><td><input type="text" name="baseurl" value="' , postValue('baseurl') , '"></td></tr>',NL;
             echo '<tr><td>Guest Account</td><td><input type="checkbox" name="guest"' , ( postValue('guest') == 'on' )?' checked':'', '></td></tr>',NL;
+            echo '<tr><td>Mail Sender' , defaultValue('mailsender') , '</td><td><input type="text" name="mailsender" value="' , postValue('mailsender') , '"></td></tr>',NL;
+            echo '<tr><td>Mail Register Subject' , defaultValue('mailregistersubject') , '</td><td><input type="text" name="mailregistersubject" value="' , postValue('mailregistersubject') , '"></td></tr>',NL;
+            echo '<tr><td>Mail Register Text' , defaultValue('mailregistertext') , '</td><td><textarea rows="20" cols="50" name="mailregistertext">' , postValue('mailregistertext') , '</textarea></td></tr>',NL;
+            echo '<tr><td>Mail Password Subject' , defaultValue('mailpasswordsubject') , '</td><td><input type="text" name="mailpasswordsubject" value="' , postValue('mailpasswordsubject') , '"></td></tr>',NL;
+            echo '<tr><td>Mail Password Text' , defaultValue('mailpasswordtext') , '</td><td><textarea rows="20" cols="50" name="mailpasswordtext">' , postValue('mailpasswordtext') , '</textarea></td></tr>',NL;
             echo '<tr><td></td><td><input type="submit" name="dbsubmit" value="Install"></td></tr>',NL;
             echo '</table>',NL;
             echo '</form>',NL;
@@ -123,6 +131,11 @@ function checkFinalSubmit() {
 
 function createConf() {
     global $error;
+    
+    if ( !isset($_POST['guest']) ) {
+        $_POST['guest'] = 'off';
+    }
+    
     $tmp = defaultConf();
     $tmp['database']['user'] = $_POST['dbuser'];
     $tmp['database']['password'] = $_POST['dbpassword'];
@@ -131,6 +144,11 @@ function createConf() {
     $tmp['database']['salt'] = $_POST['salt'];
     $tmp['baseurl'] = $_POST['baseurl'];
     $tmp['guest'] = ( $_POST['guest'] == 'on' );
+    $tmp['mail']['sender'] = $_POST['mailsender'];
+    $tmp['mail']['register']['subject'] = $_POST['mailregistersubject'];
+    $tmp['mail']['register']['text'] = $_POST['mailregistertext'];
+    $tmp['mail']['password']['subject'] = $_POST['mailpasswordsubject'];
+    $tmp['mail']['password']['text'] = $_POST['mailpasswordtext'];
     
     $out = '<?php' . NL . '$conf = ' . var_export($tmp,true) . ';' . NL . '?>';
     
@@ -150,6 +168,11 @@ function createConf() {
             $error .= '<input type="hidden" name="salt" value="'.$_POST['salt'].'">';
             $error .= '<input type="hidden" name="baseurl" value="'.$_POST['baseurl'].'">';
             $error .= '<input type="hidden" name="guest" value="'.$_POST['guest'].'">';
+            $error .= '<input type="hidden" name="mailsender" value="'.$_POST['mailsender'].'">';
+            $error .= '<input type="hidden" name="mailregistersubject" value="'.$_POST['mailregistersubject'].'">';
+            $error .= '<input type="hidden" name="mailregistertext" value="'.$_POST['mailregistertext'].'">';
+            $error .= '<input type="hidden" name="mailpasswordsubject" value="'.$_POST['mailpasswordsubject'].'">';
+            $error .= '<input type="hidden" name="mailpasswordtext" value="'.$_POST['mailpasswordtext'].'">';
             $error .= '<input type="submit" name="overwrite" value="Overwrite">';
             $error .= '</form>';
             return false;
@@ -488,6 +511,11 @@ function defaultValue($target) {
         case 'database': $out .= $tmp['database']['database']; break;
         case 'salt': $out .= $tmp['database']['salt']; break;
         case 'baseurl': $out .= $tmp['baseurl']; break;
+        case 'mailsender': $out .= $tmp['mail']['sender']; break;
+        case 'mailregistersubject': $out .= $tmp['mail']['register']['subject']; break;
+        case 'mailregistertext': $out .= $tmp['mail']['register']['text']; break;
+        case 'mailpasswordsubject': $out .= $tmp['mail']['password']['subject']; break;
+        case 'mailpasswordtext': $out .= $tmp['mail']['password']['text']; break;
     }
     $out .= '")';
     return $out;
@@ -501,6 +529,7 @@ function defaultConfValue($target) {
         $tmp['database']['database'] = Config::get('database','database');
         $tmp['database']['salt'] = Config::get('database','salt');
         $tmp['baseurl'] = Config::get('baseurl');
+        $tmp['mail'] = Config::get('mail');
     }
     switch ( $target ) {
         case 'dbuser': return $tmp['database']['user'];
@@ -509,6 +538,11 @@ function defaultConfValue($target) {
         case 'dbdb': return $tmp['database']['database'];
         case 'salt': return $tmp['database']['salt'];
         case 'baseurl': return $tmp['baseurl'];
+        case 'mailsender': return $tmp['mail']['sender'];
+        case 'mailregistersubject': return $tmp['mail']['register']['subject'];
+        case 'mailregistertext': return $tmp['mail']['register']['text'];
+        case 'mailpasswordsubject': return $tmp['mail']['password']['subject'];
+        case 'mailpasswordtext': return $tmp['mail']['password']['text'];
     }
     return '';
 }
@@ -530,6 +564,27 @@ function defaultConf() {
 		),
         'baseurl' => 'http://www.basdem.de/demo/',
         'guest' => false,
+        'mail' => array(
+            'sender' => 'webmaster@basdem.de',
+            'register' => array(
+                'subject' => 'Registration auf BasDeM.de',
+                'text' => 'Hallo,' . "\r\n"
+                    . 'du hast dich erfolgreich auf BasDeM.de angemeldet. Bitte verifiziere deinen Account mit einem Klick auf folgenden Link:' . "\r\n"
+                    . "%s\r\n"
+                    . 'Wir danken fuer deine Mitarbeit und wuenschen dir viel Spass beim ausprobieren unserer Funktionalitaet.' . "\r\n"
+                    . 'Gruss,' . "\r\n"
+                    . 'Das Entwicklerteam',
+            ),
+            'password' => array(
+                'subject' => 'Passwort reset.',
+                'text' => 'Hallo,' . "\r\n"
+                    . 'du hast dein Passwort zurueckgesetzt.' . "\r\n"
+                    . 'Dein neues Passwort ist: %s' . "\r\n"
+                    . 'Wir danken fuer deine Mitarbeit und wuenschen dir weiterhin viel Spass.' . "\r\n"
+                    . 'Gruss,' . "\r\n"
+                    . 'Das Entwicklerteam',
+            ),
+        ),
 	);
 }
 
