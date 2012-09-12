@@ -11,6 +11,7 @@ define('SECONDARY_VERSION','1');
 define('TERTIARY_VERSION','0');
 
 require_once('class/config.class.php');
+require_once('class/helper.class.php');
 
 if ( file_exists(CONF_DIR.CONF_FILE) ) {
     define('LOADCONF',true);
@@ -44,6 +45,7 @@ switch ( $_GET['step'] ) {
         printForm(3);
     break;
     case 2:
+        Helper::canHash();
         checkSQLSubmit();
         printForm(2);
     break;
@@ -60,6 +62,9 @@ function printForm($selector) {
     echo '<span>This installer allows you to install BasDeM without having to go through sql imports and config files yourself.</span>',NLB;
     echo '<span style="color: red;">' . $error . '</span>',NLB,NLB;
     switch ( $selector ) {
+        case 0:
+            echo '<span>A necessary hashing algorithm is not available. Please update to PHP 5.3.2 or higher.</span>',NLB;
+        break;
         case 4:
             echo '<span>Everything is done. Have fun using BasDeM!',NLB;
             echo 'You can register or login <a href="index.php">here</a></span>',NLB;
