@@ -318,6 +318,9 @@ ClassController.prototype.loadLocation = function(location) {
         {id: 1,time:  Controller.lastLoad(1)},
         function(data) { // data returned by server
             var json = $.parseJSON(data);
+            if ( User.checkLogin(json) == false ) {
+                return;
+            }
             if ( json === null || json.data === null ) {
                 return;
             }
@@ -371,6 +374,9 @@ ClassController.prototype.loadDebates = function() {
         {id: 1,time:  Controller.lastLoad(1)},
         function(data) { // data returned by server
             var json = $.parseJSON(data);
+            if ( User.checkLogin(json) == false ) {
+                return;
+            }
             if ( json === null || json.data === null ) {
                 return;
             }
@@ -419,6 +425,9 @@ ClassController.prototype.loadSolution = function(target) {
         {id: target,time: Controller.lastLoad(target)},
         function(data) {
             var json = $.parseJSON(data);
+            if ( User.checkLogin(json) == false ) {
+                return;
+            }
             if ( json === null || json.data === null ) {
                 return;
             }
@@ -501,6 +510,9 @@ ClassController.prototype.storeToMemplex = function(data) {
         data,
         function(data) {
             var json = $.parseJSON(data);
+            if ( User.checkLogin(json) == false ) {
+                return;
+            }
             if ( json.success == false && json.verified == false ) {
                 return Helper.missingVerification();
             }
@@ -986,6 +998,18 @@ ClassUser.prototype.getModerator = function() {
  */
 ClassUser.prototype.getSuperModerator = function() {
     return this.supermoderator;
+}
+
+/** Check if the parsed json is logged in or not.
+ * @tparam Object JSON Result JSON.
+ * @treturn boolean Logged in flag.
+ */
+ClassUser.prototype.checkLogin = function(json) {
+    if ( json.login != null && json.login == false ) {
+        alert(Helper.getLang('lang_alertLoggedout'));
+        return false;
+    }
+    return true;
 }
 
 /** @class ClassMemplexRegister

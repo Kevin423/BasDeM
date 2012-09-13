@@ -29,6 +29,7 @@ this.get = function(target,lang) {
 switch ( target ) {
     case 'de_DE':
         switch ( lang ) {
+            case 'lang_alertLoggedout': return 'Du bist nicht mehr eingeloggt. Bitte lade die Seite neu.';
             case 'lang_allFilter': return 'Verfügbare Filterkategorien:';
             case 'lang_answer': return 'Erg&auml;nzen';
             case 'lang_argPro': return 'Best&auml;rken';
