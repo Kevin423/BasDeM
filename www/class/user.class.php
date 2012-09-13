@@ -173,7 +173,7 @@ class User {
         mail(
             self::getEmail(),
             Config::get('mail','register','subject'),
-            sprintf(Config::get('mail','register','text'), Config::get('baseurl') . 'index.php?action=verify&id=' . User::getId() . '&key=' . $key),
+            sprintf(Config::get('mail','register','text'), Config::get('baseurl') . 'index.php?action=verify&key=' . $key),
             $header
         );
     }
