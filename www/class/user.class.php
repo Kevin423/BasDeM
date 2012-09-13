@@ -173,7 +173,7 @@ class User {
         mail(
             self::getEmail(),
             Config::get('mail','register','subject'),
-            sprintf(Config::get('mail','register','text'), Config::get('baseurl') . 'index.php?action=verify&key=' . $key),
+            sprintf(Config::get('mail','register','text'), Config::get('baseurl') . 'index.php?action=verify&id=' . User::getId() . '&key=' . $key),
             $header
         );
     }
@@ -365,12 +365,13 @@ class User {
      * @return String Possible values: red for unverified, green for verified.
      */
     public static function verify() {
-        if ( !isset($_GET['key']) 
-            || $_GET['key'] != self::getVerificationKey() ) {
+        if ( !isset($_GET['key']) ) {
             return;
         }
-        Database::setVerified(self::getId());
-        $_SESSION['user']['verified'] = '';
+        
+        if ( Database::setVerified($_GET['key']) !== false ) {
+            $_SESSION['user']['verified'] = '';
+        }
     }
     
     /**

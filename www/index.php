@@ -72,6 +72,8 @@ if ( User::isLoggedin() !== true && User::isGuest() !== true ) {
                 )
             );
         break;
+        case 'verify':
+            User::verify();
         default:
         case 'login':
             $tpl = new Template('index',array('noload','login'));

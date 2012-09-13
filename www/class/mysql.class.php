@@ -297,13 +297,13 @@ group by
     /**
       * Sets verification entry for a user.
       *
-      * @param int $id UserID.
+      * @param str $verified Verification Key.
       */
-    static public function setVerified($id) {
+    static public function setVerified($verified) {
         return self::query(
-            "update `users` set `verified` = '' where `id` = :id",
+            "update `users` set `verified` = '' where `verified` = :verified",
             array(
-                array(':id',$id,PDO::PARAM_INT),
+                array(':verified',$verified,PDO::PARAM_STR),
             )
         );
     }
