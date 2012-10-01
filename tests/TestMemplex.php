@@ -1,6 +1,7 @@
 <?php
 /****************************************************************************************
  * Copyright (c) 2012 Sven Krohlas <sven@getamarok.com>                                 *
+ * Copyright (c) 2012 defel <defel@gmx.de>                                              *
  *                                                                                      *
  * This file is part of BasDeM.                                                         *
  *                                                                                      *
@@ -27,23 +28,49 @@ if ( !defined('INCMS') || INCMS !== true ) {
     define('INCMS',true);
 }
 
-require_once('../www/class/memplex.class.php');
+require_once(__DIR__ . '/../www/class/memplex.class.php');
+require_once(__DIR__ . '/../www/class/memplex.register.class.php');
 
 // for tests depending on db:
-require_once('../www/class/config.class.php');
-require_once('../www/class/mysql.class.php');
-require_once('../www/class/user.class.php');
+require_once(__DIR__ . '/../www/class/config.class.php');
+require_once(__DIR__ . '/../www/class/mysql.class.php');
+require_once(__DIR__ . '/../www/class/user.class.php');
 
 class TestMemplex extends PHPUnit_Framework_TestCase {
+    private $mock_db;
 
     public function setUp() {
         $_SESSION['loggedin'] = true;
         $_SESSION['user'] = array();
         $_SESSION['user']['id'] = 'testauthor';
         $_SESSION['user']['email'] = 'test@basdem.de';
+
+        $this->mock_db = $this->getMock('Database');
+        MemplexRegister::setDatabase($this->mock_db);
     }
 
+
     public function testConstruct() {
+        // mock database
+        $this->mock_db
+            ->staticExpects($this->any())
+            ->method('getMemplex')
+            ->with(1)
+            ->will($this->returnValue(array($this->getTestDataArray(1))));
+        
+        
+
+        // Memplex by ID
+        $memplex4 = MemplexRegister::load(1);
+        $this->assertEquals(1,$memplex4->getId());
+        $this->assertEquals(0,count($memplex4->getChildren()));
+        $this->assertEquals('testuser',$memplex4->getAuthor());
+        $this->assertEquals('testtitle',$memplex4->getTitle());
+        $this->assertEquals('testtext',$memplex4->getText());
+        $this->assertEquals('42',$memplex4->getLayer());
+    }
+
+    public function testConstructEmpty() {
         // empty Memplex
         $memplex = new Memplex();
         $this->assertEquals(0,$memplex->getId());
@@ -52,37 +79,79 @@ class TestMemplex extends PHPUnit_Framework_TestCase {
         $this->assertEquals('',$memplex->getTitle());
         $this->assertEquals('',$memplex->getText());
         $this->assertEquals(0,$memplex->getLayer());
+    }
 
+    private function getTestDataArray($id=NULL) {
+        $data = array();
+        if(!is_null($id)) $data['id'] = $id;
+        $data['author'] = 'testuser';
+        $data['authorid'] = 1;
+        $data['state'] = 1;
+        $data['title'] = 'testtitle';
+        $data['text'] = 'testtext';
+        $data['layer'] = 42;
+        $data['children'] = array(2,3,4,5);
+        $data['favored'] = 0;
+        $data['selffavored'] = 0;
+        return $data;
+    }
+
+    private function getTestMemplex($id=NULL) {
+        return MemplexRegister::load($this->getTestDataArray($id));
+    }
+
+    public function testSetupWithValues() {
         // Memplex by array
-        $data = array(
-            'id' => 1,
-            'author' => 'testauthor',
-            'title' => 'testtitle',
-            'text' => 'testtext',
-            'layer' => 42,
-            'children' => array(2,3,4,5)
-        );
+        $memplex = MemplexRegister::load($this->getTestDataArray(1));
+        $this->assertEquals(1,$memplex->getId());
+        $this->assertEquals(0,count($memplex->getChildren()));
+        $this->assertEquals('testuser',$memplex->getAuthor());
+        $this->assertEquals('testtitle',$memplex->getTitle());
+        $this->assertEquals('testtext',$memplex->getText());
+        $this->assertEquals('42',$memplex->getLayer());
+    }
 
-        $memplex2 = new Memplex($data);
-        $this->assertEquals(0,$memplex2->getId());
-        $this->assertEquals(0,count($memplex2->getChildren()));
-        $this->assertEquals('testauthor',$memplex2->getAuthor());
-        $this->assertEquals('testtitle',$memplex2->getTitle());
-        $this->assertEquals('testtext',$memplex2->getText());
-        $this->assertEquals('42',$memplex2->getLayer());
+    public function testStoreCreate() {
+        // mock database
+        $mock = $this->getMock('Database', array('createMemplex'), array(), 'DatabaseMock');
+        $mock
+            ->staticExpects($this->once())
+            ->method('createMemplex')
+            ->will($this->returnValue(1));
 
-        // add a Memplex to test to the db
-        $memplex3 = new Memplex($data);
-        $memplex3->store();
+        MemplexRegister::setDatabase($mock);
 
-        // Mempley by ID
-        $memplex4 = new Memplex(1);
-        $this->assertEquals(1,$memplex4->getId());
-        $this->assertEquals(0,count($memplex4->getChildren()));
-        $this->assertEquals('testauthor',$memplex4->getAuthor());
-        $this->assertEquals('testtitle',$memplex4->getTitle());
-        $this->assertEquals('testtext',$memplex4->getText());
-        $this->assertEquals('42',$memplex4->getLayer());
+        // 
+        $memplex = MemplexRegister::load(array());
+        $this->assertEquals(1, $memplex->store());
+    }
+
+    public function testStoreUpdate() {
+        // mock database
+        $database = $this->getMock('Database', array('storeMemplex'));
+        $database
+            ->staticExpects($this->once())
+            ->method('storeMemplex')
+            ->will($this->returnValue(1));
+        
+        MemplexRegister::setDatabase($database);
+
+        $memplex3 = MemplexRegister::load(array('id' => 1));
+        $this->assertEquals(1, $memplex3->store());
+    }
+
+    public function testIsNew() {
+        $memplex1 = $this->getTestMemplex();
+        $this->assertTrue($memplex1->isNew());
+        $memplex2 = $this->getTestMemplex(1);
+        $this->assertFalse($memplex2->isNew());
+    }
+
+
+    public function testSetId_accepts_only_numeric() {
+        $memplex = new Memplex();
+        $memplex->setId('non numeric');
+        $this->assertEquals(null, $memplex->getId());
     }
 
     public function testLoadChildrenRecursive() {
@@ -104,15 +173,21 @@ class TestMemplex extends PHPUnit_Framework_TestCase {
         );
 
         $expected = array(
-            'id' => 0,
-            'author' => 'testauthor',
+            'id' => 23,
+            'author' => array(
+                'nick' => 'testauthor',
+                'id' => null
+            ),
             'title' => 'testtitle',
             'text' => 'testtext',
             'layer' => 42,
-            'children' => null
+            'children' => array(),
+            'moderationstate' => null,
+            'favored' => 0,
+            'selffavored' => 0
         );
 
-        $memplex = new Memplex($data);
+        $memplex = MemplexRegister::load($data);
         $result = $memplex->toArray();
 
         $this->assertEquals($expected,$result);

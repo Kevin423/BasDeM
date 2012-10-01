@@ -1,7 +1,7 @@
 <?php
 /****************************************************************************************
- * Copyright (c) 2012 Justus Wingert <justus_wingert@web.de>                            *
- *
+ * Copyright (c) 2012 defel <defel@gmx.de>                                              *
+ *                                                                                      *
  * This file is part of BasDeM.                                                         *
  *                                                                                      *
  * BasDeM is free software; you can redistribute it and/or modify it under              *
@@ -23,34 +23,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.                             *
  ****************************************************************************************/
 
-define('INCMS',true);
-define('NL',"<br>\r\n");
-error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+require_once __DIR__ . '/MemplexException.class.php';
 
-
-require_once('class/config.class.php');
-require_once('class/controller.class.php');
-require_once('class/mysql.class.php');
-require_once('class/user.class.php');
-require_once('class/memplex.class.php');
-require_once('class/memplex.register.class.php');
-
-Database::init();
-MemplexRegister::setDatabase(new Database());
-
-User::init();
-
-if ( isset($_GET['id']) && !isset($_POST['id']) ) {
-    $_POST['id'] = $_GET['id'];
+class MemplexNotFoundException extends MemplexException {
+  
 }
-
-if ( User::isLoggedin() !== true && !User::isGuest() ) {
-    die(json_encode(array('login' => false)));
-}
-
-new Controller();
-
-
-
-
-?>

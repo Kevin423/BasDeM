@@ -1,6 +1,7 @@
 <?php
 /****************************************************************************************
  * Copyright (c) 2012 Justus Wingert <justus_wingert@web.de>                            *
+ * Copyright (c) 2012 defel <defel@gmx.de>                                              *
  *                                                                                      *
  * This file is part of BasDeM.                                                         *
  *                                                                                      *
@@ -140,7 +141,7 @@ class Database {
       *
       * @return Array of result set rows.
       */ 
-    static public function getMemplex($identifier,$user) {
+    public static function getMemplex($identifier,$user) {
         /*
         TODO: Select comments by layer and parent relation to both L4 and L5+
         */

@@ -27,29 +27,135 @@ if ( !defined('INCMS') || INCMS !== true ) {
     define('INCMS',true);
 }
 
-require_once('../www/class/memplex.class.php');
-require_once('../www/class/memplex.register.class.php');
+require_once(__DIR__ . '/../www/class/memplex.class.php');
+require_once(__DIR__ . '/../www/class/user.class.php');
+require_once(__DIR__ . '/../www/class/memplex.register.class.php');
 
 class TestMemplexRegister extends PHPUnit_Framework_TestCase {
+    private $mock;
+
+    /**
+     * setup system under test and mocked db
+     */
+    public function setUp() {
+        // setup test session
+        $_SESSION['loggedin'] = true;
+        $_SESSION['user'] = array();
+        $_SESSION['user']['id'] = '1';
+        $_SESSION['user']['email'] = 'test@basdem.de';
+
+        // reset register before each test
+        MemplexRegister::reset();
+    }
+
+    public function testLoad() {
+        // setup mocked db
+        $this->mock = $this->getMock('Database', array('getMemplex'));
+        
+        // stub database queries
+        $this->mock
+            ->expects($this->once())
+            ->method('getMemplex')
+            ->with(1, 1)
+            ->will($this->returnValue(array($this->getTestData(1))));
+
+        MemplexRegister::setDatabase($this->mock);
+
+        // test load
+        $memplex = MemplexRegister::load(1);
+        $this->assertEquals(1, $memplex->getId());
+        $this->assertEquals('testuser', $memplex->getAuthor());
+        $this->assertEquals('testtitle', $memplex->getTitle());
+    }
+
+    public function testGetEmptyMemplex() {
+        $empty1 = MemplexRegister::getEmptyMemplex();
+        $empty2 = MemplexRegister::load();
+        $empty3 = new Memplex(); 
+        $this->assertEquals($empty1, $empty2);
+        $this->assertEquals($empty2, $empty3);
+    }
 
     public function testGetAndReg() {
+        // setup mocked db
+        $this->mock = $this->getMock('Database', array('getMemplex'));
+        
+        // stub database queries
+        $this->mock
+            ->expects($this->once())
+            ->method('getMemplex')
+            ->with(23, 1)
+            ->will($this->returnValue(array($this->getTestData(23))));
+
+        MemplexRegister::setDatabase($this->mock);
+        
         $register = new memplexRegister();
-        $memplex = new Memplex();
-        $this->assertEquals(null,$register->get('something non numeric'));
+        
+        $this->assertEquals(null, MemplexRegister::get('something non numeric'));
 
-        // TODO: numeric, non existing get, requires DB
+        MemplexRegister::register($this->getTestMemplex(42));
+        $this->assertEquals(42, MemplexRegister::get(42)->getId());
+        $this->assertEquals('testtitle', MemplexRegister::get(42)->getTitle());
 
-        $memplex->setId(0);
-        $register->reg($memplex);
-        $this->assertEquals(0,$register->get(0)->getId());
+        $memplex3 = MemplexRegister::get(23);
+        $this->assertEquals(23, $memplex3->getId());
+        $this->assertEquals('testtitle', $memplex3->getTitle());
+        $this->assertEquals('testuser', $memplex3->getAuthor());
+    }
 
-        $memplex2 = new memplex();
-        $memplex2->setId(42);
-        $register->reg($memplex2);
-        $this->assertEquals(42,$register->get(42)->getId());
+    public function testRegister() {
+        $memplex1 = $this->getTestMemplex(1);
+        MemplexRegister::register($memplex1);
+        $this->assertEquals($memplex1, MemplexRegister::get(1));
+        $this->assertEquals(1, $memplex1->getId());
 
-        $memplex3 = $register->get(23);
-        // TODO: compare with well defined test data
+        $memplex2 = $this->getTestMemplex(2);
+        MemplexRegister::register($memplex2);
+        $this->assertEquals($memplex2, MemplexRegister::get(2));
+        $this->assertEquals(2, $memplex2->getId());
+    }
+
+    public function testGet() {
+
+    }
+
+    /**
+     * @expectedException MemplexNotFoundException
+     */
+    public function testGetNonExistent() {
+        // setup mocked db
+        $this->mock = $this->getMock('Database', array('getMemplex'));
+        
+        // stub database queries
+        $this->mock
+            ->expects($this->once())
+            ->method('getMemplex')
+            ->with(1, 1)
+            ->will($this->returnValue(array()));
+
+        MemplexRegister::setDatabase($this->mock);
+
+        // this call should throw a MemplexNotFoundException
+        // when the Database return an empty resultset:
+        MemplexRegister::get(1);
+    }
+
+    private function getTestData($id=NULL) {
+        $data = array();
+        if(!is_null($id)) $data['id'] = $id;
+        $data['author'] = 'testuser';
+        $data['authorid'] = 1;
+        $data['state'] = 1;
+        $data['title'] = 'testtitle';
+        $data['text'] = 'testtext';
+        $data['layer'] = 1;
+        $data['favored'] = 0;
+        $data['selffavored'] = 0;
+        return $data;
+    }
+
+    private function getTestMemplex($id=NULL) {
+        return MemplexRegister::load($this->getTestData($id));
     }
 }
 ?>

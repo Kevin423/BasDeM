@@ -1,6 +1,7 @@
 <?php
 /****************************************************************************************
  * Copyright (c) 2012 Justus Wingert <justus_wingert@web.de>                            *
+ * Copyright (c) 2012 defel <defel@gmx.de>                                              *
  *                                                                                      *
  * This file is part of BasDeM.                                                         *
  *                                                                                      *
@@ -106,7 +107,7 @@ class Controller {
      *
      */
     private function reloadMemplex() {
-        $this->memplex = new Memplex($this->memplex->getId());
+        $this->memplex = MemplexRegister::load($this->memplex->getId());
     }
 
     /** Add the new parents for a memplex.
@@ -128,14 +129,14 @@ class Controller {
      *
      */
     private function createMemplex() {
-        $this->memplex = new Memplex(array(
+        $this->memplex = MemplexRegister::load(array(
             'text' => $_POST['text'],
             'layer' => $_POST['layer'],
             'title' => $_POST['title'],
             'author' => 'System',// TODO: Load author from user class
         ));
         $this->memplex->store();
-        MemplexRegister::reg($this->memplex);
+        MemplexRegister::register($this->memplex);
         
         $this->addParents();
         
@@ -187,7 +188,6 @@ class Controller {
     *
     **/
     private function loadTargetMemplex() {
-        
         $this->memplex = MemplexRegister::get($_POST['id']);
     }
 

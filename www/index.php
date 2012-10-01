@@ -38,6 +38,7 @@ require_once('class/template.class.php');
 require_once('class/helper.class.php');
 
 Database::init();
+MemplexRegister::setDatabase(new Database());
 
 User::init();
 
