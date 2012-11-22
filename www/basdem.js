@@ -1635,6 +1635,8 @@ ClassSolution.prototype.loadArguments = function() {
             })
             .appendTo(container);
         
+        $('<div class="clear"></div>').appendTo(container);
+        
         if ( child.selffavored != 0 ) {
             star.addClass('staryellow');
         }
