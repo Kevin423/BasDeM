@@ -212,12 +212,12 @@ class User {
         
         $result = Database::getUser($_POST['email'],$password);
         
-        if (  $result === false || !is_array($result) ) {
+        if ( $result === false || !is_array($result) ) {
             self::setError('Unbekannter Benutzername oder Passwort!<br>');
             return;
         }
         
-        if (  count($result) != 1 ) {
+        if ( count($result) != 1 ) {
             self::setError('Unbekannter Benutzername oder Passwort!<br>');
             return;
         }
@@ -342,7 +342,7 @@ class User {
         if ( self::getVerified() ) {
             return 'green';
         }
-        return 'red';    
+        return 'red';
     }
     
     /**
