@@ -140,6 +140,11 @@ class User {
         if ( !self::validatePost() ) {
             return;
         }
+
+        if ( !self::validEmail($_POST['email']) ) {
+            self::setError('E-Mail Adresse ist nicht g&uuml;ltig!<br>');
+            return;
+        }
         
         $_POST['email'] = strtolower($_POST['email']);
         
@@ -308,10 +313,6 @@ class User {
         }
         if ( empty($_POST['password']) ) {
             self::setError('Unbekannter Benutzername oder Passwort!<br>');
-            return false;
-        }
-        if ( !self::validEmail($_POST['email']) ) {
-            self::setError('E-Mail Adresse ist nicht g&uuml;ltig!<br>');
             return false;
         }
         return true;
