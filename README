@@ -32,9 +32,9 @@ founder Justus Wingert (in German):
 === Client ===
 A modern web browser. We attempt to test BasDeM with
 
-* Mozilla Firefox 10
-* Opera 12
-* Google Chrome 21
+* Mozilla Firefox 17
+* Opera 12.1
+* Google Chrome 23
 
 or later versions of these web browsers. Using the latest version
 is highly recommended. We are ging to drop support for older
