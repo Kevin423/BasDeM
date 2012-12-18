@@ -7,7 +7,7 @@ define('CONF_DIR','class/');
 define('CONF_FILE','conf.php');
 
 define('PRIMARY_VERSION','0');
-define('SECONDARY_VERSION','1');
+define('SECONDARY_VERSION','2');
 define('TERTIARY_VERSION','0');
 
 require_once('class/config.class.php');
