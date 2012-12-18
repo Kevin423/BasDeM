@@ -1,9 +1,17 @@
 == BasDeM ChangeLog ==
 (C) 2012 the BasDeM authors.
 
-=== Version 0.2 ===
+=== Version 0.2 (2012-12-18) ===
 * added password reset functionality
-
+* only do DNS lookups of mail domains on account creation, not login
+* updated internal jQuery and its plugins to the latest versions
+* Fixed Bug 13 "Account verification only works when being logged in"
+* Fixed Bug 10 "Progress bar blocks if session is expired"
+* Fixed Bug 14 "Make verification mail configurable"
+* Fixed Bug 12 "Check for hash algorithm availability in the install script"
+* Filters are now being sorted alphabetically
+* Use checkboxes for filters
+* Plus all the stuff we forgot in the ChangeLog. ;-)
 
 === Version 0.1 (2012-08-29) ===
 * initial release
